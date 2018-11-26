@@ -204,6 +204,7 @@ export default {
           url:window.location.href.split('#')[0]
         })).then((response)=>{   
             let resData = response.data;  
+            alert(resData)
             if (resData.success) 
                 this.shareFunc(resData.result);         
         }).catch(function(response){});        

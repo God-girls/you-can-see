@@ -120,7 +120,6 @@ export default {
         // alert(JSON.stringify(this.paraData))
         axios.post('/seller_api/v1/sessions/create_oauth',qs.stringify(this.paraData)).then((response)=>{   
             let resData = response.data;  
-            alert(JSON.stringify(resData))
             if (resData.success) {
               window.localStorage.setItem('ttUid', resData.result.id);
               window.localStorage.setItem('ttToken', resData.result.atoken);

@@ -200,14 +200,16 @@ export default {
     },
     getShare (){
       alert(window.location.href.split('#')[0])
-      axios.post('/sleller_api/v1/sessions/share_config',qs.stringify({
+      axios.post('/seller_api/v1/sessions/share_config',qs.stringify({
         url:window.location.href.split('#')[0]
       })).then((response)=>{   
           let resData = response.data;  
           alert(resData)
           if (resData.success) 
               this.shareFunc(resData.result);         
-      }).catch(function(response){});        
+      }).catch(function(response){
+
+      });        
     },
     shareFunc(obj){
       let vm = this;

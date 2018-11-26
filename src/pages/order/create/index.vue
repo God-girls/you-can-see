@@ -135,9 +135,9 @@ export default {
           success: function (res) {
               // alert(JSON.stringify(res))
               var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-              this.imgUrl = localIds
+              _this.imgUrl = localIds
               _this.uploadImg(localIds)
-              alert(JSON.stringify(this.imgUrl))
+              // alert(JSON.stringify(this.imgUrl))
           }
       });      
 
@@ -150,7 +150,6 @@ export default {
         success: function (res) {
           // alert(JSON.stringify(res))
             var serverId = res.serverId; // 返回图片的服务器端ID
-            this.imgUrl = serverId
         }
       });
     },

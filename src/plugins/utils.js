@@ -22,7 +22,7 @@ export default{
     Vue.prototype.globalAvatar = avatarg;
     Vue.prototype.globalM = qiimgsg;
     Vue.prototype.ttDomain = ttDomain;
-    Vue.prototype.qMusic = qMusic;
+    Vue.prototype.timeStamp = new Date().getTime();
     //判断是否是ios 审核 显示就是true
     Vue.prototype.ioShow = userAgent.indexOf("hddgood/ios") > -1 || userAgent.indexOf("rushingking/ios") > -1 ? false : true;
     Vue.prototype.defaultHead = 'this.src="' + require('../assets/img12/index/header.png') +'"';

@@ -9,6 +9,7 @@ import loading from '../../components/base/loading'
 import modalDialog from '../../components/base/dialog'
 import {html} from '../../assets/js/global.js';
 import { mapState, mapActions } from 'vuex'
+import wx from 'weixin-js-sdk'; 
 import axios from 'axios';
 import qs from 'qs';
 // console.log(wx)
@@ -199,7 +200,6 @@ export default {
       }
     },
     getShare (){
-      alert(window.location.href.split('#')[0])
       axios.post('/seller_api/v1/sessions/share_config',qs.stringify({
         url:window.location.href.split('#')[0]
       })).then((response)=>{   
@@ -231,6 +231,7 @@ export default {
           ]
       }));   
       wx.ready(function () {
+        alert('222')
         alert(JSON.stringify(obj))
         let shareOBJ ={
             title: '小小麦',

@@ -1,0 +1,71 @@
+<Layout>
+  
+  <myhead :hval="header" slot="header"></myhead>
+  <!--右上角是添加-->
+  <div class="myDetail">
+      <dl>
+        <dt class="f30">颜色 <span><i class="iconfont icon-chahao redCR f30"></i></span></dt>
+        <dd>
+          <p class="special">
+            <span><i class="iconfont icon-iconjia"></i></span>
+          </p>
+        </dd>
+      </dl>
+      <dl>
+        <dt class="f30">尺寸 <span><i class="iconfont icon-chahao redCR f30"></i></span></dt>
+        <dd>
+          <p class="special">
+            <span><i class="iconfont icon-iconjia"></i></span>
+          </p>
+        </dd>
+      </dl>
+      <dl>
+        <dt class="f30">重量 <span><i class="iconfont icon-chahao redCR f30"></i></span></dt>
+        <dd>
+          <p class="special">
+            <span><i class="iconfont icon-iconjia"></i></span>
+          </p>
+        </dd>
+      </dl>
+      <dl>
+        <dt class="f30">类型 <span><i class="iconfont icon-chahao redCR f30"></i></span></dt>
+        <dd>
+          <p>
+            红色 <span><i class="iconfont icon-chahao f30"></i></span>
+          </p>
+          <p>
+            绿色 <span><i class="iconfont icon-chahao f30"></i></span>
+          </p>
+          <p>
+            灰色 <span><i class="iconfont icon-chahao f30"></i></span>
+          </p>
+          <p class="special">
+            <span><i class="iconfont icon-iconjia"></i></span>
+          </p>
+        </dd>
+      </dl>
+  </div>
+
+
+
+  <div slot="footer" :style="statusBarH">
+    <div class="footer tC f30">
+      <p class="btn btn-green" @click.prevent="goto('/order/edit?from=address&type=add')">确定</p>
+    </div>
+    <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
+
+    <modal-dialog :dialogshow2.sync="addFirst" @hide="closeDialog('addFirst')"  :fail='true'>
+      <div class="dialog-header" slot="dialog-header">
+        添加
+      </div>
+
+      <dl class="dialog-footer" slot="dialog-footer">
+        <dd  @touchend.prevent="redirect">
+          <button type="button">登陆</button>
+        </dd>
+      </dl>    
+    </modal-dialog>
+   
+  </div>
+
+</Layout>

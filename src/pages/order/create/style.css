@@ -1,0 +1,92 @@
+.myHeader{
+}
+.myHeader{
+  padding: 30px 30px 0;
+}
+.publish {
+  padding: 50px 60px 0;
+}
+.publish div{
+  outline: 0;
+  line-height: 40px;
+  /*min-height: 60px;*/
+  /*max-height: 300px;*/
+  overflow-y: auto;
+  padding-bottom: 20px;
+}
+.publish div textarea{
+  width: 100%;
+}
+
+.publish ul{
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+}
+.publish ul li{
+  width: 195px;
+  height: 195px;
+  line-height: 0;
+  margin-right: 10px;
+}
+.publish ul li img{
+  width: 100%;
+  height: 100%
+}
+.publish ul li.special{
+  line-height: 195px;
+  background: #d7d7d7;
+  text-align: center;
+}
+.publish ul li.special:active{
+  background: #c5c4c4
+}
+.icon-jia{
+  font-size: 90px;
+}
+
+.my-set{
+  position: relative;
+  padding:0px 0px 80px;
+  background-size: 50px;
+}
+.my-set ul{
+  background: #fff;
+  line-height: 120px;
+  color: #908384;
+  margin-top: 15px;
+}
+.my-set ul li{
+  padding: 0 60px;
+}
+.my-set ul li dl{
+  border-bottom: 1px solid #dedede ;/*no*/
+}
+.my-set ul li dt{
+  width: 70px;
+}
+.my-set ul li dd{
+  line-height: 100px;
+  height: 100px;
+  color: #000000;
+}
+.my-set ul li dd.tR{
+  /*padding-right: 30px;*/
+  color:#7f7f7f
+}
+.my-set ul li:last-child dl{
+  border-bottom: none;
+}
+.my-set ul li:active{
+  background-color: rgba(0,0,0,.05);
+}
+.my-set ul li .whiteCR{
+  opacity: 0;
+}
+.my-set ul li dd i{
+  color: #b5b5b5;
+  margin-left: 10px;
+}
+.my-set ul li a{
+  display: block;
+}

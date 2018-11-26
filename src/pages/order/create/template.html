@@ -1,0 +1,68 @@
+<Layout>
+  <div class="myHeader f30">
+    <h1>
+      <span class="greenCR fr">发布</span>
+      <span @click.prevent="goto('/')">取消</span>
+    </h1>
+  </div>
+
+  <div class="publish">
+    <div>
+      <textarea placeholder="商品描述..." id="text"></textarea>
+    </div>
+    <ul>
+      <li>
+        <img src="../../../assets/img12/index/topbg.jpg" alt="">
+      </li>
+      <li>
+        <img src="../../../assets/img12/index/topbg.jpg" alt="">
+      </li>      
+      <li class="special">
+        <i class="iconfont icon-jia"></i>
+      </li>
+    </ul>
+  </div>
+
+  <div class="my-set">
+    <ul class="blackCR">
+      <router-link tag="li" to="/prd/spec">
+        <dl class="flexBox">
+          <dt>
+            <i class="iconfont icon-guigecanshu f30"></i>
+          </dt>
+          <dd class="flex1">规格</dd>
+          <dd class="tR f21">
+            <i class="iconfont icon-jiantou f24"></i>
+          </dd>
+        </dl>
+      </router-link>
+      <router-link tag="li" to="/prd/price">
+        <dl class="flexBox">
+          <dt>
+            <i class="iconfont icon-jin f30"></i>
+          </dt>
+          <dd class="flex1">价格</dd>
+          <dd class="tR f21">
+            <i class="iconfont icon-jiantou f24"></i>
+          </dd>
+        </dl>
+      </router-link>
+      <router-link tag="li" to="/prd/other">
+        <dl class="flexBox">
+          <dt>
+            <i class="iconfont icon-qita f30"></i>
+          </dt>
+          <dd class="flex1">其它</dd>
+          <dd class="tR f21">
+             <i class="iconfont icon-jiantou f24"></i>
+          </dd>
+        </dl>
+      </router-link>
+    </ul>
+  </div>    
+
+  <div slot="footer">
+    <!-- <myfooter :current="navType"></myfooter> -->
+  </div>
+  
+</Layout>

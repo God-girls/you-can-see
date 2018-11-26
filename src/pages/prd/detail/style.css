@@ -1,0 +1,116 @@
+.detailTop,.specs,.myDetail,.buyNum{
+  padding: 30px 30px;    
+  border-bottom: 15px solid #ebebeb;
+}
+.detailTop dl{
+  align-items:flex-start;
+}
+.detailTop dt img{
+  width: 180px;
+  height: 180px;
+  margin-right: 15px;
+}
+.specs {
+  padding-bottom: 0
+}
+.specs dl{
+  padding-bottom: 30px;
+}
+.specs dl dd span{
+  display: inline-block;
+  margin-right: 15px;
+  background: #ebebeb;
+  padding: 0px 10px 0 20px;
+  border-radius: 10px;
+  height: 55px;
+  line-height: 55px;
+  margin-top: 15px;
+  text-align: center;
+  min-width: 100px;
+}
+.specs dl dd span.current{
+  border:1px solid #90ce7f;/*no*/
+  background: #c7edbd;  
+  color: #51aa38
+}
+.specs dl dd span.special:active{
+  background: #c7edbd;
+}
+.buyNum dl{
+  padding-top: 30px;
+}
+.buyNum dl dd div{
+  background: #ebebeb;
+  border:1px solid #dedede;
+  border-radius: 10px;
+  width: 200px;
+}
+.buyNum dl dd div span{
+  width: 55px;
+  height: 55px;
+  text-align: center;
+  line-height: 55px;
+}
+.buyNum dl dd div span:active{
+  background: rgba(0,0,0,.1);
+}
+.buyNum dl dd div input{
+  height: 55px;
+  background: #fff;
+  text-align: center;
+}
+.myAddress{
+  margin: 0 30px 30px; 
+  color: #7d7d7d;
+  line-height: 48px;
+  border-bottom:1px solid #e4e4e4;/*no*/
+}
+
+.myDetail{
+  padding-top: 10px;
+  line-height: 48px;
+  color: #7d7d7d
+}
+.myDetail:last-child{
+  border-bottom: none;
+}
+.myDetail dl dt{
+  width: 20%;
+  padding-right: 15px;
+}
+.myDetail dl dd{
+  width: 79%;
+}
+.myDetail dl dd input{
+  border-top: none;
+  border-right: none;
+  border-left: none;
+}
+
+.footer dl{
+  width: 100%;
+  border-top: 1px solid #51aa38;/*no*/
+  background: #fff;
+  height: 90px;
+}
+.footer dd{
+  width: 33%;
+  background: #51aa38;
+  height: 89px;
+  line-height: 89px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

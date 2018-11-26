@@ -1,0 +1,190 @@
+<Layout>
+  <div class="header posiR f30">
+    <img src="../../../assets/img12/index/topbg.jpg" alt="" class="head">
+    <p class="blueLCR">
+      <i class="iconfont icon-heart-opp-copy f30"></i> 55
+    </p>
+    <dl class="tR">
+      <dt>
+        <ol class="flexBox">
+          <li class="flex1 whiteCR f36">冬天来了</li>
+          <li>
+            <img src="../../../assets/img12/index/topbg.jpg" alt="">
+          </li>
+        </ol>
+      </dt>
+      <dd class="grayCR">专营超大号服装，用心服务新老用户</dd>
+    </dl>
+  </div>
+
+  <div class="conList">
+
+<!--     <div class="conOne">
+      <div class="oneTop">
+        <dl class="flexBox">
+          <dt>
+            <b>今天</b>
+          </dt>
+          <dd class="flex1">
+            <p @click.prevent="goto('/prd/create')">
+              <i class="iconfont icon-xiangji whiteCR"></i>
+            </p>
+          </dd>
+        </dl>
+      </div>
+    </div> -->
+
+    <div class="conOne">
+      <div class="oneTop">
+        <dl class="flexBox">
+          <dt>
+            <b>25</b>九月
+          </dt>
+          <dd class="flex1">
+            <h5 class="f30">昨晚留言的朋友很多，转发去过的朋友拍的照片分享给大家</h5>
+            <ul class="blueLCR">
+              <li>
+                <img src="../../../assets/img12/index/topbg.jpg" alt="">
+              </li>
+              <li>
+                <img src="../../../assets/img12/index/topbg.jpg" alt="">
+              </li>
+              <li>
+                <img src="../../../assets/img12/index/topbg.jpg" alt="">
+              </li>
+              <li>
+                <img src="../../../assets/img12/index/topbg.jpg" alt="">
+              </li>
+            </ul>
+            <ol class="flexBox">
+              <li class="flex1 redCR f30">
+                <i class="iconfont icon-gouwuche f36 blueLCR"></i> ¥466.00-599.00
+              </li>
+              <li class="blueLCR">
+                <span><i class="iconfont icon-top f30"></i></span>
+                <span><i class="iconfont icon-zhuanfa f48"></i></span>
+                <span><i class="iconfont icon-xiaoxi15-copy f30"></i></span>
+              </li>
+            </ol>
+          </dd>
+        </dl>
+      </div>
+
+      <div class="comment posiR f30">
+        <i class="iconfont icon-caret-up f48"></i>
+        <dl class="stars flexBox blueLCR">
+          <dt>
+            <i class="iconfont icon-xinheart282 f30"></i>
+          </dt>
+          <dd class="flex1">
+           <img src="../../../assets/img12/index/topbg.jpg" alt="">
+           <img src="../../../assets/img12/index/topbg.jpg" alt="">
+           <img src="../../../assets/img12/index/topbg.jpg" alt="">
+           <img src="../../../assets/img12/index/topbg.jpg" alt="">
+           <img src="../../../assets/img12/index/topbg.jpg" alt="">
+           <img src="../../../assets/img12/index/topbg.jpg" alt="">
+          </dd>
+        </dl>
+        <div class="comList">
+          <dl class="flexBox">
+            <dt>
+              <i class="iconfont icon-pinglun blueLCR f30"></i>
+            </dt>
+            <dd class="flex1">
+              <ol class="flexBox">
+                <li>
+                  <img src="../../../assets/img12/index/topbg.jpg" alt="">
+                </li>
+                <li class="flex1">
+                  <p class="blueLCR">
+                    <span class="f21 grayCR fr">11月10日 下午</span>
+                    好友1
+                  </p>
+                  回复<span class="special blueLCR">小小</span>：有XL号的有XL号的有XL号的有XL号的有XL号的有XL号的有XL号的
+                </li>
+              </ol>
+              <ol class="flexBox">
+                <li>
+                  <img src="../../../assets/img12/index/topbg.jpg" alt="">
+                </li>
+                <li class="flex1">
+                  <p class="blueLCR">
+                    <span class="f21 grayCR fr">11月10日 下午</span>
+                    好友1
+                  </p>
+                  回复<span class="special blueLCR">小小</span>：有XL号的有XL号的有XL号的有XL号的有XL号的有XL号的有XL号的
+                </li>
+              </ol>
+              <ol class="flexBox">
+                <li>
+                  <img src="../../../assets/img12/index/topbg.jpg" alt="">
+                </li>
+                <li class="flex1">
+                  <p class="blueLCR">
+                    <span class="f21 grayCR fr">11月10日 下午</span>
+                    好友1
+                  </p>
+                  回复<span class="special blueLCR">小小</span>：有XL号的有XL号的有XL号的有XL号的有XL号的有XL号的有XL号的
+                </li>
+              </ol>
+              <ol class="flexBox">
+                <li>
+                  <img src="../../../assets/img12/index/topbg.jpg" alt="">
+                </li>
+                <li class="flex1">
+                  <p class="blueLCR">
+                    <span class="f21 grayCR fr">11月10日 下午</span>
+                    好友1
+                  </p>
+                  回复<span class="special blueLCR">小小</span>：有XL号的有XL号的有XL号的有XL号的有XL号的有XL号的有XL号的
+                </li>
+              </ol>
+            </dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+
+
+  <div slot="footer">
+    <!-- <myfooter :current="navType"></myfooter> -->
+    
+    <modal-dialog :dialogshow2.sync="needLogin" @hide="closeDialog('needLogin')"  :fail='true'>
+      <div class="dialog-header" slot="dialog-header">
+        您的登陆信息已失效，请重新登陆
+      </div>
+
+      <dl class="dialog-footer" slot="dialog-footer">
+        <dd  @touchend.prevent="redirect">
+          <button type="button">登陆</button>
+        </dd>
+      </dl>    
+    </modal-dialog>
+
+    <modal-dialog :dialogshow2.sync="iAmGuestClick" @hide="closeDialog('iAmGuestClick')">
+        <div class="dialog-header" slot="dialog-header">
+          您还没有登陆哦
+        </div>
+<!--         <div slot="dialog-body" class="guestCON tC">
+           只有登陆后才可以提升觉醒力
+        </div>     -->
+    
+        <dl class="dialog-footer" slot="dialog-footer">
+          <dd @touchend.prevent="redirect">
+            <button type="button">登陆</button>
+          </dd>
+        </dl>
+    </modal-dialog>
+
+
+    <!-- <div class="nologinMask" v-if="iAmGuest" @touchend.prevent="iAmGuestClick = true"></div> -->
+
+    <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
+    <audio ref="musicDiamond" controls="controls" style="display: none">
+    </audio>
+  </div>
+
+
+</Layout>

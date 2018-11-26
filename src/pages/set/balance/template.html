@@ -1,0 +1,64 @@
+<Layout>
+  <div slot="header">
+    <myhead :hval="header"></myhead>
+    <div class="header posiR whiteCR">
+      <ul class="flexBox1 tC">
+        <li class="posiR">
+          余额（元）
+          <p>{{profile.balance?profile.balance:'0.00'}}</p>
+        </li>
+      </ul>
+      <dl class="f30">
+        <!-- <dt>提现</dt> -->
+        <dd>
+          <span class="btn btn-sm btn-green" @click.prevent="goto('/my/withdraw')">提现</span>
+        </dd>
+      </dl>
+    </div>    
+  </div>
+
+  <scroller :on-infinite="onInfinite" :on-refresh="onRefresh" :noDataText="noDataText" ref="my_scroller" loadingLayerColor="#b0abbd">
+    <div class="balance">
+      <dl>
+        <dt>累计收入：99999元，超过平台35%的卖家</dt>
+        <dd>提现记录</dd>
+      </dl>
+    </div>
+    <div class="index-wrap whiteCR  fadeIn animateds">
+      <table>
+        <thead>
+          <tr>
+            <th>时间</th>
+            <th>金额(元)</th>
+            <th>余额(元)</th>
+            <th>状态</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item,index) in listData">
+            <td>
+              {{item.updated_at}}
+            </td>
+            <td>
+              {{item.amount}}
+            </td>
+            <td>
+              {{item.amount}}
+            </td>
+            <td>
+              {{item.transtype_desc}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="tC noDataDiv"  v-if="noData">
+        <nodate noText="暂无记录"></nodate>
+      </div>
+    </div>
+  </scroller>
+
+
+
+
+  
+</Layout>

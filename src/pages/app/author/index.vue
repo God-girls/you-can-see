@@ -1,0 +1,193 @@
+
+<style src="./style.css" scoped></style>
+<template src="./template.html"></template>
+<script>
+import {html} from '../../../assets/js/global.js';
+import wx from 'weixin-js-sdk'; 
+import { mapState, mapActions } from 'vuex'
+import axios from 'axios';
+import qs from 'qs';
+
+export default {
+  data () {
+    return {
+      avatar:'',
+      paraData:{},
+      inviterMini:''
+    }
+  },
+  computed:{
+    ...mapState([
+      // 映射 this.count 为 store.state.count
+      'UID',
+      'TOKEN',
+      'UNIONID'
+    ])
+  },
+  mounted (){
+    
+    this.paraData.code = unescape(this.getCode('code'));
+    this.paraData.type = 'mini';
+    // alert(location.href)
+    if (html.isWechat()) {//如果是在微信
+      this.getLogin();
+      this.pushHistory();      
+    }
+
+  },
+  methods: {
+    ...mapActions([
+      'switchState', // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`'
+      'clearState'
+    ]),
+    pushHistory (){  
+      window.addEventListener("popstate", (e)=> {
+          // self.location.reload();
+          this.$router.push('/index')
+          // // alert(document.querySelector('.backClose'))
+          // setTimeout(()=>{
+          // this.closeWindow();
+          // },1000)
+          // alert(JSON.stringify(wx))
+          // location.href = this.wechatDirect;
+      }, false);
+      var state = {
+          title : "天天快抓",
+          url : "#"
+      };
+      window.history.replaceState(state, "天天快抓", "#");
+    },
+    closeWindow (){
+      wx.ready(function () {
+        wx.closeWindow();
+      })      
+    },
+    getShare (){
+        axios.post('/seller_api/v1/sessions/share_config',qs.stringify({
+          url:window.location.href.split('#')[0]
+        })).then((response)=>{   
+            let resData = response.data;  
+            if (resData.success) 
+                this.shareFunc(resData.result);         
+        }).catch(function(response){});        
+    },
+    shareFunc(obj){
+      let vm = this;
+      wx.config(Object.assign(obj,{
+          // debug: true,
+          jsApiList: [
+            "checkJsApi",
+            'closeWindow',
+          ]
+      }));   
+    },
+    getCode (name) {
+        var str = self.location.search.substr(1);
+        var reg = new RegExp("(^|&)"+name+"=([^&\n]*)(&|\n|$)");
+        var r = str.match(reg);
+        if (r!=null) return r[2]; return null;
+    },  
+    closeWindow (){
+      wx.ready(function () {
+        wx.closeWindow();
+      })      
+    },
+    resolveInviter(){
+      if (location.href.indexOf('inviter') > -1) {
+          this.paraData.inviter = this.getCode('inviter');
+          this.inviterMini = '?inviter='+this.getCode('inviter');                
+        if (location.href.indexOf('params') > -1) {
+            this.paraData.inviter = this.getCode('params');
+            this.inviterMini += '&params='+this.getCode('params');                
+        }
+      }
+    },
+    openWechatAPP (){
+      let appID = 'wxce1fc643edeadfdc';
+      let jumpUrl = this.ttDomain + '/?redirectmini=pagelogin'
+                  +(location.href.indexOf('inviter') > -1 ?'&inviter='+this.getCode('inviter'):'')
+                  +'#/author';
+
+      location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appID
+            +'&redirect_uri='+encodeURIComponent(jumpUrl)
+            +'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+
+    },
+    getLogin (){//微信登录
+        this.paraData.code = unescape(this.getCode('code'));
+        this.jumpto = location.href.indexOf('jumpto') > -1 ? unescape(this.getQueryValue('jumpto')) : (this.ttDomain+'?'+this.timeStamp);
+
+
+
+        if (location.href.indexOf('icode') > -1) this.paraData.icode = unescape(this.getQueryValue('icode'));
+
+        axios.post('/baby_api/v1/sessions/create_oauth',qs.stringify(this.paraData)).then((response)=>{   
+            let resData = response.data;  
+
+            if (resData.success) {
+              this.buildSocket(resData.result.id,resData.result.atoken,resData.result.nick)//建立消息通道
+              window.localStorage.setItem('ttUid', resData.result.id);
+              window.localStorage.setItem('ttToken', resData.result.atoken);
+
+              location.href = this.jumpto;                
+
+            }else{
+              alert(resData.codemsg)
+            }
+        }).catch(function(response){
+          console.log(response)
+          alert('邪恶的外星生物破坏了娃娃机，紧急抢救中，请您稍后再试~')
+        });        
+    },
+    testToken(){//检验token,如果失败重新登录
+
+      axios.post('/bonus_api/v1/user/info',qs.stringify({
+        'uid':this.UID
+      }),{
+        headers: {
+            "A-Token-Header": this.TOKEN,
+        }
+      }).then((response)=>{   
+        let resData = response.data;  
+
+        if (resData.success) {
+          if(resData.result && resData.result.acc){
+            this.$router.push(this.jumpto) 
+          }
+          else{
+            this.$router.push('/app/login?firstWechatLogin=true')
+          }         
+        }else{
+          this.clearState();
+          wx.miniProgram.redirectTo({url: `/pages/login/login${this.inviterMini}`})
+        }
+      }).catch((response)=>{
+        wx.miniProgram.redirectTo({url: `/pages/login/login${this.inviterMini}`})
+      });        
+    },
+    // getLogin (){
+    //     this.paraData.code = unescape(this.$route.query.code);
+
+    //     this.jumpto = this.$route.query.jumpto ? unescape(this.$route.query.jumpto) : (this.ttDomain+'?'+this.timeStamp);
+    //     if (this.getCode('inviter')) this.paraData.inviter = this.$route.query.jumpto;
+    //     axios.post('/bonus_api/v1/sessions/create_oauth',qs.stringify(this.paraData))
+    //     .then((response)=>{   
+    //         let resData = response.data;  
+
+    //         if (resData.success) {
+    //           dplus.track('红多多_登录成功',{'from':html.useragent()});//统计代码
+
+    //           this.switchState({
+    //             TOKEN:resData.result.atoken,
+    //             UID:resData.result.id
+    //           })
+    //           this.goto(this.jumpto)
+    //         }else{
+    //           location.href = this.wechatDirect;
+    //         }
+    //     }).catch(function(response){});        
+    // },
+  }
+}
+</script>
+

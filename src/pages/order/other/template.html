@@ -1,0 +1,33 @@
+<Layout>
+  <myhead slot="header" :hval="header"></myhead>
+
+
+  <div class="my-set">
+    <ul class="blackCR f30">
+      <li>
+        <dl class="flexBox">
+          <dd class="flex1">允许所有人评论</dd>
+          <dd class="tR posiR">
+            <input id="deLock" type="checkbox" class="ace ace-switch">
+            <span class="lbl"></span>
+          </dd>
+        </dl>
+      </li>
+      <li class="special">
+        <dl class="flexBox">
+          <dd class="flex1">显示商品售出数量</dd>
+          <dd class="tR posiR">
+            <input id="deLock" type="checkbox" class="ace ace-switch" v-model="showNumber">
+            <span class="lbl"></span>
+          </dd>
+        </dl>
+        <p class="f24" v-if="showNumber">显示数量基数 <input type="number" value="100" name=""></p>
+      </li>
+    </ul>
+  </div>    
+
+    <div class="footer tC f30" slot="footer">
+      <p class="btn btn-green">设置完成</p>
+    </div>
+  
+</Layout>

@@ -1,0 +1,90 @@
+
+.tabs{
+  padding: 30px 30px 0;
+}
+.tabs ul li.space{
+  width: 50px;
+}
+.tabs ul li.flex1{
+  border-radius: 10px;
+  height: 70px;
+  line-height: 70px;
+  color: #d66167;
+  border:1px solid #d66167;/*no*/
+  text-align: center;
+}
+.tabs ul li.flex1.current{
+  background: #d66167;
+  color: #fff;
+  border:1px solid #d66167;/*no*/
+}
+.header dl{
+  padding: 0 30px;
+}
+.header dl img{
+  vertical-align: middle;
+  margin-right: 5px;
+  width: 34px;
+}
+.header dl dd i.icon-qianbao{
+  position: relative;
+  top: -3px;
+}
+.header ul li:first-child{
+  border-right: 1px solid #fff;/*no*/
+}
+
+
+.prdList{
+  padding: 30px 30px 90px;
+}
+.prdList table{
+  width: 100%;
+  text-align: center;
+  table-layout: fixed;
+}
+.prdList table tr th{
+  border-bottom: 1px solid #a3a4b5;/*no*/
+  padding: 15px 0;
+  background: #f3f3f3;
+}
+.prdList table tr td{
+  border-bottom: 1px solid #c1c1cc;/*no*/
+  padding: 18px 0;
+  /*height: 80px;*/
+/*  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  position: relative;
+*/}
+.footer dl{
+  width: 100%;
+  padding: 30px 30px;
+}
+.footer dl p{
+  width: 100%;
+}
+.chk_1{
+  width: 36px;
+  height: 36px;
+  border:1px solid #a8a8a8;/*no*/
+  border-radius: 50%;
+}
+.chk_1:checked{
+  background: #d66167;
+  border:none;
+  text-align: center;
+  line-height: 36px;
+}
+.chk_1:before { 
+  color: #fff;
+  content: "\e631"; 
+  font-family:"iconfont" !important;
+  font-size:24px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: middle;
+}
+
+

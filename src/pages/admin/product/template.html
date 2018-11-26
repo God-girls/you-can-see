@@ -1,0 +1,54 @@
+<Layout>
+  <div slot="header">
+    <myhead :hval="header"></myhead>
+  </div>
+  <scroller :on-infinite="onInfinite" :on-refresh="onRefresh" :noDataText="noDataText" ref="my_scroller" loadingLayerColor="#b0abbd">
+
+  <div class="prdList">
+      <table>
+        <thead>
+          <tr>
+            <th width="10%">排序</th>
+            <th width="30%">商品</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
+            <th width="10%">状态</th>
+            <th width="10%">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item,index) in storeList">
+            <td>{{item.seq}}</td>
+            <td>
+              {{item.title}}
+            </td>
+            <td>{{item.begin_time}}</td>
+            <td>{{item.end_time}}</td>
+            <td class="blueCR">
+              {{item.status ? '正常' : '下架'}}
+              <p class="grayCR">{{new Date().getTime() > new Date(item.end_time.split('-').join('/')).getTime() ? '已过期' : ''}}</p>
+            </td>
+            <td class="redCR" @click.prevent="goRecord(item)">
+              编辑
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    
+    <div v-if="!storeList.length" class="tC">
+      <nodate noText="暂无数据"></nodate>
+    </div>
+  </div>
+
+  
+</scroller>
+
+<div slot="footer">
+  <div class="footer tC f30">
+    <dl>
+      <dd><p class="btn btn-default" @click.prevent="goto('/admin/edit')">添加商品</p></dd>
+    </dl>
+  </div>
+</div>
+
+</Layout>

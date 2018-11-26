@@ -1,0 +1,92 @@
+<Layout>
+  <div class="my-set">
+    <ul class="header">
+      <router-link tag="li" to="/my/profile">
+        <dl class="flexBox">
+          <dd class="flex1">
+            <div class="flexBox">
+              <p>
+                <img :src="headImg" alt="" :onerror="defaultHead">
+              </p>
+              <p class="flex1 ">
+                <span class="f30">冬冬</span>
+                <span class="grayCR">手机号：13200000000</span>
+              </p>
+            </div>
+          </dd>
+          <dd class="tR">
+             <i class="iconfont icon-jiantou f24"></i>
+          </dd>
+        </dl>
+      </router-link>
+    </ul>
+
+    <ul>
+      <router-link tag="li" to="/my/balance">
+        <dl class="flexBox">
+          <dt>
+            <i class="iconfont icon-qianbao- f30"></i>
+          </dt>
+          <dd class="flex1">我的钱包</dd>
+          <dd class="tR f21">
+            余额：{{profile.nick}} <i class="iconfont icon-jiantou f24"></i>
+          </dd>
+        </dl>
+      </router-link>
+      <router-link tag="li" to="/my/bonus">
+        <dl class="flexBox">
+          <dt>
+            <i class="iconfont icon-tubiaozoushitu f36"></i>
+          </dt>
+          <dd class="flex1">收入分析</dd>
+          <dd class="tR f21">
+            总计：{{profile.nick}} <i class="iconfont icon-jiantou f24"></i>
+          </dd>
+        </dl>
+      </router-link>
+      <router-link tag="li" to="/my/analysis">
+        <dl class="flexBox">
+          <dt>
+            <i class="iconfont icon-tubiao f30"></i>
+          </dt>
+          <dd class="flex1">商品分析</dd>
+          <dd class="tR f21">
+             总计：{{profile.nick}} <i class="iconfont icon-jiantou f24"></i>
+          </dd>
+        </dl>
+      </router-link>
+
+      <li @click.prevent="popSet">
+        <dl class="flexBox">
+          <dt>
+            <i class="iconfont icon-erweima f30"></i>
+          </dt>
+          <dd class="flex1">我的二维码</dd>
+          <dd class="tR">
+             <i class="iconfont icon-jiantou f24"></i>
+          </dd>
+        </dl>
+      </li>
+
+    </ul>
+
+<!--     <ul>
+      <router-link tag="li" to="/my/profile">
+        <dl class="flexBox">
+          <dt>
+            <i class="iconfont icon-shezhi f36"></i>
+          </dt>
+          <dd class="flex1">设置</dd>
+          <dd class="tR">
+             <i class="iconfont icon-jiantou f24"></i>
+          </dd>
+        </dl>
+      </router-link>
+    </ul> -->
+  </div>    
+
+  <div slot="footer">
+    <myfooter :current="navType"></myfooter>
+  </div>
+  
+</Layout>

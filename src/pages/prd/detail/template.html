@@ -1,0 +1,110 @@
+<Layout>
+  
+  <myhead :hval="header" slot="header"></myhead>
+  
+  <div class="detailTop">
+    <dl class="flexBox">
+      <dt>
+        <img src="../../../assets/img12/index/topbg.jpg" alt="">
+      </dt>
+      <dd class="flex1 f30">
+        新款加厚加绒毛衣新款加厚加绒毛衣
+        <p class="redCR">¥466.00-599.00</p>
+      </dd>
+    </dl>
+  </div>
+
+  <div class="specs">
+    <dl>
+      <dt class="blackCR">规则一</dt>
+      <dd>
+        <span class="current">红色</span><span>绿色</span><span>灰色</span>
+      </dd>
+    </dl>
+    <dl>
+      <dt class="blackCR">规则2</dt>
+      <dd>
+        <span>M</span><span>L</span><span>XL</span>
+      </dd>
+    </dl>
+  </div>
+
+  <div class="buyNum">
+    <h3 class="blackCR f30">购买数量</h3>
+    <dl class="flexBox">
+      <dt class="flex1">
+        绿色，L号，毛线料
+      </dt>
+      <dd>
+        <div class="flexBox1">
+          <span class="mini">
+            <i class="iconfont icon-sub"></i>
+          </span>
+          <input type="number" name="" value="1" class="flex1">
+          <span class="plus">
+            <i class="iconfont icon-iconjia"></i>
+          </span>          
+        </div>
+      </dd>
+    </dl>
+    <dl class="flexBox">
+      <dt class="flex1">
+        绿色，L号，毛线料
+      </dt>
+      <dd>
+        <div class="flexBox1">
+          <span class="mini">
+            <i class="iconfont icon-sub"></i>
+          </span>
+          <input type="number" name="" value="1" class="flex1">
+          <span class="plus">
+            <i class="iconfont icon-iconjia"></i>
+          </span>          
+        </div>
+      </dd>
+    </dl>
+  </div>
+
+
+
+  <div class="myDetail ">
+    <dl class="dls">
+      <dt class="blackCR">收货人</dt>
+      <dd>
+        <input type="text" name="">
+      </dd>
+    </dl>
+    <dl class="dls">
+      <dt class="blackCR">联系方式</dt>
+      <dd><input type="number" name=""></dd>
+    </dl>
+    <dl class="dls">
+      <dt class="blackCR">所在地区</dt>
+      <dd><input type="text" name=""></dd>
+    </dl>
+    <dl class="dls">
+      <dt class="blackCR">详细地址</dt>
+      <dd><input type="text" name=""></dd>
+    </dl>
+  </div>
+
+  <div class="myDetail ">
+    <dl class="dls">
+      <dt class="blackCR">买家留言</dt>
+      <dd>
+        <input type="text" name="">
+      </dd>
+    </dl>
+  </div>
+
+  <div slot="footer" :style="statusBarH">
+    <div class="footer tC  f30">
+      <dl class="flexBox">
+        <dt class="flex1">商品总价：{{editPrd.count}}</dt>
+        <dd class="whiteCR" @click.prevent="widthDrawPrd">立即购买</dd>
+      </dl>
+    </div>
+    <loading :loading="loading" :loadError="loadError"></loading>    
+  </div>
+
+</Layout>

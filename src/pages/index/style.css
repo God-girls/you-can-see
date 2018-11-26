@@ -1,0 +1,173 @@
+@import url('../../components/css/animate.css');
+
+.header .head{
+  width: 100%;
+}
+.header dl{
+  position: absolute;
+  right: 18px;
+  bottom: -45px;
+}
+.header dl img{
+  width: 130px;
+  height: 130px;
+  border: 5px solid #fff;
+  margin-left: 20px;
+}
+.header dl li.flex1{
+  position: relative;
+  top: -25px;
+}
+.header p{
+  padding:0 18px;
+  color: #5b6a91
+}
+.header p i{
+  position: relative;
+  top: -3px;
+}
+/*购买商品*/
+.conOne{
+  padding-bottom: 30px;
+}
+.conList{
+ padding: 70px 15px 0;
+ color: #212121;
+}
+.oneTop dl,.stars,.comList dl,.comList ol{
+  align-items:flex-start;
+}
+.oneTop dt{
+  width: 130px;
+}
+.oneTop dt b{
+  font-size: 54px;
+  font-weight: normal;
+}
+.oneTop dl dd{
+  padding-top: 8px
+}
+.oneTop dd p{
+  background: #d7d7d7;
+  width: 145px;
+  height: 145px;
+  line-height: 145px;
+  text-align: center;
+}
+.oneTop dd p:active{
+  background: #c5c4c4
+}
+.oneTop dd p i{
+  font-size: 45px;
+}
+.oneTop ol,.oneTop ol .icon-xiajia
+,.icon-xinheart282,.icon-pinglun,
+.comList p{
+  /*color: #5b6a91;*/
+}
+.oneTop ol{
+  padding-top: 3px;
+}
+.oneTop ol span{
+  margin-left: 10px;
+}
+.oneTop ul {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  /*justify-content: center;*/
+}
+.oneTop ul li{
+  width: 145px;
+  height: 145px;
+  margin-right: 15px;
+  line-height: 0;
+  margin-top: 15px;
+  position: relative;
+}
+.oneTop dd i.icon-chahao,
+.oneTop dd i.icon-zhuanhuan{
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  background: rgba(255,255,255,.8);
+  border-radius: 50%;
+  position: absolute;
+  text-align: center;
+  top: 2px;
+}
+.oneTop dd i.icon-chahao{
+  left: 2px;
+}
+.oneTop dd i.icon-zhuanhuan{
+  right: 2px;
+}
+.oneTop ul li img{
+  width: 100%;
+  height: 100%;
+}
+.oneTop ul li.special{
+  background: #d7d7d7;
+  width: 145px;
+  height: 145px;
+  line-height: 145px;
+  text-align: center;
+}
+.oneTop ul li.special:active{
+  background: #c5c4c4
+}
+.oneTop ul li.special i{
+  font-size: 56px;
+}
+.comment{
+  background: #f3f3f4;
+  padding: 18px 0 0;
+  margin-top: 18px;
+}
+.icon-caret-up{
+  position: absolute;
+  left: 10px;
+  top: -35px;
+  color: #f3f3f4
+}
+.stars{
+  border-bottom: 1px solid #e2e2e2;/*no*/
+  padding-bottom: 5px;
+}
+.stars dt,.comList dt{
+  width: 70px;
+  text-align: center;
+  padding-top: 18px;
+}
+.stars dd {
+  line-height: 0
+}
+.stars dd span{
+  display: inline-block;
+  position: relative;
+}
+.stars dd img{
+  margin: 0 12px 12px 0;
+  width: 65px;
+  height: 65px;
+}
+
+.comList dt{
+  padding-top: 25px;
+}
+.comList dd{
+  padding-right: 15px;
+}
+.comList ol{
+  border-bottom: 1px solid #e2e2e2;/*no*/
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+.comList ol:last-child{
+  border-bottom: none;
+}
+.comList ol img{
+  width: 65px;
+  height: 65px;
+  margin-right: 12px;  
+}

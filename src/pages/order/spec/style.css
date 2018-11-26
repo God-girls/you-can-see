@@ -1,0 +1,159 @@
+
+.myAddress{
+  padding: 30px 0;    
+  margin: 0 30px; 
+  color: #7d7d7d;
+  line-height: 48px;
+}
+
+.myDetail{
+  padding: 0px 0;    
+  margin: 0 30px;
+  line-height: 48px;
+  color: #4e4e4e
+}
+
+.myDetail dl{
+  padding: 50px 0 0;
+}
+.myDetail dl dd{
+  padding: 8px 0;
+}
+.myDetail dl dd p{
+  display: inline-block;
+  margin-right: 15px;
+  background: #ebebeb;
+  padding: 0px 10px 0 20px;
+  border-radius: 10px;
+  height: 55px;
+  line-height: 55px;
+  margin-top: 15px;
+}
+.myDetail dl dd p.special{
+  text-align: center;
+  background: none;
+  border:1px solid #848484;/*no*/
+  min-width: 100px;
+}
+.myDetail dl dd p.special:active{
+  background: #c7edbd;
+}
+.myDetail dl dd p span{
+  padding: 8px 10px 8px 0;
+}
+.myDetail dl dd p span:active{
+  color: #d66167
+}
+
+.myDetail dl dd.grayCR{
+  padding-top: 10px;
+}
+.icon-bianji1{
+  font-size: 28px;
+}
+.icon-arrowR{
+  width: 25px;
+  height: 22px;
+  background-position: -73px 0;
+  position: relative;
+  top: 1px
+}
+
+.footer{
+  width: 100%;
+  padding: 30px 30px;
+}
+.footer p{
+  width: 100%;
+}
+
+.address{
+  position:absolute;
+  bottom:0;
+  left:0;
+  z-index:121;
+  background:#fff;
+  width:100%;
+  height: 0;
+  overflow: hidden;
+  transition: height .5s;
+}
+.toggHeight{
+  height: 600px;
+}
+.layout{
+  width:100%;
+  height:100%;
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:120;
+  opacity: 0;
+  transition: all .5s;
+  background:rgb(53, 58, 60);
+  visibility: hidden;
+}
+.layoutBg{opacity: .7; visibility: visible;}
+.area{
+  /*float: left;*/
+  display:inline-block;
+  font-size:24px;
+  margin-left:0.42rem;
+  color:#4e4e4e;
+  line-height: 80px;
+  max-width: calc(100% - 80%);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.addList{
+  margin-left: .4rem;
+  color:#4e4e4e;
+  line-height: 50px;
+}
+/* 修改的格式 */
+.address ul{
+  height: 520px;
+  padding: 10px 0 20px;
+  overflow:auto;
+}
+.address ul li{
+  list-style: none;
+}
+.address .title .accolor{
+  color: #d66167;
+  /*border-bottom:2px solid #d66167;*/
+}
+.address ul .active{
+  color:#d66167;
+}
+.address ul .active span::after{
+  content: "\e631";
+  font-family:"iconfont" !important;
+  font-size:24px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: middle;
+  padding-left: 10px;
+}
+.title{
+  height: 80px;
+  border-bottom: 1px solid #8a96a3;/*no*/
+}
+.determine{
+  top: 13px;
+  position: relative;
+  right: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+

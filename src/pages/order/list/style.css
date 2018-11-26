@@ -1,0 +1,79 @@
+.wrap{
+  background: #fff;
+}
+.tab li{
+  padding: 25px 0;  
+}
+.tab .current{
+  border-bottom: 3px solid #51aa38;
+}
+.search{
+  background: #ebebeb;
+  padding: 15px;
+}
+.search dl{
+  background: #fff;
+  border:1px solid #d3d3d3;/*no*/
+}
+.search input{
+  padding: 10px;
+  width: 100%;
+  line-height: 36px;
+}
+.search dd{
+  padding: 10px 10px;
+}
+
+.prdOne{
+  padding: 0px 30px;
+  line-height: 38px;
+  border-bottom: 15px solid #ebebeb;
+}
+.prdOne dl{
+  border-bottom: 1px solid #dedede ;/*no*/
+  padding: 20px 0px;
+}
+.prdOne ul{
+  padding-top: 10px;
+}
+.prdOne ul li.special{
+  line-height: 0px;
+  padding-right: 15px;
+}
+.prdOne ol{
+  padding: 20px 0;
+}
+.prdOne ol li{
+  padding: 0 30px;
+}
+.prdOne ol li.special:before{
+  content: ' ';
+  border-left:1px solid #dedede ;/*no*/
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+}
+.guestCON dd{
+  padding-top: 10px;
+}
+.guestCON dd textarea{
+  border:1px solid #848484;/*no*/
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+  height: 150px;
+}
+.deliverCON dd{
+  padding-left: 8px;
+}
+.deliverCON p{
+  line-height: 36px;
+}
+.deliverCON dd span{
+  padding: 10px;
+  border:1px solid #848484;/*no*/
+  margin-left: 20px;
+  border-radius: 10px;
+}

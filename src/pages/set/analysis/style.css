@@ -1,0 +1,116 @@
+.wrap{
+  background: #fff;
+}
+.tab{
+}
+.tab li{
+  padding: 25px 0;  
+}
+.tab .current{
+  border-bottom: 3px solid #51aa38;
+}
+.header{
+  background: #696f77;
+  /*height: 250px;*/
+  padding: 50px 0;
+}
+.header dl{
+  padding: 50px 0px 0;
+  text-align: center;
+}
+.header dl span{
+/*  background: #f5c03e;
+  text-shadow: 0 0 0px rgba(0,0,0,.16), 0 0 5px rgba(0,0,0,.16), 0 0 10px rgba(0,0,0,.16);
+*/  padding: 0 60px;
+  font-size: 28px;
+}
+.header dl span:last-child{
+  /*margin-left: 40px;*/
+}
+
+.header ul{
+  align-items: start;
+}
+.header li:first-child:before{
+  position: absolute;
+  right: 0;
+  top: 20px;
+  bottom: 20px;
+  content: ' ';
+  width: 1px;
+  border-right: 1px solid #cbcbcb;/*no*/
+}
+.header li p{
+  font-size: 60px;
+  text-shadow: 0 0 0px rgba(0,0,0,.16), 0 0 5px rgba(0,0,0,.16), 0 0 10px rgba(0,0,0,.16);
+}
+.title{
+  padding: 30px;
+}
+.chatForm{
+  padding: 30px;
+  background: #c9c9c9
+}
+.balance{
+  padding: 20px 0 0;
+  line-height: 60px;
+}
+.balance dl dt{
+  padding-left: 30px;
+  width: 180px;
+}
+.balance dl dd{
+  /*padding-left: 20px;*/
+}
+.index-wrap{
+  margin:10px 30px 30px;
+  position: relative;
+  z-index: 2;
+}
+.index-wrap p span{
+  padding: 10px 0;
+}
+.index-wrap p span:last-child{
+  margin-left: 30px;
+}
+.index-wrap table{
+  width: 100%;
+  color: #4e4e4e;
+  text-align: center;
+  table-layout:fixed;
+}
+.index-wrap table tr th{
+  padding: 15px 0;
+  font-weight: normal;
+}
+.index-wrap table tr td{
+  border-bottom: 1px solid #c1c1cc;/*no*/
+  padding: 18px 0;
+}
+.index-wrap table tr td div{
+  text-align: left!important;
+}
+.determine{
+  top: 13px;
+  position: relative;
+  right: 20px;
+}
+.date-picker{
+  display: inline-block;
+  height: 70px;
+  background: #fff;
+}
+.date-picker .input-wrapper{
+  height: 54px!important;
+  background: #fff;
+}
+.input{
+  line-height: 60px;
+  border-color: #7f7f7f;
+}
+.footer{
+  padding: 30px;
+}
+.footer p{
+  width: 100%;
+}

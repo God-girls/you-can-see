@@ -1,0 +1,29 @@
+.my-wrap{
+  /*background: url(../../../assets/images/bg.jpg) no-repeat 0 -80px;*/
+  /*background-size: 100%;*/
+}
+
+.my-detail dl dt img{
+  width: 100%;
+}
+.my-detail dl dd{
+  color: #fff;
+  padding-top: 30px;
+}
+.my-detail ul{
+  display: -webkit-box;
+  display: flex;
+  padding: 10px 0 40px;
+}
+.my-detail ul li{
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    width: 0%;
+}
+
+.my-set dl{
+  line-height: 50px;
+  padding: 25px 30px;
+  border-bottom: 1px solid #dcdcdd;/*no*/
+}

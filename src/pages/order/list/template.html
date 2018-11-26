@@ -1,0 +1,117 @@
+<Layout>
+
+  <div class="tab tC blackCR">
+    <ul class="flexBox1">
+      <li v-for="(item,index) in tabs" :class="{'greenCR current':index == isCur}">{{item.name}}</li>
+    </ul>
+  </div>
+
+  <div class="search">
+    <dl class="flexBox">
+      <dt class="flex1">
+        <input type="text" name="">
+      </dt>
+      <dd>
+        <i class="iconfont icon-fangdajing f36"></i>
+      </dd>
+    </dl>
+  </div>
+
+  <div class="prdOne">
+    <dl class="blackCR">
+      <dt>今天 17:05</dt>
+      <dd>
+        <ul class="flexBox">
+          <li class="special">
+            <img src="../../../assets/img12/login/img2.jpg" alt="" width="100">
+          </li>
+          <li class="f30">
+            新款加厚加绒毛衣新款加厚加绒毛衣
+            <p class="redCR">¥466.00-599.00</p>
+          </li>
+        </ul>
+      </dd>
+    </dl>
+    <dl>
+      <dt class="blackCR">规格信息：</dt>
+      <dd >蓝色 XL</dd>
+    </dl>
+    <dl>
+      <dt class="blackCR">数量信息：</dt>
+      <dd >X2</dd>
+    </dl>
+    <dl>
+      <dt class="blackCR">收货人信息：</dt>
+      <dd >
+        <p>人名</p>
+        <p>电话</p>
+        <p>地址</p>
+      </dd>
+    </dl>
+    <dl>
+      <dt class="blackCR">备注信息：</dt>
+      <dd >请发顺丰</dd>
+    </dl>
+
+    <ol class="blackCR flexBox">
+      <li class="flex1 tR">快递信息</li>
+      <li class="special posiR">订单备注</li>
+    </ol>
+  </div>
+
+  <div slot="footer">
+    <myfooter :current="navType"></myfooter>
+    <modal-dialog :dialogshow2.sync="notes" @hide="closeDialog('notes')">
+
+        <div slot="dialog-body" class="guestCON">
+           <dl>
+             <dt>订单备注</dt>
+             <dd>
+               <textarea></textarea>
+             </dd>
+           </dl>
+        </div>    
+    
+        <dl class="dialog-footer blueCR" slot="dialog-footer">
+          <dd>
+            <button type="button" class="btn btn-green">取消</button>
+          </dd>
+          <dd>
+            <button type="button" class="btn btn-green">保存</button>
+          </dd>
+        </dl>
+    </modal-dialog>
+
+    <modal-dialog :dialogshow2.sync="diliver" @hide="closeDialog('diliver')">
+
+        <div slot="dialog-body" class="deliverCON">
+           <dl class="dls">
+             <dt>快递名称</dt>
+             <dd class="grayCR">
+               顺丰 <span class="f21">设置默认快递</span>
+             </dd>
+           </dl>
+           <dl class="dls">
+             <dt>快递单号</dt>
+             <dd class="grayCR">
+               <input type="text" name="">
+               <p class="f21 grayCR">建议填写快递单号，方便查询和整理订单</p>
+             </dd>
+           </dl>
+        </div>    
+    
+        <dl class="dialog-footer blueCR" slot="dialog-footer">
+          <dd>
+            <button type="button" class="btn btn-green">取消</button>
+          </dd>
+          <dd>
+            <button type="button" class="btn btn-green">确定发货</button>
+          </dd>
+        </dl>
+    </modal-dialog>
+
+  </div>
+
+
+  
+</Layout>

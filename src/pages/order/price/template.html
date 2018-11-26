@@ -1,0 +1,52 @@
+<Layout>
+  
+  <myhead :hval="header" slot="header"></myhead>
+  
+
+  <div class="method1">
+    <dl class="flexBox f30 blackCR">
+      <dt class="">
+        <i class="iconfont icon-danxuankuang f30"></i>
+      </dt>
+      <dd class="flex1">
+        方式一：统一定价
+        <p>
+          <input type="number">
+          元
+        </p>
+      </dd>
+    </dl>
+  </div>
+
+
+  <div class="method1 special">
+    <dl class="flexBox f30 blackCR">
+      <dt class="">
+        <i class="iconfont icon-danxuankuang f30"></i>
+      </dt>
+      <dd class="flex1">
+        方式二：按规格定价
+      </dd>
+    </dl>
+  </div>
+
+  <div class="method2">
+    <ul class="flexBox1 tC blackCR">
+      <li class="current greenCR">颜色</li>
+      <li>尺寸</li>
+      <li>重量</li>
+      <li>类型</li>
+    </ul>
+  </div>
+
+
+
+  <div slot="footer" :style="statusBarH">
+    <div class="footer tC f30">
+      <p class="btn btn-green" @click.prevent="updateAddress">确定</p>
+    </div>
+     <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
+   
+  </div>
+
+</Layout>

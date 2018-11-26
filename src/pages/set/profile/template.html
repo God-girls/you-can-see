@@ -1,0 +1,112 @@
+<Layout>
+  <myhead slot="header" :hval="header" v-if="!isWechat"></myhead>
+
+  <div>
+    <div class="header posiR whiteCR">
+      <i class="iconfont icon-fanhui f36" @click.prevent="goto('/my')" v-if="isWechat"></i>
+      <dl class="tC">
+        <dt>
+          <p class="img">
+            <img :src="headImg" alt="" :onerror="defaultHead">
+            <input type="file" class="modifyImg" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" @change="onFileChange" unselectable="on"  v-if="!isWechat" />
+          </p>
+        </dt>
+      </dl>
+    </div>
+  </div>
+
+    <div class="my-set">
+      <ul>
+
+        <router-link tag="li" to="/my/nick">
+          <dl class="flexBox">
+            <dd class="flex1">昵称：</dd>
+            <dd class="tR">
+              {{profile.nick}} <i class="iconfont icon-jiantou f24"></i>
+            </dd>
+          </dl>
+        </router-link>
+        <router-link tag="li" to="/my/nick">
+          <dl class="flexBox">
+            <dd class="flex1">个性签名：</dd>
+            <dd class="tR">
+              {{profile.nick}} <i class="iconfont icon-jiantou f24"></i>
+            </dd>
+          </dl>
+        </router-link>
+        <router-link tag="li" to="/my/sex">
+          <dl class="flexBox">
+            <dd class="flex1">性别：</dd>
+            <dd class="tR">
+              {{profile.sex}} <i class="iconfont icon-jiantou f24"></i>
+            </dd>
+          </dl>
+        </router-link>
+        <li>
+          <dl class="flexBox">
+            <dd class="flex1">出生日期：</dd>
+            <dd class="tR">
+               {{pushpop.version}}<i class="iconfont icon-jiantou f24"></i>
+            </dd>
+          </dl>
+        </li>
+
+        <li @click.prevent="popSet" v-if="!isWechat">
+          <dl class="flexBox">
+            <dd class="flex1">地区：</dd>
+            <dd class="tR">
+               {{pushpop.push}}<i class="iconfont icon-jiantou f24"></i>
+            </dd>
+          </dl>
+        </li>
+      </ul>
+
+      <ul>
+
+        <router-link tag="li" to="/my/nick">
+          <dl class="flexBox">
+            <dd class="flex1">手机号：</dd>
+            <dd class="tR">
+              {{profile.nick}} <i class="iconfont icon-jiantou f24"></i>
+            </dd>
+          </dl>
+        </router-link>
+        <router-link tag="li" to="/my/sex">
+          <dl class="flexBox">
+            <dd class="flex1">微信号：</dd>
+            <dd class="tR">
+              {{profile.sex}} <i class="iconfont icon-jiantou f24"></i>
+            </dd>
+          </dl>
+        </router-link>
+        <li>
+          <dl class="flexBox">
+            <dd class="flex1">QQ号：</dd>
+            <dd class="tR">
+               {{pushpop.version}}<i class="iconfont icon-jiantou f24"></i>
+            </dd>
+          </dl>
+        </li>
+      </ul>
+    </div>    
+
+    <div slot="footer">
+      <modal-dialog :dialogshow2.sync="iquit" @hide="closeDialog('iquit')">
+        <div class="dialog-header" slot="dialog-header">
+          是否离开红多多? 
+        </div>
+<!--         <div slot="dialog-body" class="guestCON tC">
+           离开以太大陆过久会失去以太钻石的开采机会
+        </div>     -->
+    
+        <dl class="dialog-footer" slot="dialog-footer">
+          <dd  @touchend.prevent="goto('/app/login?quit=true')">
+            <button type="button">确定</button>
+          </dd>
+        </dl>
+    </modal-dialog>
+
+    </div>
+
+  
+</Layout>

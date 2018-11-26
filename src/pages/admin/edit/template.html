@@ -1,0 +1,74 @@
+<Layout>
+  
+  <myhead :hval="header" slot="header"></myhead>
+  
+  <div class="myDetail ">
+    <dl>
+      <dt>标题</dt>
+      <dd><input type="text" name="" value="" v-model="paraData.title"></dd>
+    </dl>
+    <dl>
+      <dt>副标题</dt>
+      <dd><input type="text" name="" value="" v-model="context.sub_title"></dd>
+    </dl>
+    <dl>
+      <dt>价格</dt>
+      <dd><input type="text" name="" value="" v-model="paraData.price"></dd>
+    </dl>
+    <dl>
+      <dt>排序</dt>
+      <dd><input type="text" name="" value="" v-model="paraData.seq"></dd>
+    </dl>
+    <dl>
+      <dt>开售时间</dt>
+      <dd>
+        <datepicker v-model="paraData.begin_time" :max="paraData.end_time" :min="minDate" language='ch'></datepicker>
+         - 
+         <datepicker v-model="paraData.end_time"  :min="paraData.begin_time" language='ch'></datepicker>
+      </dd>
+    </dl>
+    <dl>
+      <dt>显示状态</dt>
+      <dd class="posiR">
+        <input id="lock1" type="checkbox" class="ace ace-switch" v-model="paraData.status">
+        <span class="lbl"></span>
+      </dd>
+    </dl>
+    <dl>
+      <dt>头图</dt>
+      <dd class="">
+        <p class="img posiR">
+          <img :src="globalM+'bonus/goods/'+paraData.head_image" alt="" v-if="paraData.head_image">
+          <i class="iconfont icon-jiajianzujianjiahao1 f24" v-else></i>
+          <input type="file" class="headImg" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" 
+            @change="onFileChange" unselectable="on" data-type="head"/>
+          <i class="iconfont icon-close f36" @click.prevent="subImg('head')"></i>
+        </p>
+      </dd>
+    </dl>
+    <dl>
+      <dt>详情图</dt>
+      <dd class="">
+        <p class="img posiR" v-for="(item,index) in context.imgs">
+          <img :src="globalM+'bonus/goods/'+item" alt="" v-if="item != 1">
+          <i class="iconfont icon-jiajianzujianjiahao1 f24" v-else></i>
+          <input type="file" class="headImg" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" 
+            @change="onFileChange" unselectable="on" :data-type="index"/>
+          <i class="iconfont icon-close f36" @click.prevent="subImg(index)"></i>
+        </p>  
+        <p class="redCR" @click.prevent="context.imgs.push(1)"><i class="iconfont icon-jiajianzujianjiahao1 f36"></i></p>      
+      </dd>
+    </dl>
+  </div>
+
+<div slot="footer">
+  <div class="footer tC f30">
+    <dl>
+      <dd><p class="btn btn-default" @click.prevent="updateGoods">{{paraData.gid?'保存':'添加'}}</p></dd>
+    </dl>
+  </div>
+</div>
+
+  <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
+
+</Layout>

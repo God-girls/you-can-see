@@ -1,0 +1,120 @@
+<Layout>
+  <div slot="header">
+    <myhead :hval="header"></myhead>
+  </div>
+  <scroller :on-infinite="onInfinite" :on-refresh="onRefresh" :noDataText="noDataText" ref="my_scroller" loadingLayerColor="#b0abbd">
+
+  <div class="prdList">
+      <table>
+        <thead>
+          <tr>
+            <th>
+              <label for="checkbox_aa" @change.prevent='checkedAll'>
+                <input type="checkbox" id="checkbox_aa" class="chk_1" checked="" v-model='checked'>
+              </label>
+            </th>
+            <th width="10%">编号</th>
+            <th width="10%">类型</th>
+            <th>账号</th>
+            <th>金额(元)</th>
+            <th>状态</th>
+            <th>时间</th>
+            <th width="10%">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item,index) in storeList">
+            <td>
+              <input type="checkbox" class="chk_1" :checked="item.checked" :value='item.id' 
+          v-model='checkboxModel'>
+            </td>
+            <td>{{index+1}}</td>
+            <td class="blueLCR3">
+              <i class="iconfont icon-zhifubao f36" v-if="item.paytype == 'Alipay'"></i>
+              <i class="iconfont icon-weixin1 f36" v-else></i>
+            </td>
+            <td @click.prevent="fetchMore(item.uid,index)">
+              {{item.payinfo?JSON.parse(item.payinfo)['alipay_account']:''}}
+            </td>
+            <td>
+              {{item.amount}}
+            </td>
+            <td>{{item.msg?item.msg:'待审'}}</td>
+            <td>{{item.updated_at}}</td>
+            <td class="redCR" @click.prevent="single(item.id)">
+              通过
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    
+    <div v-if="!storeList.length" class="tC">
+      <nodate noText="暂无数据"></nodate>
+    </div>
+  </div>
+
+  
+</scroller>
+
+<div slot="footer">
+    <div class="footer tC f30">
+      <dl>
+        <dd><p class="btn btn-default" @click.prevent="double">批量通过</p></dd>
+      </dl>
+    </div>
+
+    <modal-dialog :dialogshow2.sync="seeMore" @hide="closeDialog('seeMore')" >
+      <div class="dialog-header" slot="dialog-header">
+        编号 {{curIndex+1}} 详情
+      </div>
+
+      <div slot="dialog-body" class="guestCON">
+         <dl class="dls">
+           <dt>注册账号：</dt>
+           <dd>{{curItemMore.acc}}</dd>
+         </dl>
+         <dl class="dls">
+           <dt>累计充值：</dt>
+           <dd>{{curItemMore.recharge}} 元</dd>
+         </dl>
+         <dl class="dls">
+           <dt>累计分红：</dt>
+           <dd>{{curItemMore.bonus}} 元</dd>
+         </dl>
+         <dl class="dls">
+           <dt>累计提取金额：</dt>
+           <dd>{{curItemMore.withdraw}} 元</dd>
+         </dl>
+         <dl class="dls">
+           <dt>当前余额：</dt>
+           <dd>{{curItemMore.balance}} 元</dd>
+         </dl>
+         <dl class="dls">
+           <dt>修改时间：</dt>
+           <dd>{{curItemMore.account_updated_at}}</dd>
+         </dl>
+      </div>    
+
+      <dl class="dialog-footer" slot="dialog-footer">
+        <dd  @click.prevent="accept">
+          <button type="button">确定</button>
+        </dd>
+      </dl>    
+    </modal-dialog>
+
+
+    <modal-dialog :dialogshow2.sync="submit" @hide="closeDialog('submit')" >
+      <div class="dialog-header" slot="dialog-header">
+        您确定要审核通过吗？
+      </div>
+
+      <dl class="dialog-footer" slot="dialog-footer">
+        <dd  @click.prevent="accept">
+          <button type="button">确定</button>
+        </dd>
+      </dl>    
+    </modal-dialog>
+    <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
+</div>
+
+</Layout>

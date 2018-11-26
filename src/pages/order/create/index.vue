@@ -65,7 +65,7 @@ export default {
     //   this.profile = this.PROFILE
     //   this.headImg = this.globalAvatar+(this.profile.avatar?this.profile.avatar:'')+'?imageView2/2/w/200/h/200/t/'+new Date().getTime();
     // }
-    this.getShare ();
+    // this.getShare ();
     this.autoTextarea(document.getElementById("text"),'',400)
     dplus.track('我的',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
@@ -132,7 +132,7 @@ export default {
           success (res) {
               alert(JSON.stringify(res))
               var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-              this.uploadImage(localIds)
+              this.uploadImg(localIds)
           }
       });      
 

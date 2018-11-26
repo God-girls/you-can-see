@@ -200,11 +200,11 @@ export default {
       }
     },
     getShare (){
+      
       axios.post('/seller_api/v1/sessions/share_config',qs.stringify({
         url:window.location.href.split('#')[0]
       })).then((response)=>{   
           let resData = response.data;  
-          alert(JSON.stringify(resData))
           if (resData.success) 
               this.shareFunc(resData.result);         
       }).catch(function(response){
@@ -231,8 +231,6 @@ export default {
           ]
       }));   
       wx.ready(function () {
-        alert('222')
-        alert(JSON.stringify(obj))
         let shareOBJ ={
             title: '小小麦',
             desc: '小小卖家最爱的小小麦~',

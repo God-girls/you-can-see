@@ -65,6 +65,7 @@ export default {
     //   this.profile = this.PROFILE
     //   this.headImg = this.globalAvatar+(this.profile.avatar?this.profile.avatar:'')+'?imageView2/2/w/200/h/200/t/'+new Date().getTime();
     // }
+    this.getShare ();
     this.autoTextarea(document.getElementById("text"),'',400)
     dplus.track('我的',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
@@ -76,9 +77,56 @@ export default {
         this.statusBar = this.STATUSBARH+'px';     
       }
     },
+    getShare (){
+      axios.post('/seller_api/v1/sessions/share_config',qs.stringify({
+        url:window.location.href.split('#')[0]
+      })).then((response)=>{   
+          let resData = response.data;  
+          if (resData.success) 
+              this.shareFunc(resData.result);         
+      }).catch(function(response){
+
+      });        
+    },
+    shareFunc(obj){
+      let vm = this;
+      wx.config(Object.assign(obj,{
+          debug: true,
+          jsApiList: [
+            "checkJsApi",
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'onMenuShareQZone',
+            'closeWindow',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'scanQRCode'
+          ]
+      }));   
+      wx.ready(function () {
+        let shareOBJ ={
+            title: '小小麦',
+            desc: '小小卖家最爱的小小麦~',
+            link: vm.ttDomain+'?'+ vm.timeStamp,
+            imgUrl: vm.ttLogoImg,
+            success:function () {
+               // dplus.track('分享成功',{'from':html.useragent(),'inviter':vm.inviter,'page':'index'});
+            }
+        };
+        wx.onMenuShareAppMessage(shareOBJ);
+        wx.onMenuShareQQ(shareOBJ);
+        wx.onMenuShareWeibo(shareOBJ);
+        wx.onMenuShareQZone(shareOBJ);
+        wx.onMenuShareTimeline(shareOBJ);
+      })
+    },
     chooseImg(){
       wx.chooseImage({
-          // count: 1, // 默认9
+          count: 9, // 默认9
           sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success (res) {
@@ -98,6 +146,15 @@ export default {
             var serverId = res.serverId; // 返回图片的服务器端ID
         }
       });
+    },
+    onFileChange(){
+        var URL = window.URL || window.webkitURL;
+        var files = e.target.files || e.dataTransfer.files,
+            file,
+            blobURL,
+            thisType = Number(e.target.dataset.type),
+            testFile = '';
+        alert(JSON.stringify(files))
     },
     /**
     * 文本框根据输入内容自适应高度

@@ -14,12 +14,15 @@
       <li>
         <img src="../../../assets/img12/index/topbg.jpg" alt="">
       </li>
-      <li>
+      <li class="posiR">
         <img src="../../../assets/img12/index/topbg.jpg" alt="">
+        <input type="file" class="modifyImg" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" @change="onFileChange" unselectable="on"  v-if="!isWechat" />
+
       </li>      
       <li class="special" @touchend.prevent="chooseImg">
         <i class="iconfont icon-jia"></i>
       </li>
+
     </ul>
   </div>
 

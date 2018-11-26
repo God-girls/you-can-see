@@ -16,13 +16,13 @@
       </li> -->
       <li  v-for="(item,index) in imgUrl" class="posiR imgs">
 
-          <img :src="globalAvatar+'auction/'+item+'?imageView2/2/w/340/h/340/t/'" alt="" v-if="item.indexOf('.jpg') > 0">
-          <img :src="imgUrl[index]" alt="" v-else> 
+          <!-- <img :src="globalAvatar+'auction/'+item+'?imageView2/2/w/340/h/340/t/'" alt="" v-if="item.indexOf('.jpg') > 0"> -->
+          <img :src="imgUrl[index]" alt=""> 
 
       </li>
-      <li class="posiR">
-        <!-- <img src="../../../assets/img12/index/topbg.jpg" alt=""> -->
-        <input type="file" class="modifyImg" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" @change="onFileChange" unselectable="on" multiple="multiple" />
+      <li class="posiR" @touchend.prevent="previewImage">
+        <img src="../../../assets/img12/index/topbg.jpg" alt="">
+        <!-- <input type="file" class="modifyImg" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" @change="onFileChange" unselectable="on" multiple="multiple" /> -->
 
       </li>      
       <li class="special" @touchend.prevent="chooseImg">

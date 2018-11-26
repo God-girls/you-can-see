@@ -144,13 +144,23 @@ export default {
     uploadImg(localIds){
       alert('uploadImage1')
       wx.uploadImage({
-        localId: localIds, // 需要上传的图片的本地ID，由chooseImage接口获得
+        localId: localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
         isShowProgressTips: 1,// 默认为1，显示进度提示
         success: function (res) {
           alert(JSON.stringify(res))
             var serverId = res.serverId; // 返回图片的服务器端ID
             this.imgUrl = serverId
         }
+      });
+    },
+    previewImage(){
+      wx.previewImage({
+        current: 'http://pic.shejiben.com/case/2013/03/19/20130319011236-9505a79b-2s.jpg',
+        urls: [
+          'http://pic.shejiben.com/case/2013/03/19/20130319011236-9505a79b-2s.jpg',
+          'http://b-ssl.duitang.com/uploads/item/201508/08/20150808174708_fiEt2.thumb.700_0.jpeg',
+          'http://img2.imgtn.bdimg.com/it/u=3525509857,3391490730&fm=214&gp=0.jpg',
+        ]
       });
     },
     onFileChange (e){

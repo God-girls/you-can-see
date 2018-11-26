@@ -35,6 +35,8 @@ export default {
       isApp:'',
       navType:'my',
       profile:{},
+      imgUrl:[],
+      imgFile:[],
       isWechat:false
     }
   },
@@ -130,7 +132,7 @@ export default {
           sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success (res) {
-              alert(JSON.stringify(res))
+              // alert(JSON.stringify(res))
               var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
               this.uploadImg(localIds)
           }
@@ -142,19 +144,37 @@ export default {
         localId: localIds, // 需要上传的图片的本地ID，由chooseImage接口获得
         isShowProgressTips: 1,// 默认为1，显示进度提示
         success: function (res) {
-          alert(JSON.stringify(res))
+          // alert(JSON.stringify(res))
             var serverId = res.serverId; // 返回图片的服务器端ID
         }
       });
     },
-    onFileChange(){
+    onFileChange (e){
+        //图片上传
         var URL = window.URL || window.webkitURL;
         var files = e.target.files || e.dataTransfer.files,
             file,
             blobURL,
             thisType = Number(e.target.dataset.type),
             testFile = '';
-        alert(JSON.stringify(files))
+
+        if (files && files.length) {
+
+
+            testFile = /^image\/\w+$/;
+            for (var i = 0; i < files.length; i++) {
+
+              if (testFile.test(files[i].type)) {
+                // console.log(files[i])
+                this.imgUrl.push(URL.createObjectURL(files[i]))
+              } else {
+                this.initMsg('请选择图片')
+              }
+              this.imgFile.push(files[i])
+            }
+
+        }
+
     },
     /**
     * 文本框根据输入内容自适应高度

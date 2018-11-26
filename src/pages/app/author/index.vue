@@ -26,8 +26,8 @@ export default {
   },
   mounted (){
     
-    this.paraData.code = unescape(this.getCode('code'));
-    this.paraData.type = 'mini';
+    // this.paraData.code = unescape(this.getCode('code'));
+    // this.paraData.type = 'mini';
     // alert(location.href)
     if (html.isWechat()) {//如果是在微信
       this.getLogin();
@@ -42,20 +42,13 @@ export default {
     ]),
     pushHistory (){  
       window.addEventListener("popstate", (e)=> {
-          // self.location.reload();
           this.$router.push('/index')
-          // // alert(document.querySelector('.backClose'))
-          // setTimeout(()=>{
-          // this.closeWindow();
-          // },1000)
-          // alert(JSON.stringify(wx))
-          // location.href = this.wechatDirect;
       }, false);
       var state = {
-          title : "天天快抓",
+          title : "小小麦",
           url : "#"
       };
-      window.history.replaceState(state, "天天快抓", "#");
+      window.history.replaceState(state, "小小麦", "#");
     },
     closeWindow (){
       wx.ready(function () {
@@ -112,7 +105,15 @@ export default {
             +'&redirect_uri='+encodeURIComponent(jumpUrl)
             +'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
 
+            'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx357ca89ca431b3ca&redirect_uri=https%3a%2f%2ftestseller.bhuwifi.com%2f%23%2fapp%2fauthor%2f&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+
     },
+    getQueryValue (name) {
+        var str = self.location.href.split('#')[0].split('?')[1];
+        var reg = new RegExp("(^|&)"+name+"=([^&\n]*)(&|\n|$)");
+        var r = str.match(reg);
+        if (r!=null) return r[2]; return null;
+    },    
     getLogin (){//微信登录
       alert(location.href)
         this.jumpto = location.href.indexOf('jumpto') > -1 ? unescape(this.getQueryValue('jumpto')) : (this.ttDomain+'?'+this.timeStamp);

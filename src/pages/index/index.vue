@@ -145,7 +145,7 @@ export default {
       }
             
     }
-    
+    this.getShare ();
     dplus.track('首页',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {}); 
   },

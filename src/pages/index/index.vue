@@ -142,8 +142,7 @@ export default {
         }else{
           // this.redirect();
         }
-      }
-            
+      }     
     }
     this.getShare ();
     dplus.track('首页',{'from':html.useragent()});//统计代码
@@ -200,14 +199,15 @@ export default {
       }
     },
     getShare (){
-        axios.post('/sleller_api/v1/sessions/share_config',qs.stringify({
-          url:window.location.href.split('#')[0]
-        })).then((response)=>{   
-            let resData = response.data;  
-            alert(resData)
-            if (resData.success) 
-                this.shareFunc(resData.result);         
-        }).catch(function(response){});        
+      alert(window.location.href.split('#')[0])
+      axios.post('/sleller_api/v1/sessions/share_config',qs.stringify({
+        url:window.location.href.split('#')[0]
+      })).then((response)=>{   
+          let resData = response.data;  
+          alert(resData)
+          if (resData.success) 
+              this.shareFunc(resData.result);         
+      }).catch(function(response){});        
     },
     shareFunc(obj){
       let vm = this;

@@ -12,7 +12,9 @@ export default {
   data () {
     return {
       avatar:'',
-      paraData:{},
+      paraData:{
+        type:'H5'
+      },
       inviterMini:''
     }
   },
@@ -25,10 +27,7 @@ export default {
     ])
   },
   mounted (){
-    
-    // this.paraData.code = unescape(this.getCode('code'));
-    // this.paraData.type = 'mini';
-    // alert(location.href)
+
     if (html.isWechat()) {//如果是在微信
       this.getLogin();
       this.pushHistory();      
@@ -115,11 +114,10 @@ export default {
         if (r!=null) return r[2]; return null;
     },    
     getLogin (){//微信登录
-      alert(location.href)
         this.jumpto = location.href.indexOf('jumpto') > -1 ? unescape(this.getQueryValue('jumpto')) : (this.ttDomain+'?'+this.timeStamp);
 
         if (location.href.indexOf('code') > -1) this.paraData.code = unescape(this.getQueryValue('code'));
-        alert(JSON.stringify(this.paraData))
+        // alert(JSON.stringify(this.paraData))
         axios.post('/seller_api/v1/sessions/create_oauth',qs.stringify(this.paraData)).then((response)=>{   
             let resData = response.data;  
             alert(jSON.stringify(resData))

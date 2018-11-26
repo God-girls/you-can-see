@@ -118,7 +118,7 @@ export default {
       alert(location.href)
         this.jumpto = location.href.indexOf('jumpto') > -1 ? unescape(this.getQueryValue('jumpto')) : (this.ttDomain+'?'+this.timeStamp);
 
-        if (location.href.indexOf('icode') > -1) this.paraData.icode = unescape(this.getQueryValue('icode'));
+        if (location.href.indexOf('code') > -1) this.paraData.icode = unescape(this.getQueryValue('code'));
 
         axios.post('/baby_api/v1/sessions/create_oauth',qs.stringify(this.paraData)).then((response)=>{   
             let resData = response.data;  

@@ -204,7 +204,7 @@ export default {
         url:window.location.href.split('#')[0]
       })).then((response)=>{   
           let resData = response.data;  
-          alert(resData)
+          alert(JSON.stringify(resData))
           if (resData.success) 
               this.shareFunc(resData.result);         
       }).catch(function(response){
@@ -231,7 +231,7 @@ export default {
           ]
       }));   
       wx.ready(function () {
-
+        alert(JSON.stringify(obj))
         let shareOBJ ={
             title: '小小麦',
             desc: '小小卖家最爱的小小麦~',

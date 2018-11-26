@@ -137,17 +137,18 @@ export default {
               var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
               this.imgUrl = localIds
               _this.uploadImg(localIds)
+              alert(JSON.stringify(this.imgUrl))
           }
       });      
 
     },
     uploadImg(localIds){
-      alert('uploadImage1')
+      // alert('uploadImage1')
       wx.uploadImage({
         localId: localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
         isShowProgressTips: 1,// 默认为1，显示进度提示
         success: function (res) {
-          alert(JSON.stringify(res))
+          // alert(JSON.stringify(res))
             var serverId = res.serverId; // 返回图片的服务器端ID
             this.imgUrl = serverId
         }

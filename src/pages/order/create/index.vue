@@ -144,9 +144,9 @@ export default {
         localId: localIds, // 需要上传的图片的本地ID，由chooseImage接口获得
         isShowProgressTips: 1,// 默认为1，显示进度提示
         success: function (res) {
-          // alert(JSON.stringify(res))
             var serverId = res.serverId; // 返回图片的服务器端ID
             this.imgUrl = serverId
+          alert(JSON.stringify(serverId))
         }
       });
     },

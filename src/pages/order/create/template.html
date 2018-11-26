@@ -11,18 +11,18 @@
       <textarea placeholder="商品描述..." id="text"></textarea>
     </div>
     <ul>
+      <li>
+        <img src="../../../assets/img12/index/topbg.jpg" alt="">
+      </li>
       <li  v-for="(item,index) in imgUrl" class="posiR imgs">
 
           <img :src="globalAvatar+'auction/'+item+'?imageView2/2/w/340/h/340/t/'" alt="" v-if="item.indexOf('.jpg') > 0">
-          <img :src="imgUrl[index]" alt="" v-else>
+          <img :src="imgUrl[index]" alt="" v-else> 
 
-<!--           <i @click.prevent="delImgPrd(item,index)" v-if="item.indexOf('.jpg') > 0">-</i>  
-          <i @click.prevent="delImg(index)" v-else>-</i>        
- -->
       </li>
       <li class="posiR">
         <!-- <img src="../../../assets/img12/index/topbg.jpg" alt=""> -->
-        <input type="file" class="modifyImg" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" @change="onFileChange" unselectable="on" unselectable="on" multiple="multiple" />
+        <input type="file" class="modifyImg" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" @change="onFileChange" unselectable="on" multiple="multiple" />
 
       </li>      
       <li class="special" @touchend.prevent="chooseImg">

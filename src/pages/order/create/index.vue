@@ -146,6 +146,7 @@ export default {
         success: function (res) {
           // alert(JSON.stringify(res))
             var serverId = res.serverId; // 返回图片的服务器端ID
+            this.imgUrl = serverId
         }
       });
     },

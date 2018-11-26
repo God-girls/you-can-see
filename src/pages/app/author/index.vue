@@ -114,21 +114,21 @@ export default {
 
     },
     getLogin (){//微信登录
-        this.paraData.code = unescape(this.getCode('code'));
+      alert(location.href)
         this.jumpto = location.href.indexOf('jumpto') > -1 ? unescape(this.getQueryValue('jumpto')) : (this.ttDomain+'?'+this.timeStamp);
-
-
 
         if (location.href.indexOf('icode') > -1) this.paraData.icode = unescape(this.getQueryValue('icode'));
 
         axios.post('/baby_api/v1/sessions/create_oauth',qs.stringify(this.paraData)).then((response)=>{   
             let resData = response.data;  
-
+            alert(jSON.stringify(resData))
             if (resData.success) {
-              this.buildSocket(resData.result.id,resData.result.atoken,resData.result.nick)//建立消息通道
               window.localStorage.setItem('ttUid', resData.result.id);
               window.localStorage.setItem('ttToken', resData.result.atoken);
-
+              this.switchState({
+                TOKEN:response.headers['a-token-header'],
+                UID:resData.result.id
+              })
               location.href = this.jumpto;                
 
             }else{

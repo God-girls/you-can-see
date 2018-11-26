@@ -11,7 +11,7 @@
         width: 100%;
         display: -webkit-box;
         display: flex;
-        height: 90px;
+        height: 100px;
         justify-content: center;
         align-items: center;
         padding:0 30px 0 0;

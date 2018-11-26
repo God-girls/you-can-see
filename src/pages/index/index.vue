@@ -199,6 +199,52 @@ export default {
         })    
       }
     },
+    getShare (){
+        axios.post('/sleller_api/v1/sessions/share_config',qs.stringify({
+          url:window.location.href.split('#')[0]
+        })).then((response)=>{   
+            let resData = response.data;  
+            if (resData.success) 
+                this.shareFunc(resData.result);         
+        }).catch(function(response){});        
+    },
+    shareFunc(obj){
+      let vm = this;
+      wx.config(Object.assign(obj,{
+          debug: true,
+          jsApiList: [
+            "checkJsApi",
+            'onMenuShareTimeline',
+            'onMenuShareAppMessage',
+            'onMenuShareQQ',
+            'onMenuShareWeibo',
+            'onMenuShareQZone',
+            'closeWindow',
+            'chooseImage',
+            'previewImage',
+            'uploadImage',
+            'downloadImage',
+            'scanQRCode'
+          ]
+      }));   
+      wx.ready(function () {
+
+        let shareOBJ ={
+            title: '小小麦',
+            desc: '小小卖家最爱的小小麦~',
+            link: vm.ttDomain+'?'+ vm.timeStamp,
+            imgUrl: vm.ttLogoImg,
+            success:function () {
+               // dplus.track('分享成功',{'from':html.useragent(),'inviter':vm.inviter,'page':'index'});
+            }
+        };
+        wx.onMenuShareAppMessage(shareOBJ);
+        wx.onMenuShareQQ(shareOBJ);
+        wx.onMenuShareWeibo(shareOBJ);
+        wx.onMenuShareQZone(shareOBJ);
+        wx.onMenuShareTimeline(shareOBJ);
+      })
+    },
     scrollLeft(){
       var x = document.getElementById('textwrap');
       var y = document.getElementById('text1');

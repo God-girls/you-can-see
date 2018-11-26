@@ -153,14 +153,10 @@ export default {
         }
       });
     },
-    previewImage(){
+    previewImage(currentImg){
       wx.previewImage({
-        current: 'http://pic.shejiben.com/case/2013/03/19/20130319011236-9505a79b-2s.jpg',
-        urls: [
-          'http://pic.shejiben.com/case/2013/03/19/20130319011236-9505a79b-2s.jpg',
-          'http://b-ssl.duitang.com/uploads/item/201508/08/20150808174708_fiEt2.thumb.700_0.jpeg',
-          'http://img2.imgtn.bdimg.com/it/u=3525509857,3391490730&fm=214&gp=0.jpg',
-        ]
+        current: currentImg,
+        urls: this.imgUrl
       });
     },
     onFileChange (e){

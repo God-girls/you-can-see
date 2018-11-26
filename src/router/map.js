@@ -66,13 +66,13 @@ export default {
 		}
 	},
 	'/my/bonus': {
-		meta: { title: '邀请有礼'},
+		meta: { title: '收入分析'},
 		component: (resolve) => {
 			require(['pages/set/bonus'], resolve)
 		}
 	},
 	'/my/analysis': {
-		meta: { title: '邀请有礼'},
+		meta: { title: '商品分析'},
 		component: (resolve) => {
 			require(['pages/set/analysis'], resolve)
 		}
@@ -108,19 +108,19 @@ export default {
 		}
 	},
 	'/prd/other': {//新建商品
-		meta: { title: '新建商品'},
+		meta: { title: '其它设置'},
 		component: (resolve) => {
 			require(['pages/order/other'], resolve)
 		}
 	},
 	'/prd/spec': {
-		meta: { title: '确认订单'},
+		meta: { title: '规格设置'},
 		component: (resolve) => {
 			require(['pages/order/spec'], resolve)
 		}
 	},
 	'/prd/price': {//编辑地址
-		meta: { title: '编辑地址'},
+		meta: { title: '价格设置'},
 		component: (resolve) => {
 			require(['pages/order/price'], resolve)
 		}
@@ -132,19 +132,19 @@ export default {
 		}
 	},
 	'/prd/list': {
-		meta: { title: '管理收货地址'},
+		meta: { title: ''},
 		component: (resolve) => {
 			require(['pages/prd/index'], resolve)
 		}
 	},
 	'/prd/detail': {
-		meta: { title: '管理收货地址'},
+		meta: { title: '商品详情'},
 		component: (resolve) => {
 			require(['pages/prd/detail'], resolve)
 		}
 	},
 	'/order/list': {
-		meta: { title: '管理收货地址'},
+		meta: { title: '订单管理'},
 		component: (resolve) => {
 			require(['pages/order/list'], resolve)
 		}

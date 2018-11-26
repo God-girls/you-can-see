@@ -31,7 +31,7 @@ export default {
       historyTotalPN:1,
       bottomBarH:[],
       leftTime:'00:00:00',
-      curFomoData:{},
+      paraData:{},
       isApp:'',
       navType:'my',
       profile:{},
@@ -63,10 +63,10 @@ export default {
     //   this.isWechat = true;
     // }
 
-    // if (this.TOKEN) {
-    //   this.profile = this.PROFILE
-    //   this.headImg = this.globalAvatar+(this.profile.avatar?this.profile.avatar:'')+'?imageView2/2/w/200/h/200/t/'+new Date().getTime();
-    // }
+    if (this.TOKEN) {
+      this.profile = this.PROFILE;
+      this.paraData.uid = this.UID;
+    }
     // this.getShare ();
     this.autoTextarea(document.getElementById("text"),'',400)
     dplus.track('我的',{'from':html.useragent()});//统计代码
@@ -159,6 +159,30 @@ export default {
         urls: this.imgUrl
       });
     },
+    modifyImg (thisImgFile){
+      var data = new FormData();
+      data.append('images',thisImgFile,thisImgFile.name);
+      data.append("uid", this.paraData.uid);
+      axios.post('/pixel_api/v1/user/updated',data,{
+          headers: {
+              "A-Token-Header": this.token,
+              'Content-Type':'multipart/form-data'
+          }
+        }).then((response)=>{   
+        this.loading = false;        
+          let resData = response.data;  
+          if (resData.success) {
+            // this.getProfile ();
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.goto('/')
+            }else{
+              this.initMSG(resData.codemsg)
+            }
+          }
+
+      }).catch(function(response){});  
+    },
     onFileChange (e){
         //图片上传
         var URL = window.URL || window.webkitURL;
@@ -170,13 +194,15 @@ export default {
 
         if (files && files.length) {
 
-
+            // console.log(files)
+            // return;
             testFile = /^image\/\w+$/;
             for (var i = 0; i < files.length; i++) {
 
               if (testFile.test(files[i].type)) {
                 // console.log(files[i])
                 this.imgUrl.push(URL.createObjectURL(files[i]))
+                this.modifyImg (files[i])
               } else {
                 this.initMsg('请选择图片')
               }

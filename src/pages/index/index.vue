@@ -274,7 +274,7 @@ export default {
     },
     defaultData(){
       // this.fetchList();
-      // this.getProfile ();
+      this.getProfile ();
       // this.getNotice()
     },
     countDown (total){
@@ -311,15 +311,8 @@ export default {
             this.switchState({
               PROFILE:resData.result,
             })
-            // this.totalBonus = this.profile.total_bonus
-            // if (Number(this.profile.friend_bonus)) this.totalBonus = html.add(this.profile.friend_bonus,this.totalBonus)
-            // if (Number(this.profile.recharge_bonus)) this.totalBonus = html.add(this.profile.recharge_bonus,this.totalBonus)
-            // if (Number(this.profile.goods_bonus)) this.totalBonus = html.add(this.profile.goods_bonus,this.totalBonus)
             this.headImg = this.globalAvatar+(this.profile.avatar?this.profile.avatar:'')+'?imageView2/2/w/100/h/100/t/'+new Date().getTime();
 
-            this.countBonus = this.profile.total_bonus?this.profile.total_bonus:'0.00';
-            // console.log(this.profile)
-            // this.countDown (this.totalBonus)
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.needLogin = true;

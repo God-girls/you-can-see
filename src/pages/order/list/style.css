@@ -33,6 +33,9 @@
   border-bottom: 1px solid #dedede ;/*no*/
   padding: 20px 0px;
 }
+.prdOne dl dd{
+  line-height: 50px;
+}
 .prdOne ul{
   padding-top: 10px;
 }

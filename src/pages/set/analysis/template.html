@@ -1,9 +1,9 @@
 <Layout>
-  <div>
+<!--   <div>
     <myhead :hval="header" slot="header"></myhead>
-  </div>
+  </div> -->
 
-    <div class="tab tC blackCR">
+    <div class="tab tC blackCR f30">
       <ul class="flexBox1">
         <li v-for="(item,index) in tabs" :class="{'greenCR current':index == isCur}">{{item.name}}</li>
       </ul>
@@ -59,7 +59,7 @@
     </dl>
   </div> -->
 
-  <div class="balance">
+  <div class="balance f30">
     <dl class="flexBox blackCR">
       <dt>总收入：</dt>
       <dd class="grayCR">2222 元</dd>
@@ -78,7 +78,7 @@
     </dl>
   </div>
 
-  <div class="index-wrap  fadeIn animateds">
+  <div class="index-wrap  fadeIn animateds f30">
     <p>
       <span class="current greenCR">按销量</span>
       <span>按数量</span>

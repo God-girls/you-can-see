@@ -20,7 +20,7 @@
   <scroller :on-infinite="onInfinite" :on-refresh="onRefresh" :noDataText="noDataText" ref="my_scroller" loadingLayerColor="#b0abbd">
     <div class="balance f30">
       <dl>
-        <dt>累计收入：99999元，超过平台35%的卖家</dt>
+        <dt>累计收入：{{profile.total_income?profile.total_income:'0'}} 元<!-- ，超过平台35%的卖家 --></dt>
         <dd>提现记录</dd>
       </dl>
     </div>

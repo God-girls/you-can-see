@@ -52,8 +52,6 @@ export default {
       bottomBarH:'',
       navType:'home',
       profile:{
-        power:0,
-        diamond:0
       },
       fetBonusType:[],
       statusBG:'status1',
@@ -274,7 +272,7 @@ export default {
       this.displayOnce = false;
     },
     defaultData(){
-      // this.fetchList();
+      this.fetchList();
       this.getProfile ();
       // this.getNotice()
     },
@@ -300,7 +298,9 @@ export default {
     },
     getProfile (){
       
-      axios.post('/bonus_api/v1/bonus/userinfo',qs.stringify(this.paraData),{
+      axios.post('/seller_api/v1/seller/userinfo',qs.stringify({
+        uid:this.paraData.uid
+      }),{
           headers: {
               "A-Token-Header": this.token,
           }
@@ -313,7 +313,7 @@ export default {
               PROFILE:resData.result,
             })
             this.headImg = this.globalAvatar+(this.profile.avatar?this.profile.avatar:'')+'?imageView2/2/w/100/h/100/t/'+new Date().getTime();
-
+            console.log(this.headImg)
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.needLogin = true;
@@ -326,7 +326,7 @@ export default {
     },
     fetchList(){
 
-      axios.post('/bonus_api/v1/bonus/list_goods',qs.stringify(this.paraData),{
+      axios.post('/seller_api/v1/seller/my_goods',qs.stringify(this.paraData),{
         headers: {
             "A-Token-Header": this.token,
         }
@@ -346,24 +346,20 @@ export default {
       })
 
     },
-    getNotice (){
-
-        axios.post('/bonus_api/v1/bonus/fetch_notify',qs.stringify({
+    onOffGoods (gid,flag){
+        axios.post('/seller_api/v1//seller/goods_control',qs.stringify({
           'uid':this.paraData.uid,
-          'start':0,
-          'count':2
+          'gid':gid,
+          'flag':flag
         }),{
             headers: {
                 "A-Token-Header": this.token,
             }
           }).then((response)=>{   
             let resData = response.data;
-            this.noticeData = [];
+            
             if (resData.success) {
-              for (var i = 0; i < resData.result.length; i++) {
-                this.noticeData.push(JSON.parse(resData.result[i]))
-              }
-              if (!this.scrollTimer) this.scrollLeft();
+              this.fetchList();
             }  else {
               if (resData.code == '403' || resData.code == '250') {
                 this.needLogin = true;
@@ -374,6 +370,31 @@ export default {
         }).catch((response)=>{
           this.logErrors(JSON.stringify(response))
         });  
+    },
+    upTop (gid){
+      axios.post('/seller_api/v1//seller/create_goods',qs.stringify({
+        'uid':this.paraData.uid,
+        'gid':gid,
+        'pubsh':new Date().getTime()
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;
+          
+          if (resData.success) {
+            this.fetchList();
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.needLogin = true;
+              this.noToken = true;
+            }
+            // console.log(resData.msg);
+          }
+      }).catch((response)=>{
+        this.logErrors(JSON.stringify(response))
+      });  
     },
     initMSG(arr){
       this.loading = true;
@@ -422,19 +443,9 @@ export default {
         this[arr] = false;
     },
     fetchBonus (type){
-      this.$refs.musicDiamond.play();
-      if (type == 'G') {
-        this.popArr[this.indexArr[0]]['flag'] = true;
-        this.countDown (this.profile.goods_bonus_pool)
-      }else if (type == 'R') {
-        this.popArr[this.indexArr[1]]['flag'] = true;
-        this.countDown (this.profile.recharge_bonus_pool)
-      }else{
-        this.popArr[this.indexArr[2]]['flag'] = true
-        this.countDown (this.profile.friend_bonus_pool)
-      }
+
       setTimeout(()=>{
-        axios.post('/bonus_api/v1/bonus/fetch_bonus',qs.stringify({
+        axios.post('/seller_api/v1/seller/fetch_bonus',qs.stringify({
           uid:this.paraData.uid,
           type:type
         }),{

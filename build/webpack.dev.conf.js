@@ -20,7 +20,7 @@ module.exports = merge(webpackBaseConfig, {
         port: 5678, // server port
         proxy: {
             host: 'http://localhost:2111',
-            match: '^(/bonus_api/v1/|/bhu_commdity_api/|/websock_m/|/websock_c/)'
+            match: '^(/seller_api/v1/|/bhu_commdity_api/|/websock_m/|/websock_c/)'
         }
         
     }

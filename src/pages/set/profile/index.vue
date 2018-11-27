@@ -87,7 +87,7 @@ export default {
       'switchState', // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`'
     ]),
     getProfile (){
-      axios.post('/bonus_api/v1/bonus/userinfo',qs.stringify(this.paraData),{
+      axios.post('/seller_api/v1/seller/userinfo',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,
           }
@@ -159,7 +159,7 @@ export default {
       var data = new FormData();
       if (this.imgFile) data.append('avatar',this.imgFile,this.imgFile.name);
       data.append("uid", this.paraData.uid);
-      axios.post('/bonus_api/v1/user/updated',data,{
+      axios.post('/seller_api/v1/user/upd_profile',data,{
           headers: {
               "A-Token-Header": this.token,
               'Content-Type':'multipart/form-data'

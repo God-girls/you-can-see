@@ -9,8 +9,8 @@
                 <img :src="headImg" alt="" :onerror="defaultHead">
               </p>
               <p class="flex1 ">
-                <span class="f30">冬冬</span>
-                <span class="grayCR">手机号：13200000000</span>
+                <span class="f30">{{profile.nick}}</span>
+                <span class="grayCR">手机号：{{profile.acc ? profile.acc : ''}}</span>
               </p>
             </div>
           </dd>
@@ -29,7 +29,7 @@
           </dt>
           <dd class="flex1 f30">我的钱包</dd>
           <dd class="tR">
-            余额：{{profile.nick}} <i class="iconfont icon-jiantou f24"></i>
+            余额：{{profile.balance?profile.balance:'0'}} <i class="iconfont icon-jiantou f24"></i>
           </dd>
         </dl>
       </router-link>
@@ -40,7 +40,7 @@
           </dt>
           <dd class="flex1 f30">收入分析</dd>
           <dd class="tR">
-            总计：{{profile.nick}} <i class="iconfont icon-jiantou f24"></i>
+            总计：{{profile.total_income?profile.total_income:'0'}} <i class="iconfont icon-jiantou f24"></i>
           </dd>
         </dl>
       </router-link>
@@ -51,7 +51,7 @@
           </dt>
           <dd class="flex1 f30">商品分析</dd>
           <dd class="tR">
-             总计：{{profile.nick}} <i class="iconfont icon-jiantou f24"></i>
+             总计：{{profile.total_count?profile.total_count:'0'}} <i class="iconfont icon-jiantou f24"></i>
           </dd>
         </dl>
       </router-link>

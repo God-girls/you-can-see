@@ -124,7 +124,7 @@ export default {
               window.localStorage.setItem('ttUid', resData.result.id);
               window.localStorage.setItem('ttToken', resData.result.atoken);
               this.switchState({
-                TOKEN:response.headers['a-token-header'],
+                TOKEN:resData.result.atoken,
                 UID:resData.result.id
               })
               location.href = this.jumpto;                

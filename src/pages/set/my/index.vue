@@ -61,10 +61,10 @@ export default {
     //   this.isWechat = true;
     // }
 
-    // if (this.TOKEN) {
-    //   this.profile = this.PROFILE
-    //   this.headImg = this.globalAvatar+(this.profile.avatar?this.profile.avatar:'')+'?imageView2/2/w/200/h/200/t/'+new Date().getTime();
-    // }
+    if (this.TOKEN) {
+      this.profile = this.PROFILE
+      this.headImg = this.globalAvatar+(this.profile.avatar?this.profile.avatar:'')+'?imageView2/2/w/200/h/200/';
+    }
     dplus.track('我的',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
 

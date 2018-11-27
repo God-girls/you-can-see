@@ -12,9 +12,9 @@ export default{
     if (location.href.indexOf('testseller.bhuwifi.com') > -1 
         || location.href.indexOf('localhost') > -1 
         || location.href.indexOf('4.114') > -1) {
-        avatarg = 'https://bonustestimg.bhuwifi.com/seller/';
+        avatarg = 'https://testsellerimg.bhuwifi.com/seller/';
         ttDomain = 'https://testseller.bhuwifi.com';
-        qiimgsg = 'https://bonustestimg.bhuwifi.com/';
+        qiimgsg = 'https://testsellerimg.bhuwifi.com/';
     }
     // Vue.prototype.downPC = 'https://www.ethmainchain.com/pages/master/download.html';
     Vue.prototype.downMobile = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.lianlian.hdd'

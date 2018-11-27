@@ -30,7 +30,7 @@
           <dl class="flexBox">
             <dd class="flex1">个性签名：</dd>
             <dd class="tR">
-              {{profile.nick}} <i class="iconfont icon-jiantou f24"></i>
+              {{profile.signature?profile.signature:''}} <i class="iconfont icon-jiantou f24"></i>
             </dd>
           </dl>
         </router-link>
@@ -46,7 +46,7 @@
           <dl class="flexBox">
             <dd class="flex1">出生日期：</dd>
             <dd class="tR">
-               {{pushpop.version}}<i class="iconfont icon-jiantou f24"></i>
+               {{profile.birthday?profile.birthday:''}}<i class="iconfont icon-jiantou f24"></i>
             </dd>
           </dl>
         </li>
@@ -55,7 +55,7 @@
           <dl class="flexBox">
             <dd class="flex1">地区：</dd>
             <dd class="tR">
-               {{pushpop.push}}<i class="iconfont icon-jiantou f24"></i>
+               {{profile.country+' '+profile.province+' '+profile.city}}<i class="iconfont icon-jiantou f24"></i>
             </dd>
           </dl>
         </li>
@@ -67,7 +67,7 @@
           <dl class="flexBox">
             <dd class="flex1">手机号：</dd>
             <dd class="tR">
-              {{profile.nick}} <i class="iconfont icon-jiantou f24"></i>
+              {{profile.acc?profile.acc:''}} <i class="iconfont icon-jiantou f24"></i>
             </dd>
           </dl>
         </router-link>
@@ -75,7 +75,7 @@
           <dl class="flexBox">
             <dd class="flex1">微信号：</dd>
             <dd class="tR">
-              {{profile.sex}} <i class="iconfont icon-jiantou f24"></i>
+              {{profile.weixin}} <i class="iconfont icon-jiantou f24"></i>
             </dd>
           </dl>
         </router-link>
@@ -83,7 +83,7 @@
           <dl class="flexBox">
             <dd class="flex1">QQ号：</dd>
             <dd class="tR">
-               {{pushpop.version}}<i class="iconfont icon-jiantou f24"></i>
+               {{profile.version}}<i class="iconfont icon-jiantou f24"></i>
             </dd>
           </dl>
         </li>

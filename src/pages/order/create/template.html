@@ -6,9 +6,9 @@
     </h1>
   </div> -->
 
-  <div class="publish">
+  <div class="publish f30">
     <div>
-      <textarea placeholder="商品描述..." id="text"></textarea>
+      <textarea placeholder="商品描述..." id="text" v-model="paraData.desc"></textarea>
     </div>
     <ul>
       <li  v-for="(item,index) in imgUrl" class="posiR imgs" @touchend.prevent="previewImage(imgUrl[index])">
@@ -17,10 +17,10 @@
           <img :src="imgUrl[index]" alt=""> 
 
       </li>
-<!--       <li class="posiR" @touchend.prevent="previewImage">
+      <li class="posiR" @touchend.prevent="chooseImg">
         <img src="../../../assets/img12/index/topbg.jpg" alt="">
-        <input type="file" class="modifyImg" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" @change="onFileChange" unselectable="on" multiple="multiple" />
-      </li>     -->  
+<!--         <input type="file" class="modifyImg" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" @change="onFileChange" unselectable="on" multiple="multiple" /> -->
+      </li>      
       <li class="special posiR" v-if="imgUrl.length < 9">
         <i class="iconfont icon-jia"></i>
         <input type="file" class="modifyImg" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" @change="onFileChange" unselectable="on" multiple="multiple" />
@@ -69,9 +69,9 @@
 
   <div slot="footer">
     <div class="footer tC f30">
-      <p class="btn btn-green" @click.prevent="goto('/order/edit?from=address&type=add')">发布</p>
+      <p class="btn btn-green" @click.prevent="created">发布</p>
     </div>
-    <!-- <myfooter :current="navType"></myfooter> -->
+    <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
   </div>
   
 </Layout>

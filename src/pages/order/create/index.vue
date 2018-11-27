@@ -24,14 +24,17 @@ export default {
       isCur: 1,
       isSlider:0,
       token:'',
-      loading:false,
       begin_seconds:false,
       statusBar:{},
-      loadError:'',
       historyTotalPN:1,
       bottomBarH:[],
+      loading:false,
+      loadError:'',
       leftTime:'00:00:00',
-      paraData:{},
+      paraData:{
+        price:{},
+        imgs:[]
+      },
       isApp:'',
       navType:'my',
       profile:{},
@@ -66,6 +69,7 @@ export default {
     if (this.TOKEN) {
       this.profile = this.PROFILE;
       this.paraData.uid = this.UID;
+      this.token = this.TOKEN;
     }
     // this.getShare ();
     this.autoTextarea(document.getElementById("text"),'',400)
@@ -137,9 +141,28 @@ export default {
               var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
               _this.imgUrl = localIds
               _this.uploadImg(localIds)
-              // alert(JSON.stringify(this.imgUrl))
+              _this.showImg(localIds[0])
           }
       });      
+
+    },
+    showImg(localIds){
+      let _this = this;
+      wx.getLocalImgData({
+        localId: localIds,
+        success: function (res) {
+            var localData = res.localData;
+            if (localData.indexOf('data:image') != 0) {
+                //判断是否有这样的头部
+                localData = 'data:image/jpeg;base64,' +  localData
+            }
+            localData = localData.replace(/\r|\n/g, '').replace('data:image/jgp', 'data:image/jpeg')
+            //第一个替换的是换行符，第二个替换的是图片类型，因为在IOS机上测试时看到它的图片类型时jgp，
+            //这不知道时什么格式的图片，为了兼容其他设备就把它转为jpeg
+            _this.imgUrl.push(localData)//images是业务中用到的变量
+            // showImage(localData)
+        }
+      })
 
     },
     uploadImg(localIds){
@@ -159,11 +182,19 @@ export default {
         urls: this.imgUrl
       });
     },
+    initMSG(arr){
+      this.loading = true;
+      this.loadError = arr;
+      setTimeout(()=>{
+        this.loading = false;
+        this.loadError = '';
+      },2000)
+    },
     modifyImg (thisImgFile){
       var data = new FormData();
-      data.append('images',thisImgFile,thisImgFile.name);
+      data.append('image',thisImgFile,thisImgFile.name);
       data.append("uid", this.paraData.uid);
-      axios.post('/pixel_api/v1/user/updated',data,{
+      axios.post('/seller_api/v1/seller/upload_image',data,{
           headers: {
               "A-Token-Header": this.token,
               'Content-Type':'multipart/form-data'
@@ -172,10 +203,12 @@ export default {
         this.loading = false;        
           let resData = response.data;  
           if (resData.success) {
+            
+            this.imgFile.push(resData.result)
             // this.getProfile ();
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              this.goto('/')
+              // this.goto('/')
             }else{
               this.initMSG(resData.codemsg)
             }
@@ -202,11 +235,10 @@ export default {
               if (testFile.test(files[i].type)) {
                 // console.log(files[i])
                 this.imgUrl.push(URL.createObjectURL(files[i]))
-                this.modifyImg (files[i])
+                this.modifyImg (files[i]);
               } else {
                 this.initMsg('请选择图片')
-              }
-              this.imgFile.push(files[i])
+              }              
             }
 
         }
@@ -280,24 +312,31 @@ export default {
         addEvent('focus', change);
         change();
     },
-    wakeQQ(){
-      if(html.isWawa()) {
-        setupWebViewJavascriptBridge((webBridge)=> {
-          webBridge.callHandler('wakeQQ',
-            {'qq':'875332802',
-             'key':html.isWawaIos()?'8d8a7b4f7f60a342612e85bcd36908a5205d1381d48904d3240ed3997587d49b':'nfHFQkaZul8ms7jg23YmvKg8-ix0ZoTO'})
-        })
-      }
+    created(){
+      // debugger
+      this.paraData.imgs = JSON.stringify(this.imgFile);
+      this.paraData.price = JSON.stringify({'spec_name':'*','def_price':'2'})
+      this.loading = true;
+      axios.post('/seller_api/v1/seller/create_goods',qs.stringify(this.paraData),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+        this.loading = false;        
+          let resData = response.data;  
+          if (resData.success) {
+            this.loading = false
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              // this.goto('/')
+            }else{
+              this.initMSG(resData.codemsg)
+            }
+          }
+
+      }).catch(function(response){});        
     },
     goto (arr){
-      if (arr == '/my/invite' && this.isWechat) {
-        if (Number(this.profile.total_bonus) > 10) {
-          wx.miniProgram.navigateTo({url: `/pages/share/share?type=invite&sharepic=sharefinviter.jpg&inviter=${this.profile.invite_code}&desc=${this.profile.nick}邀请你一起购物赚钱，${this.profile.nick}已在红多多获得分红${this.profile.total_bonus}元！`})
-        }else{
-          wx.miniProgram.navigateTo({url: `/pages/share/share?type=invite&sharepic=sharefinviter.jpg&inviter=${this.profile.invite_code}&desc=${this.profile.nick}邀请你一起购物赚钱，全新分红式电商，买的多赚的多！`})
-        }
-        return;
-      }
        this.$router.push(arr)        
     },
     closeDialog (arr){

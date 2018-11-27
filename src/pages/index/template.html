@@ -7,13 +7,13 @@
     <dl class="tR">
       <dt>
         <ol class="flexBox">
-          <li class="flex1 whiteCR f36">冬天来了</li>
+          <li class="flex1 whiteCR f36">{{profile.nick}}</li>
           <li>
-            <img src="../../assets/img12/index/topbg.jpg" alt="">
+            <img :src="headImg" alt="">
           </li>
         </ol>
       </dt>
-      <dd class="grayCR">专营超大号服装，用心服务新老用户</dd>
+      <dd class="grayCR">{{profile.signature ? profile.signature : '这家伙很懒，什么都没留下'}}</dd>
     </dl>
   </div>
 
@@ -34,45 +34,28 @@
       </div>
     </div>
 
-    <div class="conOne">
+    <div class="conOne" v-for="(item,index) in listData">
       <div class="oneTop">
         <dl class="flexBox">
           <dt>
-            <b>25</b>九月
+            <b>{{item.publish.split(' ')[0].split('-')[2]}}</b>{{item.publish.split(' ')[0].split('-')[1]}}月
           </dt>
           <dd class="flex1">
-            <h5 class="f30">昨晚留言的朋友很多，转发去过的朋友拍的照片分享给大家</h5>
+            <h5 class="f30">{{item.desc}}</h5>
             <ul class="blueLCR">
-              <li>
-                <img src="../../assets/img12/index/topbg.jpg" alt="">
-                <i class="iconfont icon-chahao"></i>
-                <i class="iconfont icon-zhuanhuan"></i>
-              </li>
-              <li>
-                <img src="../../assets/img12/index/topbg.jpg" alt="">
-                <i class="iconfont icon-chahao"></i>
-                <i class="iconfont icon-zhuanhuan"></i>
-              </li>
-              <li>
-                <img src="../../assets/img12/index/topbg.jpg" alt="">
-                <i class="iconfont icon-chahao"></i>
-                <i class="iconfont icon-zhuanhuan"></i>
-              </li>
-              <li>
-                <img src="../../assets/img12/index/topbg.jpg" alt="">
-                <i class="iconfont icon-chahao"></i>
-                <i class="iconfont icon-zhuanhuan"></i>
-              </li>
-              <li class="special">
-                <i class="iconfont icon-iconjia whiteCR"></i>
+              <li v-for="(item2,index2) in JSON.parse(item.imgs)">
+                <img :src="globalAvatar+'goods/'+item2" alt="">
               </li>
             </ul>
             <ol class="flexBox">
               <li class="flex1 redCR f30">
-                <i class="iconfont icon-xiajia f30 blueLCR"></i> ¥466.00-599.00
+                <span v-if="item.status == 0"
+                     @touchend.prevent="onOffGoods(item.id,false)"><i class="iconfont icon-xiajia f30 blueLCR"></i></span> 
+                <span v-else  @touchend.prevent="onOffGoods(item.id,true)"><i class="iconfont icon-ccgl-xiajia f30 blueLCR"></i></span> 
+                ¥ {{item.price_range}}
               </li>
-              <li class="blueLCR">
-                <span><i class="iconfont icon-top f30"></i></span>
+              <li class="blueLCR" v-if="item.status == 0">
+                <span @touchend.prevent="upTop(item.id)"><i class="iconfont icon-top f30"></i></span>
                 <span><i class="iconfont icon-zhuanfa f48"></i></span>
                 <span><i class="iconfont icon-xiaoxi15-copy f30"></i></span>
               </li>
@@ -81,9 +64,9 @@
         </dl>
       </div>
 
-      <div class="comment posiR f30">
+      <div class="comment posiR f30" v-if="item.status == 0">
         <i class="iconfont icon-caret-up f48"></i>
-        <dl class="stars flexBox blueLCR">
+        <dl class="stars flexBox blueLCR" v-if="item.praise_head">
           <dt>
             <i class="iconfont icon-xinheart282 f30"></i>
           </dt>
@@ -111,43 +94,7 @@
                     <span class="f21 grayCR fr">11月10日 下午</span>
                     好友1
                   </p>
-                  回复<span class="special blueLCR">小小</span>：有XL号的有XL号的有XL号的有XL号的有XL号的有XL号的有XL号的
-                </li>
-              </ol>
-              <ol class="flexBox">
-                <li>
-                  <img src="../../assets/img12/index/topbg.jpg" alt="">
-                </li>
-                <li class="flex1">
-                  <p class="blueLCR">
-                    <span class="f21 grayCR fr">11月10日 下午</span>
-                    好友1
-                  </p>
-                  回复<span class="special blueLCR">小小</span>：有XL号的有XL号的有XL号的有XL号的有XL号的有XL号的有XL号的
-                </li>
-              </ol>
-              <ol class="flexBox">
-                <li>
-                  <img src="../../assets/img12/index/topbg.jpg" alt="">
-                </li>
-                <li class="flex1">
-                  <p class="blueLCR">
-                    <span class="f21 grayCR fr">11月10日 下午</span>
-                    好友1
-                  </p>
-                  回复<span class="special blueLCR">小小</span>：有XL号的有XL号的有XL号的有XL号的有XL号的有XL号的有XL号的
-                </li>
-              </ol>
-              <ol class="flexBox">
-                <li>
-                  <img src="../../assets/img12/index/topbg.jpg" alt="">
-                </li>
-                <li class="flex1">
-                  <p class="blueLCR">
-                    <span class="f21 grayCR fr">11月10日 下午</span>
-                    好友1
-                  </p>
-                  回复<span class="special blueLCR">小小</span>：有XL号的有XL号的有XL号的有XL号的有XL号的有XL号的有XL号的
+                  回复<span class="special blueLCR">小小</span>有木有啊
                 </li>
               </ol>
             </dd>
@@ -193,8 +140,6 @@
     <!-- <div class="nologinMask" v-if="iAmGuest" @touchend.prevent="iAmGuestClick = true"></div> -->
 
     <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
-    <audio ref="musicDiamond" controls="controls" style="display: none">
-    </audio>
   </div>
 
 

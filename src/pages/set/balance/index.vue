@@ -113,7 +113,7 @@ export default {
         if(done) done(true) 
         return;
       }
-      axios.post('/bonus_api/v1/bonus/wallet_log',qs.stringify(this.paraData),{
+      axios.post('/seller_api/v1/seller/withdraw_log',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,
           }

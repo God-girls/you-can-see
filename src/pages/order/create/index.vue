@@ -139,8 +139,8 @@ export default {
           success: function (res) {
               // alert(JSON.stringify(res))
               var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-              _this.imgUrl = localIds
-              _this.uploadImg(localIds)
+              // _this.imgUrl = localIds
+              // _this.uploadImg(localIds)
               _this.showImg(localIds[0])
           }
       });      

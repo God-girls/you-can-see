@@ -155,14 +155,49 @@ export default {
 
         }
     },
-    modifyImg (type){
-      var data = new FormData();
-      if (this.imgFile) data.append('avatar',this.imgFile,this.imgFile.name);
-      data.append("uid", this.paraData.uid);
-      axios.post('/seller_api/v1/user/upd_profile',data,{
+    chooseImg(){
+      let _this = this;
+      wx.chooseImage({
+          count: 1, // 默认9
+          sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+          success: function (res) {
+              // alert(JSON.stringify(res))
+              var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+              // _this.imgUrl = localIds
+              // _this.uploadImg(localIds)
+              _this.showImg(localIds[0])
+          }
+      });      
+
+    },
+    showImg(localIds){
+      let _this = this;
+      wx.getLocalImgData({
+        localId: localIds,
+        success: function (res) {
+            var localData = res.localData;
+            if (localData.indexOf('data:image') != 0) {
+                //判断是否有这样的头部
+                localData = 'data:image/jpeg;base64,' +  localData
+            }
+            localData = localData.replace(/\r|\n/g, '').replace('data:image/jgp', 'data:image/jpeg')
+            //第一个替换的是换行符，第二个替换的是图片类型，因为在IOS机上测试时看到它的图片类型时jgp，
+            //这不知道时什么格式的图片，为了兼容其他设备就把它转为jpeg
+            // _this.imgUrl.push(localData)//images是业务中用到的变量
+            _this.imgFile = localData;
+            _this.modifyImg();
+        }
+      })
+    },
+    modifyImg (){
+
+      axios.post('/seller_api/v1/user/upd_profile',qs.stringify({
+        uid:this.paraData.uid,
+        avatar_b64:this.imgFile
+      }),{
           headers: {
               "A-Token-Header": this.token,
-              'Content-Type':'multipart/form-data'
           }
         }).then((response)=>{   
         this.loading = false;        

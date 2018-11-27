@@ -213,7 +213,7 @@ export default {
     shareFunc(obj){
       let vm = this;
       wx.config(Object.assign(obj,{
-          debug: true,
+          // debug: true,
           jsApiList: [
             "checkJsApi",
             'onMenuShareTimeline',
@@ -312,8 +312,7 @@ export default {
             this.switchState({
               PROFILE:resData.result,
             })
-            this.headImg = this.globalAvatar+(this.profile.avatar?this.profile.avatar:'')+'?imageView2/2/w/100/h/100/t/'+new Date().getTime();
-            console.log(this.headImg)
+            this.headImg = this.globalAvatar+(this.profile.avatar?this.profile.avatar:'')+'?imageView2/2/w/100/h/100/t/';
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.needLogin = true;

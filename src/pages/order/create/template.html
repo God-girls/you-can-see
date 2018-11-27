@@ -17,15 +17,14 @@
           <img :src="imgUrl[index]" alt=""> 
 
       </li>
-      <li class="posiR" @touchend.prevent="chooseImg">
-        <img src="../../../assets/img12/index/topbg.jpg" alt="">
-<!--         <input type="file" class="modifyImg" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" @change="onFileChange" unselectable="on" multiple="multiple" /> -->
+      <li class="special posiR" @touchend.prevent="chooseImg">
+        <i class="iconfont icon-jia"></i>
       </li>      
-      <li class="special posiR" v-if="imgUrl.length < 9">
+<!--       <li class="special posiR" v-if="imgUrl.length < 9">
         <i class="iconfont icon-jia"></i>
         <input type="file" class="modifyImg" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" @change="onFileChange" unselectable="on" multiple="multiple" />
       </li>
-
+ -->
     </ul>
   </div>
 

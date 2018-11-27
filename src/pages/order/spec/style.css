@@ -39,7 +39,7 @@
   background: #c7edbd;
 }
 .myDetail dl dd p span{
-  padding: 8px 10px 8px 0;
+  padding: 8px 5px 8px 5px;
 }
 .myDetail dl dd p span:active{
   color: #d66167

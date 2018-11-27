@@ -14,9 +14,9 @@ export default new vuex.Store({
         RECORDPRD:{},
         UNIONID:'',
         CART:{
-            goodsChecked:[],
-            amount:0,
-            totalPrice:0,
+            showComment:true,
+            showSalenum:true,
+            spec:[],
             commdityname:'',
             payByMoney:false
         },

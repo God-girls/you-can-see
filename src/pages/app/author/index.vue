@@ -114,10 +114,9 @@ export default {
         if (r!=null) return r[2]; return null;
     },    
     getLogin (){//微信登录
-        this.jumpto = location.href.indexOf('jumpto') > -1 ? unescape(this.getQueryValue('jumpto')) : (this.ttDomain+'?'+this.timeStamp);
 
         if (location.href.indexOf('code') > -1) this.paraData.code = unescape(this.getQueryValue('code'));
-        // alert(JSON.stringify(this.paraData))
+        
         axios.post('/seller_api/v1/sessions/create_oauth',qs.stringify(this.paraData)).then((response)=>{   
             let resData = response.data;  
             if (resData.success) {
@@ -127,7 +126,11 @@ export default {
                 TOKEN:resData.result.atoken,
                 UID:resData.result.id
               })
-              location.href = this.jumpto;                
+              if (location.href.indexOf('jumpto') > -1) {
+                location.href = this.jumpto;      
+              }else{
+                this.$router.push('/')
+              }
 
             }else{
               alert(resData.codemsg)

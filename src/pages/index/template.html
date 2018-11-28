@@ -1,8 +1,11 @@
 <Layout>
   <div class="header posiR f30">
-    <img src="../../assets/img12/index/topbg.jpg" alt="" class="head">
+    
+    <h3 @click.prevent="changebg = true">
+      <img :src="globalAvatar+'goods/'+sellerInfo.background" alt="" class="head" v-if="sellerInfo.background">
+    </h3>
     <p class="blueLCR">
-      <i class="iconfont icon-heart-opp-copy f30"></i> {{sellerInfo.praise}}
+      <span @click.prevent="praiseBG"><i class="iconfont icon-heart-opp-copy f30"></i> {{sellerInfo.praise}}</span>
     </p>
     <dl class="tR">
       <dt>
@@ -55,8 +58,8 @@
                 ¥ {{item.price_range}}
               </li>
               <li class="blueLCR" v-if="item.status == 0">
-                <span v-if="item.praised"><i class="iconfont icon-heart-opp-copy f30"></i></span>
-                <span v-else @click.prevent="praisePrd(item,index)"><i class="iconfont icon-xinheart282 f30"></i></span>
+                <!-- <span v-if="item.praised"><i class="iconfont icon-heart-opp-copy f30"></i></span> -->
+                <span v-if="!item.praised" @click.prevent="praisePrd(item,index)"><i class="iconfont icon-xinheart282 f30"></i></span>
                 <span @click.prevent="upTop(item.id)"><i class="iconfont icon-top f30"></i></span>
                 <span><i class="iconfont icon-zhuanfa f48"></i></span>
                 <span @click.prevent="beforeReply(item,index)"><i class="iconfont icon-xiaoxi15-copy f30"></i></span>
@@ -109,7 +112,7 @@
   <div slot="footer">
     <div class="footComment animateds slideInUp" v-if="reply">
       <dl class="flexBox">
-        <dt class="flex1"><input type="text" name="" :placeholder="placeholder" v-model="comment.tips"></dt>
+        <dt class="flex1"><input type="text" class="f30 blackCR" :placeholder="placeholder" v-model="comment.tips"></dt>
         <dd>
           <span class="btn btn-green btn-sm" @touchend.prevent="goodsComment">发送</span>
         </dd>
@@ -154,6 +157,17 @@
         </div>
 
     </dialog-del>
+
+    <dialog-del :dialogshow2.sync="changebg" @hide="closeDialog('changebg')">
+        <div slot="dialog-footer" class="del-footer tC f30">
+          <dl>
+            <dt class="redCR" @touchend.prevent="chooseImg">更换背景</dt>
+            <dd @touchend.prevent="closeDialog('changebg')">取消</dd>
+          </dl>          
+        </div>
+
+    </dialog-del>
+
     <!-- <div class="nologinMask" v-if="iAmGuest" @touchend.prevent="iAmGuestClick = true"></div> -->
 
     <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>

@@ -46,7 +46,7 @@ export default {
       iAmGuestClick:false,
       popBuy:false,
       popFriend:false,
-      popMoney:false,
+      changebg:false,
       countBonus:0,
       statusBar:{},
       bottomBarH:'',
@@ -413,6 +413,32 @@ export default {
         this.logErrors(JSON.stringify(response))
       });  
     },
+    praiseBG(){
+      if (this.sellerInfo.praised) return;
+      axios.post('/seller_api/v1/seller/seller_praise',qs.stringify({
+        'uid':this.paraData.uid,
+        'seller':this.paraData.uid,
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;
+          
+          if (resData.success) {
+            this.sellerInfo.praise++;
+            this.sellerInfo.praised = true;
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.needLogin = true;
+              this.noToken = true;
+            }
+            // console.log(resData.msg);
+          }
+      }).catch((response)=>{
+        this.logErrors(JSON.stringify(response))
+      });  
+    },
     fetchPraise(item,index,flag){
       axios.post('/seller_api/v1/seller/fetch_praise',qs.stringify({
         'uid':this.paraData.uid,
@@ -554,6 +580,56 @@ export default {
         this.initMSG('网络异常再试一次');
       });  
     },
+    chooseImg(){
+      let _this = this;
+      wx.chooseImage({
+          count: 1, // 默认9
+          sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+          success: function (res) {
+            var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+            _this.showImg(localIds[0])
+          }
+      });      
+
+    },
+    showImg(localIds){
+      let _this = this;
+      wx.getLocalImgData({
+        localId: localIds,
+        success: function (res) {
+            var localData = res.localData;
+            if (localData.indexOf('data:image') != 0) {
+              localData = 'data:image/jpeg;base64,' +  localData
+            }
+            localData = localData.replace(/\r|\n/g, '').replace('data:image/jgp', 'data:image/jpeg')
+            _this.sellerInfo.background = localData//images是业务中用到的变量
+            _this.modifyImg(localData);
+        }
+      })
+    },
+    modifyImg (localData){
+      axios.post('/seller_api/v1/user/upd_profile',qs.stringify({
+        uid:this.paraData.uid,
+        background_b64:localData
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{         
+          let resData = response.data;  
+          if (resData.success) {
+            // this.sellerInfo ();
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.goto('/')
+            }else{
+              this.initMSG(resData.codemsg)
+            }
+          }
+
+      }).catch(function(response){});  
+    },    
     initMSG(arr){
       this.loading = true;
       this.loadError = arr;

@@ -132,7 +132,10 @@ export default {
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
             var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-            _this.showImg(localIds[0])
+            for (var i = 0; i < localIds.length; i++) {
+              _this.showImg(localIds[i])
+            }
+            
           }
       });      
 
@@ -179,7 +182,7 @@ export default {
               // 'Content-Type':'multipart/form-data'
           }
         }).then((response)=>{   
-          this.loading = false;        
+          // this.loading = false;        
           let resData = response.data;  
           if (resData.success) {
             

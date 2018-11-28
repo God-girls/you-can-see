@@ -8,6 +8,7 @@ import myhead from '../../../components/base/header'
 import {html} from '../../../assets/js/global.js';
 import modalDialog from '../../../components/base/dialog'
 import { mapState, mapActions } from 'vuex'
+import wx from 'weixin-js-sdk'; 
 import axios from 'axios';
 import qs from 'qs';
 

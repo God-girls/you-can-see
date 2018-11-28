@@ -238,8 +238,8 @@ export default {
       this.paraData.show_sell = this.CART.other.show_sell;
       this.paraData.sell_base = this.CART.other.sell_base;
       this.paraData.ext = JSON.stringify(this.CART.priceSet);
-      console.log(JSON.stringify(this.paraData))
-      return;
+      alert(JSON.stringify(this.paraData))
+      
       if (!this.paraData.desc) {
         this.initMSG('添加商品描述')
         return;

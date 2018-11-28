@@ -2,10 +2,13 @@
   <div class="header posiR f30">
     
     <h3 @click.prevent="changebg = true">
-      <img :src="globalAvatar+'goods/'+sellerInfo.background" alt="" class="head" v-if="sellerInfo.background">
+      <img :src="sellerInfo.background" alt="" class="head" v-if="sellerInfo.background.indexOf('data:image') > -1">
+      <img :src="globalAvatar+sellerInfo.background" alt="" class="head" v-else>
     </h3>
     <p class="blueLCR">
-      <span @click.prevent="praiseBG"><i class="iconfont icon-heart-opp-copy f30"></i> {{sellerInfo.praise}}</span>
+      <span @click.prevent="praiseBG">
+        <i class="iconfont icon-heart-opp-copy f30"></i> {{sellerInfo.praise}}
+      </span>
     </p>
     <dl class="tR">
       <dt>

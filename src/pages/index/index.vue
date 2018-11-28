@@ -62,7 +62,9 @@ export default {
       scrollLeftpx:'',
       noticeData:[],
       totalBonus:0,
-      sellerInfo:{},
+      sellerInfo:{
+        background:''
+      },
       comment:{
         tips:'',
         cid:'',
@@ -222,7 +224,7 @@ export default {
     shareFunc(obj){
       let vm = this;
       wx.config(Object.assign(obj,{
-          // debug: true,
+          debug: true,
           jsApiList: [
             "checkJsApi",
             'onMenuShareTimeline',
@@ -273,6 +275,7 @@ export default {
           
           if (resData.success) {
             this.sellerInfo = resData.result;
+            this.sellerInfo.background = this.sellerInfo.background ? sellerInfo.background : ' '
             this.headImg = this.globalAvatar+(this.sellerInfo.avatar?this.sellerInfo.avatar:'')+'?imageView2/2/w/100/h/100/t/';
           }  else {
             if (resData.code == '403' || resData.code == '250') {
@@ -453,7 +456,7 @@ export default {
           let resData = response.data;
           
           if (resData.success) {
-            this.listData[index].praise_head = JSON.stringify(resData.result.items)
+            this.listData[index].praise_head = resData.result.items.length ? JSON.stringify(resData.result.items) : ''
             this.listData[index].praised = true;
             if (flag) {
               this.praiseLen++;
@@ -582,14 +585,15 @@ export default {
     },
     chooseImg(){
       let _this = this;
+      this.changebg = false;
       wx.chooseImage({
-          count: 1, // 默认9
-          sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
-          sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-          success: function (res) {
-            var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-            _this.showImg(localIds[0])
-          }
+        count: 1, // 默认9
+        sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
+        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+        success: function (res) {
+          var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+          _this.showImg(localIds[0])
+        }
       });      
 
     },

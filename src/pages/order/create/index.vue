@@ -261,7 +261,23 @@ export default {
         this.loading = false;        
           let resData = response.data;  
           if (resData.success) {
-            this.initMSG('发布成功')
+            this.initMSG('发布成功');
+            this.switchState({
+              CART:{
+                  priceSet:{
+                      def_price:'',
+                      subIndex: 0,
+                      curIndex:0,
+                      price:[]                
+                  },
+                  specs:[],
+                  other:{
+                      show_comment:true,
+                      show_sell:true,
+                      sell_base:0
+                  }
+              }
+            })
             setTimeout(()=>{
               this.goto('/')
             },2000)

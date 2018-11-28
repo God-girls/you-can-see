@@ -22,8 +22,10 @@ export default {
   data () {
     return {
       header:{
-        'name':'规则设置',
+        'name':'规格设置',
         'link':'/prd/create',
+        'subFunc':true,
+        'subname':'添加'
       },
       loading:false,
       loadError:'',

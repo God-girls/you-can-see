@@ -31,7 +31,7 @@
       position: absolute;
       right: 0px;
       /*top: 8px;*/
-      color: #39bbdc;
+      /*color: #39bbdc;*/
       padding: 8px 0 8px 10px;
     }
     .my-header ul li.midli span{
@@ -53,7 +53,9 @@
         -ms-user-select:none; /*IE10*/     
         user-select:none;  
     }
-    
+    .icon-add{
+      margin-right: 5px;
+    }
     .noBg{
       background: none;
     }
@@ -69,12 +71,12 @@
         </li>
         <li  class="special opacity" v-else><i class="iconfont icon-fanhui f36"></i></li>
         <li class="midli">
-            <a class="f24" href="javascript:;" @click.prevent="goto" v-if="hval.subname">
+            <a class="f24 greenCR" href="javascript:;" @click.prevent="goto" v-if="hval.subname">
               <i class="iconfont icon-zhuanfa f36 whiteCR" v-if="hval.share"></i> 
-              <span v-else>{{hval.subname}}</span>
+              <span v-else><i class="iconfont icon-add"></i>{{hval.subname}}</span>
             </a>
             <span :class="{'opacity0':hval.opacity}">
-              <i class="digital iconD" v-if="hval.digital"></i>{{hval.name}}
+              {{hval.name}}
             </span>
         </li>
         <!-- <li class="special"></li> -->

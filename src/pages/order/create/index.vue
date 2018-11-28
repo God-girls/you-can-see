@@ -4,7 +4,7 @@
 <script>
 import {setupWebViewJavascriptBridge} from '../../../assets/js/iosbridge.js';
 import loading from '../../../components/base/loading'
-import myfooter from '../../../components/base/footer'
+import myhead from '../../../components/base/header'
 import {html} from '../../../assets/js/global.js';
 import { mapState, mapActions } from 'vuex'
 import wx from 'weixin-js-sdk'; 
@@ -18,7 +18,6 @@ export default {
       header:{
         'name':'我的',
         'link':'/',
-        isNobg:true,
       },
       headImg:'',
       isCur: 1,
@@ -45,7 +44,7 @@ export default {
   },
   components: {
     loading,
-    myfooter,
+    myhead,
   },
   computed:{
     ...mapState([
@@ -132,10 +131,8 @@ export default {
           sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
-
-              var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-
-              _this.showImg(localIds[0])
+            var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+            _this.showImg(localIds[0])
           }
       });      
 
@@ -146,28 +143,16 @@ export default {
         localId: localIds,
         success: function (res) {
             var localData = res.localData;
-            if (localData.indexOf('data:image') != 0) {
-                //判断是否有这样的头部
+            if (localData.indexOf('data:image') != 0) {//判断是否有这样的头部
                 localData = 'data:image/jpeg;base64,' +  localData
             }
             localData = localData.replace(/\r|\n/g, '').replace('data:image/jgp', 'data:image/jpeg')
             //第一个替换的是换行符，第二个替换的是图片类型，因为在IOS机上测试时看到它的图片类型时jgp，
             //这不知道时什么格式的图片，为了兼容其他设备就把它转为jpeg
-            _this.imgUrl.push(localData)//images是业务中用到的变量
-            // showImage(localData)
+            _this.imgUrl.push(localData)
+            _this.modifyImg(localData)
         }
       })
-    },
-    uploadImg(localIds){
-      // alert('uploadImage1')
-      wx.uploadImage({
-        localId: localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
-        isShowProgressTips: 1,// 默认为1，显示进度提示
-        success: function (res) {
-          // alert(JSON.stringify(res))
-            var serverId = res.serverId; // 返回图片的服务器端ID
-        }
-      });
     },
     previewImage(currentImg){
       wx.previewImage({
@@ -183,17 +168,18 @@ export default {
         this.loadError = '';
       },2000)
     },
-    modifyImg (thisImgFile){
-      var data = new FormData();
-      data.append('image_b64',thisImgFile,thisImgFile.name);
-      data.append("uid", this.paraData.uid);
-      axios.post('/seller_api/v1/seller/upload_image',data,{
+    modifyImg (b64data){
+
+      axios.post('/seller_api/v1/seller/upload_image',qs.stringify({
+        uid:this.paraData.uid,
+        image_b64:this.imgFile
+      }),{
           headers: {
               "A-Token-Header": this.token,
-              'Content-Type':'multipart/form-data'
+              // 'Content-Type':'multipart/form-data'
           }
         }).then((response)=>{   
-        this.loading = false;        
+          this.loading = false;        
           let resData = response.data;  
           if (resData.success) {
             
@@ -207,7 +193,7 @@ export default {
             }
           }
 
-      }).catch(function(response){});  
+      }).catch(function(response){})
     },
     onFileChange (e){
         //图片上传

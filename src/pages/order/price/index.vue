@@ -4,7 +4,6 @@
 
 <script>
 import {html} from '../../../assets/js/global.js';
-import {map} from '../../../assets/js/map.js'
 import myhead from '../../../components/base/header'
 import modalDialog from '../../../components/base/dialog'
 import loading from '../../../components/base/loading'

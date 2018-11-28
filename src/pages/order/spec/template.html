@@ -1,10 +1,10 @@
 <Layout>
   
-  <!-- <myhead :hval="header"></myhead> -->
-  <div class="speTop" slot="header">
+  <myhead :hval="header" slot="header" @popshow="addFirstSpec"></myhead>
+<!--   <div class="speTop">
     <p class="btn btn-green" @touchend.prevent="addFirstSpec">添加规格</p>
     <h6 class="grayCR tC f21">如：颜色、尺寸、重量...</h6>
-  </div>
+  </div> -->
 
   <!--右上角是添加-->
   <div class="myDetail" >

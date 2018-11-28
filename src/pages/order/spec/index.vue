@@ -38,10 +38,13 @@ export default {
       token:'',
       profile:{},
       addFirst:false,
-      checkboxModel:[],
-      myAddress:[],
-      noData:false,
-      listData:[]
+      addSecond:false,
+      delSpec:false,
+      specs:[],
+      firstVal:'',
+      secondVal:'',
+      curProperty:0,
+      curDel:0
     }
   },
   computed:{
@@ -51,7 +54,7 @@ export default {
       'TOKEN',
       'PROFILE',
       'STATUSBARH',
-      'EDITAddress'
+      'CART'
     ])
   },
   created(){
@@ -60,15 +63,13 @@ export default {
     }
   },
   mounted: function () {
+
     if (this.TOKEN) {
       this.token = this.TOKEN;
-      this.paraData.uid = this.UID;
       this.profile = this.PROFILE;
-      this.fetchAddress ()
-      if (html.isWawa()) this.getStatusBar();
     }
+      this.specs = html.objClone(this.CART.specs);
 
-    dplus.track('管理收货地址',{'from':html.useragent()});//统计代码
   },
   methods: {
     ...mapActions([
@@ -80,74 +81,37 @@ export default {
         this.bottomBarH = {'padding-bottom':this.BOTTOMBARH+'px'}
       }
     },
-    fetchAddress (){
-      axios.post('/bonus_api/v1/user/fetch_receive_info',qs.stringify(this.paraData),{
-          headers: {
-              "A-Token-Header": this.token,
-          }
-        }).then((response)=>{           
-          let resData = response.data;  
-          this.loading = false
-          if (resData.success) {
-
-            this.listData = resData.result;
-            if (!resData.result.length) this.noData = true;
-          }else {
-            if (resData.code == '403' || resData.code == '250') {
-               this.goto('/')
-            }
-          }
-      }).catch(function(response){});  
+    addFirstSpec(){
+      if (this.specs.length == 5) {
+        this.initMSG('最多添加5种规格')
+        return;
+      }
+      this.addFirst = true;
     },
-    delAddress(id){
-      
-        axios.post('/bonus_api/v1/user/remove_receive_info',qs.stringify({
-          'uid':this.paraData.uid,
-          'ps':'20',
-          'id':id
-        }),{
-            headers: {
-                "A-Token-Header": this.token,
-            }
-          }).then((response)=>{           
-            let resData = response.data;  
-
-            if (resData.success) {
-              this.fetchAddress ()
-            }else {
-              if (resData.code == '403' || resData.code == '250') {
-                this.goto('/')
-              }
-            }
-        }).catch(function(response){});        
+    addSpec (){
+      let obj = {};
+      // obj.type = this.firstVal;
+      // obj.value = [];
+      obj[this.firstVal] = []
+      this.specs.push(obj);
+      this.firstVal = '';
+      this.closeDialog('addFirst')
     },
-    setDefault(item){
-      axios.post('/bonus_api/v1/user/update_receive_info',qs.stringify({
-        'uid':this.paraData.uid,
-        'id':item.id,
-        'info':item.info,
-        'def':true,
-      }),{
-          headers: {
-              "A-Token-Header": this.token,
-          }
-        }).then((response)=>{           
-          let resData = response.data;  
-
-          if (resData.success) {
-            this.fetchAddress();
-          }else {
-            if (resData.code == '403' || resData.code == '250') {
-              this.goto('/');
-            }
-          }
-      }).catch(function(response){});        
+    addProperty(){
+      let myKey = Object.keys(this.specs[this.curProperty])[0]
+      this.specs[this.curProperty][myKey].push(this.secondVal);
+      // console.log(this.specs)
+      // this.specs[this.curProperty].value.push(this.secondVal);
+      this.secondVal = '';
+      this.closeDialog('addSecond')
     },
-    editAddress(item){
-      this.switchState({
-        EDITAddress:JSON.parse(item.info),
-      })
-      this.goto('/order/edit?from=address&type=edit&id='+item.id)
+    delProperty(params){
+      this.curDel = params;
+      this.delSpec = true;
+    },
+    delSubmit(){
+      this.specs.splice(this.curDel,1);
+      this.closeDialog('delSpec')
     },
     initMSG(arr){
       this.loading = true;
@@ -157,10 +121,13 @@ export default {
         this.loadError = '';
       },2000)
     },
+    closeDialog(arr){
+      this[arr] = false
+    },
     goto(arr){
-      if (this.listData.length > 10) {
-      this.initMSG('最多可添加10个收货地址')
-      }
+      this.switchState({
+        CART:Object.assign(this.CART,{specs:this.specs})
+      })
       this.$router.push(arr)        
     },
   }

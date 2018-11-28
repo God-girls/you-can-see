@@ -54,17 +54,12 @@ export default {
       'TOKEN',
       'PROFILE',
       'STATUSBARH',
+      'CART'
     ])
   },
   mounted () {
+    console.log(this.CART)
 
-    // if (html.isWebAndroid()) {
-    //   this.isAndroid = true;
-    // }
-    // if (html.isWawa()) this.getStatusBar();
-    // if (html.isWechat()) {
-    //   this.isWechat = true;
-    // }
 
     if (this.TOKEN) {
       this.profile = this.PROFILE;
@@ -137,10 +132,9 @@ export default {
           sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
-              // alert(JSON.stringify(res))
+
               var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-              // _this.imgUrl = localIds
-              // _this.uploadImg(localIds)
+
               _this.showImg(localIds[0])
           }
       });      
@@ -191,7 +185,7 @@ export default {
     },
     modifyImg (thisImgFile){
       var data = new FormData();
-      data.append('image',thisImgFile,thisImgFile.name);
+      data.append('image_b64',thisImgFile,thisImgFile.name);
       data.append("uid", this.paraData.uid);
       axios.post('/seller_api/v1/seller/upload_image',data,{
           headers: {
@@ -312,9 +306,27 @@ export default {
         change();
     },
     created(){
-      // debugger
+      let obj = {};
+      obj.spec_name = this.CART.priceSet.spec_name;
+      obj.def_price = this.CART.priceSet.def_price;
+      obj.price = this.CART.priceSet.list;
+
       this.paraData.imgs = JSON.stringify(this.imgFile);
-      this.paraData.price = JSON.stringify({'spec_name':'*','def_price':'2'})
+      this.paraData.price = JSON.stringify(obj)
+      this.paraData.spec = JSON.stringify(this.CART.specs);
+      this.paraData.show_comment = this.CART.other.show_comment;
+      this.paraData.show_sell = this.CART.other.show_sell;
+      this.paraData.sell_base = this.CART.other.sell_base;
+      this.paraData.ext = JSON.stringify(this.CART.priceSet);
+      // console.log(this.paraData)
+      if (!this.imgFile.length) {
+        this.initMSG('请选择图片');
+        return
+      }
+      if (!this.paraData.desc) {
+        this.initMSG('添加商品描述')
+        return;
+      }
       this.loading = true;
       axios.post('/seller_api/v1/seller/create_goods',qs.stringify(this.paraData),{
           headers: {

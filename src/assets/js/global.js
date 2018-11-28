@@ -2,7 +2,7 @@
 * @Author: xiaoxiao
 * @Date:   2017-11-28 13:47:58
 * @Last Modified by:   xiaoxiao
-* @Last Modified time: 2018-10-24 21:41:14
+* @Last Modified time: 2018-11-27 17:44:35
 */
 import axios from 'axios';
 import qs from 'qs';
@@ -117,6 +117,9 @@ var html = {
         if (window.__wxjs_environment == 'miniprogram') return true;
         else return false
     }, 
+    objClone (obj) {//浅拷贝对象
+      return JSON.parse(JSON.stringify(obj))
+    },
     getQueryValue (name) {
         var str = self.location.search.substr(1)
         var reg = new RegExp("(^|&)"+name+"=([^&\n]*)(&|\n|$)");

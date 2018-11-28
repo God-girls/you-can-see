@@ -114,11 +114,11 @@ button, html [type="button"],
 [type="reset"], [type="submit"] {
     -webkit-appearance: button;
 }
-/*[disabled] {
+input[disabled] {
     cursor: default;
     color: #8084a8;
-    background: none;
-}*/
+    background: #ebebeb!important;
+}
 [type="checkbox"], [type="radio"] {
     box-sizing: border-box;
     padding: 0;
@@ -415,7 +415,6 @@ input:-webkit-autofill {
   vertical-align: middle;
   margin-right: 15px;
 }
-
 .dls dt,.dls dd{
   vertical-align: top;  
   display:inline-block;

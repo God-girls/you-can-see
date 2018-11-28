@@ -213,7 +213,7 @@ export default {
     shareFunc(obj){
       let vm = this;
       wx.config(Object.assign(obj,{
-          // debug: true,
+          debug: true,
           jsApiList: [
             "checkJsApi",
             'onMenuShareTimeline',

@@ -1,71 +1,104 @@
 <Layout>
   
-  <myhead :hval="header" slot="header"></myhead>
+  <!-- <myhead :hval="header"></myhead> -->
+  <div class="speTop" slot="header">
+    <p class="btn btn-green" @touchend.prevent="addFirstSpec">添加规格</p>
+    <h6 class="grayCR tC f21">如：颜色、尺寸、重量...</h6>
+  </div>
+
   <!--右上角是添加-->
-  <div class="myDetail">
-      <dl>
-        <dt class="f30">颜色 <span><i class="iconfont icon-chahao redCR f30"></i></span></dt>
+  <div class="myDetail" >
+<!--       <dl v-for="(item,index) in specs">
+        <dt class="f30">
+          {{item.type}} <span @click.prevent="delProperty(index)"><i class="iconfont icon-chahao redCR f30"></i></span>
+        </dt>
         <dd>
-          <p class="special">
+          <p v-for="(item2,index2) in item.value">
+            {{item2}}
+            <span @click.prevent="item.value.splice(index2,1)"><i class="iconfont icon-chahao f30"></i></span>
+          </p>
+          <p class="special" @click.prevent="curProperty = index;addSecond = true">
             <span><i class="iconfont icon-iconjia"></i></span>
           </p>
         </dd>
-      </dl>
-      <dl>
-        <dt class="f30">尺寸 <span><i class="iconfont icon-chahao redCR f30"></i></span></dt>
+      </dl> -->
+
+    <template v-for="(item,index) in specs">
+      <dl v-for="(value, key) in item">
+        <dt class="f30">
+          {{key}} <span @click.prevent="delProperty(index)"><i class="iconfont icon-chahao redCR f30"></i></span>
+        </dt>
         <dd>
-          <p class="special">
+          <p v-for="(item2,index2) in value">
+            {{item2}}
+            <span @click.prevent="value.splice(index2,1)"><i class="iconfont icon-chahao f30"></i></span>
+          </p>
+          <p class="special" @click.prevent="curProperty = index;addSecond = true">
             <span><i class="iconfont icon-iconjia"></i></span>
           </p>
         </dd>
-      </dl>
-      <dl>
-        <dt class="f30">重量 <span><i class="iconfont icon-chahao redCR f30"></i></span></dt>
-        <dd>
-          <p class="special">
-            <span><i class="iconfont icon-iconjia"></i></span>
-          </p>
-        </dd>
-      </dl>
-      <dl>
-        <dt class="f30">类型 <span><i class="iconfont icon-chahao redCR f30"></i></span></dt>
-        <dd>
-          <p>
-            红色 <span><i class="iconfont icon-chahao f30"></i></span>
-          </p>
-          <p>
-            绿色 <span><i class="iconfont icon-chahao f30"></i></span>
-          </p>
-          <p>
-            灰色 <span><i class="iconfont icon-chahao f30"></i></span>
-          </p>
-          <p class="special">
-            <span><i class="iconfont icon-iconjia"></i></span>
-          </p>
-        </dd>
-      </dl>
+      </dl>        
+    </template>
+
   </div>
 
 
 
   <div slot="footer" :style="statusBarH">
     <div class="footer tC f30">
-      <p class="btn btn-green" @click.prevent="goto('/order/edit?from=address&type=add')">确定</p>
+      <p class="btn btn-green" @click.prevent="goto('/prd/create')">确定</p>
     </div>
+
     <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
 
     <modal-dialog :dialogshow2.sync="addFirst" @hide="closeDialog('addFirst')"  :fail='true'>
       <div class="dialog-header" slot="dialog-header">
-        添加
+        添加规格
       </div>
-
+      <div class="inputSet" slot="dialog-body">
+        <input type="text" placeholder="如：颜色、尺寸、重量..." name="" v-model="firstVal">
+      </div>
       <dl class="dialog-footer" slot="dialog-footer">
-        <dd  @touchend.prevent="redirect">
-          <button type="button">登陆</button>
+        <dd  @touchend.prevent="closeDialog('addFirst')">
+          <button type="button" class="btn btn-green">取消</button>
+        </dd>
+        <dd  @touchend.prevent="addSpec">
+          <button type="button" class="btn btn-green">确定</button>
         </dd>
       </dl>    
     </modal-dialog>
-   
+
+    <modal-dialog :dialogshow2.sync="addSecond" @hide="closeDialog('addSecond')"  :fail='true'>
+      <div class="dialog-header" slot="dialog-header">
+        添加{{specs[curProperty]?specs[curProperty].type:''}}的属性
+      </div>
+      <div class="inputSet" slot="dialog-body">
+        <input type="text" placeholder="" name="" v-model="secondVal">
+      </div>
+      <dl class="dialog-footer" slot="dialog-footer">
+        <dd  @touchend.prevent="closeDialog('addSecond')">
+          <button type="button" class="btn btn-green">取消</button>
+        </dd>
+        <dd  @touchend.prevent="addProperty">
+          <button type="button" class="btn btn-green">确定</button>
+        </dd>
+      </dl>    
+    </modal-dialog>
+
+    <modal-dialog :dialogshow2.sync="delSpec" @hide="closeDialog('delSpec')"  :fail='true'>
+      <div class="inputSet f30 tC" slot="dialog-body">
+        您确定要删除 <span class="redCR">{{specs[curDel]?specs[curDel].type:''}}</span> 规格吗
+      </div>
+      <dl class="dialog-footer" slot="dialog-footer">
+        <dd  @touchend.prevent="closeDialog('delSpec')">
+          <button type="button" class="btn btn-green">取消</button>
+        </dd>
+        <dd  @touchend.prevent="delSubmit">
+          <button type="button" class="btn btn-green">确定</button>
+        </dd>
+      </dl>    
+    </modal-dialog>
+ 
   </div>
 
 </Layout>

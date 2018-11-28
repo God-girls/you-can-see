@@ -1,18 +1,22 @@
 <Layout>
   
-  <myhead :hval="header" slot="header"></myhead>
+  <!-- <myhead :hval="header" slot="header"></myhead> -->
   
 
   <div class="method1">
-    <dl class="flexBox f30 blackCR">
-      <dt class="">
-        <i class="iconfont icon-danxuankuang f30"></i>
+    <dl class="flexBox blackCR">
+      <dt  @click.prevent="priceSet.curIndex = 0" class="">
+        <i :class="['iconfont f30',{'icon-danxuankuang':priceSet.curIndex != 0},{'greenCR icon-danxuankuang1':priceSet.curIndex == 0}]"></i>
       </dt>
-      <dd class="flex1">
-        方式一：统一定价
-        <p>
-          <input type="number">
+      <dd class="flex1 ">
+        <div  @click.prevent="priceSet.curIndex = 0" class="f30">
+          方式一：统一定价
+        </div>
+        <p class="posiR">
+          <input type="number" v-if="priceSet.curIndex == 0" v-model="priceSet.def_price">
+          <input type="number" v-else disabled="disabled" v-model="priceSet.def_price">
           元
+          <span class="mask" v-if="priceSet.curIndex == 1"></span>
         </p>
       </dd>
     </dl>
@@ -20,9 +24,9 @@
 
 
   <div class="method1 special">
-    <dl class="flexBox f30 blackCR">
+    <dl class="flexBox f30 blackCR" @click.prevent="priceSet.curIndex = 1">
       <dt class="">
-        <i class="iconfont icon-danxuankuang f30"></i>
+        <i :class="['iconfont f30',{'icon-danxuankuang':priceSet.curIndex != 1},{'greenCR icon-danxuankuang1':priceSet.curIndex == 1}]"></i>
       </dt>
       <dd class="flex1">
         方式二：按规格定价
@@ -32,20 +36,54 @@
 
   <div class="method2">
     <ul class="flexBox1 tC blackCR">
-      <li class="current greenCR">颜色</li>
-      <li>尺寸</li>
-      <li>重量</li>
-      <li>类型</li>
+      <template v-for="(item,index) in specs">
+        <li v-for="(value,key) in item"
+            :class="{'current greenCR':priceSet.subIndex == index}"
+            @click.prevent="changeType(index)">{{key}}</li>
+      </template>
     </ul>
+    <p v-if="!specs.length">请先设置规格</p>
+
+    <template v-if="specs[priceSet.subIndex]">
+      <template v-for="(value,key) in specs[priceSet.subIndex]">
+        <dl v-for="(item,index) in value" class="flexBox">
+          <dt class="flex1">
+            <span>{{item}}</span>
+          </dt>
+          <dd>
+            售价 <input type="number" name="" 
+                  v-model="priceSet.price[index]" v-if="priceSet.curIndex == 1">
+                  <input v-model="priceSet.price[index]" type="number" disabled="disabled" name="" v-else> 元
+          </dd>
+        </dl>
+        
+      </template>
+      
+    </template>
   </div>
+
 
 
 
   <div slot="footer" :style="statusBarH">
     <div class="footer tC f30">
-      <p class="btn btn-green" @click.prevent="updateAddress">确定</p>
+      <p class="btn btn-green" @click.prevent="goto('/prd/create')">确定</p>
     </div>
-     <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
+    <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
+
+    <modal-dialog :dialogshow2.sync="isToggle" @hide="closeDialog('isToggle')"  :fail='true'>
+      <div class="inputSet f30 tC" slot="dialog-body">
+        只能按一种规格定价，您确定要更换吗？
+      </div>
+      <dl class="dialog-footer" slot="dialog-footer">
+        <dd  @touchend.prevent="closeDialog('isToggle')">
+          <button type="button" class="btn btn-green">取消</button>
+        </dd>
+        <dd  @touchend.prevent="changeSubmit">
+          <button type="button" class="btn btn-green">确定</button>
+        </dd>
+      </dl>    
+    </modal-dialog>
    
   </div>
 

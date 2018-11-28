@@ -14,11 +14,18 @@ export default new vuex.Store({
         RECORDPRD:{},
         UNIONID:'',
         CART:{
-            showComment:true,
-            showSalenum:true,
-            spec:[],
-            commdityname:'',
-            payByMoney:false
+            priceSet:{
+                def_price:'',
+                subIndex: 0,
+                curIndex:0,
+                price:[]                
+            },
+            specs:[],
+            other:{
+                show_comment:true,
+                show_sell:true,
+                sell_base:0
+            }
         },
         SHARETITLE:{},
         ISWXAAPPINSTALLED:''

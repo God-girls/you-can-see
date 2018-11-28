@@ -34,7 +34,12 @@ export default {
       isApp:'',
       navType:'my',
       profile:{},
-      isWechat:false
+      isWechat:false,
+      other:{
+        show_comment:true,
+        show_sell:true,
+        sell_base:0
+      }
     }
   },
   components: {

@@ -117,7 +117,7 @@
 }
 .dialog-header {
     font-size: 30px;
-    color: #d66167;
+    /*color: #d66167;*/
     border-bottom: 1px solid #c0c0c0;/*no*/
     padding-bottom: 20px;
     margin-bottom: 20px;

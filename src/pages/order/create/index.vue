@@ -15,7 +15,7 @@ export default {
     return {
       show1:true,     
       header:{
-        'name':'添加商品',
+        'name':'发布商品',
         'link':'/',
       },
       headImg:'',
@@ -238,7 +238,7 @@ export default {
       this.paraData.show_sell = this.CART.other.show_sell;
       this.paraData.sell_base = this.CART.other.sell_base;
       this.paraData.ext = JSON.stringify(this.CART.priceSet);
-      alert(JSON.stringify(this.paraData))
+      // alert(JSON.stringify(this.paraData))
       
       if (!this.paraData.desc) {
         this.initMSG('添加商品描述')
@@ -261,7 +261,10 @@ export default {
         this.loading = false;        
           let resData = response.data;  
           if (resData.success) {
-            this.loading = false
+            this.initMSG('发布成功')
+            setTimeout(()=>{
+              this.goto('/')
+            },2000)
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               // this.goto('/')

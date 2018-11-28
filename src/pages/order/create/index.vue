@@ -319,12 +319,16 @@ export default {
       this.paraData.sell_base = this.CART.other.sell_base;
       this.paraData.ext = JSON.stringify(this.CART.priceSet);
       // console.log(this.paraData)
-      if (!this.imgFile.length) {
+      if (!this.paraData.desc) {
+        this.initMSG('添加商品描述')
+        return;
+      }
+      if (!this.imgUrl.length) {
         this.initMSG('请选择图片');
         return
       }
-      if (!this.paraData.desc) {
-        this.initMSG('添加商品描述')
+      if (!obj.spec_name) {
+        this.initMSG('请设置定价')
         return;
       }
       this.loading = true;

@@ -79,27 +79,31 @@ export default {
         this.subIndex = 0;
         this.priceSet.spec_name = '*';
       }else{
-        let myKey = Object.keys(this.specs[this.priceSet.subIndex])
-        let priceShow = this.specs[this.priceSet.subIndex][myKey];
-        let priceNew = []
-        let obj = {};
+        if (this.specs.length) {
+            let myKey = Object.keys(this.specs[this.priceSet.subIndex])
+            let priceShow = this.specs[this.priceSet.subIndex][myKey];
+            let priceNew = []
+            let obj = {};
 
-        for (var i = 0; i < priceShow.length; i++) {
-          if (this.priceSet.price[i] == '') {
-            this.initMSG('请设置定价')
+            for (var i = 0; i < priceShow.length; i++) {
+              if (this.priceSet.price[i] == '') {
+                this.initMSG('请设置定价')
+                return;
+              }
+              priceNew.push(this.priceSet.price[i])
+              obj[priceShow[i]] = this.priceSet.price[i];
+            }
+            this.priceSet.price = priceNew;
+            this.priceSet.def_price = '';
+            this.priceSet.spec_name = myKey[0];
+            this.priceSet.list = obj;
+
+          }else{
+            this.initMSG('请先设置规格')
             return;
-          }
-          priceNew.push(this.priceSet.price[i])
-          obj[priceShow[i]] = this.priceSet.price[i];
+          }    
         }
-        this.priceSet.price = priceNew;
-        this.priceSet.def_price = '';
-        this.priceSet.spec_name = myKey[0];
-        this.priceSet.list = obj;
 
-        // {"spec_name","规格1", "def_price":"1.00", 'price':{"规格取值1":"1.00", "规格取值2":"2.00"}}
-
-      }
       this.switchState({
         CART:Object.assign(this.CART,{priceSet:this.priceSet})
       })      

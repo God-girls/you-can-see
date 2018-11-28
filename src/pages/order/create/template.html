@@ -13,19 +13,11 @@
     </div>
     <ul>
       <li  v-for="(item,index) in imgUrl" class="posiR imgs" @touchend.prevent="previewImage(imgUrl[index])">
-
-          <!-- <img :src="globalAvatar+'auction/'+item+'?imageView2/2/w/340/h/340/t/'" alt="" v-if="item.indexOf('.jpg') > 0"> -->
           <img :src="imgUrl[index]" alt=""> 
-
       </li>
       <li class="special posiR" @touchend.prevent="chooseImg">
         <i class="iconfont icon-add"></i>
       </li>      
-<!--       <li class="special posiR" v-if="imgUrl.length < 9">
-        <i class="iconfont icon-jia"></i>
-        <input type="file" class="modifyImg" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" @change="onFileChange" unselectable="on" multiple="multiple" />
-      </li>
- -->
     </ul>
   </div>
 

@@ -2,7 +2,6 @@
 <template src="./template.html"></template>
 
 <script>
-import {setupWebViewJavascriptBridge} from '../../../assets/js/iosbridge.js';
 import loading from '../../../components/base/loading'
 import myhead from '../../../components/base/header'
 import {html} from '../../../assets/js/global.js';
@@ -16,7 +15,7 @@ export default {
     return {
       show1:true,     
       header:{
-        'name':'我的',
+        'name':'添加商品',
         'link':'/',
       },
       headImg:'',
@@ -65,64 +64,22 @@ export default {
       this.paraData.uid = this.UID;
       this.token = this.TOKEN;
     }
-    // this.getShare ();
+    this.imgFile = this.CART.imgFile;
+    this.paraData.desc = this.CART.desc;
+    this.imgUrl = this.CART.imgUrl; 
     this.autoTextarea(document.getElementById("text"),'',400)
     dplus.track('我的',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
 
   },
   methods: {
+    ...mapActions([
+      'switchState', // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`'
+    ]),
     getStatusBar(){
       if (this.STATUSBARH) {
         this.statusBar = this.STATUSBARH+'px';     
       }
-    },
-    getShare (){
-      axios.post('/seller_api/v1/sessions/share_config',qs.stringify({
-        url:window.location.href.split('#')[0]
-      })).then((response)=>{   
-          let resData = response.data;  
-          if (resData.success) 
-              this.shareFunc(resData.result);         
-      }).catch(function(response){
-
-      });        
-    },
-    shareFunc(obj){
-      let vm = this;
-      wx.config(Object.assign(obj,{
-          debug: true,
-          jsApiList: [
-            "checkJsApi",
-            'onMenuShareTimeline',
-            'onMenuShareAppMessage',
-            'onMenuShareQQ',
-            'onMenuShareWeibo',
-            'onMenuShareQZone',
-            'closeWindow',
-            'chooseImage',
-            'previewImage',
-            'uploadImage',
-            'downloadImage',
-            'scanQRCode'
-          ]
-      }));   
-      wx.ready(function () {
-        let shareOBJ ={
-            title: '小小麦',
-            desc: '小小卖家最爱的小小麦~',
-            link: vm.ttDomain+'?'+ vm.timeStamp,
-            imgUrl: vm.ttLogoImg,
-            success:function () {
-               // dplus.track('分享成功',{'from':html.useragent(),'inviter':vm.inviter,'page':'index'});
-            }
-        };
-        wx.onMenuShareAppMessage(shareOBJ);
-        wx.onMenuShareQQ(shareOBJ);
-        wx.onMenuShareWeibo(shareOBJ);
-        wx.onMenuShareQZone(shareOBJ);
-        wx.onMenuShareTimeline(shareOBJ);
-      })
     },
     chooseImg(){
       let _this = this;
@@ -197,34 +154,6 @@ export default {
           }
 
       }).catch(function(response){})
-    },
-    onFileChange (e){
-        //图片上传
-        var URL = window.URL || window.webkitURL;
-        var files = e.target.files || e.dataTransfer.files,
-            file,
-            blobURL,
-            thisType = Number(e.target.dataset.type),
-            testFile = '';
-
-        if (files && files.length) {
-
-            // console.log(files)
-            // return;
-            testFile = /^image\/\w+$/;
-            for (var i = 0; i < files.length; i++) {
-
-              if (testFile.test(files[i].type)) {
-                // console.log(files[i])
-                this.imgUrl.push(URL.createObjectURL(files[i]))
-                this.modifyImg (files[i]);
-              } else {
-                this.initMsg('请选择图片')
-              }              
-            }
-
-        }
-
     },
     /**
     * 文本框根据输入内容自适应高度
@@ -302,12 +231,13 @@ export default {
 
       this.paraData.imgs = JSON.stringify(this.imgFile);
       this.paraData.price = JSON.stringify(obj)
-      this.paraData.spec = JSON.stringify(this.CART.specs);
+      if (this.CART.specs.length) 
+        this.paraData.spec = JSON.stringify(this.CART.specs);
       this.paraData.show_comment = this.CART.other.show_comment;
       this.paraData.show_sell = this.CART.other.show_sell;
       this.paraData.sell_base = this.CART.other.sell_base;
       this.paraData.ext = JSON.stringify(this.CART.priceSet);
-      // console.log(this.paraData)
+      
       if (!this.paraData.desc) {
         this.initMSG('添加商品描述')
         return;
@@ -347,6 +277,12 @@ export default {
       this[arr] = false
     }
   },
+  beforeDestroy(){
+    this.switchState({
+      CART:Object.assign(this.CART,{imgFile:this.imgFile,desc:this.paraData.desc,imgUrl:this.imgUrl})
+    })      
+
+  }
 }
 </script>
 

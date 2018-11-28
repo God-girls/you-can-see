@@ -7,6 +7,7 @@ import myhead from '../../components/base/header'
 import myfooter from '../../components/base/footer'
 import loading from '../../components/base/loading'
 import modalDialog from '../../components/base/dialog'
+import dialogDel from '../../components/base/dialogDel'
 import {html} from '../../assets/js/global.js';
 import { mapState, mapActions } from 'vuex'
 import wx from 'weixin-js-sdk'; 
@@ -18,7 +19,7 @@ export default {
     modalDialog,
     myfooter,
     loading,
-    // myhead
+    dialogDel
   },
   data () {
     return {
@@ -35,7 +36,6 @@ export default {
       success:false,
       paraData:{
         uid:'1',
-        ps:5
       },
       headImg:'',
       token:'',
@@ -51,26 +51,23 @@ export default {
       statusBar:{},
       bottomBarH:'',
       navType:'home',
-      profile:{
-      },
+      profile:{},
+      reply:false,
+      placeholder:'评论',
       fetBonusType:[],
       statusBG:'status1',
       indexArr:[0,1,2,3],
-      popArr:[
-        {'position':'posiBuy bouncem','flyname':'popbuyFly','flag':false},
-        {'position':'posiMoney bouncem','flyname':'popmoneyFly','flag':false},
-        {'position':'posiFriend bouncem','flyname':'popfriendFly','flag':false},
-        {'position':'posiTemp bouncem','flyname':'poptempFly','flag':false},
-      ],
-      testObj:{'poptempFly':true},
-      musicDiamond:this.globalM + 'music.mp3?'+new Date().getTime(),
-      numberRoa:-1,
-      // isIos:gisIOS,
-      wawaAndroid:false,
+      del:false,
       scrollFlag:false,
       scrollLeftpx:'',
       noticeData:[],
       totalBonus:0,
+      sellerInfo:{},
+      comment:{
+        tips:'',
+        cid:'',
+        gid:''
+      },
     }
   },
   computed:{
@@ -198,6 +195,18 @@ export default {
         })    
       }
     },
+    previewImage(currentImg,totalImg){
+      let tempUrls = []
+      let tempTotal = JSON.parse(totalImg)
+      for (var i = 0; i < tempTotal.length; i++) {
+        tempUrls.push(this.globalAvatar+'goods/'+tempTotal[i])
+      }
+      // console.log(tempUrls)
+      wx.previewImage({
+        current: this.globalAvatar+'goods/'+currentImg,
+        urls: tempUrls
+      });
+    },
     getShare (){
       
       axios.post('/seller_api/v1/sessions/share_config',qs.stringify({
@@ -246,57 +255,34 @@ export default {
         wx.onMenuShareTimeline(shareOBJ);
       })
     },
-    scrollLeft(){
-      var x = document.getElementById('textwrap');
-      var y = document.getElementById('text1');
-      // var z = document.getElementById('text2');
-
-      this.tempWidth = x.offsetWidth;
-      this.scrollLeftpx = x.offsetWidth + 'px';
-      this.scrollFlag = true;
-
-      this.testScroll = ()=> {
-        if (this.tempWidth < - y.offsetWidth){
-            this.scrollLeftpx = x.offsetWidth + 'px';
-            this.tempWidth = x.offsetWidth;
-        }else{
-            this.scrollLeftpx = this.tempWidth-- + 'px';
-        }
-      }
-      this.scrollTimer = setInterval(this.testScroll,html.isWawaIos()?10:15);
-    },
-    removeAD(){
-      this.h5NoAd = true;
-      this.limit = false;
-      this.prompt = false;
-      this.displayOnce = false;
-    },
     defaultData(){
       this.fetchList();
       this.getProfile ();
       // this.getNotice()
     },
-    countDown (total){
-      // console.log(total)
-      let lastBonus = Number(this.countBonus);
-      let growBonus = Number(this.countBonus)
-      let totalNumber = Number(total);
-      let tempNumber = 0;
-      if (totalNumber > 0) {
-
-      this.time_id = setInterval(()=>{
-          tempNumber =html.add(tempNumber ,totalNumber > 10 ? parseInt(totalNumber/10) : 1);
-          growBonus = html.add(growBonus,totalNumber > 10 ? parseInt(totalNumber/10) : 1) ;
-          this.countBonus = growBonus;
-          if(tempNumber >= totalNumber){
-            this.countBonus = html.add(lastBonus,totalNumber);
-            clearInterval(this.time_id);
-          }            
-        } , 100);       
-      }
-
-    },
     getProfile (){
+      axios.post('/seller_api/v1/seller/seller_info',qs.stringify({
+        uid:this.paraData.uid,
+        seller:this.paraData.uid
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;
+          
+          if (resData.success) {
+            this.sellerInfo = resData.result;
+            this.headImg = this.globalAvatar+(this.sellerInfo.avatar?this.sellerInfo.avatar:'')+'?imageView2/2/w/100/h/100/t/';
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.needLogin = true;
+              this.noToken = true;
+            }
+          }
+      }).catch((response)=>{
+        // this.logErrors(JSON.stringify(response))
+      });  
       
       axios.post('/seller_api/v1/seller/userinfo',qs.stringify({
         uid:this.paraData.uid
@@ -312,7 +298,6 @@ export default {
             this.switchState({
               PROFILE:resData.result,
             })
-            this.headImg = this.globalAvatar+(this.profile.avatar?this.profile.avatar:'')+'?imageView2/2/w/100/h/100/t/';
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.needLogin = true;
@@ -335,6 +320,14 @@ export default {
 
           if (resData.success) {
            this.listData = resData.result.items;
+
+           this.fetchComment(this.listData[0].id,true);
+           this.listLen = 0;
+            // this.listData.forEach((value,index)=>{  
+            //   this.fetchComment(value.id,true);
+            //   this.replyIndex = index;
+            //    console.log(value,index)
+            // });
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               location.href = '/';
@@ -346,35 +339,10 @@ export default {
 
     },
     onOffGoods (gid,flag){
-        axios.post('/seller_api/v1//seller/goods_control',qs.stringify({
-          'uid':this.paraData.uid,
-          'gid':gid,
-          'flag':flag
-        }),{
-            headers: {
-                "A-Token-Header": this.token,
-            }
-          }).then((response)=>{   
-            let resData = response.data;
-            
-            if (resData.success) {
-              this.fetchList();
-            }  else {
-              if (resData.code == '403' || resData.code == '250') {
-                this.needLogin = true;
-                this.noToken = true;
-              }
-              // console.log(resData.msg);
-            }
-        }).catch((response)=>{
-          this.logErrors(JSON.stringify(response))
-        });  
-    },
-    upTop (gid){
-      axios.post('/seller_api/v1//seller/create_goods',qs.stringify({
+      axios.post('/seller_api/v1//seller/goods_control',qs.stringify({
         'uid':this.paraData.uid,
         'gid':gid,
-        'pubsh':new Date().getTime()
+        'flag':flag
       }),{
           headers: {
               "A-Token-Header": this.token,
@@ -383,6 +351,7 @@ export default {
           let resData = response.data;
           
           if (resData.success) {
+            this.initMSG(!flag ? '已下架':'已上架')
             this.fetchList();
           }  else {
             if (resData.code == '403' || resData.code == '250') {
@@ -393,6 +362,194 @@ export default {
           }
       }).catch((response)=>{
         this.logErrors(JSON.stringify(response))
+      });  
+    },
+    upTop (gid){
+      this.loading = true;
+      axios.post('/seller_api/v1//seller/create_goods',qs.stringify({
+        'uid':this.paraData.uid,
+        'gid':gid,
+        'publish':new Date().getTime()
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;
+          
+          if (resData.success) {
+            this.loading = false;
+            this.fetchList();
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.needLogin = true;
+              this.noToken = true;
+            }
+            // console.log(resData.msg);
+          }
+      }).catch((response)=>{
+        this.logErrors(JSON.stringify(response))
+      });  
+    },
+    praisePrd(item,index){
+      axios.post('/seller_api/v1/seller/goods_praise',qs.stringify({
+        'uid':this.paraData.uid,
+        'gid':item.id,
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;
+          
+          if (resData.success) {
+            this.fetchPraise(item,index);
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.needLogin = true;
+              this.noToken = true;
+            }
+            // console.log(resData.msg);
+          }
+      }).catch((response)=>{
+        this.logErrors(JSON.stringify(response))
+      });  
+    },
+    fetchPraise(item,index){
+      axios.post('/seller_api/v1/seller/fetch_praise',qs.stringify({
+        'uid':this.paraData.uid,
+        'gid':item.id,
+        'pn':1,
+        'ps':9999
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;
+          
+          if (resData.success) {
+            this.listData[index].praise_head = JSON.stringify(resData.result.items)
+            this.listData[index].praised = true;
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.needLogin = true;
+              this.noToken = true;
+            }
+            // console.log(resData.msg);
+          }
+      }).catch((response)=>{
+        this.logErrors(JSON.stringify(response))
+      });  
+    },
+    replaySomeone(item,gid,index){
+      this.comment.gid = gid;
+      this.comment.cid = item.id;
+      this.replyIndex = index;
+      if (item.uid == this.UID) {
+        this.del = true;
+      }else{
+        this.reply = true;
+        this.placeholder = '回复'+item.nick+'：';
+      }
+    },
+    replyComment (type){
+      axios.post('/seller_api/v1/seller/reply_comment',qs.stringify({
+        uid:this.paraData.uid,
+        cid:this.comment.cid,
+        comment:this.comment.tips
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;   
+
+          if (resData.success) {
+            this.getProfile();
+          }else{
+            this.initMSG(resData.codemsg);
+          }
+      }).catch((response)=>{
+        this.initMSG('网络异常再试一次');
+      });  
+  
+    },
+    beforeReply(item,index){
+      this.comment.gid = item.id;
+      this.reply = true;
+      this.replyIndex = index;
+    },
+    delComment(){
+      axios.post('/seller_api/v1/seller/del_comment',qs.stringify({
+        uid:this.paraData.uid,
+        cid:this.comment.cid,
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;   
+
+          if (resData.success) {
+            this.del = false;
+            this.fetchComment();
+          }else{
+            this.initMSG(resData.codemsg);
+          }
+      }).catch((response)=>{
+        this.initMSG('网络异常再试一次');
+      });  
+    },
+    goodsComment (){
+      axios.post('/seller_api/v1/seller/goods_comment',qs.stringify({
+        uid:this.paraData.uid,
+        gid:this.comment.gid,
+        comment:this.comment.tips
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;   
+
+          if (resData.success) {
+            this.reply = false;
+            this.comment.tips = '';
+            this.fetchComment();
+          }else{
+            this.initMSG(resData.codemsg);
+          }
+      }).catch((response)=>{
+        this.initMSG('网络异常再试一次');
+      });  
+    },
+    fetchComment(paraGid,flag){
+      axios.post('/seller_api/v1/seller/fetch_comment',qs.stringify({
+        uid:this.paraData.uid,
+        gid:paraGid ? paraGid : this.comment.gid,
+        ps:9999,
+        pn:1
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;   
+          // debugger;
+          if (resData.success) {
+
+            this.listData[flag ? this.listLen : this.replyIndex].comment_head = resData.result.items.length ? JSON.stringify(resData.result.items) : ''
+            if (flag) {
+              this.listLen++;
+              if (this.listLen != this.listData.length)
+                this.fetchComment(this.listData[this.listLen].id,true);
+            }
+          }else{
+            this.initMSG(resData.codemsg);
+          }
+      }).catch((response)=>{
+        this.initMSG('网络异常再试一次');
       });  
     },
     initMSG(arr){
@@ -441,50 +598,7 @@ export default {
     closeDialog (arr){
         this[arr] = false;
     },
-    fetchBonus (type){
 
-      setTimeout(()=>{
-        axios.post('/seller_api/v1/seller/fetch_bonus',qs.stringify({
-          uid:this.paraData.uid,
-          type:type
-        }),{
-            headers: {
-                "A-Token-Header": this.token,
-            }
-          }).then((response)=>{   
-            let resData = response.data;   
-
-            if (resData.success) {
-              this.getProfile();
-            }else{
-              this.initMSG(resData.codemsg);
-            }
-        }).catch((response)=>{
-          this.fetBonusType[index].click = false;
-          this.initMSG('网络异常再试一次');
-        });  
-      },1000)
-  
-    },
-    roa(arr){
-      var temp=[];    //temp存放生成的随机数组
-  　   var count=arr.length;    
-      for (let i=0;i<count;i++)
-      { 
-          var num=Math.floor(Math.random()*arr.length); //生成随机数num
-          temp.push(arr[num]);    //获取arr[num]并放入temp
-          arr.splice(num,1);    
-      }
-      return temp;
-    },
-    flashChange(arr){
-      this.popArr[arr].flag = true
-      // this[arr] = true;
-      setTimeout(()=>{
-       this.popArr[arr].flag = false;
-       // this[arr]
-      },2000)
-    },
   },
   beforeDestroy(){
     

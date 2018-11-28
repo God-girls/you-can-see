@@ -109,52 +109,6 @@ export default {
         // this.logErrors(JSON.stringify(response))
       });  
     },
-    initBridge(){
-      var vm = this;
-      if (html.isWawaIos()) {
-        setupWebViewJavascriptBridge(function(webBridge) {
-          bridgeLogin(webBridge)
-        });
-      }else if (html.isWawaAndroid()){
-        bridgeLogin();
-      }
-      function bridgeLogin(param){
-        var webBridge = param ? param : webBridgeAndroid;
-
-      // alert(2)
-        if (html.isWawaIos()) {
-          webBridge.callHandler('pushpop', (data, responseCallback) =>{
-            vm.pushpop = JSON.parse(data)
-          })              
-        }else{
-          webBridge.registerHandler('pushpop', (data, responseCallback) =>{
-            vm.pushpop = JSON.parse(data)
-          })                        
-        }
-         webBridge.registerHandler('notification', (data, responseCallback) =>{
-
-          if (data == 'DidBecomeActive') {//成功
-            webBridge.callHandler('pushpop', (data, responseCallback) =>{
-              vm.pushpop = JSON.parse(data)
-            })              
-          }
-        })    
-     }
-    },
-    downloadApp(){
-      var vm = this;
-        if (html.isWawaIos()) {
-          setupWebViewJavascriptBridge(function(webBridge) {
-            bridgeLogin(webBridge)
-          });
-        }else bridgeLogin();
-
-        function bridgeLogin(param){
-          var webBridge = param ? param : webBridgeAndroid;
-          webBridge.callHandler('downloadapp', {id:'1375298342'})              
-
-        }
-    },
     chooseImg(){
       let _this = this;
       wx.chooseImage({
@@ -162,10 +116,8 @@ export default {
           sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
-
-              var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-
-              _this.showImg(localIds[0])
+            var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+            _this.showImg(localIds[0])
           }
       });      
 
@@ -183,17 +135,16 @@ export default {
             localData = localData.replace(/\r|\n/g, '').replace('data:image/jgp', 'data:image/jpeg')
             //第一个替换的是换行符，第二个替换的是图片类型，因为在IOS机上测试时看到它的图片类型时jgp，
             //这不知道时什么格式的图片，为了兼容其他设备就把它转为jpeg
-            // _this.imgUrl.push(localData)//images是业务中用到的变量
-            _this.imgFile = localData;
-            _this.modifyImg();
+            _this.headImg = localData//images是业务中用到的变量
+            _this.modifyImg(localData);
         }
       })
     },
-    modifyImg (){
+    modifyImg (localData){
 
       axios.post('/seller_api/v1/user/upd_profile',qs.stringify({
         uid:this.paraData.uid,
-        avatar_b64:this.imgFile
+        avatar_b64:localData
       }),{
           headers: {
               "A-Token-Header": this.token,
@@ -212,39 +163,6 @@ export default {
           }
 
       }).catch(function(response){});  
-    },
-    onFileChange (e){
-        //图片上传
-        var URL = window.URL || window.webkitURL;
-        var files = e.target.files || e.dataTransfer.files,
-            file,
-            blobURL,
-            thisType = Number(e.target.dataset.type),
-            testFile = '';
-
-        if (files && files.length) {
-            file = files[0];
-            
-            testFile = /^image\/\w+$/;
-            blobURL = URL.createObjectURL(file);  
-            this.headImg = blobURL;
-
-              // console.log(blobURL)
-            if (testFile.test(file.type)) {
-
-              var data = new FormData();
-              this.imgFile = file;
-              this.modifyImg ();
-            } else {
-              this.initMsg('请选择图片')
-            }
-        }
-
-    },
-    popSet(){
-      setupWebViewJavascriptBridge(function(webBridge) {
-        webBridge.callHandler('push', function(response) {})     
-      })
     },
     initMSG(errors){
       this.loadError = errors;

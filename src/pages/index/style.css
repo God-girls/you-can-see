@@ -172,3 +172,48 @@
   height: 65px;
   margin-right: 12px;  
 }
+.mask{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+.footComment{
+  background: #f7f7f9;
+  border-top: 1px solid #e0e0e0;/*no*/
+  padding: 20px 15px;
+  position: relative;
+  z-index: 4;
+}
+.footComment dl{
+  align-items: stretch;
+}
+.footComment dt{
+  background: #fff;
+  border:1px solid #e0e0e0;/*no*/
+  border-radius: 5px;
+}
+.footComment dd{
+  padding-left: 10px;
+}
+.footComment dd .btn{
+  height: 70px;
+  line-height: 70px;
+  padding: 0 30px;
+}
+.footComment dt input{
+  width: 100%;
+  height: 100%;
+  padding: 5px 10px;
+}
+
+
+
+
+
+
+
+
+

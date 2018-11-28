@@ -6,9 +6,8 @@
       <i class="iconfont icon-fanhui f36" @click.prevent="goto('/my')" v-if="isWechat"></i>
       <dl class="tC">
         <dt>
-          <p class="img">
+          <p class="img" @click.prevent="chooseImg">
             <img :src="headImg" alt="" :onerror="defaultHead">
-            <input type="file" class="modifyImg" accept="image/gif,image/jpeg,image/jpg,image/png,image/svg" @change="onFileChange" unselectable="on"  v-if="!isWechat" />
           </p>
         </dt>
       </dl>

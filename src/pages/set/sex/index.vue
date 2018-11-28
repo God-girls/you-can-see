@@ -52,7 +52,7 @@ export default {
     modifySex (type){
       this.paraData.sex = type;
       this.profile.sex = type;
-      axios.post('/bonus_api/v1/user/updated',qs.stringify(this.paraData),{
+      axios.post('/seller_api/v1/user/upd_profile',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,
           }

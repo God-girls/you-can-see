@@ -84,7 +84,33 @@ export default {
         })
       }
     },
-    goto (arr){
+    getProfile (){ 
+      
+      axios.post('/seller_api/v1/seller/userinfo',qs.stringify({
+        uid:this.paraData.uid
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;
+          
+          if (resData.success) {
+            this.profile = resData.result;
+            this.switchState({
+              PROFILE:resData.result,
+            })
+            this.headImg = this.globalAvatar+(this.sellerInfo.avatar?this.sellerInfo.avatar:'')+'?imageView2/2/w/100/h/100/t/';
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.needLogin = true;
+              this.noToken = true;
+            }
+          }
+      }).catch((response)=>{
+        // this.logErrors(JSON.stringify(response))
+      });  
+    },    goto (arr){
       if (arr == '/my/invite' && this.isWechat) {
         if (Number(this.profile.total_bonus) > 10) {
           wx.miniProgram.navigateTo({url: `/pages/share/share?type=invite&sharepic=sharefinviter.jpg&inviter=${this.profile.invite_code}&desc=${this.profile.nick}邀请你一起购物赚钱，${this.profile.nick}已在红多多获得分红${this.profile.total_bonus}元！`})

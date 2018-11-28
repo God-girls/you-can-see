@@ -140,6 +140,9 @@
   text-align: center;
   padding-top: 18px;
 }
+.stars dt{
+  padding-top: 10px;
+}
 .stars dd {
   line-height: 0
 }

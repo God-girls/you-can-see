@@ -322,12 +322,10 @@ export default {
            this.listData = resData.result.items;
 
            this.fetchComment(this.listData[0].id,true);
+           this.fetchPraise(this.listData[0],0,true)
            this.listLen = 0;
-            // this.listData.forEach((value,index)=>{  
-            //   this.fetchComment(value.id,true);
-            //   this.replyIndex = index;
-            //    console.log(value,index)
-            // });
+           this.praiseLen = 0;
+
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               location.href = '/';
@@ -415,7 +413,7 @@ export default {
         this.logErrors(JSON.stringify(response))
       });  
     },
-    fetchPraise(item,index){
+    fetchPraise(item,index,flag){
       axios.post('/seller_api/v1/seller/fetch_praise',qs.stringify({
         'uid':this.paraData.uid,
         'gid':item.id,
@@ -431,6 +429,11 @@ export default {
           if (resData.success) {
             this.listData[index].praise_head = JSON.stringify(resData.result.items)
             this.listData[index].praised = true;
+            if (flag) {
+              this.praiseLen++;
+              if (this.praiseLen != this.listData.length)
+                this.fetchPraise(this.listData[this.praiseLen],this.praiseLen,true);
+            }
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.needLogin = true;
@@ -538,7 +541,6 @@ export default {
           let resData = response.data;   
           // debugger;
           if (resData.success) {
-
             this.listData[flag ? this.listLen : this.replyIndex].comment_head = resData.result.items.length ? JSON.stringify(resData.result.items) : ''
             if (flag) {
               this.listLen++;

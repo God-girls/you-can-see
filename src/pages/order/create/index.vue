@@ -57,15 +57,13 @@ export default {
     ])
   },
   mounted () {
-    console.log(this.CART)
-
 
     if (this.TOKEN) {
       this.profile = this.PROFILE;
       this.paraData.uid = this.UID;
       this.token = this.TOKEN;
     }
-    this.imgFile = this.CART.imgFile;
+    this.imgFile = this.CART.imgFile?this.CART.imgFile:[]; 
     this.paraData.desc = this.CART.desc;
     this.imgUrl = this.CART.imgUrl?this.CART.imgUrl:[]; 
     this.autoTextarea(document.getElementById("text"),'',400)
@@ -240,7 +238,8 @@ export default {
       this.paraData.show_sell = this.CART.other.show_sell;
       this.paraData.sell_base = this.CART.other.sell_base;
       this.paraData.ext = JSON.stringify(this.CART.priceSet);
-      
+      console.log(JSON.stringify(this.paraData))
+      return;
       if (!this.paraData.desc) {
         this.initMSG('添加商品描述')
         return;

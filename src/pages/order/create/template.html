@@ -15,7 +15,7 @@
       <li  v-for="(item,index) in imgUrl" class="posiR imgs" @touchend.prevent="previewImage(imgUrl[index])">
           <img :src="imgUrl[index]" alt=""> 
       </li>
-      <li class="special posiR" @touchend.prevent="chooseImg">
+      <li class="special posiR" @touchend.prevent="chooseImg" v-if="imgUrl.length == 9">
         <i class="iconfont icon-add"></i>
       </li>      
     </ul>

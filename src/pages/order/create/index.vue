@@ -38,7 +38,8 @@ export default {
       profile:{},
       imgUrl:[],
       imgFile:[],
-      isWechat:false
+      isWechat:false,
+      choosed:0
     }
   },
   components: {
@@ -84,33 +85,35 @@ export default {
     chooseImg(){
       let _this = this;
       wx.chooseImage({
-          count: 9, // 默认9
+          count: 9-this.choosed, // 默认9
           sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
             var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-            for (var i = 0; i < localIds.length; i++) {
-              _this.showImg(localIds[i])
-            }
-            
+            _this.showImg(localIds)            
           }
       });      
-
     },
     showImg(localIds){
       let _this = this;
+      let localId = localIds.pop();
       wx.getLocalImgData({
-        localId: localIds,
+        localId: localId,
         success: function (res) {
-            var localData = res.localData;
-            if (localData.indexOf('data:image') != 0) {//判断是否有这样的头部
-                localData = 'data:image/jpeg;base64,' +  localData
-            }
-            localData = localData.replace(/\r|\n/g, '').replace('data:image/jgp', 'data:image/jpeg')
-            //第一个替换的是换行符，第二个替换的是图片类型，因为在IOS机上测试时看到它的图片类型时jgp，
-            //这不知道时什么格式的图片，为了兼容其他设备就把它转为jpeg
-            _this.imgUrl.push(localData)
-            _this.modifyImg(localData)
+          let localData = res.localData;
+          if (localData.indexOf('data:image') != 0) {//判断是否有这样的头部
+              localData = 'data:image/jpeg;base64,' +  localData
+          }
+          localData = localData.replace(/\r|\n/g, '').replace('data:image/jgp', 'data:image/jpeg')
+          //第一个替换的是换行符，第二个替换的是图片类型，因为在IOS机上测试时看到它的图片类型时jgp，
+          //这不知道时什么格式的图片，为了兼容其他设备就把它转为jpeg
+          _this.imgUrl.push(localData)
+          _this.modifyImg(localData);
+          _this.choosed++;
+
+          if(localIds.length > 0){
+              _this.showImg(localIds);
+          }        
         }
       })
     },

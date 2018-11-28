@@ -1,11 +1,11 @@
 <Layout>
-<!--   <div class="myHeader f30">
+  <div class="myHeader f30" slot="header">
     <h1>
-      <span class="greenCR fr">发布</span>
+      <span class="greenCR fr" @click.prevent="created">发布</span>
       <span @click.prevent="goto('/')">取消</span>
     </h1>
-  </div> -->
-  <myhead :hval="header" slot="header"></myhead>
+  </div>
+  <!-- <myhead :hval="header"></myhead> -->
 
   <div class="publish f30">
     <div class="blackCR">
@@ -60,9 +60,9 @@
   </div>    
 
   <div slot="footer">
-    <div class="footer tC f30">
+<!--     <div class="footer tC f30">
       <p class="btn btn-green" @click.prevent="created">发布</p>
-    </div>
+    </div> -->
     <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
   </div>
   

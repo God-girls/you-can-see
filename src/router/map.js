@@ -102,7 +102,7 @@ export default {
 		}
 	},
 	'/prd/create': {//新建商品
-		meta: { title: '新建商品'},
+		meta: { title: '发布商品'},
 		component: (resolve) => {
 			require(['pages/order/create'], resolve)
 		}

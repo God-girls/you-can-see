@@ -158,7 +158,7 @@
   position: relative
 }
 .dialog-footer dd:last-child:before{
- content: ' ';
+ /*content: ' ';*/
   border-left:1px solid #dedede ;/*no*/
   position: absolute;
   left: 0;

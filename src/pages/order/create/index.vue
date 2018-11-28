@@ -172,7 +172,7 @@ export default {
 
       axios.post('/seller_api/v1/seller/upload_image',qs.stringify({
         uid:this.paraData.uid,
-        image_b64:this.imgFile
+        image_b64:b64data
       }),{
           headers: {
               "A-Token-Header": this.token,

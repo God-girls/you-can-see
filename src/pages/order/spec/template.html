@@ -70,7 +70,7 @@
 
     <modal-dialog :dialogshow2.sync="addSecond" @hide="closeDialog('addSecond')"  :fail='true'>
       <div class="dialog-header" slot="dialog-header">
-        添加{{specs[curProperty]?specs[curProperty].type:''}}的属性
+        添加 <span class="redCR"  v-for="(value, key) in specs[curProperty]">{{key}}</span> 的属性
       </div>
       <div class="inputSet" slot="dialog-body">
         <input type="text" placeholder="" name="" v-model="secondVal">
@@ -87,7 +87,7 @@
 
     <modal-dialog :dialogshow2.sync="delSpec" @hide="closeDialog('delSpec')"  :fail='true'>
       <div class="inputSet f30 tC" slot="dialog-body">
-        您确定要删除 <span class="redCR">{{specs[curDel]?specs[curDel].type:''}}</span> 规格吗
+        您确定要删除 <span class="redCR" v-for="(value, key) in specs[curDel]">{{key}}</span> 规格吗
       </div>
       <dl class="dialog-footer" slot="dialog-footer">
         <dd  @touchend.prevent="closeDialog('delSpec')">

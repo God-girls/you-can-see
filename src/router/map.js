@@ -42,7 +42,7 @@ export default {
 		}
 	},
 	'/my': {
-		meta: { title: '小小麦'},
+		meta: { title: '我的'},
 		component: (resolve) => {
 			require(['pages/set/my'], resolve)
 		}

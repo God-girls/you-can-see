@@ -67,7 +67,7 @@ export default {
     }
     this.imgFile = this.CART.imgFile;
     this.paraData.desc = this.CART.desc;
-    this.imgUrl = this.CART.imgUrl; 
+    this.imgUrl = this.CART.imgUrl?this.CART.imgUrl:[]; 
     this.autoTextarea(document.getElementById("text"),'',400)
     dplus.track('我的',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});

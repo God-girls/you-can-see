@@ -2,8 +2,8 @@
   <div class="header posiR f30">
     
     <h3 @click.prevent="changebg = true">
-      <img :src="sellerInfo.background" alt="" class="head" v-if="sellerInfo.background.indexOf('data:image') > -1">
-      <img :src="globalAvatar+sellerInfo.background" alt="" class="head" v-else>
+      <img :src="sellerInfo.background" alt="" class="head" v-if="sellerInfo.background.indexOf('.jpg') > -1">
+      <img :src="globalAvatar+sellerInfo.background" alt="" class="head" v-if="sellerInfo.background.indexOf('.jpg') > -1">
     </h3>
     <p class="blueLCR">
       <span @click.prevent="praiseBG">
@@ -65,7 +65,7 @@
                 <span v-if="!item.praised" @click.prevent="praisePrd(item,index)"><i class="iconfont icon-xinheart282 f30"></i></span>
                 <span @click.prevent="upTop(item.id)"><i class="iconfont icon-top f30"></i></span>
                 <span><i class="iconfont icon-zhuanfa f48"></i></span>
-                <span @click.prevent="beforeReply(item,index)"><i class="iconfont icon-xiaoxi15-copy f30"></i></span>
+                <span @click.prevent="beforeReply(item,index)" v-if="item.show_comment"><i class="iconfont icon-xiaoxi15-copy f30"></i></span>
               </li>
             </ol>
           </dd>

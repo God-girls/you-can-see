@@ -3,7 +3,8 @@
   width: 750px;
   height: 400px;
   position: relative;
-  background: #333333
+  background: #333333;
+  overflow: hidden;
 }
 .header .head{
   width: 100%;

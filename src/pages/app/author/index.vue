@@ -127,7 +127,9 @@ export default {
                 UID:resData.result.id
               })
               if (location.href.indexOf('jumpto') > -1) {
-                location.href = this.jumpto;      
+                alert(this.jumpto)
+                this.$router.push(this.jumpto)
+                // location.href = this.jumpto;      
               }else{
                 this.$router.push('/')
               }

@@ -80,7 +80,7 @@
   padding-top: 3px;
 }
 .oneTop ol span{
-  margin-left: 10px;
+  /*margin-left: 10px;*/
 }
 .oneTop ul {
   display: flex;
@@ -133,7 +133,7 @@
 .comment{
   background: #f3f3f4;
   padding: 18px 0 0;
-  margin-top: 18px;
+  margin: 18px 0 0 0px;
 }
 .icon-caret-up{
   position: absolute;

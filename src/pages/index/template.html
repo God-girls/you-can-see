@@ -10,7 +10,7 @@
         <i class="iconfont icon-heart-opp-copy f30"></i> {{sellerInfo.praise}}
       </span>
     </p>
-    <dl class="tR">
+    <dl class="tR" @click.prevent="goto('/prd/list?seller=1594980')">
       <dt>
         <ol class="flexBox">
           <li class="flex1 whiteCR f36">{{sellerInfo.nick}}</li>
@@ -43,8 +43,11 @@
     <div class="conOne" v-for="(item,index) in listData">
       <div class="oneTop">
         <dl class="flexBox">
-          <dt>
-            <b v-if="formatDateTime(item.publish) != item.publish.split(' ')[0]">{{item.publish.split(' ')[0].split('-')[2]}}</b>{{item.publish.split(' ')[0].split('-')[1]}}月
+          <dt v-if="formatDateTime(new Date().getTime()) != item.publish.split(' ')[0] && !isYestday(new Date(item.publish.split('-').join('/')).getTime())">
+            <b >{{item.publish.split(' ')[0].split('-')[2]}}</b>{{item.publish.split(' ')[0].split('-')[1]}}月
+          </dt>
+          <dt v-else>
+            <b >{{isYestday(new Date(item.publish.split('-').join('/')).getTime()) ? '昨天' : '今天'}}</b >
           </dt>
           <dd class="flex1">
             <h5 class="f30" @click.prevent="goto('/prd/create?id='+item.id)">{{item.desc}}</h5>
@@ -61,11 +64,14 @@
                 ¥ {{item.price_range}}
               </li>
               <li class="blueLCR" v-if="item.status == 0">
-                <!-- <span v-if="item.praised"><i class="iconfont icon-heart-opp-copy f30"></i></span> -->
-                <span v-if="!item.praised" @click.prevent="praisePrd(item,index)"><i class="iconfont icon-xinheart282 f30"></i></span>
-                <span @click.prevent="beforeOnoff(item,3,index)"><i class="iconfont icon-top f30"></i></span>
-                <span><i class="iconfont icon-zhuanfa f48"></i></span>
-                <span @click.prevent="beforeReply(item,index)" 
+                <span @click.prevent="beforeOnoff(item,4)"><i class="iconfont icon-fuzhi f30"></i></span>
+                <span  class="mL10" v-if="!item.praised" @click.prevent="praisePrd(item,index)"><i class="iconfont icon-xinheart282 f30"></i></span>
+
+                <span  class="mL10" @click.prevent="beforeOnoff(item,3,index)"><i class="iconfont icon-top f30"></i></span>
+
+                <span class="mL10" @click.prevent="reinitShare (item.id,paraData.uid)"><i class="iconfont icon-zhuanfa f48"></i></span>
+
+                <span class="mL10" @click.prevent="beforeReply(item,index)" 
                       v-if="item.show_comment"><i class="iconfont icon-xiaoxi15-copy f30"></i></span>
               </li>
             </ol>

@@ -280,26 +280,6 @@ export default {
         wx.onMenuShareTimeline(shareOBJ);
       })
     },
-    reinitShare (){
-      let vm = this;
-      let links = this.ttDomain+'/#/app/author?jumpto=/'+location.href.split('?')[1]
-        wx.ready(function () {
-          let shareText ={
-              title: '我在小小麦家发现了一件新商品~',
-              desc: '快来拼团',
-              link:links,
-              imgUrl: vm.ttLogoImg,
-              success:function() {
-              },
-              cancel: function () {}
-          };
-          wx.onMenuShareAppMessage(shareText);
-          wx.onMenuShareQQ(shareText);
-          wx.onMenuShareWeibo(shareText);
-          wx.onMenuShareQZone(shareText);
-          wx.onMenuShareTimeline(shareText);
-        })
-    },
     defaultData(){
       this.getProfile ();
       if (this.goodid) {

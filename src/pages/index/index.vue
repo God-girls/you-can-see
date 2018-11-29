@@ -13,7 +13,7 @@ import { mapState, mapActions } from 'vuex'
 import wx from 'weixin-js-sdk'; 
 import axios from 'axios';
 import qs from 'qs';
-// console.log(wx)
+
 export default {
   components: {
     modalDialog,
@@ -56,8 +56,8 @@ export default {
       placeholder:'评论',
       fetBonusType:[],
       popDel:{
-        title:['删除我的评论','下架本条商品','上架本条商品','置顶本条商品'],
-        content:['删除','下架','上架','置顶']
+        title:['删除我的评论','下架本条商品','上架本条商品','置顶本条商品','复制本条商品'],
+        content:['删除','下架','上架','置顶','复制']
       },
       popIndex:0,
       del:false,
@@ -189,6 +189,12 @@ export default {
         })    
       }
     },
+    isYestday (theDate){
+        var date = (new Date());    //当前时间
+        var today = new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime(); //今天凌晨
+        var yestday = new Date(today - 24*3600*1000).getTime();
+        return theDate < today && yestday <= theDate;
+    },
     formatDateTime(inputTime) {
         var date = new Date(inputTime);
         var y = date.getFullYear();
@@ -203,7 +209,7 @@ export default {
         minute = minute < 10 ? ('0' + minute) : minute;
         second = second < 10 ? ('0' + second) : second;
         // return y+'-'+m+'-'+d+' '+' '+h+':'+minute+':'+second;
-        return y+'-'+m+'-'+d+' '+' '+h;
+        return y+'-'+m+'-'+d;
     },
     previewImage(currentImg,totalImg){
       let tempUrls = []
@@ -263,6 +269,26 @@ export default {
         wx.onMenuShareWeibo(shareOBJ);
         wx.onMenuShareQZone(shareOBJ);
         wx.onMenuShareTimeline(shareOBJ);
+      })
+    },
+    reinitShare (goodid,seller){
+      let vm = this;
+      let links = this.ttDomain+'/#/app/author?jumpto=/goodid='+goodid+'&seller='+seller;
+      wx.ready(function () {
+        let shareText ={
+            title: '我在小小麦家发现了一件新商品~',
+            desc: '快来拼团',
+            link:links,
+            imgUrl: vm.ttLogoImg,
+            success:function() {
+            },
+            cancel: function () {}
+        };
+        wx.onMenuShareAppMessage(shareText);
+        wx.onMenuShareQQ(shareText);
+        wx.onMenuShareWeibo(shareText);
+        wx.onMenuShareQZone(shareText);
+        wx.onMenuShareTimeline(shareText);
       })
     },
     defaultData(){
@@ -534,7 +560,7 @@ export default {
       }
       this.comment.gid = item.id;
       this.popIndex = index;
-      // console.log(this.comment.gid)
+      this.curProduct = item;
       this.del = true;
     },
     popFuncs(){
@@ -547,10 +573,41 @@ export default {
           this.upTop();
         break; 
 
+        case 4:
+          this.created();
+        break; 
+
         default :
           this.onOffGoods();
         break; 
       }
+    },
+    created(){
+      delete this.curProduct['spec']
+      this.curProduct.uid = this.paraData.uid;
+      this.loading = true;
+      axios.post('/seller_api/v1/seller/create_goods',qs.stringify(this.curProduct),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+        this.loading = false;        
+          let resData = response.data;  
+          if (resData.success) {
+            this.initMSG('发布成功');
+            this.del = false;
+            setTimeout(()=>{
+              this.fetchList();
+            },2000)
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              // this.goto('/')
+            }else{
+              this.initMSG(resData.codemsg)
+            }
+          }
+
+      }).catch(function(response){});        
     },
     delComment(){
       axios.post('/seller_api/v1/seller/del_comment',qs.stringify({

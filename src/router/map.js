@@ -101,6 +101,12 @@ export default {
 			require(['pages/set/sex'], resolve)
 		}
 	},
+	'/prd/share': {//新建商品
+		meta: { title: '发布商品'},
+		component: (resolve) => {
+			require(['pages/prd/share'], resolve)
+		}
+	},
 	'/prd/create': {//新建商品
 		meta: { title: '发布商品'},
 		component: (resolve) => {

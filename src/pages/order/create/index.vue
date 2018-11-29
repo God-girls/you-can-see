@@ -70,7 +70,7 @@ export default {
     this.autoTextarea(document.getElementById("text"),'',400)
     if (this.$route.query.id) {
       this.prdID = this.$route.query.id
-      this.fetchList();
+      if (!this.CART.imgFile.length) this.fetchList();
     }
     dplus.track('我的',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
@@ -96,38 +96,38 @@ export default {
         }
       }).then((response)=>{   
         
-          let resData = response.data;  
+        let resData = response.data;  
 
-          if (resData.success) {
-            this.imgFile = JSON.parse(resData.result.imgs); 
-            this.paraData.desc = resData.result.desc;
-            this.imgUrl = []
-            for (var i = 0; i < this.imgFile.length; i++) {
-              this.imgUrl.push(this.globalAvatar+'goods/'+this.imgFile[i])
-            }
-            
-            this.switchState({
-              CART:Object.assign(this.CART,{
-                imgFile:this.imgFile,
-                desc:this.paraData.desc,
-                imgUrl:this.imgUrl,
-                priceSet:JSON.parse(resData.result.ext),
-                specs:resData.result.spec ? resData.result.desc : [],
-                other:{
-                  show_comment:resData.result.show_comment,
-                  show_sell:resData.result.show_sell,
-                  sell_base:resData.result.sell_base
-                }
-              })
-            })      
-
-          }  else {
-            if (resData.code == '403' || resData.code == '250') {
-              location.href = '/';
-            }else{
-              this.initMSG(resData.codemsg)
-            }
+        if (resData.success) {
+          this.imgFile = JSON.parse(resData.result.imgs); 
+          this.paraData.desc = resData.result.title;
+          this.imgUrl = []
+          for (var i = 0; i < this.imgFile.length; i++) {
+            this.imgUrl.push(this.globalAvatar+'goods/'+this.imgFile[i])
           }
+          this.choosed = this.imgUrl.length;
+          this.switchState({
+            CART:Object.assign(this.CART,{
+              imgFile:this.imgFile,
+              desc:this.paraData.desc,
+              imgUrl:this.imgUrl,
+              priceSet:JSON.parse(resData.result.ext),
+              specs:resData.result.spec ? resData.result.desc : [],
+              other:{
+                show_comment:resData.result.show_comment,
+                show_sell:resData.result.show_sell,
+                sell_base:resData.result.sell_base
+              }
+            })
+          })      
+
+        }  else {
+          if (resData.code == '403' || resData.code == '250') {
+            location.href = '/';
+          }else{
+            this.initMSG(resData.codemsg)
+          }
+        }
       })
 
     },

@@ -13,6 +13,14 @@
 .specs {
   padding-bottom: 0
 }
+.specs h3{
+  padding-bottom: 25px;
+}
+.specs p{
+  margin-bottom: 30px;
+  line-height: 60px;
+  padding: 0 40px;
+}
 .specs dl{
   padding-bottom: 30px;
 }
@@ -39,6 +47,17 @@
 .buyNum dl{
   padding-top: 30px;
 }
+.buyNum.special dl{
+  padding-top: 0;
+}
+.mask{
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom:0;
+}
+
 .buyNum dl dd div{
   background: #ebebeb;
   border:1px solid #dedede;
@@ -71,6 +90,9 @@
   line-height: 48px;
   color: #7d7d7d
 }
+.myDetail h3{
+  padding: 15px 0;
+}
 .myDetail:last-child{
   border-bottom: none;
 }
@@ -86,7 +108,9 @@
   border-right: none;
   border-left: none;
 }
-
+.myDetail.special{
+  padding-bottom: 50px;
+}
 .footer dl{
   width: 100%;
   border-top: 1px solid #51aa38;/*no*/
@@ -100,8 +124,110 @@
   line-height: 89px;
 }
 
+.selectAddress{
+  max-height: 500px;
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+  line-height: 48px;
+  color: #4e4e4e
+}
+
+.selectAddress dl{
+  border-bottom: 1px solid #c9c9c9;/*no*/
+  padding: 25px 0;
+}
+.selectAddress dl dt{
+  padding:0 10px;
+  color: #7b7b7b;
+}
+.selectAddress dl dd.special{
+  width: 45px;
+}
+.selectAddress dl dd.grayCR{
+  border-left: 1px solid #c9c9c9;/*no*/
+  padding: 0 0 0 20px
+}
 
 
+.address{
+  position:absolute;
+  bottom:0;
+  left:0;
+  z-index:121;
+  background:#fff;
+  width:100%;
+  height: 0;
+  overflow: hidden;
+  transition: height .5s;
+}
+.toggHeight{
+  height: 600px;
+}
+.layout{
+  width:100%;
+  height:100%;
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:120;
+  opacity: 0;
+  transition: all .5s;
+  background:rgb(53, 58, 60);
+  visibility: hidden;
+}
+.layoutBg{opacity: .7; visibility: visible;}
+.area{
+  /*float: left;*/
+  display:inline-block;
+  font-size:30px;
+  margin-left:0.42rem;
+  color:#4e4e4e;
+  line-height: 80px;
+  max-width: calc(100% - 80%);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.addList{
+  margin-left: .4rem;
+  color:#4e4e4e;
+  line-height: 60px;
+}
+/* 修改的格式 */
+.address ul{
+  height: 520px;
+  padding: 10px 0 20px;
+  overflow:auto;
+}
+.address ul li{
+  list-style: none;
+}
+.address .title .accolor{
+  color: #d66167;
+  /*border-bottom:2px solid #d66167;*/
+}
+.address ul .active{
+  color:#d66167;
+}
+.address ul .active span::after{
+  content: "\e632";
+  font-family:"iconfont" !important;
+  font-size:30px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  vertical-align: middle;
+  padding-left: 10px;
+}
+.title{
+  height: 80px;
+  border-bottom: 1px solid #8a96a3;/*no*/
+}
+.determine{
+  top: 13px;
+  position: relative;
+  right: 20px;
+}
 
 
 

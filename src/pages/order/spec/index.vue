@@ -73,7 +73,7 @@ export default {
     if (this.$route.query.id) {
       this.header.link = '/prd/create?id='+this.$route.query.id
     }    
-    this.specs = html.objClone(this.CART.specs);
+    if (this.CART.specs) this.specs = html.objClone(this.CART.specs);
 
   },
   methods: {
@@ -130,6 +130,7 @@ export default {
       this[arr] = false
     },
     goto(arr){
+
       this.switchState({
         CART:Object.assign(this.CART,{specs:this.specs})
       })

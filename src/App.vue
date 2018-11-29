@@ -28,8 +28,20 @@
               }, false)
           }      
         },
+        methods: {
+          ...mapActions([
+            'switchState', // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`'
+            'clearState'
+          ])
+        },
         watch: {
             '$route' (to, from, next) {
+                if (!this.TOKEN && localStorage.ttToken) {
+                  this.switchState({
+                    TOKEN:localStorage.ttToken,
+                    UID:localStorage.ttUid
+                  })
+                }
                 //监控变化 && html.isPc()&& location.href.indexOf('.3.11') < 0
                 if (!html.isWechat() && !html.isWawa() 
                   && location.href.indexOf('localhost') < 0 

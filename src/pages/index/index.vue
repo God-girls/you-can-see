@@ -282,7 +282,7 @@ export default {
         let shareText ={
             title: '我在小小麦家发现了一件新商品~',
             desc: '快来拼团',
-            link:jumpUrl,
+            link:links,
             imgUrl: vm.ttLogoImg,
             success:function() {
             },

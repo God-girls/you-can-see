@@ -70,7 +70,10 @@ export default {
       this.token = this.TOKEN;
       this.profile = this.PROFILE;
     }
-      this.specs = html.objClone(this.CART.specs);
+    if (this.$route.query.id) {
+      this.header.link = '/prd/create?id='+this.$route.query.id
+    }    
+    this.specs = html.objClone(this.CART.specs);
 
   },
   methods: {

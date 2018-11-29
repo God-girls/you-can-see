@@ -2,7 +2,7 @@
   <div class="header posiR f30">
     
     <h3 @click.prevent="changebg = true">
-      <img :src="sellerInfo.background" alt="" class="head" v-if="sellerInfo.background.indexOf('.jpg') > -1">
+      <img :src="sellerInfo.background" alt="" class="head" v-if="sellerInfo.background.indexOf('data:image/') > -1">
       <img :src="globalAvatar+sellerInfo.background" alt="" class="head" v-if="sellerInfo.background.indexOf('.jpg') > -1">
     </h3>
     <p class="blueLCR">
@@ -44,10 +44,10 @@
       <div class="oneTop">
         <dl class="flexBox">
           <dt>
-            <b>{{item.publish.split(' ')[0].split('-')[2]}}</b>{{item.publish.split(' ')[0].split('-')[1]}}月
+            <b v-if="formatDateTime(item.publish) != item.publish.split(' ')[0]">{{item.publish.split(' ')[0].split('-')[2]}}</b>{{item.publish.split(' ')[0].split('-')[1]}}月
           </dt>
           <dd class="flex1">
-            <h5 class="f30">{{item.desc}}</h5>
+            <h5 class="f30" @click.prevent="goto('/prd/create?id='+item.id)">{{item.desc}}</h5>
             <ul class="blueLCR">
               <li v-for="(item2,index2) in JSON.parse(item.imgs)" @click.prevent="previewImage(item2,item.imgs)">
                 <img :src="globalAvatar+'goods/'+item2" alt="">
@@ -56,16 +56,17 @@
             <ol class="flexBox">
               <li class="flex1 redCR f30">
                 <span v-if="item.status == 0"
-                     @touchend.prevent="onOffGoods(item.id,false)"><i class="iconfont icon-xiajia f30 blueLCR"></i></span> 
-                <span v-else  @touchend.prevent="onOffGoods(item.id,true)"><i class="iconfont icon-ccgl-xiajia f30 blueLCR"></i></span> 
+                     @touchend.prevent="beforeOnoff(item,1)"><i class="iconfont icon-xiajia f30 blueLCR"></i></span> 
+                <span v-else  @touchend.prevent="beforeOnoff(item,2)"><i class="iconfont icon-ccgl-xiajia f30 blueLCR"></i></span> 
                 ¥ {{item.price_range}}
               </li>
               <li class="blueLCR" v-if="item.status == 0">
                 <!-- <span v-if="item.praised"><i class="iconfont icon-heart-opp-copy f30"></i></span> -->
                 <span v-if="!item.praised" @click.prevent="praisePrd(item,index)"><i class="iconfont icon-xinheart282 f30"></i></span>
-                <span @click.prevent="upTop(item.id)"><i class="iconfont icon-top f30"></i></span>
+                <span @click.prevent="beforeOnoff(item,3,index)"><i class="iconfont icon-top f30"></i></span>
                 <span><i class="iconfont icon-zhuanfa f48"></i></span>
-                <span @click.prevent="beforeReply(item,index)" v-if="item.show_comment"><i class="iconfont icon-xiaoxi15-copy f30"></i></span>
+                <span @click.prevent="beforeReply(item,index)" 
+                      v-if="item.show_comment"><i class="iconfont icon-xiaoxi15-copy f30"></i></span>
               </li>
             </ol>
           </dd>
@@ -150,11 +151,11 @@
 
     <dialog-del :dialogshow2.sync="del" @hide="closeDialog('del')">
         <div class="del-header tC grayCR " slot="dialog-header">
-          删除我的评论
+          {{popDel.title[popIndex]}}
         </div>
         <div slot="dialog-footer" class="del-footer tC f30">
           <dl>
-            <dt class="redCR" @touchend.prevent="delComment">删除</dt>
+            <dt class="redCR" @touchend.prevent="popFuncs">{{popDel.content[popIndex]}}</dt>
             <dd @touchend.prevent="closeDialog('del')">取消</dd>
           </dl>          
         </div>

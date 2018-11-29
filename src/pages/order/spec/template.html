@@ -46,7 +46,7 @@
 
   <div slot="footer" :style="statusBarH">
     <div class="footer tC f30">
-      <p class="btn btn-green" @click.prevent="goto('/prd/create')">确定</p>
+      <p class="btn btn-green" @click.prevent="goto(header.link)">确定</p>
     </div>
 
     <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>

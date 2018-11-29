@@ -57,6 +57,9 @@ export default {
     ])
   },
   mounted () {
+    if (this.$route.query.id) {
+      this.header.link = '/prd/create?id='+this.$route.query.id
+    }
     dplus.track('我的',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
     this.other = this.CART.other;

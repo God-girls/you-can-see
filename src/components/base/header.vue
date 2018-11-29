@@ -32,7 +32,7 @@
       right: 0px;
       /*top: 8px;*/
       /*color: #39bbdc;*/
-      padding: 8px 0 8px 10px;
+      padding: 3px 0 8px 10px;
     }
     .my-header ul li.midli span{
         position: relative;
@@ -71,7 +71,7 @@
         </li>
         <li  class="special opacity" v-else><i class="iconfont icon-fanhui f36"></i></li>
         <li class="midli">
-            <a class="f24 greenCR" href="javascript:;" @click.prevent="goto" v-if="hval.subname">
+            <a class="f30 whiteCR" href="javascript:;" @click.prevent="goto" v-if="hval.subname">
               <i class="iconfont icon-zhuanfa f36 whiteCR" v-if="hval.share"></i> 
               <span v-else><i class="iconfont icon-add"></i>{{hval.subname}}</span>
             </a>

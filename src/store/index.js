@@ -11,7 +11,7 @@ export default new vuex.Store({
         PROFILE:{},
         EDITPRD:{},
         EDITAddress:{},
-        RECORDPRD:{},
+        LISTDATA:[],
         UNIONID:'',
         CART:{
             priceSet:{

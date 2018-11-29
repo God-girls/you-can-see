@@ -55,8 +55,11 @@ export default {
       reply:false,
       placeholder:'评论',
       fetBonusType:[],
-      statusBG:'status1',
-      indexArr:[0,1,2,3],
+      popDel:{
+        title:['删除我的评论','下架本条商品','上架本条商品','置顶本条商品'],
+        content:['删除','下架','上架','置顶']
+      },
+      popIndex:0,
       del:false,
       scrollFlag:false,
       scrollLeftpx:'',
@@ -80,7 +83,7 @@ export default {
       'PROFILE',
       'STATUSBARH',
       'BOTTOMBARH',
-      'PUSHPOP'
+      'LISTDATA'
     ])
   },
   mounted () {
@@ -111,7 +114,8 @@ export default {
           this.token = this.TOKEN;
           this.paraData.uid = this.UID;  
           this.profile = this.PROFILE;
-
+          if (this.LISTDATA.length) 
+            this.listData = this.LISTDATA
         }else{
           // this.redirect();
         }
@@ -123,26 +127,14 @@ export default {
         this.defaultData();
         this.initBridge();
       }else{
-        if (this.$route.query.token) {
-          this.paraData.uid = this.$route.query.uid;
-          this.token = unescape(this.$route.query.token);
-
-          this.switchState({
-            TOKEN:this.token,
-            UID:this.paraData.uid
-          })
-          this.defaultData();
-
-        }else if (this.TOKEN) {
-          this.token = this.TOKEN;
-          this.paraData.uid = this.UID;
+        if (this.$route.query.token || this.TOKEN) {
           this.defaultData();
         }else{
           // this.redirect();
         }
       }     
     }
-    // console.log(this.token,this.UID)
+    
     this.getShare ();
     dplus.track('首页',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {}); 
@@ -196,6 +188,22 @@ export default {
           }
         })    
       }
+    },
+    formatDateTime(inputTime) {
+        var date = new Date(inputTime);
+        var y = date.getFullYear();
+        var m = date.getMonth() + 1;
+        m = m < 10 ? ('0' + m) : m;
+        var d = date.getDate();
+        d = d < 10 ? ('0' + d) : d;
+        var h = date.getHours();
+        h = h < 10 ? ('0' + h) : h;
+        var minute = date.getMinutes();
+        var second = date.getSeconds();
+        minute = minute < 10 ? ('0' + minute) : minute;
+        second = second < 10 ? ('0' + second) : second;
+        // return y+'-'+m+'-'+d+' '+' '+h+':'+minute+':'+second;
+        return y+'-'+m+'-'+d+' '+' '+h;
     },
     previewImage(currentImg,totalImg){
       let tempUrls = []
@@ -340,11 +348,12 @@ export default {
       })
 
     },
-    onOffGoods (gid,flag){
+    onOffGoods (){
+
       axios.post('/seller_api/v1//seller/goods_control',qs.stringify({
         'uid':this.paraData.uid,
-        'gid':gid,
-        'flag':flag
+        'gid':this.comment.gid,
+        'flag':this.popIndex == 1 ? false : true
       }),{
           headers: {
               "A-Token-Header": this.token,
@@ -353,14 +362,16 @@ export default {
           let resData = response.data;
           
           if (resData.success) {
-            this.initMSG(!flag ? '已下架':'已上架')
+            this.del = false;
+            this.initMSG(this.popIndex == 1 ? '已下架':'已上架')
             this.fetchList();
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.needLogin = true;
               this.noToken = true;
+            }else{
+              this.initMSG(resData.msg)
             }
-            // console.log(resData.msg);
           }
       }).catch((response)=>{
         this.logErrors(JSON.stringify(response))
@@ -370,7 +381,7 @@ export default {
       this.loading = true;
       axios.post('/seller_api/v1//seller/create_goods',qs.stringify({
         'uid':this.paraData.uid,
-        'gid':gid,
+        'gid':this.comment.gid,
         'publish':new Date().getTime()
       }),{
           headers: {
@@ -381,6 +392,7 @@ export default {
           
           if (resData.success) {
             this.loading = false;
+            this.del = false;
             this.fetchList();
           }  else {
             if (resData.code == '403' || resData.code == '250') {
@@ -458,11 +470,12 @@ export default {
           
           if (resData.success) {
             this.listData[index].praise_head = resData.result.items.length ? JSON.stringify(resData.result.items) : ''
-            this.listData[index].praised = true;
             if (flag) {
-              this.praiseLen++;
+                this.praiseLen++;
               if (this.praiseLen != this.listData.length)
                 this.fetchPraise(this.listData[this.praiseLen],this.praiseLen,true);
+            }else{
+              this.listData[index].praised = true;
             }
           }  else {
             if (resData.code == '403' || resData.code == '250') {
@@ -481,6 +494,7 @@ export default {
       this.replyIndex = index;
       if (item.uid == this.UID) {
         this.del = true;
+        this.popIndex = 0;
       }else{
         this.reply = true;
         this.placeholder = '回复'+item.nick+'：';
@@ -512,6 +526,31 @@ export default {
       this.comment.gid = item.id;
       this.reply = true;
       this.replyIndex = index;
+    },
+    beforeOnoff(item,index,isTop){
+      if (isTop == 0) {
+        this.initMSG('已置顶')
+        return;
+      }
+      this.comment.gid = item.id;
+      this.popIndex = index;
+      // console.log(this.comment.gid)
+      this.del = true;
+    },
+    popFuncs(){
+      switch(this.popIndex){
+        case 0:
+          this.delComment();
+        break; 
+
+        case 3:
+          this.upTop();
+        break; 
+
+        default :
+          this.onOffGoods();
+        break; 
+      }
     },
     delComment(){
       axios.post('/seller_api/v1/seller/del_comment',qs.stringify({
@@ -684,9 +723,9 @@ export default {
 
   },
   beforeDestroy(){
-    
-    clearInterval(this.scrollTimer);
-    clearInterval(this.time_id);
+    this.switchState({
+      LISTDATA:this.listData
+    })          
   }
 }
 </script>

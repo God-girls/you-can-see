@@ -57,6 +57,9 @@ export default {
       this.paraData.uid = this.UID;
       this.profile = this.PROFILE;
     }
+    if (this.$route.query.id) {
+      this.header.link = '/prd/create?id='+this.$route.query.id
+    }
     this.specs = html.objClone(this.CART.specs);
     this.priceSet = html.objClone(this.CART.priceSet);
   },

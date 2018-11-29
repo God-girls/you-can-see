@@ -39,7 +39,8 @@ export default {
       imgUrl:[],
       imgFile:[],
       isWechat:false,
-      choosed:0
+      choosed:0,
+      prdID:''
     }
   },
   components: {
@@ -67,6 +68,10 @@ export default {
     this.paraData.desc = this.CART.desc;
     this.imgUrl = this.CART.imgUrl?this.CART.imgUrl:[]; 
     this.autoTextarea(document.getElementById("text"),'',400)
+    if (this.$route.query.id) {
+      this.prdID = this.$route.query.id
+      this.fetchList();
+    }
     dplus.track('我的',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
 
@@ -79,6 +84,52 @@ export default {
       if (this.STATUSBARH) {
         this.statusBar = this.STATUSBARH+'px';     
       }
+    },
+    fetchList(){
+
+      axios.post('/seller_api/v1/seller/seller_goods_info',qs.stringify({
+        uid:this.paraData.uid,
+        gid:this.prdID
+      }),{
+        headers: {
+            "A-Token-Header": this.token,
+        }
+      }).then((response)=>{   
+        
+          let resData = response.data;  
+
+          if (resData.success) {
+            this.imgFile = JSON.parse(resData.result.imgs); 
+            this.paraData.desc = resData.result.desc;
+            this.imgUrl = []
+            for (var i = 0; i < this.imgFile.length; i++) {
+              this.imgUrl.push(this.globalAvatar+'goods/'+this.imgFile[i])
+            }
+            
+            this.switchState({
+              CART:Object.assign(this.CART,{
+                imgFile:this.imgFile,
+                desc:this.paraData.desc,
+                imgUrl:this.imgUrl,
+                priceSet:JSON.parse(resData.result.ext),
+                specs:resData.result.spec ? resData.result.desc : [],
+                other:{
+                  show_comment:resData.result.show_comment,
+                  show_sell:resData.result.show_sell,
+                  sell_base:resData.result.sell_base
+                }
+              })
+            })      
+
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              location.href = '/';
+            }else{
+              this.initMSG(resData.codemsg)
+            }
+          }
+      })
+
     },
     chooseImg(){
       let _this = this;
@@ -238,7 +289,7 @@ export default {
       this.paraData.show_sell = this.CART.other.show_sell;
       this.paraData.sell_base = this.CART.other.sell_base;
       this.paraData.ext = JSON.stringify(this.CART.priceSet);
-      // alert(JSON.stringify(this.paraData))
+      if (this.prdID) this.paraData.gid = this.prdID;
       
       if (!this.paraData.desc) {
         this.initMSG('添加商品描述')
@@ -252,6 +303,7 @@ export default {
         this.initMSG('请设置定价')
         return;
       }
+
       this.loading = true;
       axios.post('/seller_api/v1/seller/create_goods',qs.stringify(this.paraData),{
           headers: {
@@ -262,22 +314,6 @@ export default {
           let resData = response.data;  
           if (resData.success) {
             this.initMSG('发布成功');
-            this.switchState({
-              CART:{
-                  priceSet:{
-                      def_price:'',
-                      subIndex: 0,
-                      curIndex:0,
-                      price:[]                
-                  },
-                  specs:[],
-                  other:{
-                      show_comment:true,
-                      show_sell:true,
-                      sell_base:0
-                  }
-              }
-            })
             setTimeout(()=>{
               this.goto('/')
             },2000)
@@ -292,17 +328,43 @@ export default {
       }).catch(function(response){});        
     },
     goto (arr){
-       this.$router.push(arr)        
+      if (arr != '/') {
+        this.switchState({
+          CART:Object.assign(this.CART,{imgFile:this.imgFile,desc:this.paraData.desc,imgUrl:this.imgUrl})
+        })      
+      }else{
+        //初始化数据
+        this.switchState({
+          CART:{
+              priceSet:{
+                  def_price:'',
+                  subIndex: 0,
+                  curIndex:0,
+                  price:[]                
+              },
+              specs:[],
+              other:{
+                  show_comment:true,
+                  show_sell:true,
+                  sell_base:0
+              }
+          }
+        });
+        this.imgUrl = [];
+        this.paraData = {
+          price:{},
+          imgs:[]
+        };
+        this.imgFile = []
+
+      }
+       this.$router.push(arr);        
     },
     closeDialog (arr){
       this[arr] = false
     }
   },
   beforeDestroy(){
-    this.switchState({
-      CART:Object.assign(this.CART,{imgFile:this.imgFile,desc:this.paraData.desc,imgUrl:this.imgUrl})
-    })      
-
   }
 }
 </script>

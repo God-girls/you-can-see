@@ -273,7 +273,11 @@ export default {
     },
     reinitShare (goodid,seller){
       let vm = this;
-      let links = this.ttDomain+'/#/app/author?jumpto=/goodid='+goodid+'&seller='+seller;
+      let appID = 'wx357ca89ca431b3ca'
+      let jumpUrl = this.ttDomain+'/#/app/author?jumpto=/goodid='+goodid+'&seller='+seller;
+      let links = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appID
+            +'&redirect_uri='+encodeURIComponent(jumpUrl)
+            +'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
       wx.ready(function () {
         let shareText ={
             title: '我在小小麦家发现了一件新商品~',
@@ -366,7 +370,8 @@ export default {
 
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              location.href = '/';
+              this.needLogin = true;
+              this.noToken = true;
             }else{
               this.initMSG(resData.codemsg)
             }
@@ -723,7 +728,7 @@ export default {
             // this.sellerInfo ();
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              this.goto('/')
+              // this.goto('/')
             }else{
               this.initMSG(resData.codemsg)
             }

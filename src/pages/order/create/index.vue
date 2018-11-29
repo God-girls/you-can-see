@@ -70,7 +70,8 @@ export default {
     this.autoTextarea(document.getElementById("text"),'',400)
     if (this.$route.query.id) {
       this.prdID = this.$route.query.id
-      if (this.CART.imgFile && !this.CART.imgFile.length) this.fetchList();
+      // debugger
+      if (!this.CART.imgFile) this.fetchList();
     }
     dplus.track('我的',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});

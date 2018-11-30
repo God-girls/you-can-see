@@ -105,7 +105,7 @@ export default {
       let jumpUrl = this.ttDomain + '/?'
                   +'&goodid=' + this.$route.query.goodid
                   +'&seller=' + this.$route.query.seller
-                  +'#/author';
+                  +'#/app/author';
 
      location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appID
             +'&redirect_uri='+encodeURIComponent(jumpUrl)

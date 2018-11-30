@@ -274,15 +274,13 @@ export default {
     reinitShare (goodid,seller){
       let vm = this;
       let appID = 'wx357ca89ca431b3ca'
-      let jumpUrl = this.ttDomain+'/#/app/author?jumpto=/goodid='+goodid+'&seller='+seller;
-      let links = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appID
-            +'&redirect_uri='+encodeURIComponent(jumpUrl)
-            +'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+      let jumpUrl = this.ttDomain+'/#/app/author?redirecto=true&goodid='+goodid+'&seller='+seller;
+      
       wx.ready(function () {
         let shareText ={
             title: '我在小小麦家发现了一件新商品~',
             desc: '快来拼团',
-            link:links,
+            link:jumpUrl,
             imgUrl: vm.ttLogoImg,
             success:function() {
             },

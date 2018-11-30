@@ -26,6 +26,12 @@ export default {
       'UNIONID'
     ])
   },
+  created(){
+    if (this.$route.query.redirecto) {
+      this.openWechat();
+      return;
+    }
+  },
   mounted (){
 
     if (html.isWechat()) {//如果是在微信
@@ -94,17 +100,16 @@ export default {
         }
       }
     },
-    openWechatAPP (){
-      let appID = 'wxce1fc643edeadfdc';
-      let jumpUrl = this.ttDomain + '/?redirectmini=pagelogin'
-                  +(location.href.indexOf('inviter') > -1 ?'&inviter='+this.getCode('inviter'):'')
+    openWechat (){
+      let appID = 'wx357ca89ca431b3ca';
+      let jumpUrl = this.ttDomain + '/?'
+                  +'&goodid=' + this.$route.query.goodid
+                  +'&seller=' + this.$route.query.seller
                   +'#/author';
 
-      location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appID
+     location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appID
             +'&redirect_uri='+encodeURIComponent(jumpUrl)
             +'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
-
-            'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx357ca89ca431b3ca&redirect_uri=https%3a%2f%2ftestseller.bhuwifi.com%2f%23%2fapp%2fauthor%2f&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
 
     },
     getQueryValue (name) {

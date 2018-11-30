@@ -45,7 +45,7 @@
                 <span v-if="item.status == 0"
                      @touchend.prevent="beforeOnoff(item,1)"><i class="iconfont icon-gouwuche f36 blueLCR"></i></span> 
                 <span v-else  @touchend.prevent="beforeOnoff(item,2)"><i class="iconfont icon-ccgl-xiajia f30 blueLCR"></i></span> 
-                ¥ {{item.price_range}} <span class="grayCR f21 mL10" v-if="item.show_sell">已售{{item.sell_base?item.sell_base:0}}件</span>
+                ¥ {{item.price_range}} <span class="grayCR f21 mL10" v-if="item.show_sell">已售{{item.total_sell?item.total_sell:0}}件</span>
               </li>
               <li class="blueLCR" v-if="item.status == 0">
                 <span  class="mL10" v-if="!item.praised" @click.prevent="praisePrd(item,index)"><i class="iconfont icon-xinheart282 f30"></i></span>

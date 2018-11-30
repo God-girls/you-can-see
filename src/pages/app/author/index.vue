@@ -28,7 +28,7 @@ export default {
   },
 
   mounted (){
-    alert(location.href)
+
     // alert(this.$route.query.seller)
     if (this.$route.query.redirecto) {
       let jumpUrl = this.ttDomain + '/#/app/author?jumpto='+encodeURIComponent('/prd/list?seller='+this.$route.query.seller+'&goodid='+ this.$route.query.goodid)
@@ -51,10 +51,10 @@ export default {
     ]),
     pushHistory (){  
       window.addEventListener("popstate", (e)=> {
-        alert(location.href)
+        // alert(location.href)
 
-        if (this.$route.query.jumpto) {
-          this.$route.push(this.$route.query.jumpto)
+        if (location.href.indexOf('/prd/list') > -1) {
+          this.$route.push(location.href.split('#')[1])
         }else{
           this.$router.push('/index')
         }
@@ -141,11 +141,9 @@ export default {
                 TOKEN:resData.result.atoken,
                 UID:resData.result.id
               })
-              // alert(location.href)
-              alert(this.$route.query.jumpto)
+
               if (this.$route.query.jumpto) {
                 this.$router.push(this.$route.query.jumpto)
-                // location.href = this.$route.query.jumpto+'&UID=';      
               }else{
                 this.$router.push('/')
               }

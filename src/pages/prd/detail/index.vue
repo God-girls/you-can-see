@@ -145,7 +145,7 @@ export default {
       if (localStorage['statusBarH']) this.statusBarH = JSON.parse(localStorage['statusBarH'])
     },
     fetchPrd(){
-      axios.post('/seller_api/v1/seller/seller_goods_info',qs.stringify({
+      axios.post('/seller_api/v1/seller/goods_info',qs.stringify({
         uid:this.mySeller,
         gid:this.goodid
       }),{
@@ -153,7 +153,7 @@ export default {
             "A-Token-Header": this.token,
         }
       }).then((response)=>{   
-        
+        // alert()
           let resData = response.data;  
 
           if (resData.success) {

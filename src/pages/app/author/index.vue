@@ -29,7 +29,7 @@ export default {
 
   mounted (){
     if (this.$route.query.redirecto) {
-      let jumpUrl = this.ttDomain + '/#/app/author?jumpto=/prd/detail?goodid='
+      let jumpUrl = this.ttDomain + '/#/app/author?jumpto=/prd/list?goodid='
                   + this.$route.query.goodid
                   + '&seller=' + this.$route.query.seller;
 
@@ -38,7 +38,7 @@ export default {
                    + encodeURIComponent(jumpUrl) +'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
       return;
     }
-    alert(location.href)
+    // alert(location.href)
     if (html.isWechat()) {//如果是在微信
       this.getLogin();
       this.pushHistory();      

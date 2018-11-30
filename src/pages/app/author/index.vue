@@ -28,12 +28,23 @@ export default {
   },
   created(){
     if (this.$route.query.redirecto) {
-      this.openWechat();
+      let appID = 'wx357ca89ca431b3ca';
+      let jumpUrl = this.ttDomain + '/#/app/author?jumpto=/prd/detail?goodid='
+                  + this.$route.query.goodid
+                  + '&seller=' + this.$route.query.seller;
+
+      alert('https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appID
+            +'&redirect_uri='+encodeURIComponent(jumpUrl)
+            +'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect')
+
+     location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appID
+            +'&redirect_uri='+encodeURIComponent(jumpUrl)
+            +'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
       return;
     }
   },
   mounted (){
-
+    alert(location.href)
     if (html.isWechat()) {//如果是在微信
       this.getLogin();
       this.pushHistory();      

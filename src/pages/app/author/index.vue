@@ -28,11 +28,10 @@ export default {
   },
 
   mounted (){
+    alert(location.href)
     // alert(this.$route.query.seller)
     if (this.$route.query.redirecto) {
-      let jumpUrl = this.ttDomain + '/#/app/author?jumpto=/prd/list?goodid='
-                  + this.$route.query.goodid
-                  + '&seller=' + this.$route.query.seller;
+      let jumpUrl = this.ttDomain + '/#/app/author?jumpto=/prd/list?seller='+this.$route.query.seller+'&goodid='+ this.$route.query.goodid
 
      location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx357ca89ca431b3ca&redirect_uri='
                    + encodeURIComponent(jumpUrl) +'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
@@ -53,7 +52,7 @@ export default {
     pushHistory (){  
       window.addEventListener("popstate", (e)=> {
         alert(this.$route.query.jumpto)
-        
+
         if (this.$route.query.jumpto) {
           this.$route.push(this.$route.query.jumpto)
         }else{
@@ -143,7 +142,7 @@ export default {
                 UID:resData.result.id
               })
               // alert(location.href)
-              // alert(this.$route.query.jumpto)
+              alert(this.$route.query.jumpto)
               if (this.$route.query.jumpto) {
                 this.$router.push(this.$route.query.jumpto)
                 // location.href = this.$route.query.jumpto+'&UID=';      

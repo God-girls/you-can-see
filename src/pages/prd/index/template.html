@@ -34,7 +34,7 @@
             <b >{{isYestday(new Date(item.publish.split('-').join('/')).getTime()) ? '昨天' : '今天'}}</b >
           </dt>
           <dd class="flex1">
-            <h5 class="f30" @click.prevent="goto('/prd/detail?goodid='+item.id+'&seller='+paraData.seller+(goodid?'&from=share':''))">{{item.title}}</h5>
+            <h5 class="f30" @click.prevent="goto('/prd/detail?goodid='+item.id+'&seller='+paraData.seller+(goodid?'&from=share':''))">{{item.desc}}</h5>
             <ul class="blueLCR">
               <li v-for="(item2,index2) in JSON.parse(item.imgs)" @click.prevent="previewImage(item2,item.imgs)">
                 <img :src="globalAvatar+'goods/'+item2" alt="">

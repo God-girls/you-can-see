@@ -53,7 +53,11 @@ export default {
     ]),
     pushHistory (){  
       window.addEventListener("popstate", (e)=> {
+        if (this.$route.query.jumpto) {
+          this.$route.push(this.$route.query.jumpto)
+        }else{
           this.$router.push('/index')
+        }
       }, false);
       var state = {
           title : "小小麦",

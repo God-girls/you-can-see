@@ -146,7 +146,7 @@ export default {
     },
     fetchPrd(){
       axios.post('/seller_api/v1/seller/seller_goods_info',qs.stringify({
-        uid:this.paraData.uid,
+        uid:this.mySeller,
         gid:this.goodid
       }),{
         headers: {

@@ -136,10 +136,11 @@ export default {
                 TOKEN:resData.result.atoken,
                 UID:resData.result.id
               })
-              // alert(location.href)
+              alert(location.href)
+              alert(this.$route.query.jumpto)
               if (location.href.indexOf('jumpto') > -1) {
                 this.$router.push(this.$route.query.jumpto)
-                // location.href = this.jumpto;      
+                // location.href = this.$route.query.jumpto+'&UID=';      
               }else{
                 this.$router.push('/')
               }

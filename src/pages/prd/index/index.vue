@@ -91,7 +91,6 @@ export default {
     ])
   },
   mounted () {
-
     if (html.istestPay()) {
       this.wawaAndroid = true;
     }

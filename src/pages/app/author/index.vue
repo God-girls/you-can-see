@@ -28,6 +28,7 @@ export default {
   },
 
   mounted (){
+    alert(this.$route.query.seller)
     if (this.$route.query.redirecto) {
       let jumpUrl = this.ttDomain + '/#/app/author?jumpto=/prd/list?goodid='
                   + this.$route.query.goodid
@@ -138,7 +139,7 @@ export default {
               })
               alert(location.href)
               alert(this.$route.query.jumpto)
-              if (location.href.indexOf('jumpto') > -1) {
+              if (this.$route.query.jumpto) {
                 this.$router.push(this.$route.query.jumpto)
                 // location.href = this.$route.query.jumpto+'&UID=';      
               }else{

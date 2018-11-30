@@ -2,7 +2,7 @@
 * @Author: xiaoxiao
 * @Date:   2017-11-28 13:47:58
 * @Last Modified by:   xiaoxiao
-* @Last Modified time: 2018-11-27 17:44:35
+* @Last Modified time: 2018-11-30 15:03:13
 */
 import axios from 'axios';
 import qs from 'qs';
@@ -159,6 +159,22 @@ var html = {
     isAppshare: function(){// 渠道包app 可以用自己的分享
         if (html.browser.versions.appshare) return true;
         else return false        
+    },
+    timeForMat (count) {
+    // 拼接时间
+    　　let time1 = new Date()
+    　　time1.setTime(time1.getTime() - (24 * 60 * 60 * 1000))
+    　　let Y1 = time1.getFullYear()
+    　　let M1 = ((time1.getMonth() + 1) > 10 ? (time1.getMonth() + 1) : '0' + (time1.getMonth() + 1))
+    　　let D1 = (time1.getDate() > 10 ? time1.getDate() : '0' + time1.getDate())
+    　　let timer1 = Y1 + '-' + M1 + '-' + D1 // 当前时间
+    　　let time2 = new Date()
+    　　time2.setTime(time2.getTime() - (24 * 60 * 60 * 1000 * count))
+    　　let Y2 = time2.getFullYear()
+    　　let M2 = ((time2.getMonth() + 1) > 9 ? (time2.getMonth() + 1) : '0' + (time2.getMonth() + 1))
+    　　let D2 = (time2.getDate() > 9 ? time2.getDate() : '0' + time2.getDate())
+
+    　　return Y2 + '-' + M2 + '-' + D2;
     },
     add (a, b) {
         var c, d, e;

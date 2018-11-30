@@ -295,7 +295,7 @@ export default {
     },
     defaultData(){
       this.getProfile ();
-      this.fetchList();
+      // this.fetchList();
       // this.getNotice()
     },
     getProfile (){
@@ -376,6 +376,17 @@ export default {
           }
       })
 
+    },
+    onRefresh(done) {
+      setTimeout(()=>{
+        this.totalPageCount = -1;
+        this.paraData.pn = 1;
+        this.fetchList(done);  
+      },1000)
+    },
+    onInfinite(done) {   
+      this.indexDone = done;   
+      this.fetchList(done);
     },
     onOffGoods (){
 

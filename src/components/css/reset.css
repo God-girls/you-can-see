@@ -245,6 +245,9 @@ input:-webkit-autofill {
 .grayCR{
     color: #7f7f7f!important;
 }
+.lightCR{
+  color: #a8a8aa!important;
+}
 .blackCR{
     color: #000000!important;
 }
@@ -314,14 +317,6 @@ input:-webkit-autofill {
   height: 56px;
   line-height: 56px;
 }
-.btn-green{
-  background: #51aa38;
-  outline: 0;
-}
-.btn-green:active{
-  background: #319017;
-  outline: 0;
-}    
 .btn-red{
   background: #e82d66;
   outline: 0;
@@ -343,6 +338,14 @@ input:-webkit-autofill {
 }  
 .btn-default:active{
   background: #cacaca;
+  outline: 0;
+}    
+.btn-green{
+  background: #51aa38;
+  outline: 0;
+}
+.btn-green:active{
+  background: #319017;
   outline: 0;
 }    
 .btn-gray{

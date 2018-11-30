@@ -5,12 +5,16 @@
 import loading from '../../../components/base/loading'
 import myhead from '../../../components/base/header'
 import nodate from '../../../components/base/nodate'
+import modalDialog from '../../../components/base/dialog'
 import datepicker from '../../../components/base/Datepicker.vue'
 import { mapState, mapActions } from 'vuex'
 import {html} from '../../../assets/js/global.js';
 import axios from 'axios';
 import qs from 'qs';
-
+import echarts from 'echarts';
+import 'echarts/lib/chart/line';
+import 'echarts/lib/component/title';
+// 引入图表
 export default {
   data () {
     return {
@@ -23,34 +27,56 @@ export default {
       token:'',
       loading:false,
       noData:false,
-      isAndroid:false,
+      selectOne:false,
+      isCur:0,
+      isCur2:1,
+      isCur3:0,
       statusBar:{},
       loadError:'',
       bottomBarH:[],
       isApp:'',
       noDataText:'-----我是有底线的-----',
-      paraData:{
-        begin_time:'',
-        end_time:'',
-        ps:50,
-        pn:1
-      },
-      isCur:0,
+      tabsSeq:[
+        {name:'按金额',type:'A'},
+        {name:'按销量',type:'C'},
+      ],
+      tabsData:[
+        {name:'昨日',type:'0'},
+        {name:'今日',type:'1'},
+        {name:'7天',type:null},
+        {name:'30天',type:null}
+      ],
       tabs:[
         {name:'全部商品'},
         {name:'查看单品'},
         {name:'商品排行'}
       ],
-      minDate:'2018-1-01',
+      paraData:{
+        begin_time:'',
+        end_time:'',
+        ps:10,
+        pn:1,
+        status:'0'
+      },
+      totalPages:-2,
+      sellerInfo:{
+        imgs:'[]'
+      },
+      rankData:[],
       profile:{},
-      listData:[]
+      listData:{},
+      saleData:{},
+      dataTime:{},
+      prdGid:'',
+      allPrdData:[]
     }
   },
   components: {
     loading,
     nodate,
     myhead,
-    datepicker
+    datepicker,
+    modalDialog
   },
   computed:{
     ...mapState([
@@ -76,14 +102,14 @@ export default {
       this.paraData.uid = this.UID;
       this.token = this.TOKEN;
     }
-    if (this.$route.query.from == 'shop') {
-      this.header.link = '/shop'
-    }
-    this.paraData.begin_time = this.curData();
-    this.paraData.end_time = this.curData();       
 
-    // this.getProfile ();
-    dplus.track('我的余额',{'from':html.useragent()});//统计代码
+    this.dataTime.start = html.timeForMat(0)
+    this.dataTime.end = html.timeForMat(0)
+
+    this.getList ();
+    this.fetchList();
+    this.getBonus();
+    dplus.track('收入分析',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
 
   },
@@ -92,17 +118,66 @@ export default {
       'switchState', // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`'
       'clearState'
     ]),
-    curData(){
-      const oDate = new Date();
-      function add_zero(temp){
-        if(temp<10) return "0"+temp;
-        else return temp;
-      }
-      return oDate.getFullYear()+'-'+add_zero(oDate.getMonth() + 1)+'-'+add_zero(oDate.getDate());
+    setSellerInfo(item){
+      this.sellerInfo = item;
+      this.prdGid = item.id;
+      this.getList();
+      this.getBonus();
+      this.selectOne = false;
     },
-    getProfile (){
-      axios.post('/bonus_api/v1/bonus/userinfo',qs.stringify({
-        uid:this.paraData.uid
+    changeTabs(index){
+      this.isCur = index;
+      if (this.isCur == 0) {
+        this.prdGid = '';
+        this.getList();
+        this.getBonus();
+      }else if(this.isCur == 1){
+        this.prdGid = this.sellerInfo.id;
+        // this.fetchList();
+        this.getBonus();
+        this.getList();
+      }
+      if (this.isCur == 2) {
+        this.getRank('A');
+      }
+    },
+    changeType(index){
+      this.isCur2 = index;
+      this.typeFormat();
+      this.getList()
+    },
+    changeSeq(index,type){
+      this.isCur3 = index;
+      this.getRank(type);
+    },
+    typeFormat(){
+      switch(this.isCur2){
+        case 0:
+          this.dataTime.start = html.timeForMat(1)
+          this.dataTime.end = html.timeForMat(1)
+        break;
+
+        case 1:
+          this.dataTime.start = html.timeForMat(0)
+          this.dataTime.end = html.timeForMat(0)
+        break;
+
+        case 2:
+          this.dataTime.start = html.timeForMat(6)
+          this.dataTime.end = html.timeForMat(0)
+        break;
+
+        case 3:
+          this.dataTime.start = html.timeForMat(29)
+          this.dataTime.end = html.timeForMat(0)
+        break;
+
+      }
+    },
+    getRank (type){
+      axios.post('/seller_api/v1/seller/board',qs.stringify({
+        uid:this.paraData.uid,
+        type:type
       }),{
           headers: {
               "A-Token-Header": this.token,
@@ -111,11 +186,29 @@ export default {
           let resData = response.data;
 
           if (resData.success) {
-            this.profile = resData.result;
-            this.switchState({
-              PROFILE:resData.result,
-            })
+            this.rankData = resData.result;
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.goto('/')
+            }
+          }
+      }).catch((response)=>{
+        // this.logErrors(JSON.stringify(response))
+      });  
+    },
+    getBonus (){
+      axios.post('/seller_api/v1/seller/goods_stat',qs.stringify({
+        uid:this.paraData.uid,
+        gid:this.prdGid
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;
 
+          if (resData.success) {
+            this.saleData = resData.result;
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.needLogin = true;
@@ -126,15 +219,42 @@ export default {
         // this.logErrors(JSON.stringify(response))
       });  
     },
+    fetchList(){
+      axios.post('/seller_api/v1/seller/my_goods',qs.stringify({
+        uid:this.paraData.uid,
+        ps:10,
+        pn:this.paraData.pn
+      }),{
+        headers: {
+            "A-Token-Header": this.token,
+        }
+      }).then((response)=>{   
+        
+          let resData = response.data;  
+
+          if (resData.success) {
+           this.allPrdData = resData.result.items;
+           this.sellerInfo = resData.result.items[0]
+           this.totalPages = resData.result.totalPageCount
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.needLogin = true;
+              this.noToken = true;
+            }else{
+              this.initMSG(resData.codemsg)
+            }
+          }
+      })
+
+    },
     getList(done){
-
       this.noData = false;
-
-      if ((this.totalPageCount+1 == this.paraData.pn || this.totalPageCount == 0 || this.totalPageCount == 1 )){
-        if(done) done(true) 
-        return;
-      }
-      axios.post('/bonus_api/v1/bonus/wallet_log',qs.stringify(this.paraData),{
+      axios.post('/seller_api/v1/seller/goods_chart',qs.stringify({
+        uid:this.paraData.uid,
+        gid:this.prdGid,
+        start:this.dataTime.start,
+        end:this.dataTime.end
+      }),{
           headers: {
               "A-Token-Header": this.token,
           }
@@ -144,48 +264,103 @@ export default {
           
           if (resData.success) {
             let ranks = resData.result;
-            this.totalPageCount = 1;
+              this.listData = ranks;
 
-              if (this.paraData.pn == 1) {
-                  this.listData = ranks.items;
-
-                  if (this.listData.length < 6) this.noDataText = '';
-                  if (this.listData.length == 0) this.noData = true;
+              let lineData = resData.result.list;
+              let count = 0;
+              let xData = [];
+              let yData = [];
+              // console.log(resData)
+              for (let i = 0; i < lineData.length; i++) {
+                xData.push(lineData[i].id);
+                yData.push(lineData[i].amount);
+                count = html.add(count,lineData[i].count);
               }
-              else {
-                this.listData = this.listData.concat(ranks.items);
-              }
-              this.loading = false;
-              this.paraData.pn = this.paraData.pn + 1;        
+              // console.log(count)
+              if (count) {
+                this.$nextTick(function(){
+                    this.drawLine (xData,yData);
+                })
+              }else this.noData = true;          
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.$router.push('/')
             }
           }
-          if (done) done(true);
 
       }).catch((response)=>{if (done) done(true)});  
 
     },
-    initBridge(){
-      var vm = this;
-      if (html.isWawaIos()) {
-        setupWebViewJavascriptBridge(function(webBridge) {
-          bridgeLogin(webBridge)
-        });
-      }else if (html.isWawaAndroid()){
-        bridgeLogin();
-      }
-      function bridgeLogin(param){
-        var webBridge = param ? param : webBridgeAndroid;
-        webBridge.registerHandler('notification', (data, responseCallback) =>{
-          if (data == 'DidBecomeActive') {//成功
-            vm.keysLog = false;
-            vm.fetchCurrent();
-          }
-        })    
-      }
+    getDpr(){
+        var dpr = document.documentElement.getAttribute('data-dpr');
+        if (dpr == 1) {
+            return 12;
+        }else if (dpr == 2) {
+            return  24;
+        }else {
+            return 36;
+        }
     },
+    drawLine (xData,yData){//关键指标趋势图
+        var myChart = echarts.init(document.getElementById('lineMain'));
+        // console.log(myChart)
+        var option = {
+            tooltip: {
+                trigger: 'axis',
+                textStyle:{
+                    fontSize:this.getDpr() //此处设置提示文字大小
+                },
+            },
+            // legend: {
+            //     data:['收入']
+            // },
+            grid: {
+                left: '4%',
+                 top: '6%',
+                right: '9%',
+                bottom: '0%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: xData,
+                // axisLabel:{'interval':0,rotate:30}, 
+                axisLabel : {
+                    textStyle : {
+                        fontSize : this.getDpr()
+                    },
+                }
+            },
+            calculable : false,
+            yAxis: {
+                type: 'value',
+                axisLabel : {
+                    textStyle : {
+                        fontSize : this.getDpr()
+                    }
+                }
+            },
+            name:{
+              fontSize:36//ios 24
+            },
+            // dataZoom: [ { show: true, start: 60, end: 100 }],
+            color:['#1caf9a'],
+            series: [
+                {
+                    name:'收入',
+                    type:'line',
+                    stack: '总量',
+                    data:yData,
+                    symbol:'emptyCircle',
+                    smooth : true,
+                }
+            ]
+        };
+        // myChart.setOptionoption);
+        myChart.setOption(option);
+        
+      },
     onRefresh(done) {
       setTimeout(()=>{
         this.totalPageCount = -1;
@@ -209,8 +384,8 @@ export default {
     goto (arr){
        this.$router.push(arr)        
     },
-    goBack (){
-      this.$router.push('/')      
+    closeDialog (arr){
+      this[arr] = false
     }
   },
   beforeDestroy(){

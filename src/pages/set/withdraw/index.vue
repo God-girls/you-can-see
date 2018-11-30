@@ -78,8 +78,11 @@ export default {
       }
     },
     getCaptcha(type){
-      // this.getImage();
-      axios.post('/bonus_api/v1/user/captcha/fetch_captcha',qs.stringify({
+      if (!this.profile.acc) {
+        this.initMSG('请先到 ”我的“ 绑定手机号')
+        return;
+      }
+      axios.post('/seller_api/v1/user/captcha/fetch_captcha',qs.stringify({
         acc:this.profile.acc,
         act:type
       })
@@ -121,7 +124,6 @@ export default {
       });  
     },
    withDraw (){
-      this.loading = true;
       if (!this.profile.balance || Number(this.paraData.amount) > Number(this.profile.balance)) {
         this.initMSG('账户余额不足')
         return;
@@ -130,8 +132,13 @@ export default {
         this.initMSG('最少提现 1 元')
         return;
       }
+      if (!this.profile.acc) {
+        this.initMSG('请先到 ”我的“ 绑定手机号')
+        return;
+      }
+      this.loading = true;
 
-      axios.post('/bonus_api/v1/bonus/withdraw_balance',qs.stringify(this.paraData),{
+      axios.post('/seller_api/v1/bonus/withdraw_balance',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,
           }
@@ -165,7 +172,7 @@ export default {
       });  
     },
     getProfile (){
-      axios.post('/bonus_api/v1/bonus/userinfo',qs.stringify(this.paraData),{
+      axios.post('/seller_api/v1/bonus/userinfo',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,
           }

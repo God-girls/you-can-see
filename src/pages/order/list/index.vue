@@ -32,21 +32,25 @@ export default {
       isApp:'',
       noDataText:'-----我是有底线的-----',
       paraData:{
-        begin_time:'',
-        end_time:'',
         ps:50,
-        pn:1
+        pn:1,
+        status:'0'
       },
       isCur:0,
       tabs:[
-        {name:'未发货订单'},
-        {name:'已发货订单'},
-        {name:'全部订单'}
+        {name:'未发货订单',type:'0'},
+        {name:'已发货订单',type:'1'},
+        {name:'全部订单',type:null}
       ],
       minDate:'2018-1-01',
       profile:{},
       listData:[],
       navType:'shop',
+      searchCon:'',
+      hasClick:false,
+      remark:'',
+      deliver:'',
+      deliver_no:''
     }
   },
   components: {
@@ -55,6 +59,22 @@ export default {
     nodate,
     myfooter,
     datepicker
+  },
+  watch: {//深度 watcher
+    'searchCon': {
+      handler (val, oldVal) { 
+        
+
+        if (val == '') {
+          // debugger
+          this.hasClick = false
+          console.log(this.hasClick)
+          // this.searchList()
+        }
+      },
+      deep: true
+    },
+
   },
   computed:{
     ...mapState([
@@ -80,14 +100,8 @@ export default {
       this.paraData.uid = this.UID;
       this.token = this.TOKEN;
     }
-    if (this.$route.query.from == 'shop') {
-      this.header.link = '/shop'
-    }
-    this.paraData.begin_time = this.curData();
-    this.paraData.end_time = this.curData();       
 
-    // this.getProfile ();
-    dplus.track('我的余额',{'from':html.useragent()});//统计代码
+    dplus.track('订单管理',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
 
   },
@@ -96,56 +110,126 @@ export default {
       'switchState', // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`'
       'clearState'
     ]),
-    curData(){
-      const oDate = new Date();
-      function add_zero(temp){
-        if(temp<10) return "0"+temp;
-        else return temp;
-      }
-      return oDate.getFullYear()+'-'+add_zero(oDate.getMonth() + 1)+'-'+add_zero(oDate.getDate());
+    changeType(index,type){
+      this.isCur = index;
+      this.totalPageCount = -1;
+      this.paraData.pn = 1;
+      this.searchCon = ''
+      this.paraData.key = '';
+      // console.log(type)
+      this.paraData.status = type;
+      if (!type) delete this.paraData['status']
+      this.hasClick = false;
+      this.getList();  
     },
-    getProfile (){
-      axios.post('/bonus_api/v1/bonus/userinfo',qs.stringify({
-        uid:this.paraData.uid
+    searchList(){
+      this.paraData.key = this.searchCon;
+      this.loading = true;
+      this.hasClick = true;
+      this.onRefresh();  
+    },
+    searchCancel(){
+      this.searchCon = ''
+      this.paraData.key = '';
+      this.loading = true;
+      this.hasClick = false;
+      this.onRefresh();  
+    },
+    popOrder(item,index,flag){//true 为订单备注修改
+      this.listIndex = index;
+      if (flag) 
+        this.notes = true;
+      else
+        this.diliver = true;
+      this.pid = item.id;
+    },
+    setRemark (){
+      if (!this.remark) {
+        this.initMSG('请添加备注')
+        return;
+      }
+      this.loading = true;
+      axios.post('/seller_api/v1//seller/package_remark',qs.stringify({
+        'uid':this.paraData.uid,
+        'pid':this.pid,
+        'remark': this.remark
       }),{
           headers: {
               "A-Token-Header": this.token,
           }
         }).then((response)=>{   
           let resData = response.data;
-
+          
           if (resData.success) {
-            this.profile = resData.result;
-            this.switchState({
-              PROFILE:resData.result,
-            })
-
+            this.notes = false;
+            this.initMSG('备注成功')
+            this.listData[this.listIndex].seller_remark = this.remark;
+            this.remark = '';
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.needLogin = true;
               this.noToken = true;
+            }else{
+              this.initMSG(resData.msg)
             }
           }
       }).catch((response)=>{
-        // this.logErrors(JSON.stringify(response))
+        this.logErrors(JSON.stringify(response))
+      });  
+    },
+    setDeliver (){
+      if (!this.deliver || !this.deliver_no) {
+        this.initMSG('请添加完整快递信息')
+        return;
+      }
+      this.loading = true;
+      axios.post('/seller_api/v1//seller/package_deliver',qs.stringify({
+        'uid':this.paraData.uid,
+        'pid':this.pid,
+        'deliver': this.deliver,
+        'deliver_no':this.deliver_no
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;
+          
+          if (resData.success) {
+            this.diliver = false;
+            this.initMSG('发货成功')
+            this.listData[0].deliver_no = this.deliver_no;
+            this.listData[0].deliver = this.deliver;
+            this.deliver_no = '';
+            this.onRefresh();
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.needLogin = true;
+              this.noToken = true;
+            }else{
+              this.initMSG(resData.msg)
+            }
+          }
+      }).catch((response)=>{
+        this.logErrors(JSON.stringify(response))
       });  
     },
     getList(done){
 
-      this.noData = false;
 
       if ((this.totalPageCount+1 == this.paraData.pn || this.totalPageCount == 0 || this.totalPageCount == 1 )){
         if(done) done(true) 
         return;
       }
-      axios.post('/bonus_api/v1/bonus/wallet_log',qs.stringify(this.paraData),{
+      this.noData = false;
+      axios.post('/seller_api/v1/seller/package_list',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,
           }
         }).then((response)=>{     
 
           let resData = response.data; 
-          
+
           if (resData.success) {
             let ranks = resData.result;
             this.totalPageCount = 1;
@@ -159,6 +243,7 @@ export default {
               else {
                 this.listData = this.listData.concat(ranks.items);
               }
+              // console.log(this.listData)
               this.loading = false;
               this.paraData.pn = this.paraData.pn + 1;        
           }  else {
@@ -171,31 +256,11 @@ export default {
       }).catch((response)=>{if (done) done(true)});  
 
     },
-    initBridge(){
-      var vm = this;
-      if (html.isWawaIos()) {
-        setupWebViewJavascriptBridge(function(webBridge) {
-          bridgeLogin(webBridge)
-        });
-      }else if (html.isWawaAndroid()){
-        bridgeLogin();
-      }
-      function bridgeLogin(param){
-        var webBridge = param ? param : webBridgeAndroid;
-        webBridge.registerHandler('notification', (data, responseCallback) =>{
-          if (data == 'DidBecomeActive') {//成功
-            vm.keysLog = false;
-            vm.fetchCurrent();
-          }
-        })    
-      }
-    },
     onRefresh(done) {
       setTimeout(()=>{
         this.totalPageCount = -1;
         this.paraData.pn = 1;
         this.getList(done);  
-        this.getProfile ();      
       },1000)
     },
     onInfinite(done) {   
@@ -213,8 +278,8 @@ export default {
     goto (arr){
        this.$router.push(arr)        
     },
-    goBack (){
-      this.$router.push('/')      
+    closeDialog (arr){
+      this[arr] = false
     }
   },
   beforeDestroy(){

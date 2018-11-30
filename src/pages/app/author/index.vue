@@ -31,7 +31,7 @@ export default {
     alert(location.href)
     // alert(this.$route.query.seller)
     if (this.$route.query.redirecto) {
-      let jumpUrl = this.ttDomain + '/#/app/author?jumpto=/prd/list?seller='+this.$route.query.seller+'&goodid='+ this.$route.query.goodid
+      let jumpUrl = this.ttDomain + '/#/app/author?jumpto='+encodeURIComponent('/prd/list?seller='+this.$route.query.seller+'&goodid='+ this.$route.query.goodid)
 
      location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx357ca89ca431b3ca&redirect_uri='
                    + encodeURIComponent(jumpUrl) +'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
@@ -51,7 +51,7 @@ export default {
     ]),
     pushHistory (){  
       window.addEventListener("popstate", (e)=> {
-        alert(this.$route.query.jumpto)
+        alert(location.href)
 
         if (this.$route.query.jumpto) {
           this.$route.push(this.$route.query.jumpto)

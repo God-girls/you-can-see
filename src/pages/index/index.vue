@@ -524,6 +524,7 @@ export default {
       if (item.uid == this.UID) {
         this.del = true;
         this.popIndex = 0;
+        this.placeholder = '评论'
       }else{
         this.reply = true;
         this.placeholder = '回复'+item.nick+'：';
@@ -542,7 +543,9 @@ export default {
           let resData = response.data;   
 
           if (resData.success) {
-            this.getProfile();
+            this.reply = false;
+            this.comment.tips = '';
+            this.fetchComment();
           }else{
             this.initMSG(resData.codemsg);
           }
@@ -634,6 +637,10 @@ export default {
       });  
     },
     goodsComment (){
+      if (this.placeholder.indexOf('回复') > -1) {
+        this.replyComment()
+        return
+      }
       axios.post('/seller_api/v1/seller/goods_comment',qs.stringify({
         uid:this.paraData.uid,
         gid:this.comment.gid,

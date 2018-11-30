@@ -703,7 +703,7 @@ export default {
       }
     },
     goto (arr,title){
-
+      alert(arr)
       this.$router.push(arr)
     },
     closeDialog (arr){

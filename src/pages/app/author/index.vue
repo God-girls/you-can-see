@@ -34,7 +34,6 @@ export default {
                   + this.$route.query.goodid
                   + '&seller=' + this.$route.query.seller;
 
-
      location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx357ca89ca431b3ca&redirect_uri='
                    + encodeURIComponent(jumpUrl) +'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
       return;
@@ -53,6 +52,8 @@ export default {
     ]),
     pushHistory (){  
       window.addEventListener("popstate", (e)=> {
+        alert(this.$route.query.jumpto)
+        
         if (this.$route.query.jumpto) {
           this.$route.push(this.$route.query.jumpto)
         }else{

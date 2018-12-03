@@ -32,9 +32,11 @@ export default {
     // alert(this.$route.query.seller)
     alert(location.href)
     if (this.$route.query.redirecto) {
-      let jumpUrl = this.ttDomain + '/#/app/author?jumpto='+encodeURIComponent('/prd/list?seller='+this.$route.query.seller+
-          + (this.$route.query.goodid?'&goodid='+ this.$route.query.goodid:''))
-
+      let jumpUrl = this.ttDomain + '/#/app/author?jumpto='+;
+      let params = '/prd/list?seller='+this.$route.query.seller
+      if (this.$route.query.goodid) params += '&goodid='+ this.$route.query.goodid;
+      jumpUrl += encodeURIComponent(params);
+      
       if (html.isWechat()) location.href = html.openInWechat(jumpUrl);
       else  location.href = html.openInOher(jumpUrl)
       return;
@@ -146,7 +148,7 @@ export default {
                 TOKEN:resData.result.atoken,
                 UID:resData.result.id
               })
-              alert('jumpto：'+this.$route.query.jumpto)
+              // alert('jumpto：'+this.$route.query.jumpto)
               if (this.$route.query.jumpto) {
                 this.$router.push(this.$route.query.jumpto)
               }else{

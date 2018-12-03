@@ -91,17 +91,9 @@ export default {
     ])
   },
   mounted () {
-    if (html.istestPay()) {
-      this.wawaAndroid = true;
-    }
-    if (html.isIpad()) {
-      this.isIpad = true;
-    }
-    if (this.$route.query.isguest){
-      this.iAmGuest = true;
-      this.fetchList();
-      this.getStatusBar();
-    }else{
+      // alert('seller:'+this.$route.query.seller)
+      // alert('goodid:'+this.$route.query.goodid)
+      // alert('token'+this.TOKEN)
       if (this.$route.query.seller) {
         this.paraData.seller = this.$route.query.seller
       }
@@ -109,25 +101,25 @@ export default {
         this.goodid = this.$route.query.goodid
       }
 
-        if (this.$route.query.token) {
-          this.paraData.uid = this.$route.query.uid;
-          this.token = unescape(this.$route.query.token);
+      if (this.$route.query.token) {
+        this.paraData.uid = this.$route.query.uid;
+        this.token = unescape(this.$route.query.token);
 
-          this.switchState({
-            TOKEN:this.token,
-            UID:this.paraData.uid
-          })
+        this.switchState({
+          TOKEN:this.token,
+          UID:this.paraData.uid
+        })
 
-        }else if (this.TOKEN){
+      }else if (this.TOKEN){
 
-          this.token = this.TOKEN;
-          this.paraData.uid = this.UID;  
-          this.profile = this.PROFILE;
-          if (this.LISTDATA.length) 
-            this.listData = this.LISTDATA
-        }else{
-          // this.redirect();
-        }
+        this.token = this.TOKEN;
+        this.paraData.uid = this.UID;  
+        this.profile = this.PROFILE;
+        if (this.LISTDATA.length) 
+          this.listData = this.LISTDATA
+      }else{
+        // this.redirect();
+      }
 
       if (html.isWawa()) {
         this.isApp = true;
@@ -142,7 +134,7 @@ export default {
           // this.redirect();
         }
       }     
-    }
+
     this.getShare ();
     dplus.track('首页',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {}); 
@@ -266,7 +258,7 @@ export default {
         let shareOBJ ={
             title: '小小麦',
             desc: '小小卖家最爱的小小麦~',
-            link: vm.ttDomain+'?'+ vm.timeStamp,
+            link: vm.ttDomain+'/#/app/author?redirecto=true&seller='+vm.paraData.uid,
             imgUrl: vm.ttLogoImg,
             success:function () {
                // dplus.track('分享成功',{'from':html.useragent(),'inviter':vm.inviter,'page':'index'});

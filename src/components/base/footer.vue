@@ -178,26 +178,26 @@
   <div>
     <div class="my-footer" >
       <ul>
-        <li :class="['special',{'current animateds zoomIn':current=='task'}]" @touchend.prevent="goto('/')">
+        <li :class="['special',{'current':current=='task'}]" @touchend.prevent="goto('/')">
           <i class="myicon icon-task"></i>
           <p class="power">商品</p>
         </li>
-        <li :class="['special',{'current animateds zoomIn':current=='order'}]" @touchend.prevent="goto('/order/list')">
+        <li :class="['special',{'current':current=='order'}]" @touchend.prevent="goto('/order/list')">
           <i class="myicon icon-book"></i>
           <p>订单</p>
         </li>
-        <li :class="['homeLi',{'current animateds zoomIn':current=='home'}]" @touchend.prevent="">
+        <li :class="['homeLi',{'current':current=='home'}]" @touchend.prevent="">
           <i class="icon-home"></i>
           <span></span>
           <b></b>
           <!-- <p>大陆中心</p> -->
         </li>
 
-        <li :class="['special posiR',{'current animateds zoomIn':current=='discovery'}]" @touchend.prevent="goto('/discovery')">
+        <li :class="['special posiR',{'current':current=='discovery'}]" @touchend.prevent="goto('/discovery')">
           <i class="myicon icon-rank"></i>
           <p>发现</p>
         </li>        
-        <li :class="['special',{'current animateds zoomIn':current=='my'}]" @touchend.prevent="goto('/my')">
+        <li :class="['special',{'current':current=='my'}]" @touchend.prevent="goto('/my')">
           <i class="myicon icon-my"></i>
           <p>我</p>
         </li>

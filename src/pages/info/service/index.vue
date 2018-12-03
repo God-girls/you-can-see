@@ -28,6 +28,9 @@ export default {
       myNick:'',
       paraData:{
         uid:7,
+        service_mobileno:'',
+        weixin:'',
+        qq:''
       },
       token:'',
       guideType:0,
@@ -76,9 +79,7 @@ export default {
       'switchState', // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`'
       'clearState',
     ]),
-    type(){
 
-    },
     checkChar (Message){ //字节统计
         let ByteCount = 0,
             StrLength = Message.length;
@@ -136,7 +137,10 @@ export default {
       this[arr] = true;
     },
     clearNick (){
-      this.paraData.nick = '';
+      this.$nextTick(()=>{
+        this.paraData[this.nameType[this.guideType].type] = '';
+      })
+      console.log(this.paraData[this.nameType[this.guideType].type])
     }
   }
 }

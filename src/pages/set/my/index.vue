@@ -110,13 +110,18 @@ export default {
       }).catch((response)=>{
         // this.logErrors(JSON.stringify(response))
       });  
-    },    goto (arr){
-      if (arr == '/my/invite' && this.isWechat) {
-        if (Number(this.profile.total_bonus) > 10) {
-          wx.miniProgram.navigateTo({url: `/pages/share/share?type=invite&sharepic=sharefinviter.jpg&inviter=${this.profile.invite_code}&desc=${this.profile.nick}邀请你一起购物赚钱，${this.profile.nick}已在红多多获得分红${this.profile.total_bonus}元！`})
-        }else{
-          wx.miniProgram.navigateTo({url: `/pages/share/share?type=invite&sharepic=sharefinviter.jpg&inviter=${this.profile.invite_code}&desc=${this.profile.nick}邀请你一起购物赚钱，全新分红式电商，买的多赚的多！`})
-        }
+    },    
+    initMSG(errors){
+      this.loadError = errors;
+      this.loading = true;
+      setTimeout(()=>{
+        this.loadError = '';
+        this.loading = false;
+      },2000)
+    },
+    goto (arr){
+      if (arr == '/my/bindacc' && this.profile.acc) {
+        this.initMSG('已绑定手机号')
         return;
       }
        this.$router.push(arr)        

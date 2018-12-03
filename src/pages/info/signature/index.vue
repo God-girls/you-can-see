@@ -115,7 +115,7 @@ export default {
       this[arr] = true;
     },
     clearNick (){
-      this.paraData.nick = '';
+      this.paraData.signature = '';
     }
   }
 }

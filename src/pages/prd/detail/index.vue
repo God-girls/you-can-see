@@ -73,7 +73,8 @@ export default {
         commdityid:101,
         channel:'W4',//W4 公众号支付 W5微信支付
         goods:'',
-        context:''
+        context:'',
+        agent:'qq'
       },
       sellerInfo:{
         imgs:'[]'
@@ -108,6 +109,7 @@ export default {
 
     if (html.isWechat()) {
       this.header.opacity = true;
+      this.paraData.agent = 'weixin' 
     }
 
   },

@@ -56,7 +56,7 @@
         </dl>
       </router-link> -->
 
-      <li @click.prevent="popSet">
+      <li  @click.prevent="goto('/my/qrcode')">
         <dl class="flexBox">
           <dt>
             <i class="iconfont icon-erweima f30"></i>
@@ -67,25 +67,28 @@
           </dd>
         </dl>
       </li>
-      <router-link tag="li" to="/my/bindacc">
+
+    </ul>
+
+    <ul>
+      <li @click.prevent="goto('/my/bindacc')">
         <dl class="flexBox">
           <dt>
-            <i class="iconfont icon-shezhi f36"></i>
+            <i class="iconfont icon-shoujibangding01 f36"></i>
           </dt>
           <dd class="flex1 f30">绑定手机号</dd>
           <dd class="tR">
-             <i class="iconfont icon-jiantou f24"></i>
+             {{profile.acc?profile.acc:'0'}}<i class="iconfont icon-jiantou f24"></i>
           </dd>
         </dl>
-      </router-link>
-
+      </li>
     </ul>
 
     <ul>
       <router-link tag="li" to="/my">
         <dl class="flexBox">
           <dt>
-            <i class="iconfont icon-shezhi f36"></i>
+            <i class="iconfont icon-guanyuwomen f36"></i>
           </dt>
           <dd class="flex1 f30">关于小小麦</dd>
           <dd class="tR">
@@ -98,6 +101,7 @@
 
   <div slot="footer">
     <myfooter :current="navType"></myfooter>
+    <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
   </div>
   
 </Layout>

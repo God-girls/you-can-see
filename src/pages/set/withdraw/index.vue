@@ -91,30 +91,19 @@ export default {
         let resData = response.data;  
 
         if (resData.success) {
-          if (type == 'W') {
             this.clickCaptcha = true;
             this.leftTime = 60;
-          }else{
-            this.clickCaptcha2 = true;
-            this.leftTime2 = 60;
-          }
+
           clearInterval(this.timer);
           this.timer = setInterval(()=>{
-            if (type == 'W') {
+
               this.leftTime = this.leftTime -1;
               if (this.leftTime <= 0) {
                 this.clickCaptcha = false;
                 clearInterval(this.timer);
                 this.leftTime = 0;
               }             
-            }else{
-              this.leftTime2 = this.leftTime2 -1;
-              if (this.leftTime2 <= 0) {
-                this.clickCaptcha2 = false;
-                clearInterval(this.timer);
-                this.leftTime2 = 0;
-              }                           
-            }
+
           }, 1000)
         }  else {
              this.initMSG(resData.codemsg)
@@ -148,12 +137,12 @@ export default {
           if (resData.success) {
             this.initMSG('提现成功');
             this.getProfile ();
+            clearInterval(this.timer);
             setTimeout(()=>{
               this.goto('/my/balance')
             },2000)
             this.clickCaptcha = false;
 
-            clearInterval(this.timer);
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.goto('/')

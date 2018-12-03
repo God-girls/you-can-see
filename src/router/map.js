@@ -113,8 +113,14 @@ export default {
 			require(['pages/info/signature'], resolve)
 		}
 	},
+	'/my/qrcode': {
+		meta: { title: '我的二维码'},
+		component: (resolve) => {
+			require(['pages/info/qrcode'], resolve)
+		}
+	},
 	'/my/bindacc': {
-		meta: { title: ''},
+		meta: { title: '绑定手机号'},
 		component: (resolve) => {
 			require(['pages/info/bindacc'], resolve)
 		}

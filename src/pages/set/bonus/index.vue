@@ -255,7 +255,7 @@ export default {
                     stack: '总量',
                     data:yData,
                     symbol:'emptyCircle',
-                    smooth : true,
+                    // smooth : true,
                 }
             ]
         };

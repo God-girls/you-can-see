@@ -84,7 +84,7 @@ export default {
       setTimeout(()=>{
         this.loadError = '';
         this.loading = false;
-      },3000)
+      },2000)
     },
   }
 }

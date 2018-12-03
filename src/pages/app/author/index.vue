@@ -30,15 +30,15 @@ export default {
   mounted (){
 
     // alert(this.$route.query.seller)
+    // alert(location.href)
     if (this.$route.query.redirecto) {
       let jumpUrl = this.ttDomain + '/#/app/author?jumpto='+encodeURIComponent('/prd/list?seller='+this.$route.query.seller+
           + (this.$route.query.goodid?'&goodid='+ this.$route.query.goodid:''))
 
-      if (html.isWechat()) html.openInWechat(jumpUrl);
-      else  html.openInOher(jumpUrl)
+      if (html.isWechat()) location.href = html.openInWechat(jumpUrl);
+      else  location.href = html.openInOher(jumpUrl)
       return;
     }
-    // alert(location.href)
     if (html.isWechat()) {//如果是在微信
       this.getLogin();
       this.pushHistory();      
@@ -135,7 +135,7 @@ export default {
     getLogin (){//微信登录
 
         if (location.href.indexOf('code') > -1) this.paraData.code = unescape(this.getQueryValue('code'));
-        
+
         axios.post('/seller_api/v1/sessions/create_oauth',qs.stringify(this.paraData)).then((response)=>{   
             let resData = response.data;  
             // alert(JSON.stringify(resData))
@@ -146,7 +146,7 @@ export default {
                 TOKEN:resData.result.atoken,
                 UID:resData.result.id
               })
-
+              // alert('jumpto'+this.$route.query.jumpto)
               if (this.$route.query.jumpto) {
                 this.$router.push(this.$route.query.jumpto)
               }else{

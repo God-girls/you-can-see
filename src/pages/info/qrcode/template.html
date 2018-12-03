@@ -1,0 +1,39 @@
+<Layout>
+  
+  <myhead :hval="header" slot="header"></myhead>
+  <div class="posiR myTop">
+    
+  </div>
+  <div class="myDetail ">
+    <p>
+      <img :src="qrcodeUrl" alt="">
+    </p>
+    <dl>
+      <dt>
+        <img :src="headImg" alt="" :onerror="defaultHead">
+      </dt>
+      <dd class="blackCR f30">{{profile.nick}}</dd>
+      <dd class="grayCR">扫描二维码打开我的主页</dd>
+    </dl>
+    
+  </div>
+
+
+  <div slot="footer" :style="statusBarH">
+    <div class="footer tC f30">
+      <dl>
+        <dt class="f21 grayCR">
+          <a :href="qrcodeUrl" download="xxmai.jpg">
+            <p class="btn btn-green greenCR" @click.prevent="">保存图片</p>
+          </a>
+          
+        </dt>
+        <dd><p class="btn btn-green" @click.prevent="">分享</p></dd>
+      </dl>
+    </div>
+
+    <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
+   
+  </div>
+
+</Layout>

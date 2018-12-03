@@ -271,7 +271,7 @@ export default {
         let shareOBJ ={
             title: '小小麦',
             desc: '小小卖家最爱的小小麦~',
-            link: vm.ttDomain+'/#/app/author?redirecto=true&seller='+this.paraData.uid,
+            link: vm.ttDomain+'/#/app/author?redirecto=true&seller='+vm.paraData.uid,
             imgUrl: vm.ttLogoImg,
             success:function () {
                // dplus.track('分享成功',{'from':html.useragent(),'inviter':vm.inviter,'page':'index'});
@@ -633,7 +633,7 @@ export default {
               desc:this.paraData.desc,
               imgUrl:this.imgUrl,
               priceSet:JSON.parse(this.curProduct.ext),
-              specs:this.curProduct.spec ? JSON.parse(this.curProduct.desc) : [],
+              specs:this.curProduct.spec ? JSON.parse(this.curProduct.spec) : [],
               other:{
                 show_comment:this.curProduct.show_comment,
                 show_sell:this.curProduct.show_sell,

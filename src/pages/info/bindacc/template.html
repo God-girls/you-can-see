@@ -3,19 +3,17 @@
   <myhead :hval="header" slot="header"></myhead>
   
   <div class="myDetail ">
-    <p class="grayCR tC">根据支付通道协议规定，提现需缴纳 1% 手续费。</p>
     <dl>
       <dt>
-        <span class="fr redCR">余额：{{profile.balance?profile.balance:0}} 元</span>
-        请输入提现金额
+        请输入常用手机号
       </dt>
-      <dd><input type="number" placeholder="最少提现 1 元" name="" value="" v-model="paraData.amount"></dd>
+      <dd><input type="number" placeholder="" name="" value="" v-model="paraData.acc"></dd>
     </dl>
     <dl>
-      <dt>请输入验证码（ 手机号：{{this.profile.acc?this.profile.acc:'无'}} ）</dt>
+      <dt>请输入验证码</dt>
       <dd class="special posiR">
-        <span class="" v-if="clickCaptcha"> {{leftTime}} s</span>
-        <span class="" v-else  @click.prevent="getCaptcha('W')">获取验证码</span>            
+        <span class="greenCR" v-if="clickCaptcha"> {{leftTime}} s</span>
+        <span class="greenCR" v-else  @click.prevent="getCaptcha('U')">获取验证码</span>            
         <input type="number" name="" value="" v-model="paraData.captcha">
       </dd>
     </dl>
@@ -26,9 +24,9 @@
     <div class="footer tC f30">
       <dl>
         <dt class="f21 grayCR">
-          审核通过后1个工作日到账
+          请使用常用手机号，绑定后无法修改
         </dt>
-        <dd><p class="btn btn-green" @click.prevent="withDraw">确认</p></dd>
+        <dd><p class="btn btn-green" @click.prevent="bindAcc">确认</p></dd>
       </dl>
     </div>
 

@@ -37,9 +37,15 @@
   line-height: 0;
   margin:0 10px 20px 0;
 }
+.publish ul li p{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
 .publish ul li img{
   width: 100%;
-  height: 100%
+  height: 100%;
 }
 .publish ul li.special{
   line-height: 195px;
@@ -51,6 +57,21 @@
 }
 .icon-add{
   font-size: 90px;
+}
+.publish ul li span{
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 2;
+}
+.publish i.icon-chahao{
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  background: rgba(255,255,255,.8);
+  border-radius: 50%;
+  text-align: center;
+  display: inline-block;
 }
 
 .my-set{

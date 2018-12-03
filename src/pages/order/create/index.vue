@@ -121,7 +121,7 @@ export default {
           })    
           // console.log(this.CART)
           // this.imgFile = this.CART.imgFile?this.CART.imgFile:[]; 
-          this.paraData.desc = resData.result.desc;
+          this.paraData.desc = resData.result.description;
           // this.imgUrl = this.CART.imgUrl?this.CART.imgUrl:[]; 
 
         }  else {
@@ -174,6 +174,13 @@ export default {
         current: currentImg,
         urls: this.imgUrl
       });
+    },
+    delImg (index){
+      // debugger
+      console.log(index)
+       this.imgUrl.splice(index,1);
+       this.imgFile.splice(index,1);
+       this.choosed++;
     },
     initMSG(arr){
       this.loading = true;

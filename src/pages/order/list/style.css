@@ -33,9 +33,13 @@
   border-bottom: 1px solid #dedede ;/*no*/
   padding: 20px 0px;
 }
+.prdOne dl dd img{
+  width: 100px;
+  height: 100px;
+}
 .prdOne dl dd{
-  padding-top: 5px;
-  line-height: 50px;
+  padding-top: 10px;
+  line-height: 45px;
 }
 .prdOne ul{
   padding-top: 10px;

@@ -47,6 +47,12 @@ export default {
 			require(['pages/set/my'], resolve)
 		}
 	},
+	'/discovery': {
+		meta: { title: '我的'},
+		component: (resolve) => {
+			require(['pages/set/discovery'], resolve)
+		}
+	},
 	'/my/profile': {
 		meta: { title: '系统设置'},
 		component: (resolve) => {

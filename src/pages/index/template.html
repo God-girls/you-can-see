@@ -1,5 +1,5 @@
 <Layout>
-    <scroller :on-refresh="onRefresh" noDataText="''" :on-infinite="onInfinite"  ref="my_scroller">
+  <scroller :on-refresh="onRefresh" noDataText="''" :on-infinite="onInfinite"  ref="my_scroller">
 
   <div class="header posiR f30">
     
@@ -140,7 +140,7 @@
 
       <dl class="dialog-footer" slot="dialog-footer">
         <dd  @touchend.prevent="redirect">
-          <button type="button">登陆</button>
+          <button type="button" class="btn btn-green">登陆</button>
         </dd>
       </dl>    
     </modal-dialog>

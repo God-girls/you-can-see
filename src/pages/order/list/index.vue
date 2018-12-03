@@ -45,7 +45,7 @@ export default {
       minDate:'2018-1-01',
       profile:{},
       listData:[],
-      navType:'shop',
+      navType:'order',
       searchCon:'',
       hasClick:false,
       remark:'',

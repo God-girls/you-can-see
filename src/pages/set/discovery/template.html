@@ -1,0 +1,48 @@
+<Layout>
+  <div class="my-set">
+    <ul>
+      <router-link tag="li" to="/my/bonus">
+        <dl class="flexBox">
+          <dt>
+            <i class="iconfont icon-tubiaozoushitu f36"></i>
+          </dt>
+          <dd class="flex1 f30">收入分析</dd>
+          <dd class="tR">
+            总计：{{profile.total_income?profile.total_income:'0'}} 元<i class="iconfont icon-jiantou f24"></i>
+          </dd>
+        </dl>
+      </router-link>
+      <router-link tag="li" to="/my/analysis">
+        <dl class="flexBox">
+          <dt>
+            <i class="iconfont icon-tubiao f30"></i>
+          </dt>
+          <dd class="flex1 f30">商品分析</dd>
+          <dd class="tR">
+             总计：{{profile.total_count?profile.total_count:'0'}} 件<i class="iconfont icon-jiantou f24"></i>
+          </dd>
+        </dl>
+      </router-link>
+
+    </ul>
+
+    <ul>
+      <router-link tag="li" to="/my/profile">
+        <dl class="flexBox">
+          <dt>
+            <i class="iconfont icon-shezhi f36"></i>
+          </dt>
+          <dd class="flex1 f30">我的粉丝</dd>
+          <dd class="tR">
+             <i class="iconfont icon-jiantou f24"></i>
+          </dd>
+        </dl>
+      </router-link>
+    </ul>
+  </div>    
+
+  <div slot="footer">
+    <myfooter :current="navType"></myfooter>
+  </div>
+  
+</Layout>

@@ -12,11 +12,15 @@
       <textarea placeholder="商品描述..." id="text" v-model="paraData.desc"></textarea>
     </div>
     <ul>
-      <li  v-for="(item,index) in imgUrl" class="posiR imgs" @touchend.prevent="previewImage(imgUrl[index])">
-          <img :src="imgUrl[index]" alt=""> 
+      <li  v-for="(item,index) in imgUrl" class="posiR imgs">
+          <p @touchend.prevent="previewImage(imgUrl[index])"><img :src="imgUrl[index]" alt=""></p> 
+          <span @touchend.prevent="delImg(index)">
+            <i class="iconfont icon-chahao f30"></i>
+          </span>
       </li>
-      <li class="special posiR" @touchend.prevent="chooseImg" v-if="imgUrl.length < 9">
-        <i class="iconfont icon-add"></i>
+      <li class="special posiR" 
+          @touchend.prevent="chooseImg" v-if="imgUrl.length < 9">
+        <i class="iconfont icon-add" ></i>
       </li>      
     </ul>
   </div>
@@ -26,7 +30,6 @@
       <li @click.prevent="goto('/prd/spec'+(prdID?'?id='+prdID:''))">
         <dl class="flexBox">
           <dt>
-
             <i class="iconfont icon-guigecanshu f30"></i>
           </dt>
           <dd class="flex1">规格</dd>

@@ -120,7 +120,8 @@
   text-align: left!important;
 }
 .index-wrap img{
-  width: 80%;
+  width: 90px;
+  height: 90px;
   /*height: 9;*/
 }
 .determine{

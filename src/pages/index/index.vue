@@ -50,7 +50,7 @@ export default {
       countBonus:0,
       statusBar:{},
       bottomBarH:'',
-      navType:'home',
+      navType:'task',
       profile:{},
       reply:false,
       placeholder:'评论',
@@ -115,6 +115,13 @@ export default {
           this.token = this.TOKEN;
           this.paraData.uid = this.UID;  
           this.profile = this.PROFILE;
+          if (this.LISTDATA.length) 
+            this.listData = this.LISTDATA
+        }else if (!this.TOKEN && localStorage.ttToken){
+
+          this.token = localStorage.ttToken;
+          this.paraData.uid = localStorage.ttUid;  
+          // this.profile = this.PROFILE;
           if (this.LISTDATA.length) 
             this.listData = this.LISTDATA
         }else{
@@ -349,33 +356,48 @@ export default {
         // this.logErrors(JSON.stringify(response))
       });  
     },
-    fetchList(){
+    fetchList(done){
 
+      if ((this.totalPageCount+1 == this.paraData.pn || this.totalPageCount == 0 || this.totalPageCount == 1 )){
+        if(done) done(true) 
+        return;
+      }
       axios.post('/seller_api/v1/seller/my_goods',qs.stringify(this.paraData),{
-        headers: {
-            "A-Token-Header": this.token,
-        }
-      }).then((response)=>{   
-        
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
           let resData = response.data;  
-
           if (resData.success) {
-           this.listData = resData.result.items;
+            let ranks = resData.result;
+            this.totalPageCount = ranks.totalPageCount;
 
-           this.fetchComment(this.listData[0].id,true);
-           this.fetchPraise(this.listData[0],0,true)
-           this.listLen = 0;
-           this.praiseLen = 0;
+              if (this.paraData.pn == 1) {
+                  this.listData = ranks.items;
+                  if (this.listData.length < 6) this.noDataText = '';
+                  if (this.listData.length == 0) this.noData = true;
+              }
+              else {
+                this.listData = this.listData.concat(ranks.items);
+              }
 
+              this.fetchComment(this.listData[0].id,true);
+              this.fetchPraise(this.listData[0],0,true)
+              this.listLen = 0;
+              this.praiseLen = 0;
+
+              this.loading = false;
+              this.paraData.pn = this.paraData.pn + 1;
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              this.needLogin = true;
-              this.noToken = true;
-            }else{
-              this.initMSG(resData.codemsg)
+              // this.$router.push('/')
             }
+            
           }
-      })
+          // if(done) done();
+      }).catch((response)=>{
+        if(done) done(done)
+      });  
 
     },
     onRefresh(done) {
@@ -385,7 +407,8 @@ export default {
         this.fetchList(done);  
       },1000)
     },
-    onInfinite(done) {   
+    onInfinite(done) {  
+    // consoel.log(111) 
       this.indexDone = done;   
       this.fetchList(done);
     },

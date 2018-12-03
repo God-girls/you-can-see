@@ -27,9 +27,9 @@
 
     <div class="prdOne" v-for="(item,index) in listData">
       <dl class="blackCR">
-        <dt>
-          <span class="fr">订单号：{{item.orderid}}</span>
-          {{item.created_at}}
+        <dt class="greenCR">
+          <span class="fr grayCR">{{item.created_at}}</span>
+          订单号：{{item.orderid}}
         </dt>
         <dd>
           <ul class="flexBox">
@@ -48,7 +48,13 @@
       </dl>
       <dl v-if="item.spec != 'null'">
         <dt class="blackCR f30">规格信息：</dt>
-        <dd >{{item.created_at}}</dd>
+        <dd>
+          <p v-for="(item2,index2) in JSON.parse(item.spec)">
+            <template v-for="(value,key,index3) in item2">
+              {{key == 'count' ? '数量' : key}}：{{value}} {{index3 == Object.keys(item2).length - 1 ? '' :' ，'}} 
+            </template>
+          </p>
+        </dd>
       </dl>
 <!--       <dl>
         <dt class="blackCR f30">数量信息：</dt>
@@ -75,8 +81,8 @@
       </dl>
 
       <ol class="blackCR flexBox f30">
-        <li class="flex1 tR" v-if="!item.deliver_no" @click.prevent="popOrder(item,index,false)">快递信息</li>
         <li class="flex1"></li>
+        <li class="flex1 tR" v-if="!item.deliver_no" @click.prevent="popOrder(item,index,false)">快递信息</li>
         <li class="special posiR" @click.prevent="popOrder(item,index,true)">订单备注</li>
       </ol>
     </div>

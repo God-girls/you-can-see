@@ -37,7 +37,7 @@ export default {
                    + encodeURIComponent(jumpUrl) +'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
       return;
     }
-    // alert(location.href)
+    alert(location.href)
     if (html.isWechat()) {//如果是在微信
       this.getLogin();
       this.pushHistory();      
@@ -134,6 +134,7 @@ export default {
         
         axios.post('/seller_api/v1/sessions/create_oauth',qs.stringify(this.paraData)).then((response)=>{   
             let resData = response.data;  
+            alert(JSON.stringify(resData))
             if (resData.success) {
               window.localStorage.setItem('ttUid', resData.result.id);
               window.localStorage.setItem('ttToken', resData.result.atoken);

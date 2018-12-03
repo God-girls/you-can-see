@@ -32,11 +32,11 @@ export default {
     // alert(this.$route.query.seller)
     alert(location.href)
     if (this.$route.query.redirecto) {
-      let jumpUrl = this.ttDomain + '/#/app/author?jumpto='+;
+      let jumpUrl = this.ttDomain + '/#/app/author?jumpto=';
       let params = '/prd/list?seller='+this.$route.query.seller
       if (this.$route.query.goodid) params += '&goodid='+ this.$route.query.goodid;
       jumpUrl += encodeURIComponent(params);
-      
+
       if (html.isWechat()) location.href = html.openInWechat(jumpUrl);
       else  location.href = html.openInOher(jumpUrl)
       return;

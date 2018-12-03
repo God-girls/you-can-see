@@ -605,7 +605,7 @@ export default {
               desc:this.paraData.desc,
               imgUrl:this.imgUrl,
               priceSet:JSON.parse(this.curProduct.ext),
-              specs:this.curProduct.spec ? this.curProduct.desc : [],
+              specs:this.curProduct.spec ? JSON.parse(this.curProduct.desc) : [],
               other:{
                 show_comment:this.curProduct.show_comment,
                 show_sell:this.curProduct.show_sell,

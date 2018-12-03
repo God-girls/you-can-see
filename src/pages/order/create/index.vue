@@ -81,11 +81,7 @@ export default {
     ...mapActions([
       'switchState', // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`'
     ]),
-    getStatusBar(){
-      if (this.STATUSBARH) {
-        this.statusBar = this.STATUSBARH+'px';     
-      }
-    },
+
     fetchList(){
 
       axios.post('/seller_api/v1/seller/seller_goods_info',qs.stringify({
@@ -100,6 +96,7 @@ export default {
         let resData = response.data;  
 
         if (resData.success) {
+          // debugger          
           this.imgFile = JSON.parse(resData.result.imgs); 
           this.paraData.desc = resData.result.title;
           this.imgUrl = []
@@ -107,20 +104,25 @@ export default {
             this.imgUrl.push(this.globalAvatar+'goods/'+this.imgFile[i])
           }
           this.choosed = this.imgUrl.length;
+
           this.switchState({
             CART:Object.assign(this.CART,{
               imgFile:this.imgFile,
               desc:this.paraData.desc,
               imgUrl:this.imgUrl,
               priceSet:JSON.parse(resData.result.ext),
-              specs:resData.result.spec ? resData.result.desc : [],
+              specs:resData.result.spec ? JSON.parse(resData.result.spec) : [],
               other:{
                 show_comment:resData.result.show_comment,
                 show_sell:resData.result.show_sell,
                 sell_base:resData.result.sell_base
               }
             })
-          })      
+          })    
+          // console.log(this.CART)
+          // this.imgFile = this.CART.imgFile?this.CART.imgFile:[]; 
+          this.paraData.desc = resData.result.desc;
+          // this.imgUrl = this.CART.imgUrl?this.CART.imgUrl:[]; 
 
         }  else {
           if (resData.code == '403' || resData.code == '250') {

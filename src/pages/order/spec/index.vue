@@ -74,7 +74,7 @@ export default {
       this.header.link = '/prd/create?id='+this.$route.query.id
     }    
     if (this.CART.specs) this.specs = html.objClone(this.CART.specs);
-
+    console.log(this.specs)
   },
   methods: {
     ...mapActions([

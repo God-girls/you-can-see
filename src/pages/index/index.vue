@@ -83,7 +83,8 @@ export default {
       'PROFILE',
       'STATUSBARH',
       'BOTTOMBARH',
-      'LISTDATA'
+      'LISTDATA',
+      'CART'
     ])
   },
   mounted () {
@@ -590,8 +591,30 @@ export default {
           this.upTop();
         break; 
 
-        case 4:
-          this.created();
+        case 4: //复制
+          this.imgFile = JSON.parse(this.curProduct.imgs); 
+          this.paraData.desc = this.curProduct.title;
+          this.imgUrl = []
+          for (var i = 0; i < this.imgFile.length; i++) {
+            this.imgUrl.push(this.globalAvatar+'goods/'+this.imgFile[i])
+          }
+          this.choosed = this.imgUrl.length;
+          this.switchState({
+            CART:{
+              imgFile:this.imgFile,
+              desc:this.paraData.desc,
+              imgUrl:this.imgUrl,
+              priceSet:JSON.parse(this.curProduct.ext),
+              specs:this.curProduct.spec ? this.curProduct.desc : [],
+              other:{
+                show_comment:this.curProduct.show_comment,
+                show_sell:this.curProduct.show_sell,
+                sell_base:this.curProduct.sell_base
+              }
+            }
+          })      
+          this.goto('/prd/create')
+          // this.created();
         break; 
 
         default :

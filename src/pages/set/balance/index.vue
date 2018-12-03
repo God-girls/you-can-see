@@ -5,21 +5,18 @@
 import loading from '../../../components/base/loading'
 import myhead from '../../../components/base/header'
 import nodate from '../../../components/base/nodate'
-import datepicker from '../../../components/base/Datepicker.vue'
 import { mapState, mapActions } from 'vuex'
 import {html} from '../../../assets/js/global.js';
 import axios from 'axios';
 import qs from 'qs';
-import echarts from 'echarts';
-import 'echarts/lib/chart/line';
-import 'echarts/lib/component/title';
+
 // 引入图表
 export default {
   data () {
     return {
       show1:true,     
       header:{
-        'name':'收入分析',
+        'name':'我的钱包',
         'link':'/my',
         // isNobg:true,
       },
@@ -38,6 +35,7 @@ export default {
         {name:'7天',type:null},
         {name:'30天',type:null}
       ],
+      totalPageCount:-1,
       paraData:{
         begin_time:'',
         end_time:'',
@@ -46,18 +44,14 @@ export default {
       },
       minDate:'2018-1-01',
       profile:{},
-      listData:{},
-      saleData:{},
-      dataTime:{
-
-      }
+      listData:[],
     }
   },
   components: {
     loading,
     nodate,
     myhead,
-    datepicker
+    // datepicker
   },
   computed:{
     ...mapState([
@@ -84,10 +78,6 @@ export default {
       this.token = this.TOKEN;
     }
 
-    this.dataTime.start = html.timeForMat(0)
-    this.dataTime.end = html.timeForMat(0)
-
-    this.getList ();
     this.getBonus()
     dplus.track('收入分析',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
@@ -150,125 +140,48 @@ export default {
       });  
     },
     getList(done){
-      this.noData = false;
-      axios.post('/seller_api/v1/seller/goods_chart',qs.stringify({
-        uid:this.paraData.uid,
-        gid:'',
-        start:this.dataTime.start,
-        end:this.dataTime.end
-      }),{
+
+      if ((this.totalPageCount+1 == this.paraData.pn || this.totalPageCount == 0 || this.totalPageCount == 1 )){
+        if(done) done(true) 
+        return;
+      }
+      axios.post('/seller_api/v1/seller/withdraw_log',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,
           }
-        }).then((response)=>{     
-
-          let resData = response.data; 
-          
+        }).then((response)=>{   
+          let resData = response.data;  
           if (resData.success) {
             let ranks = resData.result;
-              this.listData = ranks;
+            this.totalPageCount = ranks.totalPageCount;
 
-              let lineData = resData.result.list;
-              let count = 0;
-              let xData = [];
-              let yData = [];
-              // console.log(resData)
-              for (let i = 0; i < lineData.length; i++) {
-                xData.push(lineData[i].id);
-                yData.push(lineData[i].amount);
-                count = html.add(count,lineData[i].count);
+              if (this.paraData.pn == 1) {
+                  this.listData = ranks.items;
+                  if (this.listData.length < 6) this.noDataText = '';
+                  if (this.listData.length == 0) this.noData = true;
               }
-              // console.log(count)
-              if (count) {
-                this.$nextTick(function(){
-                    this.drawLine (xData,yData);
-                })
-              }else this.noData = true;          
+              else {
+                this.listData = this.listData.concat(ranks.items);
+              }
+              this.loading = false;
+              this.paraData.pn = this.paraData.pn + 1;
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.$router.push('/')
             }
+            
           }
-
-      }).catch((response)=>{if (done) done(true)});  
+          if(done) done();
+      }).catch((response)=>{
+        if(done) done(done)
+      });  
 
     },
-    getDpr(){
-        var dpr = document.documentElement.getAttribute('data-dpr');
-        if (dpr == 1) {
-            return 12;
-        }else if (dpr == 2) {
-            return  24;
-        }else {
-            return 36;
-        }
-    },
-    drawLine (xData,yData){//关键指标趋势图
-        var myChart = echarts.init(document.getElementById('lineMain'));
-        // console.log(myChart)
-        var option = {
-            tooltip: {
-                trigger: 'axis',
-                textStyle:{
-                    fontSize:this.getDpr() //此处设置提示文字大小
-                },
-            },
-            // legend: {
-            //     data:['收入']
-            // },
-            grid: {
-                left: '4%',
-                 top: '6%',
-                right: '9%',
-                bottom: '0%',
-                containLabel: true
-            },
-            xAxis: {
-                type: 'category',
-                boundaryGap: false,
-                data: xData,
-                // axisLabel:{'interval':0,rotate:30}, 
-                axisLabel : {
-                    textStyle : {
-                        fontSize : this.getDpr()
-                    },
-                }
-            },
-            calculable : false,
-            yAxis: {
-                type: 'value',
-                axisLabel : {
-                    textStyle : {
-                        fontSize : this.getDpr()
-                    }
-                }
-            },
-            name:{
-              fontSize:36//ios 24
-            },
-            // dataZoom: [ { show: true, start: 60, end: 100 }],
-            color:['#1caf9a'],
-            series: [
-                {
-                    name:'收入',
-                    type:'line',
-                    stack: '总量',
-                    data:yData,
-                    symbol:'emptyCircle',
-                    smooth : true,
-                }
-            ]
-        };
-        // myChart.setOptionoption);
-        myChart.setOption(option);
-        
-      },
     onRefresh(done) {
       setTimeout(()=>{
         this.totalPageCount = -1;
         this.paraData.pn = 1;
         this.getList(done);  
-        this.getProfile ();      
       },1000)
     },
     onInfinite(done) {   

@@ -78,7 +78,7 @@
   <div class="index-wrap  fadeIn animateds" v-if="isCur == 2">
     <p class="f30">
       <span v-for="(item,index) in tabsSeq" 
-            :class="{'greenCR current':index == isCur3}"
+            :class="['btn btn-default btn-sm',{'btn-green current whiteCR':index == isCur3}]"
             @click.prevent="changeSeq(index,item.type)">{{item.name}}</span>
       <!-- <span>按数量</span> -->
     </p>
@@ -127,6 +127,9 @@
         <div class="selectAddress " slot="dialog-body">
           <dl class="flexBox" v-for="(item,index) in allPrdData" 
             @click.prevent="setSellerInfo(item)">
+            <dd>
+              <img :src="globalAvatar+'goods/'+JSON.parse(item.imgs)[0]" alt="">
+            </dd>
             <dt class="flex1">
               <h5 class="blackCR">{{item.title}}</h5>
               <p class="redCR">¥ {{item.price_range}}</p>

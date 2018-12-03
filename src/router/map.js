@@ -60,7 +60,7 @@ export default {
 		}
 	},
 	'/my/balance': {
-		meta: { title: '我的余额'},
+		meta: { title: '我的钱包'},
 		component: (resolve) => {
 			require(['pages/set/balance'], resolve)
 		}

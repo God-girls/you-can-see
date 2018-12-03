@@ -1,10 +1,10 @@
 .wrap{
-  background:#fbe8df url(../../../assets/img12/login/bg.jpg) no-repeat center top;
+  /*background:#fbe8df url(../../../assets/img12/login/bg.jpg) no-repeat center top;*/
   background-size: 100%;
 }
 
 .loginAll{
-  background: url(../../../assets/img12/login/logo.png) no-repeat center 210px;
+  /*background: url(../../../assets/img12/login/logo.png) no-repeat center 210px;*/
   background-size: 254px;
 }
 .login{

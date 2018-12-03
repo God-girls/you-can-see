@@ -1,7 +1,7 @@
 
 .nowLoading{
   width: 100%;
-  height: 100%;
+  height: 80%;
   background: #fff;
   display: -webkit-box;
   display: flex;
@@ -9,11 +9,15 @@
   align-items: center;
   text-align: center;
 }
-.nowLoading img{
-  width: 335px;
+.nowLoading dt img{
+  width: 218px;
 }
 .nowLoading dd {
   padding: 20px 0 70px;
+}
+.nowLoading dd img{
+  width: 30px;
+  height: 30px;
 }
 .nowLoading dd span{
   display: inline-block;

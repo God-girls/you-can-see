@@ -96,7 +96,7 @@
   padding-bottom: 20px;
 }
 .index-wrap p span{
-  padding: 10px 0;
+  /*padding: 10px 0;*/
 }
 .index-wrap p span:last-child{
   margin-left: 30px;
@@ -154,6 +154,10 @@
 .selectAddress dl{
   border-bottom: 1px solid #c9c9c9;/*no*/
   padding: 15px 0;
+}
+.selectAddress dd img{
+  width: 80px;
+  height: 80px;
 }
 .selectAddress dl dt{
   padding:0 10px;

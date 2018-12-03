@@ -223,7 +223,12 @@
 
 }
 
-
+.buyFoot{
+  padding: 30px;
+}
+.buyFoot p{
+  width: 100%;
+}
 
 
 

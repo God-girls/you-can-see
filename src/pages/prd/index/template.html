@@ -106,6 +106,9 @@
         </dd>
       </dl>
     </div>
+    <div class="buyFoot" v-if="goodid">
+      <p class="btn btn-green" @click.prevent="goto('/prd/detail?goodid='+item.id+'&seller='+paraData.seller+(goodid?'&from=share':''))">购买</p>
+    </div>
     <!-- <myfooter :current="navType" v-else></myfooter> -->
     <div class="mask" v-if="reply" @touchend.prevent="reply = false"></div>
     

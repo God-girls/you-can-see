@@ -388,7 +388,7 @@ export default {
       }).then((response)=>{   
         
           let resData = response.data;  
-          alert(JSON.stringify(resData))
+          // alert(JSON.stringify(resData))
 
           if (resData.success) {
            this.listData = resData.result.items;

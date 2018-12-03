@@ -30,7 +30,7 @@ export default {
   mounted (){
 
     // alert(this.$route.query.seller)
-    alert(location.href)
+    // alert(location.href)
     if (this.$route.query.redirecto) {
       let jumpUrl = this.ttDomain + '/#/app/author?jumpto=';
       let params = '/prd/list?seller='+this.$route.query.seller

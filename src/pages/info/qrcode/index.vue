@@ -33,7 +33,7 @@ export default {
       clickCaptcha2:false,
       paraData:{
       },
-      receiveAlipay:'',
+      headImg:'',
       profile:{},
       leftTime:60,
       leftTime2:60,

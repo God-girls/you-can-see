@@ -91,9 +91,9 @@ export default {
     ])
   },
   mounted () {
-      // alert('seller:'+this.$route.query.seller)
-      // alert('goodid:'+this.$route.query.goodid)
-      // alert('token'+this.TOKEN)
+      alert('seller:'+this.$route.query.seller)
+      alert('goodid:'+this.$route.query.goodid)
+      alert('token'+this.TOKEN)
       if (this.$route.query.seller) {
         this.paraData.seller = this.$route.query.seller
       }

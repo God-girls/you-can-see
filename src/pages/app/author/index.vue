@@ -30,7 +30,7 @@ export default {
   mounted (){
 
     // alert(this.$route.query.seller)
-    // alert(location.href)
+    alert(location.href)
     if (this.$route.query.redirecto) {
       let jumpUrl = this.ttDomain + '/#/app/author?jumpto='+encodeURIComponent('/prd/list?seller='+this.$route.query.seller+
           + (this.$route.query.goodid?'&goodid='+ this.$route.query.goodid:''))
@@ -146,7 +146,7 @@ export default {
                 TOKEN:resData.result.atoken,
                 UID:resData.result.id
               })
-              // alert('jumpto'+this.$route.query.jumpto)
+              alert('jumpto：'+this.$route.query.jumpto)
               if (this.$route.query.jumpto) {
                 this.$router.push(this.$route.query.jumpto)
               }else{

@@ -96,13 +96,13 @@
 .my-footer ul li.homeLi span{
   position: absolute;
   left:9px;
-  top: -74px;
+  top: -72px;
   display: inline-block;
   /*background: rgba(42,14,60,.36);*/
   width:113px;
   height: 113px;
   border-radius: 50%;
-  box-shadow: 0px -10px 16px rgba(142,142,140,.56);
+  box-shadow: 0px -8px 14px rgba(142,142,140,.56);
   z-index: 1;
 }
 .my-footer ul li.homeLi b{

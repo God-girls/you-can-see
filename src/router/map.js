@@ -54,7 +54,7 @@ export default {
 		}
 	},
 	'/my/profile': {
-		meta: { title: '系统设置'},
+		meta: { title: '个人信息'},
 		component: (resolve) => {
 			require(['pages/set/profile'], resolve)
 		}

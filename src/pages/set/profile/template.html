@@ -18,42 +18,51 @@
       <ul>
         <router-link tag="li" to="/my/nick">
           <dl class="flexBox">
-            <dd class="flex1">昵称：</dd>
+            <dt class="flex1">昵称：</dt>
             <dd class="tR">
-              {{profile.nick}} <i class="iconfont icon-jiantou f24"></i>
+              {{profile.nick}}
+            </dd>
+            <dd>
+               <i class="iconfont icon-jiantou f24"></i>
             </dd>
           </dl>
         </router-link>
-        <router-link tag="li" to="/my/nick">
+        <router-link tag="li" to="/my/signature">
           <dl class="flexBox">
-            <dd class="flex1">个性签名：</dd>
-            <dd class="tR">
-              {{profile.signature?profile.signature:''}} <i class="iconfont icon-jiantou f24"></i>
+            <dt class="flex1">个性签名：</dt>
+            <dd class="tR text-overflow">
+              {{profile.signature}}
+            </dd>
+            <dd>
+               <i class="iconfont icon-jiantou f24"></i>
             </dd>
           </dl>
         </router-link>
         <router-link tag="li" to="/my/sex">
           <dl class="flexBox">
-            <dd class="flex1">性别：</dd>
+            <dt class="flex1">性别：</dt>
             <dd class="tR">
               {{profile.sex}} <i class="iconfont icon-jiantou f24"></i>
             </dd>
           </dl>
         </router-link>
-        <li>
+<!--         <li>
           <dl class="flexBox">
-            <dd class="flex1">出生日期：</dd>
+            <dt class="flex1">出生日期：</dt>
             <dd class="tR">
                {{profile.birthday?profile.birthday:''}}<i class="iconfont icon-jiantou f24"></i>
             </dd>
           </dl>
-        </li>
+        </li> -->
 
-        <li @click.prevent="popSet" v-if="!isWechat">
+        <li>
           <dl class="flexBox">
-            <dd class="flex1">地区：</dd>
+            <dt class="flex1">地区：</dt>
             <dd class="tR">
-               {{profile.country+' '+profile.province+' '+profile.city}}<i class="iconfont icon-jiantou f24"></i>
+               {{(profile.country?profile.country:'')+' '+(profile.province?profile.province:'')+' '+(profile.city?profile.city:'')}}
+            </dd>
+            <dd>
+               <i class="iconfont icon-jiantou f24"></i>
             </dd>
           </dl>
         </li>
@@ -61,50 +70,40 @@
 
       <ul>
 
-        <router-link tag="li" to="/my/nick">
+        <router-link tag="li" to="/my/service?type=0">
           <dl class="flexBox">
-            <dd class="flex1">手机号：</dd>
+            <dt class="flex1">客服手机号：</dt>
             <dd class="tR">
-              {{profile.acc?profile.acc:''}} <i class="iconfont icon-jiantou f24"></i>
+              {{profile.service_mobileno}}
+            </dd>
+            <dd>
+               <i class="iconfont icon-jiantou f24"></i>
             </dd>
           </dl>
         </router-link>
-        <router-link tag="li" to="/my/sex">
+        <router-link tag="li" to="/my/service?type=1">
           <dl class="flexBox">
-            <dd class="flex1">微信号：</dd>
+            <dt class="flex1">客服微信号：</dt>
             <dd class="tR">
-              {{profile.weixin}} <i class="iconfont icon-jiantou f24"></i>
+              {{profile.weixin}}
+            </dd>
+            <dd>
+               <i class="iconfont icon-jiantou f24"></i>
             </dd>
           </dl>
         </router-link>
-        <li>
+        <router-link tag="li" to="/my/service?type=2">
           <dl class="flexBox">
-            <dd class="flex1">QQ号：</dd>
+            <dt class="flex1">客服QQ号：</dt>
             <dd class="tR">
-               {{profile.version}}<i class="iconfont icon-jiantou f24"></i>
+               {{profile.qq}}
+            </dd>
+            <dd>
+               <i class="iconfont icon-jiantou f24"></i>
             </dd>
           </dl>
-        </li>
+        </router-link>
       </ul>
     </div>    
-
-    <div slot="footer">
-      <modal-dialog :dialogshow2.sync="iquit" @hide="closeDialog('iquit')">
-        <div class="dialog-header" slot="dialog-header">
-          是否离开红多多? 
-        </div>
-<!--         <div slot="dialog-body" class="guestCON tC">
-           离开以太大陆过久会失去以太钻石的开采机会
-        </div>     -->
-    
-        <dl class="dialog-footer" slot="dialog-footer">
-          <dd  @touchend.prevent="goto('/app/login?quit=true')">
-            <button type="button">确定</button>
-          </dd>
-        </dl>
-    </modal-dialog>
-
-    </div>
-
   
 </Layout>

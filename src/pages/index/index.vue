@@ -36,7 +36,9 @@ export default {
       success:false,
       paraData:{
         uid:'1',
+        pn:1
       },
+      noDataText:'-----我是有底线的-----',
       headImg:'',
       token:'',
       onlyWechat:false,
@@ -115,19 +117,22 @@ export default {
           this.token = this.TOKEN;
           this.paraData.uid = this.UID;  
           this.profile = this.PROFILE;
-          if (this.LISTDATA.length) 
-            this.listData = this.LISTDATA
+          // if (this.LISTDATA.length) 
+          //   this.listData = this.LISTDATA
         }else if (!this.TOKEN && localStorage.ttToken){
 
           this.token = localStorage.ttToken;
           this.paraData.uid = localStorage.ttUid;  
           // this.profile = this.PROFILE;
-          if (this.LISTDATA.length) 
-            this.listData = this.LISTDATA
-        }else{
-          // this.redirect();
-        }
 
+        }else{
+          this.redirect();
+        }
+        if (this.LISTDATA.length) {
+          // tthis.paraData.pn = 2;
+          this.listData = this.LISTDATA
+          this.fetchList();
+        }
       if (html.isWawa()) {
         this.isApp = true;
 
@@ -138,7 +143,7 @@ export default {
         if (this.$route.query.token || this.TOKEN) {
           this.defaultData();
         }else{
-          // this.redirect();
+          this.redirect();
         }
       }     
     }
@@ -266,7 +271,7 @@ export default {
         let shareOBJ ={
             title: '小小麦',
             desc: '小小卖家最爱的小小麦~',
-            link: vm.ttDomain+'?'+ vm.timeStamp,
+            link: vm.ttDomain+'/#/app/author?redirecto=true&seller='+this.paraData.uid,
             imgUrl: vm.ttLogoImg,
             success:function () {
                // dplus.track('分享成功',{'from':html.useragent(),'inviter':vm.inviter,'page':'index'});
@@ -324,9 +329,9 @@ export default {
             // console.log(this.headImg)
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              this.needLogin = true;
-              this.noToken = true;
+              this.redirect();
             }
+            else this.initMSG(resData.msg);
           }
       }).catch((response)=>{
         // this.logErrors(JSON.stringify(response))
@@ -348,9 +353,9 @@ export default {
             })
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              this.needLogin = true;
-              this.noToken = true;
+              this.redirect();
             }
+            else this.initMSG(resData.msg);
           }
       }).catch((response)=>{
         // this.logErrors(JSON.stringify(response))
@@ -358,11 +363,16 @@ export default {
     },
     fetchList(done){
 
-      if ((this.totalPageCount+1 == this.paraData.pn || this.totalPageCount == 0 || this.totalPageCount == 1 )){
+      if (this.totalPageCount+1 == this.paraData.pn || this.totalPageCount == 0 || this.totalPageCount == 1 || this.bugInfinite){
         if(done) done(true) 
         return;
       }
-      axios.post('/seller_api/v1/seller/my_goods',qs.stringify(this.paraData),{
+      this.bugInfinite = false;
+      axios.post('/seller_api/v1/seller/my_goods',qs.stringify({
+        uid:this.paraData.uid,
+        pn:this.paraData.pn,
+        ps:'5'
+      }),{
           headers: {
               "A-Token-Header": this.token,
           }
@@ -374,7 +384,8 @@ export default {
 
               if (this.paraData.pn == 1) {
                   this.listData = ranks.items;
-                  if (this.listData.length < 6) this.noDataText = '';
+                  // if (this.listData.length < 6) this.noDataText = '';
+                  // else this.noDataText = '-----我是有底线的-----';
                   if (this.listData.length == 0) this.noData = true;
               }
               else {
@@ -390,11 +401,13 @@ export default {
               this.paraData.pn = this.paraData.pn + 1;
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              // this.$router.push('/')
+              if(done) done(done);
+              this.bugInfinite = true;
+              // this.redirect();
             }
-            
+            else this.initMSG(resData.msg);
           }
-          // if(done) done();
+          if(done) done();
       }).catch((response)=>{
         if(done) done(done)
       });  
@@ -408,7 +421,7 @@ export default {
       },1000)
     },
     onInfinite(done) {  
-    // consoel.log(111) 
+      console.log(this.paraData.pn) 
       this.indexDone = done;   
       this.fetchList(done);
     },
@@ -431,11 +444,9 @@ export default {
             this.fetchList();
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              this.needLogin = true;
-              this.noToken = true;
-            }else{
-              this.initMSG(resData.msg)
+              this.redirect();
             }
+            else this.initMSG(resData.codemsg);
           }
       }).catch((response)=>{
         this.logErrors(JSON.stringify(response))
@@ -460,10 +471,9 @@ export default {
             this.fetchList();
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              this.needLogin = true;
-              this.noToken = true;
+              this.redirect();
             }
-            // console.log(resData.msg);
+            else this.initMSG(resData.codemsg);
           }
       }).catch((response)=>{
         this.logErrors(JSON.stringify(response))
@@ -484,10 +494,9 @@ export default {
             this.fetchPraise(item,index);
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              this.needLogin = true;
-              this.noToken = true;
+              this.redirect();
             }
-            // console.log(resData.msg);
+            else this.initMSG(resData.codemsg);
           }
       }).catch((response)=>{
         this.logErrors(JSON.stringify(response))
@@ -510,10 +519,9 @@ export default {
             this.sellerInfo.praised = true;
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              this.needLogin = true;
-              this.noToken = true;
+              this.redirect();
             }
-            // console.log(resData.msg);
+            else this.initMSG(resData.codemsg);
           }
       }).catch((response)=>{
         this.logErrors(JSON.stringify(response))
@@ -542,11 +550,8 @@ export default {
               this.listData[index].praised = true;
             }
           }  else {
-            if (resData.code == '403' || resData.code == '250') {
-              this.needLogin = true;
-              this.noToken = true;
-            }
-            // console.log(resData.msg);
+            
+            // console.log(resData.codemsg);
           }
       }).catch((response)=>{
         this.logErrors(JSON.stringify(response))
@@ -644,33 +649,6 @@ export default {
           this.onOffGoods();
         break; 
       }
-    },
-    created(){
-      delete this.curProduct['spec']
-      this.curProduct.uid = this.paraData.uid;
-      this.loading = true;
-      axios.post('/seller_api/v1/seller/create_goods',qs.stringify(this.curProduct),{
-          headers: {
-              "A-Token-Header": this.token,
-          }
-        }).then((response)=>{   
-        this.loading = false;        
-          let resData = response.data;  
-          if (resData.success) {
-            this.initMSG('发布成功');
-            this.del = false;
-            setTimeout(()=>{
-              this.fetchList();
-            },2000)
-          }  else {
-            if (resData.code == '403' || resData.code == '250') {
-              // this.goto('/')
-            }else{
-              this.initMSG(resData.codemsg)
-            }
-          }
-
-      }).catch(function(response){});        
     },
     delComment(){
       axios.post('/seller_api/v1/seller/del_comment',qs.stringify({
@@ -826,9 +804,9 @@ export default {
       }
       else {
         if (html.isWechat()) {
-          this.goto('/app/author')
+          html.openInWechat(this.ttDomain)
         }else{
-          this.goto('/app/login')
+          // this.goto('/app/login')
         }
       }
     },

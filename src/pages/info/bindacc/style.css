@@ -1,0 +1,93 @@
+
+.myAddress{
+  padding: 30px 0;    
+  margin: 0 30px; 
+  color: #7d7d7d;
+  line-height: 48px;
+}
+
+.myDetail{
+  padding: 30px 0;    
+  margin: 0 30px;
+  border-top:1px solid #e4e4e4;/*no*/
+  line-height: 48px;
+  color: #4e4e4e
+}
+.myDetail p{
+  padding-bottom: 20px;
+}
+.myDetail dl{
+  padding-bottom: 30px;
+}
+.myDetail dl  dd input{
+  display: inline-block;
+  width: 100%;
+  height: 70px;
+  line-height: 48px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  position: relative;
+  border:1px solid #c9c9c9;/*no*/
+  color: #4e4e4e;
+  background: #fff;
+}
+.myDetail dl dd.special input{
+  padding-right: 200px;
+}
+.myDetail dl dd.special span,
+.guestCON  dl dd.special span{
+  position: absolute;
+  right: 20px;
+  top: 8px;
+  z-index: 2;
+}
+ .guestCON  dl dd.special span{
+  top: 0px
+ }
+.footer dl{
+  width: 100%;
+  padding: 30px 30px;
+}
+.footer dl dt{
+  padding-bottom: 20px;
+}
+.footer dl p{
+  width: 100%;
+}
+
+.myFinish{
+  /*padding-top: 30px;*/
+}
+.myFinish dl{
+  line-height: 48px;
+}
+.myFinish dl.dls dt{
+  width: 48%;
+}
+.myFinish dl.dls dd{
+  width: 51%;
+}
+
+.myFinish dl dt{
+  line-height: 48px;
+}
+.myFinish p{
+  padding: 40px 0;
+}
+
+.guestCON .dls dt{
+  width: 40%;
+}
+.guestCON .dls dd{
+  width: 59%;
+}
+.guestCON p{
+  padding-top: 15px;
+}
+
+
+
+
+
+
+

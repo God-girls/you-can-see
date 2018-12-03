@@ -20,7 +20,7 @@ export default {
       show1:true,     
       header:{
         'name':'收入分析',
-        'link':'/my',
+        'link':'/discovery',
         // isNobg:true,
       },
       token:'',

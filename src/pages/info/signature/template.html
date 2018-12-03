@@ -1,0 +1,18 @@
+<Layout>
+  <myhead :hval="header" slot="header"></myhead>
+
+  <div class="my-set f30">
+    <ul>
+      <li>
+        <input type="text" v-model="paraData.signature" ref="myNick">
+        <i class="iconfont icon-close f40" @touchend.prevent="clearNick"></i>
+      </li>
+    </ul>
+    <p class="grayCR">最多30个字符,一个汉字为两个字符</p>
+    <a href="javascript:;" class="btn btn-green" @touchend.prevent="modifyNick">提交</a>
+  </div>
+
+  <div slot="footer">
+      <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
+  </div>
+</Layout>

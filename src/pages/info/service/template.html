@@ -1,0 +1,24 @@
+<Layout>
+  <myhead :hval="header" slot="header"></myhead>
+
+  <div class="my-set f30">
+    <ul>
+      <li>
+        <input type="text" :placeholder="placeholder" v-model="paraData[nameType[guideType].type]" ref="myNick" class="blackCR">
+        <i class="iconfont icon-close f40" @touchend.prevent="clearNick"></i>
+      </li>
+    </ul>
+    <dl class="dls">
+      <dt class="blackCR">是否显示：</dt>
+      <dd class="posiR">
+        <input id="deLock" type="checkbox" class="ace ace-switch" v-model="paraData[nameType[guideType].show]">
+        <span class="lbl"></span>
+      </dd>
+    </dl>
+    <a href="javascript:;" class="btn btn-green" @touchend.prevent="modifyNick">提交</a>
+  </div>
+
+  <div slot="footer">
+      <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
+  </div>
+</Layout>

@@ -2,7 +2,7 @@
 * @Author: xiaoxiao
 * @Date:   2017-11-28 13:47:58
 * @Last Modified by:   xiaoxiao
-* @Last Modified time: 2018-11-30 15:03:13
+* @Last Modified time: 2018-12-03 15:46:59
 */
 import axios from 'axios';
 import qs from 'qs';
@@ -159,6 +159,14 @@ var html = {
     isAppshare: function(){// 渠道包app 可以用自己的分享
         if (html.browser.versions.appshare) return true;
         else return false        
+    },
+    openInWechat(jumpUrl){
+        location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx357ca89ca431b3ca&redirect_uri='
+                   + encodeURIComponent(jumpUrl) +'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+    },
+    openInOher(jumpUrl){
+        location.href = 'https://graph.qq.com/oauth2.0/authorize?client_id=wx357ca89ca431b3ca&redirect_uri='
+                   + encodeURIComponent(jumpUrl) +'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
     },
     timeForMat (count) {
     // 拼接时间

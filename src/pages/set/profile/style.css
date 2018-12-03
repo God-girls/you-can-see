@@ -69,12 +69,13 @@
   border-bottom: 1px solid #dedede ;/*no*/
 }
 .my-set ul li dt{
-  width: 70px;
+  /*width: 70px;*/
+  color: #000000;
 }
 .my-set ul li dd{
   line-height: 100px;
   height: 100px;
-  color: #000000;
+  max-width: 60%;
 }
 .my-set ul li dd.tR{
   /*padding-right: 30px;*/

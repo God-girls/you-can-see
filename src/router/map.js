@@ -98,13 +98,31 @@ export default {
 	'/my/nick': {
 		meta: { title: '修改昵称'},
 		component: (resolve) => {
-			require(['pages/set/nick'], resolve)
+			require(['pages/info/nick'], resolve)
 		}
 	},
 	'/my/sex': {
 		meta: { title: '性别'},
 		component: (resolve) => {
-			require(['pages/set/sex'], resolve)
+			require(['pages/info/sex'], resolve)
+		}
+	},
+	'/my/signature': {
+		meta: { title: '个性签名'},
+		component: (resolve) => {
+			require(['pages/info/signature'], resolve)
+		}
+	},
+	'/my/bindacc': {
+		meta: { title: ''},
+		component: (resolve) => {
+			require(['pages/info/bindacc'], resolve)
+		}
+	},
+	'/my/service': {
+		meta: { title: ''},
+		component: (resolve) => {
+			require(['pages/info/service'], resolve)
 		}
 	},
 	'/prd/share': {//新建商品

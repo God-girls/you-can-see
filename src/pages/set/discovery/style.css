@@ -59,8 +59,10 @@
 .icon-erweima{
   color: #80a073
 }
-.icon-shezhi{
-  color: #9173a0
+.icon-fensishumian{
+  color: #df4d90;
+  position: relative;
+  left: -5px;
 }
 .header span{
   display: block;

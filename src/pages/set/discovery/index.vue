@@ -16,7 +16,7 @@ export default {
     return {
       show1:true,     
       header:{
-        'name':'我的',
+        'name':'发现',
         'link':'/',
         isNobg:true,
       },

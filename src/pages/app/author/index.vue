@@ -31,16 +31,20 @@ export default {
 
     // alert(this.$route.query.seller)
     if (this.$route.query.redirecto) {
-      let jumpUrl = this.ttDomain + '/#/app/author?jumpto='+encodeURIComponent('/prd/list?seller='+this.$route.query.seller+'&goodid='+ this.$route.query.goodid)
+      let jumpUrl = this.ttDomain + '/#/app/author?jumpto='+encodeURIComponent('/prd/list?seller='+this.$route.query.seller+
+          + (this.$route.query.goodid?'&goodid='+ this.$route.query.goodid:''))
 
-     location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx357ca89ca431b3ca&redirect_uri='
-                   + encodeURIComponent(jumpUrl) +'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+      if (html.isWechat()) html.openInWechat(jumpUrl);
+      else  html.openInOher(jumpUrl)
       return;
     }
-    alert(location.href)
+    // alert(location.href)
     if (html.isWechat()) {//如果是在微信
       this.getLogin();
       this.pushHistory();      
+    }else{
+      this.getLogin2();
+      this.paraData.oatype = 'qq'
     }
 
   },
@@ -134,7 +138,36 @@ export default {
         
         axios.post('/seller_api/v1/sessions/create_oauth',qs.stringify(this.paraData)).then((response)=>{   
             let resData = response.data;  
-            alert(JSON.stringify(resData))
+            // alert(JSON.stringify(resData))
+            if (resData.success) {
+              window.localStorage.setItem('ttUid', resData.result.id);
+              window.localStorage.setItem('ttToken', resData.result.atoken);
+              this.switchState({
+                TOKEN:resData.result.atoken,
+                UID:resData.result.id
+              })
+
+              if (this.$route.query.jumpto) {
+                this.$router.push(this.$route.query.jumpto)
+              }else{
+                this.$router.push('/')
+              }
+
+            }else{
+              alert(resData.codemsg)
+            }
+        }).catch(function(response){
+          console.log(response)
+          alert('邪恶的外星生物破坏了娃娃机，紧急抢救中，请您稍后再试~')
+        });        
+    },
+    getLogin2 (){//qq微博登录登录
+
+        if (location.href.indexOf('code') > -1) this.paraData.code = unescape(this.getQueryValue('code'));
+        
+        axios.post('/seller_api/v1/sessions/create_oauth2',qs.stringify(this.paraData)).then((response)=>{   
+            let resData = response.data;  
+            // alert(JSON.stringify(resData))
             if (resData.success) {
               window.localStorage.setItem('ttUid', resData.result.id);
               window.localStorage.setItem('ttToken', resData.result.atoken);

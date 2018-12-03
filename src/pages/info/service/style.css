@@ -1,0 +1,52 @@
+
+.my-set{
+  /*background: #fff*/
+}
+.my-set ul{
+  padding:0 30px;
+  /*line-height: 105px;*/
+  color: #7b7b7b;
+}
+.my-set ul li{
+  padding-right: 80px;
+  border-bottom: 1px solid #dcdcdd;/*no*/
+}
+.my-set ul li input{
+  width: 100%;
+  padding: 33px 0;
+  display: inline-block;
+}
+.my-set ul li img{
+  width: 70px;
+  height: 70px;
+  border-radius: 50px;
+  border: 1px solid #dcdcdd;/*no*/
+  vertical-align: middle;
+  margin-right: 10px;
+  position: relative;
+  top: -2px;
+}
+.my-set a{
+  margin:0 30px;
+  height: 80px;
+  line-height: 80px;
+  display: block;
+  text-align: center;
+}
+.my-set dl{
+  padding: 34px 0 115px 0px;
+  /*font-size: 22px;*/
+}
+.my-set dd input{
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.icon-close{
+  width: 40px;
+  height: 40px;
+  background-position: -102px 0;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+}

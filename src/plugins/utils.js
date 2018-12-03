@@ -16,7 +16,7 @@ export default{
         ttDomain = 'https://testseller.bhuwifi.com';
         qiimgsg = 'https://testsellerimg.bhuwifi.com/';
     }
-    // Vue.prototype.downPC = 'https://www.ethmainchain.com/pages/master/download.html';
+    // Vue.prototype.openWechat = ;
     Vue.prototype.downMobile = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.lianlian.hdd'
     // 'https://bonusimg.hddgood.com/hddgood.apk?'+new Date().getTime();
     Vue.prototype.globalAvatar = avatarg;

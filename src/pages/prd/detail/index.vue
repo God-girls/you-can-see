@@ -376,7 +376,7 @@ export default {
                    this.onBridgeReady();
                 }
               }else{
-                location.href = JSON.parse(resData.result.payment_url).mweb_url
+                location.href = `${JSON.parse(resData.result.payment_url).mweb_url}&redirect_url=encodeURIComponent(${this.ttDomain}/#/prd/list?seller=${this.UID}&fromshare=true&goodid=${this.goodid})`
               }
 
 

@@ -246,7 +246,22 @@ export default {
               this.shareFunc(resData.result);         
       }).catch(function(response){
 
-      });        
+      });      
+        
+      function onBridgeReady(){
+         WeixinJSBridge.call('hideToolbar');
+      }
+
+      if (typeof WeixinJSBridge == "undefined"){
+          if( document.addEventListener ){
+              document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+          }else if (document.attachEvent){
+              document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+              document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+          }
+      }else{
+          onBridgeReady();
+      }
     },
     shareFunc(obj){
       let vm = this;
@@ -282,16 +297,6 @@ export default {
         wx.onMenuShareWeibo(shareOBJ);
         wx.onMenuShareQZone(shareOBJ);
         wx.onMenuShareTimeline(shareOBJ);
-        function onBridgeReady() {
-            WeixinJSBridge.call('hideToolbar');
-          }
-
-          if (typeof WeixinJSBridge == "undefined") {
-            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-          } else {
-            onBridgeReady();
-          }
-
       })
 
     },

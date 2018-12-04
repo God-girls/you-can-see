@@ -133,6 +133,7 @@ export default {
         }
       }     
 
+
     this.getShare ();
     dplus.track('首页',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {}); 
@@ -232,6 +233,17 @@ export default {
       }).catch(function(response){
 
       });        
+
+      function onBridgeReady() {
+        WeixinJSBridge.call('hideToolbar');
+        weixinjsbridge.call('hideoptionmenu'); 
+      }
+
+      if (typeof WeixinJSBridge == "undefined") {
+        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+      } else {
+        onBridgeReady();
+      }
     },
     shareFunc(obj){
       let vm = this;
@@ -267,15 +279,6 @@ export default {
         wx.onMenuShareWeibo(shareOBJ);
         wx.onMenuShareQZone(shareOBJ);
         wx.onMenuShareTimeline(shareOBJ);
-        function onBridgeReady() {
-            WeixinJSBridge.call('hideToolbar');
-          }
-
-          if (typeof WeixinJSBridge == "undefined") {
-            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-          } else {
-            onBridgeReady();
-          }
       })
  
     },

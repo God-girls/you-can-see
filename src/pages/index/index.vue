@@ -147,7 +147,7 @@ export default {
         }
       }     
     }
-    
+    this.hideToolbar();
     this.getShare ();
     dplus.track('首页',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {}); 
@@ -246,21 +246,18 @@ export default {
               this.shareFunc(resData.result);         
       }).catch(function(response){
 
-      });      
-        
-      function onBridgeReady(){
-         WeixinJSBridge.call('hideToolbar');
+      });        
+    },
+    hideToolbar(){
+      function onBridgeReady() {
+        alert('weixinjsready')
+        WeixinJSBridge.call('hideToolbar');
       }
 
-      if (typeof WeixinJSBridge == "undefined"){
-          if( document.addEventListener ){
-              document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-          }else if (document.attachEvent){
-              document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
-              document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-          }
-      }else{
-          onBridgeReady();
+      if (typeof WeixinJSBridge == "undefined") {
+        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+      } else {
+        onBridgeReady();
       }
     },
     shareFunc(obj){
@@ -278,8 +275,8 @@ export default {
             'chooseImage',
             'previewImage',
             'uploadImage',
-            'downloadImage',
-            'scanQRCode'
+            // 'downloadImage',
+            // 'scanQRCode'
           ]
       }));   
       wx.ready(function () {

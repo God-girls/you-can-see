@@ -148,7 +148,7 @@ export default {
       }     
     }
     this.hideToolbar();
-    this.getShare ();
+    // this.getShare ();
     dplus.track('首页',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {}); 
   },

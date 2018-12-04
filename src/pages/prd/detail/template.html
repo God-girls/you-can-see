@@ -126,13 +126,13 @@
           <div class="area" @click="citySelected()" :class="[twoac ? 'accolor':'']" v-show="twoshow">{{City?City:'请选择'}}</div>
           <div class="area" @click="districtSelected()" :class="threeac ? 'accolor':''" v-show="threeshow">{{District?District:'请选择'}}</div>
         </section>
-        <ul :class="['proJuli animateds',{'slideInRight':showProvince},{'dn':!showProvince}]">
+        <ul :class="['proJuli animated2dot',{'slideInRight':showProvince},{'dn':!showProvince}]">
           <li class="addList" v-for="(v,k) in info" @click="getProvinceId(v.id, v.name, k)" :key="v.id"  :class="{active : v.selected}"><span>{{v.name}}</span></li>
         </ul>
-        <ul :class="['citJuli animateds',{'slideInRight':showCity},{'dn':!showCity}]">
+        <ul :class="['citJuli animated2dot',{'slideInRight':showCity},{'dn':!showCity}]">
           <li class="addList" v-for="(v,k) in showCityList" @click="getCityId(v.id, v.name, k)"  :key="v.id"  :class="{active : v.selected}"><span>{{v.name}}</span></li>
         </ul>
-        <ul :class="['disJuli animateds',{'slideInRight':showDistrict},{'dn':!showDistrict}]">
+        <ul :class="['disJuli animated2dot',{'slideInRight':showDistrict},{'dn':!showDistrict}]">
           <li class="addList" v-for="(v,k) in showDistrictList" @click="getDistrictId(v.id, v.name, k)" :key="v.id" :class="{active : v.selected}"><span>{{v.name}}</span></li>
         </ul>
       </section>

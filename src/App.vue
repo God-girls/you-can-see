@@ -73,20 +73,20 @@
 
                 }
 
-                function onBridgeReady() {
-                  WeixinJSBridge.call('hideToolbar');
-                }
-                  const _this  =this;
-                  if (typeof WeixinJSBridge === "undefined") {
-                    if (document.addEventListener) {
-                      document.addEventListener('WeixinJSBridgeReady', _this.onBridgeReady, false);
-                    } else if (document.attachEvent) {
-                      document.attachEvent('WeixinJSBridgeReady', _this.onBridgeReady);
-                      document.attachEvent('onWeixinJSBridgeReady', _this.onBridgeReady);
-                    }
-                  } else {
-                    _this.onBridgeReady();
-                  }
+                // function onBridgeReady() {
+                //   WeixinJSBridge.call('hideToolbar');
+                // }
+                //   const _this  =this;
+                //   if (typeof WeixinJSBridge === "undefined") {
+                //     if (document.addEventListener) {
+                //       document.addEventListener('WeixinJSBridgeReady', _this.onBridgeReady, false);
+                //     } else if (document.attachEvent) {
+                //       document.attachEvent('WeixinJSBridgeReady', _this.onBridgeReady);
+                //       document.attachEvent('onWeixinJSBridgeReady', _this.onBridgeReady);
+                //     }
+                //   } else {
+                //     _this.onBridgeReady();
+                //   }
 
             }
         },

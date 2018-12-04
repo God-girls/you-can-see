@@ -48,7 +48,7 @@ export default {
 		}
 	},
 	'/discovery': {
-		meta: { title: '我的'},
+		meta: { title: '发现'},
 		component: (resolve) => {
 			require(['pages/set/discovery'], resolve)
 		}

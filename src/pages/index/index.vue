@@ -164,7 +164,7 @@ export default {
         }
       }     
     }
-    
+    this.hideToolBar()
     this.getShare ();
     dplus.track('首页',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {}); 
@@ -252,6 +252,23 @@ export default {
         current: this.globalAvatar+'goods/'+currentImg,
         urls: tempUrls
       });
+    },
+    onBridgeReady() {
+      WeixinJSBridge.call('hideToolbar');
+      WeixinJSBridge.call('hideOptionMenu');
+    },
+    hideToolBar(){
+      const _this  =this;
+      if (typeof WeixinJSBridge === "undefined") {
+        if (document.addEventListener) {
+          document.addEventListener('WeixinJSBridgeReady', _this.onBridgeReady, false);
+        } else if (document.attachEvent) {
+          document.attachEvent('WeixinJSBridgeReady', _this.onBridgeReady);
+          document.attachEvent('onWeixinJSBridgeReady', _this.onBridgeReady);
+        }
+      } else {
+        _this.onBridgeReady();
+      }
     },
     getShare (){
       
@@ -853,21 +870,23 @@ export default {
       }
       var transImg = (param)=>{
         var img = new Image();
-         //指定图片的URL
+
          img.src = this.globalAvatar+'goods/'+param;
          img.crossOrigin = "Anonymous";
+
          //浏览器加载图片完毕后再绘制图片
          img.onload = ()=>{
           var canvas = document.createElement("canvas");
           var ctx = canvas.getContext("2d");
+
           ctx.width = poster.imgWidth + poster.lineWidth*2;
           ctx.height = img.height*poster.imgWidth/img.width + poster.lineWidth*2;
           ctx.lineWidth = poster.lineWidth;
           ctx.strokeStyle = "#c12227";
-          ctx.rect(poster.lineWidth, poster.lineWidth, ctx.width, ctx.height);
+          ctx.rect(0, 0, ctx.width, ctx.height);
           ctx.stroke();
           //以Canvas画布上的坐标(10,10)为起始点，绘制图像
-          ctx.drawImage(img, 0, 0, ctx.width, ctx.height);    
+          ctx.drawImage(poster.lineWidth, poster.lineWidth, poster.imgWidth, img.height*poster.imgWidth/img.width);    
 
           this.testCanvas = canvas.toDataURL()
          };

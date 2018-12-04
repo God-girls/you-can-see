@@ -54,7 +54,7 @@
 .icon-home{
   position: absolute;
   left:10px;
-  top: -72px;
+  top: -52px;
   /*display: inline-block;*/
   background: url(../../assets/img12/index/mai.png) no-repeat;
   background-size: 120px;
@@ -96,7 +96,7 @@
 .my-footer ul li.homeLi span{
   position: absolute;
   left:9px;
-  top: -72px;
+  top: -52px;
   display: inline-block;
   /*background: rgba(42,14,60,.36);*/
   width:113px;

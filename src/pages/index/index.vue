@@ -3,7 +3,7 @@
 <template src="./template.html"></template>
 <script>
 import {setupWebViewJavascriptBridge} from '../../assets/js/iosbridge.js';
-import myhead from '../../components/base/header'
+import appshare from '../../components/base/appshare'
 import myfooter from '../../components/base/footer'
 import loading from '../../components/base/loading'
 import modalDialog from '../../components/base/dialog'
@@ -19,7 +19,8 @@ export default {
     modalDialog,
     myfooter,
     loading,
-    dialogDel
+    dialogDel,
+    appshare
   },
   data () {
     return {
@@ -55,6 +56,9 @@ export default {
       navType:'task',
       profile:{},
       reply:false,
+      webClick:false,
+      fromShare:false,
+      shareFlag:false,
       placeholder:'评论',
       fetBonusType:[],
       popDel:{
@@ -65,6 +69,7 @@ export default {
       del:false,
       scrollFlag:false,
       scrollLeftpx:'',
+      testCanvas:'',
       noticeData:[],
       totalBonus:0,
       sellerInfo:{
@@ -75,6 +80,12 @@ export default {
         cid:'',
         gid:''
       },
+      shareData:{
+        title:'',
+        desc:'购物享分红，托管随时取，聪明消费就上红多多！',
+        shareText:''
+      },
+      copyWords:''
     }
   },
   computed:{
@@ -88,6 +99,12 @@ export default {
       'LISTDATA',
       'CART'
     ])
+  },
+  created(){
+      // this.shareData.title = this.SHARETITLE;
+      this.shareData.shareText = `${this.SHARETITLE}。购买地址：${this.ttDomain}/#/prd/list?seller=${this.UID}&fromshare=true`
+      this.copyWords = ''
+      // this.shareData.link = `${this.ttDomain}/#/shop/detail?fromshare=true&id=${this.$route.query.id}`      
   },
   mounted () {
 
@@ -147,8 +164,8 @@ export default {
         }
       }     
     }
-    this.hideToolbar();
-    // this.getShare ();
+    
+    this.getShare ();
     dplus.track('首页',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {}); 
   },
@@ -248,18 +265,6 @@ export default {
 
       });        
     },
-    hideToolbar(){
-      function onBridgeReady() {
-        alert('weixinjsready')
-        WeixinJSBridge.call('hideToolbar');
-      }
-
-      if (typeof WeixinJSBridge == "undefined") {
-        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-      } else {
-        onBridgeReady();
-      }
-    },
     shareFunc(obj){
       let vm = this;
       wx.config(Object.assign(obj,{
@@ -297,11 +302,14 @@ export default {
       })
 
     },
-    reinitShare (goodid,seller){
+    reinitShare (item,seller){
       let vm = this;
       let appID = 'wx357ca89ca431b3ca'
-      let jumpUrl = this.ttDomain+'/#/app/author?redirecto=true&goodid='+goodid+'&seller='+seller;
-      
+      let jumpUrl = this.ttDomain+'/#/app/author?redirecto=true&goodid='+item.goodid+'&seller='+seller;
+      this.shareFlag = true;
+      this.shareData.shareText = `我在小小麦发现了：${item.title}。购买地址：${this.ttDomain}/#/prd/list?seller=${this.UID}&fromshare=true${item.id?'&goodid='+item.id:''}`
+      // console.log(item.goodid)
+      // this.copyWords = `${this.SHARETITLE}。购买地址：${this.ttDomain}/#/prd/list?seller=${this.UID}&fromshare=true${item.id?'&goodid='+goodid:''}`
       wx.ready(function () {
         let shareText ={
             title: '我在小小麦家发现了一件新商品~',
@@ -454,7 +462,7 @@ export default {
           if (resData.success) {
             this.del = false;
             this.initMSG(this.popIndex == 1 ? '已下架':'已上架')
-            this.fetchList();
+            this.onRefresh();
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.redirect();
@@ -481,7 +489,7 @@ export default {
           if (resData.success) {
             this.loading = false;
             this.del = false;
-            this.fetchList();
+            this.onRefresh();
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.redirect();
@@ -833,9 +841,40 @@ export default {
       this.$router.push(arr)
     },
     closeDialog (arr){
-        this[arr] = false;
-    },
 
+      this[arr] = false;
+    },
+    getPoster(imgs){
+      var poster = {
+        width:750,
+        height:978,
+        imgWidth:460,
+        lineWidth:15,
+      }
+      var transImg = (param)=>{
+        var img = new Image();
+         //指定图片的URL
+         img.src = this.globalAvatar+'goods/'+param;
+         img.crossOrigin = "Anonymous";
+         //浏览器加载图片完毕后再绘制图片
+         img.onload = ()=>{
+          var canvas = document.createElement("canvas");
+          var ctx = canvas.getContext("2d");
+          ctx.width = poster.imgWidth + poster.lineWidth*2;
+          ctx.height = img.height*poster.imgWidth/img.width + poster.lineWidth*2;
+          ctx.lineWidth = poster.lineWidth;
+          ctx.strokeStyle = "#c12227";
+          ctx.rect(poster.lineWidth, poster.lineWidth, ctx.width, ctx.height);
+          ctx.stroke();
+          //以Canvas画布上的坐标(10,10)为起始点，绘制图像
+          ctx.drawImage(img, 0, 0, ctx.width, ctx.height);    
+
+          this.testCanvas = canvas.toDataURL()
+         };
+      }
+
+      transImg(imgs[0])
+    }
   },
   beforeDestroy(){
     this.switchState({

@@ -16,6 +16,7 @@
 .myDetail p{
   padding: 85px 0 40px;
 }
+
 .myDetail dl dt img{
   width: 100px;
   height: 100px;
@@ -45,6 +46,7 @@
   /*border:1px solid #51aa38!important*/
 }
 
-
-
-
+/*
+    touch-callout:none;
+    user-select:none;  
+*/

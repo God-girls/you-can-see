@@ -41,7 +41,7 @@
         </dl>
       </div>
     </div>
-
+    <img :src="testCanvas" alt="" class="testImg">
     <div class="conOne" v-for="(item,index) in listData">
       <div class="oneTop">
         <dl class="flexBox">
@@ -65,13 +65,16 @@
                 <span v-else  @touchend.prevent="beforeOnoff(item,2)"><i class="iconfont icon-ccgl-xiajia f30 blueLCR"></i></span> 
                 ¥ {{item.price_range}} <span class="grayCR f21 mL10">已售{{item.total_sell?item.total_sell:0}}件</span>
               </li>
+
               <li class="blueLCR" v-if="item.status == 0">
+                <!-- <span @click.prevent="getPoster(JSON.parse(item.imgs))">测试canvas</span> -->
                 <span @click.prevent="beforeOnoff(item,4)"><i class="iconfont icon-fuzhi f30"></i></span>
+
                 <span  class="mL10" v-if="!item.praised" @click.prevent="praisePrd(item,index)"><i class="iconfont icon-xinheart282 f30"></i></span>
 
                 <span  class="mL10" @click.prevent="beforeOnoff(item,3,index)"><i class="iconfont icon-top f30"></i></span>
 
-                <span class="mL10" @click.prevent="reinitShare (item.id,paraData.uid)"><i class="iconfont icon-zhuanfa f48"></i></span>
+                <span class="mL10" @click.prevent="reinitShare (item,paraData.uid)"><i class="iconfont icon-zhuanfa f48"></i></span>
 
                 <span class="mL10" @click.prevent="beforeReply(item,index)" 
                       v-if="item.show_comment"><i class="iconfont icon-xiaoxi15-copy f30"></i></span>
@@ -83,6 +86,7 @@
 
       <div class="comment posiR f30" v-if="item.status == 0 && (item.comment_head || item.praise_head)">
         <i class="iconfont icon-caret-up f48"></i>
+
         <!--点赞头像-->
         <dl class="stars flexBox blueLCR" v-if="item.praise_head">
           <dt>
@@ -92,6 +96,7 @@
            <img :src="globalAvatar+item3" alt="" v-for="(item3,index3) in JSON.parse(item.praise_head)">
           </dd>
         </dl>
+
         <!--评论内容-->
         <div class="comList" v-if="item.comment_head">
           <dl class="flexBox">
@@ -180,7 +185,8 @@
 
     </dialog-del>
 
-    <!-- <div class="nologinMask" v-if="iAmGuest" @touchend.prevent="iAmGuestClick = true"></div> -->
+    <!-- <div class="shareMask" v-if="fromShare" @click.prevent="webClick = true"></div> -->
+    <appshare :shareData="shareData" @shareclose="closeDialog('shareFlag')" v-show="shareFlag"></appshare>
 
     <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
   </div>

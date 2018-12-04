@@ -268,6 +268,9 @@ export default {
         wx.onMenuShareQZone(shareOBJ);
         wx.onMenuShareTimeline(shareOBJ);
       })
+      document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+        WeixinJSBridge.call('hideToolbar');
+      });    
     },
     reinitShare (){
       let vm = this;

@@ -11,10 +11,6 @@
 	width: 100%;
 }
 
-.pcBody .wrap{
-  width: 550px;/*no*/
-  margin: 0 auto;
-}
-.pcBody .wrap .webImg{
-  padding-top: 100px;/*no*/
+.test img{
+  width: 100%;/*no*/
 }

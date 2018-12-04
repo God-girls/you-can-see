@@ -19,6 +19,7 @@ export default {
       onlyWechat:false,
       inviter:'',
       isIos:false,
+      testCanvas:''
     }
   },
   components: {
@@ -37,12 +38,10 @@ export default {
 
       // debugger
       //以Canvas画布上的坐标(10,10)为起始点，绘制图像
-      ctx.drawImage(img, img.width, img.height);    
-      try{
-        this.testCanvas = canvas.toDataURL()
-      }catch(e){
-        alert(e)
-      }
+      ctx.drawImage(img,0,0, img.width, img.height);    
+
+      this.testCanvas = canvas.toDataURL()
+
       
      };
   },

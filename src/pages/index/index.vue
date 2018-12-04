@@ -329,8 +329,8 @@ export default {
       // this.copyWords = `${this.SHARETITLE}。购买地址：${this.ttDomain}/#/prd/list?seller=${this.UID}&fromshare=true${item.id?'&goodid='+goodid:''}`
       wx.ready(function () {
         let shareText ={
-            title: '我在小小麦家发现了一件新商品~',
-            desc: '快来拼团',
+            title: `好友${vm.profile.nick}分享了自己的宝贝，好友专享价！`,
+            desc: ``,
             link:jumpUrl,
             imgUrl: vm.ttLogoImg,
             success:function() {

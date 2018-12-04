@@ -67,7 +67,7 @@
               </li>
 
               <li class="blueLCR" v-if="item.status == 0">
-                <!-- <span @click.prevent="getPoster(JSON.parse(item.imgs))">测试canvas</span> -->
+                <span @click.prevent="getPoster(JSON.parse(item.imgs))">测试canvas</span>
                 <span @click.prevent="beforeOnoff(item,4)"><i class="iconfont icon-fuzhi f30"></i></span>
 
                 <span  class="mL10" v-if="!item.praised" @click.prevent="praisePrd(item,index)"><i class="iconfont icon-xinheart282 f30"></i></span>

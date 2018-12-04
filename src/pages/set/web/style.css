@@ -3,9 +3,12 @@
   /*background: #fbe8df url(../../../assets/img12/other/invitebg.jpg) no-repeat center top;*/
   background-size: 100%;
 }
-.webImg{
+.test canvas{
 	width: 100%;
-	height: 100%;
+	height: 500px;
+}
+.test p{
+	width: 100%;
 }
 
 .pcBody .wrap{

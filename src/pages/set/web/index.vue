@@ -24,16 +24,27 @@ export default {
   components: {
   },
   mounted () {
-    if (html.isPc()) {
-      document.body.setAttribute('class','pcBody');
-    }
-    if (html.isWechat()) {
-      this.onlyWechat = true;
-    }
-    if (html.isWawaIos() || html.isWebIos()) {
-      this.isIos = true;
-    }
-    dplus.track('webtips',{'from':html.useragent()});//统计代码
+    var img = new Image();
+
+     img.src = 'https://testsellerimg.bhuwifi.com/seller/goods/1507al2dae.jpg';
+     img.crossOrigin = "Anonymous";
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+
+
+     //浏览器加载图片完毕后再绘制图片
+     img.onload = ()=>{
+
+      // debugger
+      //以Canvas画布上的坐标(10,10)为起始点，绘制图像
+      ctx.drawImage(img, img.width, img.height);    
+      try{
+        this.testCanvas = canvas.toDataURL()
+      }catch(e){
+        alert(e)
+      }
+      
+     };
   },
   methods: {
     closeDialog (){

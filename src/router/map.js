@@ -83,6 +83,12 @@ export default {
 			require(['pages/set/analysis'], resolve)
 		}
 	},
+	'/testcanvas': {
+		meta: { title: 'testcanvas'},
+		component: (resolve) => {
+			require(['pages/set/web'], resolve)
+		}
+	},
 	// '/my/invite': {
 	// 	meta: { title: '邀请有礼'},
 	// 	component: (resolve) => {

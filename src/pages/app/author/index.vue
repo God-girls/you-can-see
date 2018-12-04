@@ -160,7 +160,7 @@ export default {
             }
         }).catch(function(response){
           console.log(response)
-          alert('邪恶的外星生物破坏了娃娃机，紧急抢救中，请您稍后再试~')
+          alert('宝贝太火爆了，系统繁忙，请稍后再试~~')
         });        
     },
     getLogin2 (){//qq微博登录登录

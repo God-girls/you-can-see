@@ -82,7 +82,7 @@ export default {
       },
       shareData:{
         title:'',
-        desc:'购物享分红，托管随时取，聪明消费就上红多多！',
+        desc:'',
         shareText:''
       },
       copyWords:''
@@ -99,12 +99,6 @@ export default {
       'LISTDATA',
       'CART'
     ])
-  },
-  created(){
-      // this.shareData.title = this.SHARETITLE;
-      this.shareData.shareText = `${this.SHARETITLE}。购买地址：${this.ttDomain}/#/prd/list?seller=${this.UID}&fromshare=true`
-      this.copyWords = ''
-      // this.shareData.link = `${this.ttDomain}/#/shop/detail?fromshare=true&id=${this.$route.query.id}`      
   },
   mounted () {
 
@@ -164,7 +158,7 @@ export default {
         }
       }     
     }
-    this.hideToolBar()
+    // this.hideToolBar()
     this.getShare ();
     dplus.track('首页',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {}); 
@@ -253,23 +247,6 @@ export default {
         urls: tempUrls
       });
     },
-    onBridgeReady() {
-      WeixinJSBridge.call('hideToolbar');
-      WeixinJSBridge.call('hideOptionMenu');
-    },
-    hideToolBar(){
-      const _this  =this;
-      if (typeof WeixinJSBridge === "undefined") {
-        if (document.addEventListener) {
-          document.addEventListener('WeixinJSBridgeReady', _this.onBridgeReady, false);
-        } else if (document.attachEvent) {
-          document.attachEvent('WeixinJSBridgeReady', _this.onBridgeReady);
-          document.attachEvent('onWeixinJSBridgeReady', _this.onBridgeReady);
-        }
-      } else {
-        _this.onBridgeReady();
-      }
-    },
     getShare (){
       
       axios.post('/seller_api/v1/sessions/share_config',qs.stringify({
@@ -303,12 +280,11 @@ export default {
       }));   
       wx.ready(function () {
         let shareOBJ ={
-            title: '小小麦',
+            title: `${vm.profile.nick}分享了自己的私人主页，新品首发哦！`,
             desc: '小小卖家最爱的小小麦~',
             link: vm.ttDomain+'/#/app/author?redirecto=true&seller='+vm.paraData.uid,
             imgUrl: vm.ttLogoImg,
             success:function () {
-               // dplus.track('分享成功',{'from':html.useragent(),'inviter':vm.inviter,'page':'index'});
             }
         };
         wx.onMenuShareAppMessage(shareOBJ);
@@ -324,13 +300,12 @@ export default {
       let appID = 'wx357ca89ca431b3ca'
       let jumpUrl = this.ttDomain+'/#/app/author?redirecto=true&goodid='+item.goodid+'&seller='+seller;
       this.shareFlag = true;
-      this.shareData.shareText = `我在小小麦发现了：${item.title}。购买地址：${this.ttDomain}/#/prd/list?seller=${this.UID}&fromshare=true${item.id?'&goodid='+item.id:''}`
-      // console.log(item.goodid)
-      // this.copyWords = `${this.SHARETITLE}。购买地址：${this.ttDomain}/#/prd/list?seller=${this.UID}&fromshare=true${item.id?'&goodid='+goodid:''}`
+      this.shareData.shareText = `${item.title}，种草进我的私人主页: ${this.ttDomain}/#/prd/list?seller=${this.UID}&fromshare=true${item.id?'&goodid='+item.id:''}`
+
       wx.ready(function () {
         let shareText ={
             title: `好友${vm.profile.nick}分享了自己的宝贝，好友专享价！`,
-            desc: ``,
+            desc: item.title,
             link:jumpUrl,
             imgUrl: vm.ttLogoImg,
             success:function() {
@@ -866,27 +841,31 @@ export default {
         width:750,
         height:978,
         imgWidth:460,
-        lineWidth:15,
+        lineWidth:16,
       }
       var transImg = (param)=>{
         var img = new Image();
-
-         img.src = this.globalAvatar+'goods/'+param;
          img.crossOrigin = "Anonymous";
 
-         //浏览器加载图片完毕后再绘制图片
-         img.onload = ()=>{
+         img.src = this.globalAvatar+'goods/'+param;
+         
           var canvas = document.createElement("canvas");
           var ctx = canvas.getContext("2d");
 
-          ctx.width = poster.imgWidth + poster.lineWidth*2;
-          ctx.height = img.height*poster.imgWidth/img.width + poster.lineWidth*2;
+         //浏览器加载图片完毕后再绘制图片
+         img.onload = ()=>{
+
+          canvas.width = poster.imgWidth + poster.lineWidth*2;
+          canvas.height = (img.height*poster.imgWidth/img.width + poster.lineWidth*2);
+
+          //以Canvas画布上的坐标(10,10)为起始点，绘制图像
           ctx.lineWidth = poster.lineWidth;
           ctx.strokeStyle = "#c12227";
-          ctx.rect(0, 0, ctx.width, ctx.height);
+          ctx.fillStyle="#ffffff";
+          ctx.rect(0, 0, canvas.width, canvas.height);
+          ctx.fill();
           ctx.stroke();
-          //以Canvas画布上的坐标(10,10)为起始点，绘制图像
-          ctx.drawImage(poster.lineWidth, poster.lineWidth, poster.imgWidth, img.height*poster.imgWidth/img.width);    
+          ctx.drawImage(img, poster.lineWidth/2, poster.lineWidth/2, canvas.width, canvas.height);    
 
           this.testCanvas = canvas.toDataURL()
          };

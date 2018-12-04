@@ -71,7 +71,7 @@ export default {
       bottomBarH:'',
       paraData:{
         commdityid:101,
-        channel:'W4',//W4 公众号支付 W5微信支付
+        channel:'W4',//W4 公众号支付 W5微信支付 W2
         goods:'',
         context:'',
         agent:'qq'
@@ -316,6 +316,9 @@ export default {
         this.initMSG('请添加完整的收货地址')
         return;
       }
+      if (!html.isWechat()) {
+        this.paraData.channel = 'W2'
+      }
       this.paraData.context = JSON.stringify({
         receiver:this.paraReceive.name,
         mobileno:this.paraReceive.tel,
@@ -358,8 +361,8 @@ export default {
 
           if (resData.success) {
          
-              // if (this.onlyWechat) {
-              this.payment_url = JSON.parse(resData.result.payment_url);
+              if (this.onlyWechat) {
+                this.payment_url = JSON.parse(resData.result.payment_url);
                 let payVM = this;
                 
                 if (typeof WeixinJSBridge == "undefined"){
@@ -372,6 +375,9 @@ export default {
                 }else{
                    this.onBridgeReady();
                 }
+              }else{
+                location.href = JSON.parse(resData.result.payment_url).mweb_url
+              }
 
 
           }else {

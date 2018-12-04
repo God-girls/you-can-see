@@ -123,7 +123,6 @@ export default {
         this.isApp = true;
 
         this.getStatusBar();
-        this.defaultData();
         this.initBridge();
       }else{
         if (this.$route.query.token || this.TOKEN) {
@@ -132,6 +131,7 @@ export default {
           // this.redirect();
         }
       }     
+      this.defaultData();
 
 
     this.getShare ();
@@ -320,7 +320,7 @@ export default {
       }).then((response)=>{   
         
           let resData = response.data;  
-          alert(JSON.stringify(resData))
+          // alert(JSON.stringify(resData))
           if (resData.success) {
             // this.sellerInfo = resData.result;
             let tempArr = []

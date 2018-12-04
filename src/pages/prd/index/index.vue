@@ -267,10 +267,17 @@ export default {
         wx.onMenuShareWeibo(shareOBJ);
         wx.onMenuShareQZone(shareOBJ);
         wx.onMenuShareTimeline(shareOBJ);
+        function onBridgeReady() {
+            WeixinJSBridge.call('hideToolbar');
+          }
+
+          if (typeof WeixinJSBridge == "undefined") {
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+          } else {
+            onBridgeReady();
+          }
       })
-      document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
-        WeixinJSBridge.call('hideToolbar');
-      });    
+ 
     },
     reinitShare (){
       let vm = this;

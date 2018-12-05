@@ -1,6 +1,7 @@
 <Layout>
   <scroller :on-refresh="onRefresh" :noDataText="noDataText" :on-infinite="onInfinite"  ref="my_scroller">
-
+  <div class="mask" @touchend.prevent="listData[curListIndex].showComment = false"
+      v-if="listData[curListIndex].showComment"></div>
   <div class="header posiR f30">
     
     <h3 @click.prevent="changebg = true">
@@ -26,7 +27,7 @@
   </div>
 
   <div class="conList">
-
+  
     <div class="conOne">
       <div class="oneTop">
         <dl class="flexBox">
@@ -41,7 +42,7 @@
         </dl>
       </div>
     </div>
-    <img :src="testCanvas" alt="" class="testImg">
+
     <div class="conOne" v-for="(item,index) in listData">
       <div class="oneTop">
         <dl class="flexBox">
@@ -61,23 +62,36 @@
             <ol class="flexBox">
               <li class="flex1 redCR f30">
                 <span v-if="item.status == 0"
-                     @touchend.prevent="beforeOnoff(item,1)"><i class="iconfont icon-xiajia f30 blueLCR"></i></span> 
-                <span v-else  @touchend.prevent="beforeOnoff(item,2)"><i class="iconfont icon-ccgl-xiajia f30 blueLCR"></i></span> 
+                     @touchend.prevent="beforeOnoff(item,1)"><i class="iconfont icon-xiajia f36 blueLCR"></i></span> 
+                <span v-else  @touchend.prevent="beforeOnoff(item,2)"><i class="iconfont icon-ccgl-xiajia f36 blueLCR"></i></span> 
                 ¥ {{item.price_range}} <span class="grayCR f21 mL10">已售{{item.total_sell?item.total_sell:0}}件</span>
               </li>
 
-              <li class="blueLCR" v-if="item.status == 0">
-                <span @click.prevent="getPoster(JSON.parse(item.imgs))">测试canvas</span>
-                <span @click.prevent="beforeOnoff(item,4)"><i class="iconfont icon-fuzhi f30"></i></span>
+              <li class="blueLCR posiR" v-if="item.status == 0">
+                <span @click.prevent="item.showComment = !item.showComment;curListIndex = index"><i class="iconfont icon-xiaoxi15-copy f36"></i></span>
+                <p class="whiteCR flexBox1 fadeIn animated2dot" v-if="item.showComment">
+                  <span @click.prevent="beforeOnoff(item,4)">
+                    <i class="iconfont icon-fuzhi f30"></i> 复制
+                  </span>
 
-                <span  class="mL10" v-if="!item.praised" @click.prevent="praisePrd(item,index)"><i class="iconfont icon-xinheart282 f30"></i></span>
+                  <span  v-if="!item.praised" @click.prevent="praisePrd(item,index)">
+                    <i class="iconfont icon-xinheart282 f30"></i> 点赞
+                  </span>
 
-                <span  class="mL10" @click.prevent="beforeOnoff(item,3,index)"><i class="iconfont icon-top f30"></i></span>
+                  <span  @click.prevent="beforeOnoff(item,3,index)">
+                    <i class="iconfont icon-top f30"></i> 置顶
+                  </span>
 
-                <span class="mL10" @click.prevent="reinitShare (item,paraData.uid)"><i class="iconfont icon-zhuanfa f48"></i></span>
+                  <span @click.prevent="reinitShare (item,paraData.uid)">
+                    <i class="iconfont icon-zhuanfa f40"></i> 转发
+                  </span>
 
-                <span class="mL10" @click.prevent="beforeReply(item,index)" 
-                      v-if="item.show_comment"><i class="iconfont icon-xiaoxi15-copy f30"></i></span>
+                  <span @click.prevent="beforeReply(item,index)" 
+                        v-if="item.show_comment">
+                        <i class="iconfont icon-xiaoxi15-copy f28"></i> 评论
+                  </span>
+                  
+                </p>
               </li>
             </ol>
           </dd>
@@ -157,7 +171,7 @@
     
         <dl class="dialog-footer" slot="dialog-footer">
           <dd @touchend.prevent="redirect">
-            <button type="button">登陆</button>
+            <button type="button" class="btn btn-green">登陆</button>
           </dd>
         </dl>
     </modal-dialog>
@@ -186,9 +200,15 @@
     </dialog-del>
 
     <!-- <div class="shareMask" v-if="fromShare" @click.prevent="webClick = true"></div> -->
-    <appshare :shareData="shareData" @shareclose="closeDialog('shareFlag')" v-show="shareFlag"></appshare>
+    <appshare :shareData="shareData" @initPoster="getPoster" @shareclose="closeDialog('shareFlag')" v-show="shareFlag"></appshare>
 
     <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
+
+    <div class="showPic posiR" v-if="showCanvas">
+      <img :src="testCanvas" alt="">
+      <p class="btn btn-green">长按图片保存到手机</p>
+      <i class="iconfont icon-close f48 blackCR" @touchend.prevent="showCanvas = false"></i>
+    </div>
   </div>
 
 

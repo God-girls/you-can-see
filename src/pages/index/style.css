@@ -66,7 +66,7 @@
   text-align: center;
 }
 .oneTop dd p:active{
-  background: #c5c4c4
+  /*background: #c5c4c4*/
 }
 .oneTop dd p i{
   font-size: 45px;
@@ -129,6 +129,42 @@
 }
 .oneTop ul li.special i{
   font-size: 56px;
+}
+.oneTop ol p{
+  position: absolute;
+  right: 0;
+  z-index: 10;
+  height: 80px;
+  background: #4d5154;
+  line-height: 80px;
+  width: 500px;
+  border-radius: 10px;
+  text-align: center;
+}
+.mask{
+  background: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 9;
+}
+.oneTop ol p span{
+  position: relative;
+}
+.oneTop ol p span:active{
+  background: #3e4348;
+  border-radius: 10px;
+}
+.oneTop ol p span:before{
+  content: ' ';
+  border-left: 1px solid #3e4348;/*no*/
+  top: 20px;
+  bottom: 20px;
+  left: 0;
+  width: 2px;
+  position: absolute;
 }
 .comment{
   background: #f3f3f4;
@@ -226,10 +262,36 @@
   width: 100%;
 }
 
-
-
-
-
+.showPic{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  overflow-y: auto;
+  z-index: 100;
+  background: #fff;
+  line-height: 0;
+  padding-bottom: 80px;
+}
+.showPic p{
+  width: 100%;
+  bottom: 0px;
+  left: 0;
+  position: fixed;
+  z-index: 102;
+}
+.showPic img{
+  position: relative;
+  z-index: 101;
+}
+.showPic i{
+  position: fixed;
+  z-index: 103;
+  right: 10px;
+  top: 30px;
+  -webkit-overflow-scrolling: touch;
+}
 
 
 

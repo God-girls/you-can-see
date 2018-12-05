@@ -11,6 +11,7 @@ import dialogDel from '../../components/base/dialogDel'
 import {html} from '../../assets/js/global.js';
 import { mapState, mapActions } from 'vuex'
 import wx from 'weixin-js-sdk'; 
+import qrCode from 'qrcode';
 import axios from 'axios';
 import qs from 'qs';
 
@@ -24,7 +25,7 @@ export default {
   },
   data () {
     return {
-      listData: [], // 下拉更新数据存放数组
+      listData: [{showComment:false,publish:'  ',imgs:'[]'}], // 下拉更新数据存放数组
       isCur: 0,
       isSlider:0,
       header:{
@@ -59,6 +60,7 @@ export default {
       webClick:false,
       fromShare:false,
       shareFlag:false,
+      showCanvas:false,
       placeholder:'评论',
       fetBonusType:[],
       popDel:{
@@ -85,7 +87,8 @@ export default {
         desc:'',
         shareText:''
       },
-      copyWords:''
+      copyWords:'',
+      curListIndex:0,
     }
   },
   computed:{
@@ -281,7 +284,7 @@ export default {
       wx.ready(function () {
         let shareOBJ ={
             title: `${vm.profile.nick}分享了自己的私人主页，新品首发哦！`,
-            desc: '小小卖家最爱的小小麦~',
+            desc: '我的私密朋友圈，有喜欢的尽管说，好友专享价！',
             link: vm.ttDomain+'/#/app/author?redirecto=true&seller='+vm.paraData.uid,
             imgUrl: vm.ttLogoImg,
             success:function () {
@@ -299,9 +302,12 @@ export default {
       let vm = this;
       let appID = 'wx357ca89ca431b3ca'
       let jumpUrl = this.ttDomain+'/#/app/author?redirecto=true&goodid='+item.goodid+'&seller='+seller;
+
+      this.listData[this.curListIndex].showComment = false
+      this.curList = item;
       this.shareFlag = true;
       this.shareData.shareText = `${item.title}，种草进我的私人主页: ${this.ttDomain}/#/prd/list?seller=${this.UID}&fromshare=true${item.id?'&goodid='+item.id:''}`
-
+      
       wx.ready(function () {
         let shareText ={
             title: `好友${vm.profile.nick}分享了自己的宝贝，好友专享价！`,
@@ -396,12 +402,20 @@ export default {
             this.totalPageCount = ranks.totalPageCount;
 
               if (this.paraData.pn == 1) {
+                  
+                  for (var i = 0; i < ranks.items.length; i++) {
+                    ranks.items[i].showComment = false;
+                  }
                   this.listData = ranks.items;
                   // if (this.listData.length < 6) this.noDataText = '';
                   // else this.noDataText = '-----我是有底线的-----';
                   if (this.listData.length == 0) this.noData = true;
               }
               else {
+                for (var i = 0; i < ranks.items.length; i++) {
+                  ranks.items[i].showComment = false;
+                }
+
                 this.listData = this.listData.concat(ranks.items);
               }
 
@@ -493,6 +507,7 @@ export default {
       });  
     },
     praisePrd(item,index){
+      this.listData[this.curListIndex].showComment = false
       axios.post('/seller_api/v1/seller/goods_praise',qs.stringify({
         'uid':this.paraData.uid,
         'gid':item.id,
@@ -613,6 +628,7 @@ export default {
       this.replyIndex = index;
     },
     beforeOnoff(item,index,isTop){
+      this.listData[this.curListIndex].showComment = false
       if (isTop == 0) {
         this.initMSG('已置顶')
         return;
@@ -833,45 +849,177 @@ export default {
       this.$router.push(arr)
     },
     closeDialog (arr){
-
       this[arr] = false;
     },
-    getPoster(imgs){
+    getPoster(){
+      this.loading = true;
+      var item = this.curList;
+      var imgs = JSON.parse(this.curList.imgs)
       var poster = {
         width:750,
-        height:978,
+        height:0,
         imgWidth:460,
         lineWidth:16,
+        lastTop:0,
+        imgs:[]
       }
+      var imgCounter = 0;
+      var drawCanvas = document.createElement("canvas");
+      var drawCtx = drawCanvas.getContext("2d");
+
+      var imgTop = new Image();
+      var imgBom = new Image();
+      var imgBg = new Image();
+
+      var canvas = document.createElement("canvas");
+      var ctx = canvas.getContext("2d");
+
+
+      imgTop.src = require('../../assets/img12/poster/christmas/bgtop.jpg');
+      imgBom.src = require('../../assets/img12/poster/christmas/bgbom.jpg');
+      imgBg.src = require('../../assets/img12/poster/christmas/bgrepeat.jpg');
+
+      drawCanvas.height = 0;
+      drawCanvas.width = poster.width;
+      
+
+      imgBg.onload = ()=>{
+        poster.imgBg = {};
+        poster.imgBg.img = imgBg;
+        poster.imgBg.height = imgBg.height;
+      }      
+      var fillImgs = ()=>{
+        // debugger
+        drawCtx.drawImage(imgBg, 0, imgTop.height);
+        drawCtx.drawImage(imgTop, 0, poster.lastTop, drawCanvas.width, imgTop.height);
+        poster.lastTop = imgTop.height;
+
+        canvasTextAutoLine('Canvas的字体颜色和矩形颜色设置,后者不能覆盖前者求前辈解决,菜鸟',drawCanvas,100,imgTop.height+30,50)
+
+        for (var i = 0; i < poster.imgs.length; i++) {
+          
+          drawCtx.putImageData(poster.imgs[i].img,0,poster.lastTop);
+          poster.lastTop += poster.imgs[i].height;
+        }
+        drawCtx.drawImage(imgBom, 0, poster.lastTop, drawCanvas.width, imgBom.height);
+
+        drawCtx.fillStyle="#ffffff";
+        drawCtx.font = "30px Arial";
+        drawCtx.textAlign ='center';
+        drawCtx.fillText('¥ '+item.price_range,drawCanvas.width/2,poster.lastTop + 102);
+
+        qrCode.toDataURL( this.ttDomain+'/#/app/author?redirecto=true&seller='+this.paraData.uid , {
+            margin : 0,
+            width : 126,
+            height : 126
+        }, (error,url)=> {
+            if (error) console.log(error);
+            var qrcodeUrl = new Image();
+            qrcodeUrl.src = url;
+            qrcodeUrl.onload = ()=>{
+              drawCtx.drawImage(qrcodeUrl, 310, poster.lastTop+116, 126, 126);
+              this.testCanvas = drawCanvas.toDataURL();
+              this.loading = false;
+              this.showCanvas = true;   
+              this.shareFlag = false;           
+            }
+        }); 
+      }
+      /*
+        str:要绘制的字符串
+        canvas:canvas对象
+        initX:绘制字符串起始x坐标
+        initY:绘制字符串起始y坐标
+        lineHeight:字行高，自己定义个值即可
+      */
+      function canvasTextAutoLine(str,canvas,initX,initY,lineHeight){
+        var ctx = drawCtx; 
+        var lineWidth = 0;
+        var canvasWidth = drawCanvas.width; 
+        var lastSubStrIndex= 0; 
+
+        poster.lastTop += 60;
+        // drawCtx.textAlign ='center';
+        // drawCtx.font = "30px Arial";
+        // drawCtx.fillText(str,drawCanvas.width/2,poster.lastTop);
+        // // return;
+
+        for(let i=0;i<str.length;i++){ 
+            lineWidth += ctx.measureText(str[i]).width; 
+              ctx.font = "30px Arial";
+              ctx.textAlign ='center';
+            if(lineWidth > canvasWidth-initX*2){//减去initX,防止边界出现的问题
+                ctx.fillText(str.substring(lastSubStrIndex,i),drawCanvas.width/2,initY);
+                initY += lineHeight;
+                lineWidth = 0;
+                lastSubStrIndex = i;
+                poster.lastTop += 60
+            } 
+            if(i==str.length-1){
+
+                ctx.fillText(str.substring(lastSubStrIndex,i+1),drawCanvas.width/2,initY);
+            }
+        }
+      }
+
       var transImg = (param)=>{
         var img = new Image();
          img.crossOrigin = "Anonymous";
 
          img.src = this.globalAvatar+'goods/'+param;
          
-          var canvas = document.createElement("canvas");
-          var ctx = canvas.getContext("2d");
-
+         // console.log(param)
          //浏览器加载图片完毕后再绘制图片
          img.onload = ()=>{
-
-          canvas.width = poster.imgWidth + poster.lineWidth*2;
-          canvas.height = (img.height*poster.imgWidth/img.width + poster.lineWidth*2);
-
+          let fillWidth = poster.imgWidth + poster.lineWidth*2;
+          canvas.width = poster.width;
+          canvas.height = (img.height*poster.imgWidth/img.width + poster.lineWidth*2)+30;
+          // console.log(canvas.height)
+          ctx.drawImage(imgBg, 0, 0, poster.width, canvas.height);
           //以Canvas画布上的坐标(10,10)为起始点，绘制图像
           ctx.lineWidth = poster.lineWidth;
           ctx.strokeStyle = "#c12227";
-          ctx.fillStyle="#ffffff";
-          ctx.rect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle="#c12227";
+          ctx.rect((poster.width - poster.lineWidth - poster.imgWidth)/2, 0, fillWidth, canvas.height-30);
           ctx.fill();
           ctx.stroke();
-          ctx.drawImage(img, poster.lineWidth/2, poster.lineWidth/2, canvas.width, canvas.height);    
+          ctx.drawImage(img, (poster.width - poster.imgWidth)/2, poster.lineWidth, fillWidth - poster.lineWidth, img.height*poster.imgWidth/img.width);    
 
-          this.testCanvas = canvas.toDataURL()
+          var imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
+
+          var tempObj = {};
+          tempObj.img = imgData;
+          tempObj.height = canvas.height;
+          poster.imgs.push(tempObj)
+          drawCanvas.height += canvas.height;
+
+          imgCounter++;
+          // debugger
+          if(imgCounter < imgs.length){
+            transImg(imgs[imgCounter]);
+          }else{
+            drawCanvas.height += poster.imgBg.height
+            fillImgs()
+            // console.log(poster.imgs)
+          }   
+
+
          };
       }
 
-      transImg(imgs[0])
+      imgTop.onload = ()=>{
+        let imgTop2 = {};
+
+        imgTop2.img = imgTop;
+        imgTop2.height = imgTop.height;
+        // poster.imgs.push(imgTop2)
+        // console.log(poster.imgs)
+        // drawCtx.drawImage(imgTop, 0, 0, drawCanvas.width, imgTop.height);    
+        // this.testCanvas = drawCanvas.toDataURL();
+        drawCanvas.height += imgTop.height;
+        transImg(imgs[imgCounter])
+      }
+      // transImg(imgs[imgCounter])
     }
   },
   beforeDestroy(){

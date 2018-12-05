@@ -78,7 +78,7 @@
   height: 100%;
   top: 0;
   left: 0;
-  background:rgba(0,0,0,.8);
+  background:rgba(0,0,0,.85);
   background-size: 750px;
   z-index: 1255;
 }
@@ -103,7 +103,7 @@
         <ul><!--  v-if="isWawaIos"
    v-if="isWawaIos" -->
           <!-- <li @touchend.prevent="gotoShare('message')"><p><i class="iconfont icon-weixin2"></i></p>微信</li> -->
-          <li @touchend.prevent=""><p><i class="iconfont icon-haibao"></i></p>生成海报</li>
+          <li @touchend.prevent="initPoster"><p><i class="iconfont icon-haibao"></i></p>生成海报</li>
           <li @touchend.prevent="gotoShare('timeline')"><p><i class="iconfont icon-zhuanfa1"></i></p>发给好友</li>
           <li @touchend.prevent="gotoShare('timeline')"><p><i  class="iconfont icon-pengyouquan"></i></p>转发朋友圈</li>
           <li @touchend.prevent="gotoShare('QQSession')"><p><i class="iconfont icon-qq-link-icon"></i></p>转发QQ</li>
@@ -224,7 +224,9 @@ export default {
     closeApp (){
       this.$emit('shareclose')
     },
-
+    initPoster(){
+      this.$emit('initPoster')
+    },
     copyText(){//复制到剪贴版
       // console.log('222')
       this.shareText = this.shareData.shareText;

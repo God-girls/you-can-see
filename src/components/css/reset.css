@@ -16,10 +16,8 @@ body {
     overflow: hidden;
     font-family: 'Yuanti SC',"Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif;
     color: #5e5e5e;
-    touch-callout:none;
-    -webkit-touch-callout:none;  /*系统默认菜单被禁用*/     
-    -webkit-user-select:none; /*webkit浏览器*/     
-    user-select:none;  
+    /*touch-callout:none;*/
+    /*user-select:none;  */
 }
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
     display: block;
@@ -273,6 +271,10 @@ input:-webkit-autofill {
 .f24{
     font-size: 24px!important;
 }
+.f28{
+    font-size: 28px!important;
+}
+
 .f30{
     font-size: 30px!important;
 }

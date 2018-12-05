@@ -67,6 +67,7 @@ export default {
     this.imgFile = this.CART.imgFile?this.CART.imgFile:[]; 
     this.paraData.desc = this.CART.desc;
     this.imgUrl = this.CART.imgUrl?this.CART.imgUrl:[]; 
+    this.choosed = this.imgUrl.length ? this.imgUrl.length : 0;
     this.autoTextarea(document.getElementById("text"),'',400)
     if (this.$route.query.id) {
       this.prdID = this.$route.query.id
@@ -103,7 +104,7 @@ export default {
           for (var i = 0; i < this.imgFile.length; i++) {
             this.imgUrl.push(this.globalAvatar+'goods/'+this.imgFile[i])
           }
-          this.choosed = this.imgUrl.length;
+          this.choosed = this.imgFile.length;
 
           this.switchState({
             CART:Object.assign(this.CART,{
@@ -121,7 +122,6 @@ export default {
           })    
           // console.log(this.CART)
           // this.imgFile = this.CART.imgFile?this.CART.imgFile:[]; 
-          this.paraData.desc = resData.result.description;
           // this.imgUrl = this.CART.imgUrl?this.CART.imgUrl:[]; 
 
         }  else {
@@ -135,6 +135,7 @@ export default {
 
     },
     chooseImg(){
+      // console.log(this.choosed)
       let _this = this;
       wx.chooseImage({
           count: 9 - this.choosed, // 默认9
@@ -177,7 +178,7 @@ export default {
     },
     delImg (index){
       // debugger
-      console.log(index)
+      // console.log(index)
        this.imgUrl.splice(index,1);
        this.imgFile.splice(index,1);
        this.choosed--;

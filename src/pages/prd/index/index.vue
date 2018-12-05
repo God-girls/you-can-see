@@ -134,7 +134,7 @@ export default {
       this.defaultData();
 
 
-    this.getShare ();
+    if (html.isWechat()) this.getShare ();
     dplus.track('首页',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {}); 
   },
@@ -260,18 +260,17 @@ export default {
             'chooseImage',
             'previewImage',
             'uploadImage',
-            'downloadImage',
-            'scanQRCode'
+            // 'downloadImage',
+            // 'scanQRCode'
           ]
       }));   
       wx.ready(function () {
         let shareOBJ ={
-            title: '小小麦',
-            desc: '小小卖家最爱的小小麦~',
-            link: vm.ttDomain+'/#/app/author?redirecto=true&seller='+vm.paraData.uid,
+            title: `${vm.sellerInfo.nick}分享了自己的私人主页，新品首发哦！`,
+            desc: '我的私密朋友圈，有喜欢的尽管说，好友专享价！',
+            link: vm.ttDomain+'/#/app/author?redirecto=true&seller='+vm.paraData.seller,
             imgUrl: vm.ttLogoImg,
             success:function () {
-               // dplus.track('分享成功',{'from':html.useragent(),'inviter':vm.inviter,'page':'index'});
             }
         };
         wx.onMenuShareAppMessage(shareOBJ);
@@ -280,27 +279,34 @@ export default {
         wx.onMenuShareQZone(shareOBJ);
         wx.onMenuShareTimeline(shareOBJ);
       })
- 
+
     },
-    reinitShare (){
+    reinitShare (item,seller){
       let vm = this;
-      let links = this.ttDomain+'/#/app/author?jumpto=/'+location.href.split('?')[1]
-        wx.ready(function () {
-          let shareText ={
-              title: '我在小小麦家发现了一件新商品~',
-              desc: '快来拼团',
-              link:links,
-              imgUrl: vm.ttLogoImg,
-              success:function() {
-              },
-              cancel: function () {}
-          };
-          wx.onMenuShareAppMessage(shareText);
-          wx.onMenuShareQQ(shareText);
-          wx.onMenuShareWeibo(shareText);
-          wx.onMenuShareQZone(shareText);
-          wx.onMenuShareTimeline(shareText);
-        })
+      let appID = 'wx357ca89ca431b3ca'
+      let jumpUrl = this.ttDomain+'/#/app/author?redirecto=true&goodid='+item.goodid+'&seller='+seller;
+
+      this.listData[this.curListIndex].showComment = false
+      this.curList = item;
+      this.shareFlag = true;
+      this.shareData.shareText = `${item.title}，种草进我的私人主页: ${this.ttDomain}/#/prd/list?seller=${this.paraData.seller}&fromshare=true${item.id?'&goodid='+item.id:''}`
+      
+      wx.ready(function () {
+        let shareText ={
+            title: `好友${vm.sellerInfo.nick}分享了自己的宝贝，好友专享价！`,
+            desc: item.title,
+            link:jumpUrl,
+            imgUrl: vm.ttLogoImg,
+            success:function() {
+            },
+            cancel: function () {}
+        };
+        wx.onMenuShareAppMessage(shareText);
+        wx.onMenuShareQQ(shareText);
+        wx.onMenuShareWeibo(shareText);
+        wx.onMenuShareQZone(shareText);
+        wx.onMenuShareTimeline(shareText);
+      })
     },
     defaultData(){
       this.getProfile ();
@@ -367,7 +373,7 @@ export default {
       }).catch((response)=>{
         // this.logErrors(JSON.stringify(response))
       });  
-      
+      if (!this.paraData.uid) return;
       axios.post('/seller_api/v1/seller/userinfo',qs.stringify({
         uid:this.paraData.uid
       }),{

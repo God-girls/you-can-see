@@ -89,6 +89,7 @@ export default {
       },
       copyWords:'',
       curListIndex:0,
+      tempLen:0
     }
   },
   computed:{
@@ -301,7 +302,7 @@ export default {
     reinitShare (item,seller){
       let vm = this;
       let appID = 'wx357ca89ca431b3ca'
-      let jumpUrl = this.ttDomain+'/#/app/author?redirecto=true&goodid='+item.goodid+'&seller='+seller;
+      let jumpUrl = this.ttDomain+'/#/app/author?redirecto=true&goodid='+item.id+'&seller='+seller;
 
       this.listData[this.curListIndex].showComment = false
       this.curList = item;
@@ -853,55 +854,56 @@ export default {
     },
     getPoster(){
       this.loading = true;
+      var _this = this;
       var item = this.curList;
       var imgs = JSON.parse(this.curList.imgs)
       var poster = {
         width:750,
-        height:0,
+        height:978,
         imgWidth:460,
         lineWidth:16,
         lastTop:0,
-        imgs:[]
+        imgs:[],
+        needLoad:[
+          require('../../assets/img12/poster/christmas/bgtop.jpg'),
+          require('../../assets/img12/poster/christmas/bgbom.jpg'),
+          require('../../assets/img12/poster/christmas/bgrepeat.jpg')
+        ]
       }
       var imgCounter = 0;
       var drawCanvas = document.createElement("canvas");
       var drawCtx = drawCanvas.getContext("2d");
 
-      var imgTop = new Image();
-      var imgBom = new Image();
-      var imgBg = new Image();
+      // var this.imgTop = '';
+      // var this.imgBom = '';
+      // var this.imgBg = '';
 
       var canvas = document.createElement("canvas");
       var ctx = canvas.getContext("2d");
 
 
-      imgTop.src = require('../../assets/img12/poster/christmas/bgtop.jpg');
-      imgBom.src = require('../../assets/img12/poster/christmas/bgbom.jpg');
-      imgBg.src = require('../../assets/img12/poster/christmas/bgrepeat.jpg');
+      // this.imgTop.src = ;
+      // this.imgBom.src = ;
+      // this.imgBg.src = ;
 
-      drawCanvas.height = 0;
+      drawCanvas.height = 978;
       drawCanvas.width = poster.width;
       
 
-      imgBg.onload = ()=>{
-        poster.imgBg = {};
-        poster.imgBg.img = imgBg;
-        poster.imgBg.height = imgBg.height;
-      }      
       var fillImgs = ()=>{
         // debugger
-        drawCtx.drawImage(imgBg, 0, 0,drawCanvas.width,drawCanvas.height);
-        drawCtx.drawImage(imgTop, 0, poster.lastTop, drawCanvas.width, imgTop.height);
-        poster.lastTop = imgTop.height;
+        drawCtx.drawImage(this.imgBg, 0, 0,drawCanvas.width,drawCanvas.height);
+        drawCtx.drawImage(this.imgTop, 0, poster.lastTop, drawCanvas.width, this.imgTop.height);
+        poster.lastTop = this.imgTop.height;
 
-        canvasTextAutoLine(item.title,drawCanvas,100,imgTop.height+30,50)
+        canvasTextAutoLine(item.title,drawCanvas,100,this.imgTop.height+30,50)
 
         for (var i = 0; i < poster.imgs.length; i++) {
           
           drawCtx.putImageData(poster.imgs[i].img,0,poster.lastTop);
           poster.lastTop += poster.imgs[i].height;
         }
-        drawCtx.drawImage(imgBom, 0, poster.lastTop, drawCanvas.width, imgBom.height);
+        drawCtx.drawImage(this.imgBom, 0, poster.lastTop, drawCanvas.width, this.imgBom.height);
 
         drawCtx.fillStyle="#ffffff";
         drawCtx.font = "30px Arial";
@@ -975,7 +977,7 @@ export default {
           canvas.width = poster.width;
           canvas.height = (img.height*poster.imgWidth/img.width + poster.lineWidth*2)+30;
           // console.log(canvas.height)
-          ctx.drawImage(imgBg, 0, 0, poster.width, canvas.height);
+          ctx.drawImage(this.imgBg, 0, 0, poster.width, canvas.height);
           //以Canvas画布上的坐标(10,10)为起始点，绘制图像
           ctx.lineWidth = poster.lineWidth;
           ctx.strokeStyle = "#c12227";
@@ -998,7 +1000,7 @@ export default {
           if(imgCounter < imgs.length){
             transImg(imgs[imgCounter]);
           }else{
-            drawCanvas.height += poster.imgBg.height
+            // drawCanvas.height += poster.this.imgBg.height
             fillImgs()
             // console.log(poster.imgs)
           }   
@@ -1006,19 +1008,38 @@ export default {
 
          };
       }
+      var imgLoad = (src)=> {
+        var img = new Image();
+        img.src = src;
+        img.onload = ()=>{
+          if (this.tempLen == 0) {
+            this.imgTop = img;
+          }else if (this.tempLen == 1){
+            this.imgBom = img;
+          }else{
+            this.imgBg = img;
+          }
+          this.tempLen++;
+          // console.log(this.tempLen)
 
-      imgTop.onload = ()=>{
-        let imgTop2 = {};
-
-        imgTop2.img = imgTop;
-        imgTop2.height = imgTop.height;
-        // poster.imgs.push(imgTop2)
-        // console.log(poster.imgs)
-        // drawCtx.drawImage(imgTop, 0, 0, drawCanvas.width, imgTop.height);    
-        // this.testCanvas = drawCanvas.toDataURL();
-        drawCanvas.height += imgTop.height;
-        transImg(imgs[imgCounter])
+          // debugger
+          if (this.tempLen < 3) {
+            imgLoad(poster.needLoad[this.tempLen]);
+          }else{
+            //头底背景加载完加载图片
+            transImg(imgs[imgCounter])
+          }
+                                                                                 
+        }          
       }
+      if (this.tempLen == 3) {
+        transImg(imgs[imgCounter])
+      }else{
+        imgLoad(poster.needLoad[this.tempLen])
+      }
+
+    
+
       // transImg(imgs[imgCounter])
     }
   },

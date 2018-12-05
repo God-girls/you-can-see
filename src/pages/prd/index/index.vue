@@ -13,7 +13,6 @@ import { mapState, mapActions } from 'vuex'
 import wx from 'weixin-js-sdk'; 
 import axios from 'axios';
 import qs from 'qs';
-
 export default {
   components: {
     modalDialog,
@@ -91,6 +90,7 @@ export default {
     ])
   },
   mounted () {
+      alert(navigator.userAgent.toLowerCase())
 
       if (this.$route.query.seller) {
         this.paraData.seller = this.$route.query.seller

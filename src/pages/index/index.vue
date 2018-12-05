@@ -386,11 +386,12 @@ export default {
         if(done) done(true) 
         return;
       }
+      //debugger
       this.bugInfinite = false;
       axios.post('/seller_api/v1/seller/my_goods',qs.stringify({
         uid:this.paraData.uid,
         pn:this.paraData.pn,
-        ps:'5'
+        ps:'2'
       }),{
           headers: {
               "A-Token-Header": this.token,
@@ -444,11 +445,12 @@ export default {
       setTimeout(()=>{
         this.totalPageCount = -1;
         this.paraData.pn = 1;
+        debugger
         this.fetchList(done);  
       },1000)
     },
     onInfinite(done) {  
-      console.log(this.paraData.pn) 
+      // console.log(this.paraData.pn) 
       this.indexDone = done;   
       this.fetchList(done);
     },
@@ -572,7 +574,7 @@ export default {
             this.listData[index].praise_head = resData.result.items.length ? JSON.stringify(resData.result.items) : ''
             if (flag) {
                 this.praiseLen++;
-              if (this.praiseLen != this.listData.length)
+              if (this.praiseLen < this.listData.length)
                 this.fetchPraise(this.listData[this.praiseLen],this.praiseLen,true);
             }else{
               this.listData[index].praised = true;
@@ -728,6 +730,8 @@ export default {
       });  
     },
     fetchComment(paraGid,flag){
+      if (this.listLen == this.listData.length) return;
+
       axios.post('/seller_api/v1/seller/fetch_comment',qs.stringify({
         uid:this.paraData.uid,
         gid:paraGid ? paraGid : this.comment.gid,
@@ -744,7 +748,7 @@ export default {
             this.listData[flag ? this.listLen : this.replyIndex].comment_head = resData.result.items.length ? JSON.stringify(resData.result.items) : ''
             if (flag) {
               this.listLen++;
-              if (this.listLen != this.listData.length)
+              if (this.listLen < this.listData.length)
                 this.fetchComment(this.listData[this.listLen].id,true);
             }
           }else{

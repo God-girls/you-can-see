@@ -49,7 +49,7 @@ export default {
       this.getLogin2();
       this.paraData.oatype = 'qq'
     }
-
+  
   },
   methods: {
     ...mapActions([
@@ -195,7 +195,7 @@ export default {
     },
     testToken(){//检验token,如果失败重新登录
 
-      axios.post('/bonus_api/v1/user/info',qs.stringify({
+      axios.post('/seller_api/v1/user/info',qs.stringify({
         'uid':localStorage.ttUid
       }),{
         headers: {

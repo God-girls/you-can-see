@@ -1,4 +1,5 @@
 <Layout>
+  <scroller :on-refresh="onRefresh" :noDataText="noDataText" :on-infinite="onInfinite"  ref="my_scroller">
   <div class="header posiR f30">
     
     <h3 @click.prevent="changebg = true">
@@ -9,7 +10,7 @@
         <i class="iconfont icon-heart-opp-copy f30"></i> {{sellerInfo.praise}}
       </span>
     </p>
-    <dl class="tR" @click.prevent="goto('/prd/list?seller='+paraData.seller)">
+    <dl class="tR" @click.prevent="initDefault">
       <dt>
         <ol class="flexBox">
           <li class="flex1 whiteCR f36">{{sellerInfo.nick}}</li>
@@ -46,7 +47,7 @@
                 <span v-else ><i class="iconfont icon-ccgl-xiajia f30 blueLCR"></i></span> 
                 ¥ {{item.price_range}} <span class="grayCR f21 mL10" v-if="item.show_sell">已售{{item.total_sell?item.total_sell:0}}件</span>
               </li>
-              <li class="blueLCR" v-if="item.status == 0">
+              <li class="blueLCR" v-if="item.status == 0 && inWeixin">
                 <span  class="mL10" v-if="!item.praised" @click.prevent="praisePrd(item,index)">
                   <i class="iconfont icon-xinheart282 f30"></i>
                 </span>
@@ -98,6 +99,7 @@
     </div>
   </div>
 
+</scroller>
 
   <div slot="footer">
     <div class="footComment animateds slideInUp" v-if="reply">

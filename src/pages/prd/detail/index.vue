@@ -303,8 +303,10 @@ export default {
       // console.log(this.buyList)
     },
     countPrice(){
+      console.log(this.buyList)
       let totalPrice = 0;
       for (var i = 0; i < this.buyList.length; i++) {
+        this.buyList[i].price = html.mul(this.buyList[i].count,this.specPrice[this.buyList[i][this.specName]])
         totalPrice += html.mul(this.buyList[i].count,this.specPrice[this.buyList[i][this.specName]])
       }   
       this.totalPrice = totalPrice;   

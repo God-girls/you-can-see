@@ -33,6 +33,7 @@ export default {
       isApp:false,
       needLogin:false,
       success:false,
+      noDataText:'-----我是有底线的-----',
       paraData:{
         uid:'1',
         pn:1,
@@ -75,7 +76,8 @@ export default {
         gid:''
       },
       // mySeller:'',
-      goodid:''
+      goodid:'',
+      inWeixin:false
     }
   },
   computed:{
@@ -124,17 +126,14 @@ export default {
 
         this.getStatusBar();
         this.initBridge();
-      }else{
-        if (this.$route.query.token || this.TOKEN) {
-          this.defaultData();
-        }else{
-          // this.redirect();
-        }
-      }     
+      }   
       this.defaultData();
 
 
-    if (html.isWechat()) this.getShare ();
+    if (html.isWechat()) {
+      this.inWeixin = true
+      this.getShare ();
+    }
     dplus.track('首页',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {}); 
   },
@@ -308,12 +307,15 @@ export default {
         wx.onMenuShareTimeline(shareText);
       })
     },
+    initDefault(){
+      this.fetchList();
+      this.goodid = ''
+    },
     defaultData(){
       this.getProfile ();
       if (this.goodid) {
         this.fetchPrd();
-      }else
-        this.fetchList();
+      }
     },
     fetchPrd(){
       axios.post('/seller_api/v1/seller/goods_info',qs.stringify({
@@ -398,7 +400,11 @@ export default {
         // this.logErrors(JSON.stringify(response))
       });  
     },
-    fetchList(){
+    fetchList(done){
+      if (this.totalPageCount+1 == this.paraData.pn || this.totalPageCount == 0 || this.totalPageCount == 1 || this.bugInfinite){
+        if(done) done(true) 
+        return;
+      }
 
       axios.post('/seller_api/v1/seller/seller_goods',qs.stringify(this.paraData),{
         headers: {
@@ -410,22 +416,53 @@ export default {
           // alert(JSON.stringify(resData))
 
           if (resData.success) {
-           this.listData = resData.result.items;
+           var ranks = resData.result;
+           this.totalPageCount = ranks.totalPageCount;
+            if (this.paraData.pn == 1) {
+                
+              for (var i = 0; i < ranks.items.length; i++) {
+                ranks.items[i].showComment = false;
+              }
+              this.listData = ranks.items;
+              if (this.listData.length == 0) this.noData = true;
+            }
+            else {
+              for (var i = 0; i < ranks.items.length; i++) {
+                ranks.items[i].showComment = false;
+              }
+              this.listData = this.listData.concat(ranks.items);
+            }
+             this.listLen = 0;
+             this.praiseLen = 0;
 
-           this.fetchComment(this.listData[0].id,true);
-           this.fetchPraise(this.listData[0],0,true)
-           this.listLen = 0;
-           this.praiseLen = 0;
-
+            this.fetchComment(this.listData[0].id,true);
+            this.fetchPraise(this.listData[0],0,true)
+             this.paraData.pn = this.paraData.pn + 1;
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              location.href = '/';
+              if(done) done(done);
+              this.bugInfinite = true;
             }else{
               this.initMSG(resData.codemsg)
             }
           }
+          if(done) done();
       })
 
+    },
+    onRefresh(done) {
+      setTimeout(()=>{
+        this.totalPageCount = -1;
+        this.paraData.pn = 1;
+        this.fetchList(done);  
+      },1000)
+    },
+    onInfinite(done) {  
+      this.indexDone = done;   
+      console.log('infinite')
+      if (this.goodid) {
+        done(true)
+      }else this.fetchList(done);
     },
     praisePrd(item,index){
       axios.post('/seller_api/v1/seller/goods_praise',qs.stringify({
@@ -499,7 +536,7 @@ export default {
             this.listData[index].praise_head = resData.result.items.length ? JSON.stringify(resData.result.items) : ''
             if (flag) {
                 this.praiseLen++;
-              if (this.praiseLen != this.listData.length)
+              if (this.praiseLen < this.listData.length)
                 this.fetchPraise(this.listData[this.praiseLen],this.praiseLen,true);
             }else{
               this.listData[index].praised = true;
@@ -662,6 +699,8 @@ export default {
       });  
     },
     fetchComment(paraGid,flag){
+
+      if (this.listLen == this.listData.length) return;
       axios.post('/seller_api/v1/seller/fetch_comment',qs.stringify({
         uid:this.paraData.uid,
         gid:paraGid ? paraGid : this.comment.gid,
@@ -675,10 +714,11 @@ export default {
           let resData = response.data;   
           // debugger;
           if (resData.success) {
+
             this.listData[flag ? this.listLen : this.replyIndex].comment_head = resData.result.items.length ? JSON.stringify(resData.result.items) : ''
             if (flag) {
               this.listLen++;
-              if (this.listLen != this.listData.length -1)
+              if (this.listLen < this.listData.length)
                 this.fetchComment(this.listData[this.listLen].id,true);
             }
           }else{
@@ -716,8 +756,7 @@ export default {
         }
       }
     },
-    goto (arr,title){
-
+    goto (arr){
       this.$router.push(arr)
     },
     closeDialog (arr){

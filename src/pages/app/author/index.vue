@@ -29,7 +29,7 @@ export default {
 
   mounted (){
 
-    if (localStorage.ttUid) {
+    if (this.$route.query.search) {
       this.testToken()
       return;
     }
@@ -44,8 +44,7 @@ export default {
       return;
     }
     if (html.isWechat()) {//如果是在微信
-      this.getLogin();
-      // this.pushHistory();      
+      this.getLogin();     
     }else{
       this.getLogin2();
       this.paraData.oatype = 'qq'
@@ -197,19 +196,18 @@ export default {
     testToken(){//检验token,如果失败重新登录
 
       axios.post('/bonus_api/v1/user/info',qs.stringify({
-        'uid':this.UID
+        'uid':localStorage.ttUid
       }),{
         headers: {
-            "A-Token-Header": this.TOKEN,
+            "A-Token-Header": localStorage.ttToken,
         }
       }).then((response)=>{   
         let resData = response.data;  
 
         if (resData.success) {
-               
+           this.$router.push('/')
         }else{
-          this.clearState();
-          
+          this.getLogin();          
         }
       }).catch((response)=>{
         

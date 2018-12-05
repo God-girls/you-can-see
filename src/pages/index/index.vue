@@ -890,11 +890,11 @@ export default {
       }      
       var fillImgs = ()=>{
         // debugger
-        drawCtx.drawImage(imgBg, 0, imgTop.height);
+        drawCtx.drawImage(imgBg, 0, 0,drawCanvas.width,drawCanvas.height);
         drawCtx.drawImage(imgTop, 0, poster.lastTop, drawCanvas.width, imgTop.height);
         poster.lastTop = imgTop.height;
 
-        canvasTextAutoLine('Canvas的字体颜色和矩形颜色设置,后者不能覆盖前者求前辈解决,菜鸟',drawCanvas,100,imgTop.height+30,50)
+        canvasTextAutoLine(item.title,drawCanvas,100,imgTop.height+30,50)
 
         for (var i = 0; i < poster.imgs.length; i++) {
           

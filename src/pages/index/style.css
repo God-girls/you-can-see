@@ -272,7 +272,7 @@
   z-index: 100;
   background: #fff;
   line-height: 0;
-  padding-bottom: 80px;
+  -webkit-overflow-scrolling: touch;
   text-align: center;
 }
 .showPic p{

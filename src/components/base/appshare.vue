@@ -28,7 +28,7 @@
   z-index: 15;
 }
 .shareCon  h3{
-  padding: 15px 0 0; 
+  padding: 0px 0 0; 
 }
 .icon-guanbi{
   position: absolute;
@@ -41,7 +41,7 @@
 .shareCon  ul{
   display: -webkit-box;
   display: flex;    
-  padding-top: 40px;
+  padding-top: 0px;
 }
 
 .shareCon  ul li{
@@ -99,7 +99,7 @@
     <!-- <div class="shareBg"> -->
       <div class="shareCon slideInUp animateds">
         <i class="iconfont icon-guanbi"  @touchend.prevent="closeApp"></i>
-        <h3 class="f30 greenCR">分享到</h3>
+        <!-- <h3 class="f30 greenCR">分享到</h3> -->
         <ul><!--  v-if="isWawaIos"
    v-if="isWawaIos" -->
           <!-- <li @touchend.prevent="gotoShare('message')"><p><i class="iconfont icon-weixin2"></i></p>微信</li> -->

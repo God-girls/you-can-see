@@ -75,20 +75,20 @@
                   </span>
 
                   <span  v-if="!item.praised" @click.prevent="praisePrd(item,index)">
-                    <i class="iconfont icon-xinheart282 f30"></i> 点赞
+                    <i class="iconfont icon-xinheart282 f24"></i> 点赞
                   </span>
 
                   <span  @click.prevent="beforeOnoff(item,3,index)">
-                    <i class="iconfont icon-top f30"></i> 置顶
+                    <i class="iconfont icon-top f24"></i> 置顶
                   </span>
 
                   <span @click.prevent="reinitShare (item,paraData.uid)">
-                    <i class="iconfont icon-zhuanfa f40"></i> 转发
+                    <i class="iconfont icon-zhuanfa f36"></i> 转发
                   </span>
 
                   <span @click.prevent="beforeReply(item,index)" 
                         v-if="item.show_comment">
-                        <i class="iconfont icon-xiaoxi15-copy f30"></i> 评论
+                        <i class="iconfont icon-xiaoxi15-copy f24"></i> 评论
                   </span>
                   
                 </p>
@@ -205,7 +205,7 @@
     <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
 
     <div class="showPic posiR" v-if="showCanvas">
-      <img :src="testCanvas" alt="">
+      <p><img :src="testCanvas" alt=""></p>
       <!-- <p class="btn btn-green">长按图片保存到手机</p> -->
       <i class="iconfont icon-close f48 blackCR" @touchend.prevent="showCanvas = false"></i>
     </div>

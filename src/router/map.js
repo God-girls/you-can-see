@@ -29,12 +29,6 @@ export default {
 			require(['pages/app/author'], resolve)
 		}
 	},
-	'/app/invite': {
-		meta: { title: '小小麦' },
-		component: (resolve) => {
-			require(['pages/app/invite'], resolve)
-		}
-	},
 	'/index': {
 		meta: { title: '小小麦' },
 		component: (resolve) => {
@@ -89,12 +83,24 @@ export default {
 			require(['pages/set/web'], resolve)
 		}
 	},
-	// '/my/invite': {
-	// 	meta: { title: '邀请有礼'},
-	// 	component: (resolve) => {
-	// 		require(['pages/set/invite'], resolve)
-	// 	}
-	// },
+	'/my/about': {
+		meta: { title: '关于小小麦'},
+		component: (resolve) => {
+			require(['pages/info/about'], resolve)
+		}
+	},
+	'/my/agreement': {
+		meta: { title: '用户服务协议'},
+		component: (resolve) => {
+			require(['pages/info/agreement'], resolve)
+		}
+	},
+	'/my/private': {
+		meta: { title: '隐私条款'},
+		component: (resolve) => {
+			require(['pages/info/private'], resolve)
+		}
+	},
 	'/my/withdraw': {
 		meta: { title: '提现'},
 		component: (resolve) => {

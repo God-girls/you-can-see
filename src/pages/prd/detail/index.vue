@@ -361,7 +361,7 @@ export default {
 
           if (resData.success) {
          
-              if (this.onlyWechat) {
+              if (html.isWechat()) {
                 this.payment_url = JSON.parse(resData.result.payment_url);
                 let payVM = this;
                 
@@ -376,7 +376,7 @@ export default {
                    this.onBridgeReady();
                 }
               }else{
-                console.log()
+                // console.log()
                 location.href = `${JSON.parse(resData.result.payment_url).mweb_url}&redirect_url=${encodeURIComponent(this.ttDomain+'/#/prd/list?seller='+this.UID+'&fromshare=true&goodid='+this.goodid)}`
               }
 

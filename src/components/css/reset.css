@@ -72,7 +72,7 @@ sub {
 img {
     border-style: none;
     touch-callout:auto;
-    -webkit-touch-callout:auto;  /*系统默认菜单被禁用*/     
+    -webkit-touch-callout:none;  /*系统默认菜单被禁用*/     
     -webkit-user-select:auto; /*webkit浏览器*/     
     -khtml-user-select:auto; /*早期浏览器*/     
     -moz-user-select:auto;/*火狐*/     

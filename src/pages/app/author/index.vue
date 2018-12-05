@@ -29,8 +29,10 @@ export default {
 
   mounted (){
 
-    // alert(this.$route.query.seller)
-    // alert(location.href)
+    if (localStorage.ttUid) {
+      this.testToken()
+      return;
+    }
     if (this.$route.query.redirecto) {
       let jumpUrl = this.ttDomain + '/#/app/author?jumpto=';
       let params = '/prd/list?seller='+this.$route.query.seller
@@ -189,7 +191,7 @@ export default {
             }
         }).catch(function(response){
           console.log(response)
-          alert('邪恶的外星生物破坏了娃娃机，紧急抢救中，请您稍后再试~')
+          alert('宝贝太火爆了，系统繁忙，请稍后再试~')
         });        
     },
     testToken(){//检验token,如果失败重新登录
@@ -204,18 +206,13 @@ export default {
         let resData = response.data;  
 
         if (resData.success) {
-          if(resData.result && resData.result.acc){
-            this.$router.push(this.jumpto) 
-          }
-          else{
-            this.$router.push('/app/login?firstWechatLogin=true')
-          }         
+               
         }else{
           this.clearState();
-          wx.miniProgram.redirectTo({url: `/pages/login/login${this.inviterMini}`})
+          
         }
       }).catch((response)=>{
-        wx.miniProgram.redirectTo({url: `/pages/login/login${this.inviterMini}`})
+        
       });        
     },
     // getLogin (){

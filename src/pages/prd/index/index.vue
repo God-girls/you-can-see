@@ -90,7 +90,7 @@ export default {
     ])
   },
   mounted () {
-      alert(navigator.userAgent.toLowerCase())
+      // alert(navigator.userAgent.toLowerCase())
 
       if (this.$route.query.seller) {
         this.paraData.seller = this.$route.query.seller
@@ -268,7 +268,7 @@ export default {
         let shareOBJ ={
             title: `${vm.sellerInfo.nick}分享了自己的私人主页，新品首发哦！`,
             desc: '我的私密朋友圈，有喜欢的尽管说，好友专享价！',
-            link: vm.ttDomain+'/#/app/author?redirecto=true&seller='+vm.paraData.seller,
+            link: vm.ttDomain+'/#/app/login?redirecto=true&seller='+vm.paraData.seller,
             imgUrl: vm.ttLogoImg,
             success:function () {
             }
@@ -284,7 +284,7 @@ export default {
     reinitShare (item,seller){
       let vm = this;
       let appID = 'wx357ca89ca431b3ca'
-      let jumpUrl = this.ttDomain+'/#/app/author?redirecto=true&goodid='+item.goodid+'&seller='+seller;
+      let jumpUrl = this.ttDomain+'/#/app/login?redirecto=true&goodid='+item.goodid+'&seller='+seller;
 
       this.listData[this.curListIndex].showComment = false
       this.curList = item;
@@ -448,7 +448,7 @@ export default {
             // console.log(resData.msg);
           }
       }).catch((response)=>{
-        this.logErrors(JSON.stringify(response))
+        // this.logErrors(JSON.stringify(response))
       });  
     },
     praiseBG(){
@@ -478,7 +478,7 @@ export default {
             // console.log(resData.msg);
           }
       }).catch((response)=>{
-        this.logErrors(JSON.stringify(response))
+        // this.logErrors(JSON.stringify(response))
       });  
     },
     fetchPraise(item,index,flag){
@@ -512,7 +512,7 @@ export default {
             // console.log(resData.msg);
           }
       }).catch((response)=>{
-        this.logErrors(JSON.stringify(response))
+        // this.logErrors(JSON.stringify(response))
       });  
     },
     replaySomeone(item,gid,index){
@@ -658,7 +658,7 @@ export default {
             this.initMSG(resData.codemsg);
           }
       }).catch((response)=>{
-        this.initMSG('网络异常再试一次');
+        // this.initMSG('网络异常再试一次');
       });  
     },
     fetchComment(paraGid,flag){
@@ -678,14 +678,15 @@ export default {
             this.listData[flag ? this.listLen : this.replyIndex].comment_head = resData.result.items.length ? JSON.stringify(resData.result.items) : ''
             if (flag) {
               this.listLen++;
-              if (this.listLen != this.listData.length)
+              if (this.listLen != this.listData.length -1)
                 this.fetchComment(this.listData[this.listLen].id,true);
             }
           }else{
             this.initMSG(resData.codemsg);
           }
       }).catch((response)=>{
-        this.initMSG('网络异常再试一次');
+        console.log(response)
+        // this.initMSG('网络异常再试一次');
       });  
     },
     initMSG(arr){
@@ -697,11 +698,7 @@ export default {
       },2000)
     },
     redirect (){
-      if (this.iAmGuest) {
-        this.goto('/app/login')
-        this.$router.isBack = true;
-        return;
-      }
+
       if (html.isWawa()) {
         this.needLogin = false;
         this.lock = true;
@@ -713,7 +710,7 @@ export default {
       }
       else {
         if (html.isWechat()) {
-          this.goto('/app/author')
+          this.goto('/app/login')
         }else{
           this.goto('/app/login')
         }

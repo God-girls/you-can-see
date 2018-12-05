@@ -29,8 +29,7 @@ export default {
       isCur: 0,
       isSlider:0,
       header:{
-        'name':'以太大陆',
-        'link':'/diamond_record',
+        'name':'小小麦',
         noBack:true
       },
       isApp:false,
@@ -286,7 +285,7 @@ export default {
         let shareOBJ ={
             title: `${vm.profile.nick}分享了自己的私人主页，新品首发哦！`,
             desc: '我的私密朋友圈，有喜欢的尽管说，好友专享价！',
-            link: vm.ttDomain+'/#/app/author?redirecto=true&seller='+vm.paraData.uid,
+            link: vm.ttDomain+'/#/app/login?redirecto=true&seller='+vm.paraData.uid,
             imgUrl: vm.ttLogoImg,
             success:function () {
             }
@@ -302,7 +301,7 @@ export default {
     reinitShare (item,seller){
       let vm = this;
       let appID = 'wx357ca89ca431b3ca'
-      let jumpUrl = this.ttDomain+'/#/app/author?redirecto=true&goodid='+item.id+'&seller='+seller;
+      let jumpUrl = this.ttDomain+'/#/app/login?redirecto=true&goodid='+item.id+'&seller='+seller;
 
       this.listData[this.curListIndex].showComment = false
       this.curList = item;
@@ -910,7 +909,7 @@ export default {
         drawCtx.textAlign ='center';
         drawCtx.fillText('¥ '+item.price_range,drawCanvas.width/2,poster.lastTop + 102);
 
-        qrCode.toDataURL( this.ttDomain+'/#/app/author?redirecto=true&seller='+this.paraData.uid , {
+        qrCode.toDataURL( this.ttDomain+'/#/app/login?redirecto=true&seller='+this.paraData.uid+'&goodid='+item.id, {
             margin : 0,
             width : 126,
             height : 126

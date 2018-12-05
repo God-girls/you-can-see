@@ -207,7 +207,7 @@ export default {
         if (resData.success) {
            this.$router.push('/')
         }else{
-          this.getLogin();          
+            location.href = html.openInWechat(this.ttDomain + '/#/app/author');
         }
       }).catch((response)=>{
         

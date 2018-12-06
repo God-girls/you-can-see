@@ -4,7 +4,10 @@
       <ul class="flexBox1">
         <li v-for="(item,index) in tabs" 
             :class="{'greenCR current':index == isCur}"
-            @click.prevent="changeType(index,item.type)">{{item.name}}</li>
+            @click.prevent="changeType(index,item.type)">
+          {{item.name}}
+          <p class="f21">{{item.count}}</p>    
+        </li>
       </ul>
     </div>
 

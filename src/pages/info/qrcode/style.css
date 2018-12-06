@@ -16,6 +16,10 @@
 .myDetail p{
   padding: 85px 0 40px;
 }
+.myDetail p img{
+  width: 280px;
+  height: 280px;
+}
 
 .myDetail dl dt img{
   width: 100px;
@@ -26,7 +30,6 @@
 .myDetail dl dd{
   padding-bottom: 10px;
 }
-
 .footer dl{
   width: 100%;
   padding: 30px 30px;

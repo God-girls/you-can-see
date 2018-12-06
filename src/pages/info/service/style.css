@@ -1,52 +1,62 @@
 
 .my-set{
-  /*background: #fff*/
+  position: relative;
+  padding:0px 0px 0px;
 }
 .my-set ul{
-  padding:0 30px;
-  /*line-height: 105px;*/
-  color: #7b7b7b;
+  background: #fff;
+  color: #908384;
 }
 .my-set ul li{
-  padding-right: 80px;
-  border-bottom: 1px solid #dcdcdd;/*no*/
+  padding: 0 0px;
+  border-bottom: 1px solid #dedede ;/*no*/
 }
-.my-set ul li input{
-  width: 100%;
-  padding: 33px 0;
-  display: inline-block;
+.my-set ul li:last-child{
+  border-bottom: none;
 }
-.my-set ul li img{
+.my-set ul li dl{
+  padding: 0 30px;
+}
+.my-set ul li dt{
   width: 70px;
-  height: 70px;
-  border-radius: 50px;
-  border: 1px solid #dcdcdd;/*no*/
-  vertical-align: middle;
-  margin-right: 10px;
-  position: relative;
-  top: -2px;
 }
-.my-set a{
-  margin:0 30px;
-  height: 80px;
-  line-height: 80px;
-  display: block;
-  text-align: center;
+.my-set ul li dd{
+  line-height: 150px;
+  height: 150px;
+  color: #000000;
 }
-.my-set dl{
-  padding: 34px 0 115px 0px;
-  /*font-size: 22px;*/
-}
-.my-set dd input{
-  top: 0;
+.my-set ul li dd input{
   bottom: 0;
   margin: auto;
 }
-.icon-close{
-  width: 40px;
-  height: 40px;
-  background-position: -102px 0;
-  position: absolute;
-  right: 30px;
-  top: 30px;
+.my-set ul li p{
+  padding: 0px 30px 40px 0;
+  margin-left: 60px;
+}
+.my-set ul li p input{
+    border: 1px solid #acacac;/*no*/
+    width: 98%; 
+    line-height: 40px;
+    padding: 8px 10px;
+    border-radius: 5px;
+    /*text-align: center;*/
+    margin-left: 10px;
+}
+.footer dl{
+  width: 100%;
+  padding: 30px 30px;
+}
+.footer dl dt{
+  padding-bottom: 20px;
+}
+.footer dl p{
+  width: 100%;
+}
+.footer dl dt p{
+  background: #fff;
+  border:1px solid #51aa38!important
+}
+.footer dl dt p:active{
+  background: #b9ddaf;
+  /*border:1px solid #51aa38!important*/
 }

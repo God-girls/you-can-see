@@ -1,24 +1,49 @@
 <Layout>
   <myhead :hval="header" slot="header"></myhead>
 
-  <div class="my-set f30">
-    <ul>
-      <li>
-        <input type="text" :placeholder="placeholder" v-model="paraData[nameType[guideType].type]" ref="myNick" class="blackCR">
-        <i class="iconfont icon-close f40" @touchend.prevent="clearNick"></i>
+  <div class="my-set">
+    <ul class="blackCR f30">
+      <li class="special">
+        <dl class="flexBox">
+          <dd class="flex1">客服手机号</dd>
+          <dd class=" posiR">
+            <input id="deLock" type="checkbox" class="ace ace-switch" v-model="show_mobileno">
+            <span class="lbl"></span>
+          </dd>
+        </dl>
+        <p class="f24" v-if="show_mobileno"> <input type="number" placeholder="请输入客服手机号" v-model = "paraData.service_mobileno" name=""></p>
+      </li>
+      <li class="special">
+        <dl class="flexBox">
+          <dd class="flex1">客服微信号</dd>
+          <dd class=" posiR">
+            <input id="deLock" type="checkbox" class="ace ace-switch" v-model="show_weixin">
+            <span class="lbl"></span>
+          </dd>
+        </dl>
+        <p class="f24" v-if="show_weixin"> <input type="text" placeholder="请输入客服微信号" v-model = "paraData.weixin" name=""></p>
+      </li>
+      <li class="special">
+        <dl class="flexBox">
+          <dd class="flex1">客服QQ</dd>
+          <dd class=" posiR">
+            <input id="deLock" type="checkbox" class="ace ace-switch" v-model="show_qq">
+            <span class="lbl"></span>
+          </dd>
+        </dl>
+        <p class="f24" v-if="show_qq"> <input type="text" placeholder="请输入客服QQ" v-model = "paraData.qq" name=""></p>
       </li>
     </ul>
-    <dl class="dls">
-      <dt class="blackCR">是否显示：</dt>
-      <dd class="posiR">
-        <input id="deLock" type="checkbox" class="ace ace-switch" v-model="paraData[nameType[guideType].show]">
-        <span class="lbl"></span>
-      </dd>
-    </dl>
-    <a href="javascript:;" class="btn btn-green" @touchend.prevent="modifyNick">提交</a>
-  </div>
+  </div>   
 
   <div slot="footer">
+    <div class="footer tC f30">
+      <dl>
+        <dd>
+          <p class="btn btn-green" @click.prevent="modify">确定</p>
+        </dd>
+      </dl>
+    </div>
       <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
   </div>
 </Layout>

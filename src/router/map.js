@@ -138,7 +138,7 @@ export default {
 		}
 	},
 	'/my/service': {
-		meta: { title: ''},
+		meta: { title: '客服方式'},
 		component: (resolve) => {
 			require(['pages/info/service'], resolve)
 		}

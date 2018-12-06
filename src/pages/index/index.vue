@@ -46,7 +46,7 @@ export default {
       loading:false,
       loadError:'',
       iAmGuest:false,
-      iAmGuestClick:false,
+      setTel:false,
       popBuy:false,
       popFriend:false,
       changebg:false,
@@ -839,7 +839,7 @@ export default {
       }
       else {
         if (html.isWechat()) {
-          html.openInWechat(this.ttDomain)
+          html.openInWechat(this.ttDomain+'/#/app/author')
         }else{
           // this.goto('/app/login')
         }
@@ -848,7 +848,7 @@ export default {
     goto (arr,title){
       // console.log(arr)
       if (arr == '/prd/create' && !this.sellerInfo.service_mobileno && !this.sellerInfo.weixin && !this.sellerInfo.qq) {
-        this.initMSG('您个人设置中的客服信息至少需要显示一项')
+        this.setTel = true;
         return
       }
       this.$router.push(arr)
@@ -878,17 +878,8 @@ export default {
       var drawCanvas = document.createElement("canvas");
       var drawCtx = drawCanvas.getContext("2d");
 
-      // var this.imgTop = '';
-      // var this.imgBom = '';
-      // var this.imgBg = '';
-
       var canvas = document.createElement("canvas");
       var ctx = canvas.getContext("2d");
-
-
-      // this.imgTop.src = ;
-      // this.imgBom.src = ;
-      // this.imgBg.src = ;
 
       drawCanvas.height = 978;
       drawCanvas.width = poster.width;

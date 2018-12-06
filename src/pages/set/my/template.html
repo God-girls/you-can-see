@@ -85,6 +85,20 @@
     </ul>
 
     <ul>
+      <li @click.prevent="goto('/my/service')">
+        <dl class="flexBox">
+          <dt>
+            <i class="iconfont icon-erji f40"></i>
+          </dt>
+          <dd class="flex1 f30">客服方式</dd>
+          <dd class="tR">
+             <i class="iconfont icon-jiantou f24"></i>
+          </dd>
+        </dl>
+      </li>
+    </ul>
+
+    <ul>
       <router-link tag="li" to="/my/about">
         <dl class="flexBox">
           <dt>

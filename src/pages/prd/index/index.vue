@@ -118,8 +118,6 @@ export default {
         this.profile = this.PROFILE;
         if (this.LISTDATA.length) 
           this.listData = this.LISTDATA
-      }else{
-        // this.redirect();
       }
 
       if (html.isWawa()) {
@@ -344,7 +342,7 @@ export default {
 
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              location.href = '/';
+              // location.href = '/';
             }else{
               this.initMSG(resData.codemsg)
             }
@@ -369,10 +367,7 @@ export default {
             this.headImg = this.globalAvatar+(this.sellerInfo.avatar?this.sellerInfo.avatar:'')+'?imageView2/2/w/100/h/100/t/';
             // console.log(this.headImg)
           }  else {
-            if (resData.code == '403' || resData.code == '250') {
-              this.needLogin = true;
-              this.noToken = true;
-            }
+            
           }
       }).catch((response)=>{
         // this.logErrors(JSON.stringify(response))
@@ -462,7 +457,7 @@ export default {
     },
     onInfinite(done) {  
       this.indexDone = done;   
-      console.log('infinite')
+      // console.log('infinite')
       if (this.goodid) {
         done(true)
       }else this.fetchList(done);
@@ -481,10 +476,7 @@ export default {
           if (resData.success) {
             this.fetchPraise(item,index);
           }  else {
-            if (resData.code == '403' || resData.code == '250') {
-              this.needLogin = true;
-              this.noToken = true;
-            }
+            
             // console.log(resData.msg);
           }
       }).catch((response)=>{
@@ -511,10 +503,7 @@ export default {
             this.sellerInfo.praise++;
             this.sellerInfo.praised = true;
           }  else {
-            if (resData.code == '403' || resData.code == '250') {
-              this.needLogin = true;
-              this.noToken = true;
-            }
+            
             // console.log(resData.msg);
           }
       }).catch((response)=>{
@@ -545,10 +534,7 @@ export default {
               this.listData[index].praised = true;
             }
           }  else {
-            if (resData.code == '403' || resData.code == '250') {
-              this.needLogin = true;
-              this.noToken = true;
-            }
+            
             // console.log(resData.msg);
           }
       }).catch((response)=>{
@@ -702,7 +688,7 @@ export default {
       });  
     },
     fetchComment(paraGid,flag){
-      console.log(this.listLen)
+      // console.log(this.listLen)
       
       axios.post('/seller_api/v1/seller/fetch_comment',qs.stringify({
         uid:this.paraData.uid,

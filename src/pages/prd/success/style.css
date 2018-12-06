@@ -89,7 +89,10 @@
   right: 0px;
   width: 100%;
 }
-
+.qrcode img{
+  width: 344px;
+  height: 344px;
+}
 
 
 

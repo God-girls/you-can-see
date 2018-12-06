@@ -453,7 +453,7 @@ input:-webkit-autofill {
   width: 100%;
   box-sizing: border-box;
 }
-.dls dd input{
+.dls dd input[type="text"]{
     border: 1px solid #acacac;/*no*/
     width: 100%; 
     line-height: 40px;

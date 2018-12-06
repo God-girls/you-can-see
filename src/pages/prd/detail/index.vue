@@ -374,6 +374,7 @@ export default {
               if (html.isWechat()) {
                 this.payment_url = JSON.parse(resData.result.payment_url);
                 this.orderid = resData.result.orderid;
+                this.orderkey = resData.result.key;
                 let payVM = this;
                 
                 if (typeof WeixinJSBridge == "undefined"){
@@ -388,7 +389,7 @@ export default {
                 }
               }else{
                 // console.log()
-                location.href = `${JSON.parse(resData.result.payment_url).mweb_url}&redirect_url=${encodeURIComponent(this.ttDomain+'/#/prd/success?seller='+this.mySeller+'&orderid='+this.orderid)}`
+                location.href = `${JSON.parse(resData.result.payment_url).mweb_url}&redirect_url=${encodeURIComponent(this.ttDomain+'/#/prd/success?seller='+this.mySeller+'&key='+this.orderkey+'&orderid='+this.orderid)}`
               }
 
 
@@ -409,7 +410,7 @@ export default {
          function(res){ 
           
            if(res.err_msg == "get_brand_wcpay_request:ok" ) {// 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
-            vm.goto('/prd/success?seller='+vm.mySeller+'&orderid='+vm.orderid);
+            vm.goto('/prd/success?seller='+vm.mySeller+'&key='+vm.orderkey+'&orderid='+vm.orderid);
             this.loading = false;
            }else if(res.err_msg == "get_brand_wcpay_request:cancel" || res.err_msg == "get_brand_wcpay_request:fail") {
             vm.initMSG('购买失败')

@@ -2,7 +2,7 @@
 * @Author: xiaoxiao
 * @Date:   2017-11-28 13:47:58
 * @Last Modified by:   xiaoxiao
-* @Last Modified time: 2018-12-06 09:09:21
+* @Last Modified time: 2018-12-06 17:54:51
 */
 import axios from 'axios';
 import qs from 'qs';
@@ -170,7 +170,7 @@ var html = {
                    + encodeURIComponent(jumpUrl) +'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
     },
     openInOher(jumpUrl){
-        return 'https://graph.qq.com/oauth2.0/authorize?client_id=wx357ca89ca431b3ca&redirect_uri='
+        return 'https://graph.qq.com/oauth2.0/authorize?client_id=101532512&redirect_uri='
                    + encodeURIComponent(jumpUrl) +'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
     },
     timeForMat (count) {

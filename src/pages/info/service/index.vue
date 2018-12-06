@@ -16,8 +16,8 @@ export default {
   data () {
     return {
       header:{
-        'name':'修改个性签名',
-        'link':'/my/profile',
+        'name':'客服方式',
+        'link':'/my',
       },
       profile:{
         usr:{}
@@ -32,6 +32,9 @@ export default {
         weixin:'',
         qq:''
       },
+      show_mobileno:true,
+      show_weixin:true,
+      show_qq:true,
       token:'',
       guideType:0,
       serviceInput:'',
@@ -56,17 +59,16 @@ export default {
     if (html.isWechat()) {
       this.header.opacity = true;
     }
-    this.guideType = Number(this.$route.query.type)
-    document.title = this.nameType[this.guideType].name;
-    this.header.name = this.nameType[this.guideType].name;
     if (this.TOKEN) {
       this.token = this.TOKEN;
       this.paraData.uid = this.UID;
       this.profile = this.PROFILE;
-
-      this.paraData[this.nameType[this.guideType].type] = this.profile[this.nameType[this.guideType].type];
-      this.paraData[this.nameType[this.guideType].show] = this.profile[this.nameType[this.guideType].show];
-      this.placeholder = '请输入'+this.header.name;
+      this.paraData.service_mobileno = this.profile.service_mobileno;
+      this.paraData.weixin = this.profile.weixin;
+      this.paraData.qq = this.profile.qq;
+    }
+    if (this.$route.query.from == 'index') {
+      this.header.link = '/'
     }
     // console.log(document.title)
   },
@@ -88,13 +90,13 @@ export default {
         }
         return ByteCount;
     },
-    modifyNick (){
-      let serviceTest =  this.paraData[this.nameType[this.guideType].type]
+    modify (){
+      // let serviceTest =  this.paraData[this.nameType[this.guideType].type]
       // debugger
-      if (!serviceTest || this.checkChar(serviceTest) < 1) {
-        this.initMSG(this.placeholder)
-        return
-      }
+      // if (!serviceTest || this.checkChar(serviceTest) < 1) {
+      //   this.initMSG(this.placeholder)
+      //   return
+      // }
 
       this.loading = true;
 
@@ -106,12 +108,18 @@ export default {
         this.loading = false;        
           let resData = response.data;  
           if (resData.success) {
-            this.profile[this.nameType[this.guideType].type] = serviceTest;
-            this.profile[this.nameType[this.guideType].show] = this.paraData[this.nameType[this.guideType].show];
+            this.profile.service_mobileno = this.paraData.service_mobileno;
+            this.profile.weixin = this.paraData.weixin;
+            this.profile.qq = this.paraData.qq;
+            
             this.switchState({
               PROFILE:this.profile
             })
-            this.$router.push('/my/profile')
+            this.initMSG('修改成功')
+            setTimeout(()=>{
+              this.$router.push('/my/profile')
+            },2000)
+            
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.goto('/')

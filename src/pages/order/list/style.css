@@ -7,6 +7,10 @@
 .tab .current{
   border-bottom: 3px solid #51aa38;
 }
+.tab li p{
+  height: 30px;
+  line-height: 30px;
+}
 .search{
   background: #ebebeb;
   padding: 15px;
@@ -83,8 +87,8 @@
   line-height: 36px;
 }
 .deliverCON dd span{
-  padding: 10px;
-  border:1px solid #848484;/*no*/
-  margin-left: 20px;
-  border-radius: 10px;
+  /*padding: 10px;*/
+  /*border:1px solid #848484;no*/
+  /*margin-left: 20px;*/
+  /*border-radius: 10px;*/
 }

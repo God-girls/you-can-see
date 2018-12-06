@@ -56,7 +56,10 @@
         <dt class="f21 grayCR">
             <p class="btn btn-green greenCR" @click.prevent="getPoster">保留订单截图到手机</p>
         </dt>
-        <dd><p class="btn btn-green" @click.prevent="qrcode = true">关注小小麦微信公众号随时查</p></dd>
+        <dd v-if="header.opacity"><p class="btn btn-green" @click.prevent="fansXxm">关注小小麦微信公众号随时查</p></dd>
+        <dd v-else>
+          <p class="btn btn-green" @click.prevent="qrcode = true">关注小小麦微信公众号随时查</p>
+        </dd>
       </dl>
     </div>
 

@@ -21,7 +21,7 @@ export default {
     return {
       header:{
         'name':'支付结果',
-        'link':'/my/store',
+        'link':'/prd/list',
       },
       whichOne:'',
       showCanvas:false,
@@ -71,11 +71,11 @@ export default {
   },
   mounted: function () {
 
+    this.seller = this.$route.query.seller;
+    this.header.link = '/prd/list?seller='+this.seller;
     if (this.$route.query.orderid) {
-
       this.orderid = this.$route.query.orderid;
-      this.seller = this.$route.query.seller;
-      this.header.link = '/prd/list?seller='+this.seller;
+      this.key = this.$route.query.key;
       this.fetchOrder()
       this.fetchInfo()
     }
@@ -119,7 +119,8 @@ export default {
     fetchOrder (){
       axios.post('/seller_api/v1/pay/order_query',qs.stringify({
         uid:this.UID,
-        'orderid':this.orderid
+        'orderid':this.orderid,
+        key:this.key
       }),{
           headers: {
               "A-Token-Header": this.TOKEN,
@@ -261,6 +262,9 @@ export default {
 
     goto(arr){
       this.$router.push(arr)        
+    },
+    fansXxm(){
+      location.href = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzU2Mzc0NjQwNw==&scene=116#wechat_redirect';
     },
     closeDialog (arr){
       this[arr] = false;

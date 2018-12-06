@@ -65,7 +65,7 @@ export default {
       this.headImg = this.globalAvatar+(this.profile.avatar?this.profile.avatar:'')+'?imageView2/2/w/100/h/100/t/';
 
       qrCode.toDataURL( this.ttDomain+'/#/app/author?redirecto=true&seller='+this.paraData.uid , {
-          margin : 0,
+          margin: 0,
           width:280,
           height:280
       }, (error,url)=> {

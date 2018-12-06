@@ -39,9 +39,9 @@ export default {
       },
       isCur:0,
       tabs:[
-        {name:'未发货订单',type:'0'},
-        {name:'已发货订单',type:'1'},
-        {name:'全部订单',type:null}
+        {name:'未发货订单',type:'0',count:''},
+        {name:'已发货订单',type:'1',count:''},
+        {name:'全部订单',type:null,count:''}
       ],
       minDate:'2018-1-01',
       profile:{},
@@ -242,6 +242,7 @@ export default {
 
                   if (this.listData.length < 6) this.noDataText = '';
                   if (this.listData.length == 0) this.noData = true;
+                  this.tabs[this.isCur].count = `( ${resData.result.totalItemsCount} )`
               }
               else {
                 this.listData = this.listData.concat(ranks.items);

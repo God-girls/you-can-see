@@ -205,9 +205,9 @@ export default {
         let resData = response.data;  
 
         if (resData.success) {
-           this.$router.push('/')
+           this.$router.push('/order/list')
         }else{
-            location.href = html.openInWechat(this.ttDomain + '/#/app/author');
+            location.href = html.openInWechat(this.ttDomain + '/#/app/author?jumpto=/order/list');
         }
       }).catch((response)=>{
         

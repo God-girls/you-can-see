@@ -50,7 +50,7 @@
     <p v-if="!buyList.length" class="tC grayCR">请选择规格</p>
   </div>
 
-  <div class="buyNum special" v-if="seperatePrice">
+  <div class="buyNum special" v-if="!seperatePrice && !sellerInfo.spec">
     <dl class="flexBox">
       <dt class="flex1 f30 blackCR">
         购买数量
@@ -166,10 +166,6 @@
           </dd>
         </dl>
     </modal-dialog>
-
-    <div cl>
-      
-    </div>
 
 
   </div>

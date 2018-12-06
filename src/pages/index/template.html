@@ -56,7 +56,7 @@
             <h5 class="f30" @click.prevent="goto('/prd/create?id='+item.id)">{{item.desc}}</h5>
             <ul class="blueLCR">
               <li v-for="(item2,index2) in JSON.parse(item.imgs)" @click.prevent="previewImage(item2,item.imgs)">
-                <img :src="globalAvatar+'goods/'+item2+'?imageView2/2/w/300/h/300/t/'" alt="">
+                <img :src="globalAvatar+'goods/'+item2+'?imageView2/2/w/300/'" alt="">
               </li>
             </ul>
             <ol class="flexBox">

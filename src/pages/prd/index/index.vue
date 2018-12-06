@@ -702,8 +702,8 @@ export default {
       });  
     },
     fetchComment(paraGid,flag){
-
-      if (flag && this.listLen == this.listData.length) return;
+      console.log(this.listLen)
+      
       axios.post('/seller_api/v1/seller/fetch_comment',qs.stringify({
         uid:this.paraData.uid,
         gid:paraGid ? paraGid : this.comment.gid,
@@ -717,7 +717,7 @@ export default {
           let resData = response.data;   
           // debugger;
           if (resData.success) {
-
+            if (flag && this.listLen >= this.listData.length) return;
             this.listData[flag ? this.listLen : this.replyIndex].comment_head = resData.result.items.length ? JSON.stringify(resData.result.items) : ''
             if (flag) {
               this.listLen++;

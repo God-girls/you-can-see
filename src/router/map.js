@@ -149,12 +149,12 @@ export default {
 			require(['pages/info/seller'], resolve)
 		}
 	},
-	// '/prd/share': {//新建商品
-	// 	meta: { title: '发布商品'},
-	// 	component: (resolve) => {
-	// 		require(['pages/prd/share'], resolve)
-	// 	}
-	// },
+	'/prd/success': {//新建商品
+		meta: { title: '订单支付成功'},
+		component: (resolve) => {
+			require(['pages/prd/success'], resolve)
+		}
+	},
 	'/prd/create': {//新建商品
 		meta: { title: '发布商品'},
 		component: (resolve) => {
@@ -203,12 +203,12 @@ export default {
 			require(['pages/order/list'], resolve)
 		}
 	},
-	'/prd/suborder': {
-		meta: { title: '管理收货地址'},
-		component: (resolve) => {
-			require(['pages/order/suborder'], resolve)
-		}
-	},
+	// '/prd/suborder': {
+	// 	meta: { title: '管理收货地址'},
+	// 	component: (resolve) => {
+	// 		require(['pages/order/suborder'], resolve)
+	// 	}
+	// },
 	'/admin/list': {
 		meta: { title: '小小麦'},
 		component: (resolve) => {

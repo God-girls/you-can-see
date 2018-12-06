@@ -1,7 +1,7 @@
 <Layout>
   <div class="myHeader f30" slot="header">
     <h1>
-      <span class="greenCR fr" @click.prevent="created">发布</span>
+      <span class="greenCR fr" @click.prevent="created">{{prdID?'确认修改':'发布'}}</span>
       <span @click.prevent="goto('/')">取消</span>
     </h1>
   </div>

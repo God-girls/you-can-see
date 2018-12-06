@@ -57,6 +57,11 @@ export default {
       'CART'
     ])
   },
+  created(){
+    if (this.$route.query.id) {
+      document.title = '修改商品';
+    }
+  },
   mounted () {
 
     if (this.TOKEN) {

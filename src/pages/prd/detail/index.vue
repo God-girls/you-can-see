@@ -171,6 +171,7 @@ export default {
               this.specPrice = JSON.parse(resData.result.price).price;
               this.specName = JSON.parse(resData.result.price).spec_name;
               this.seperatePrice = true;
+              this.amount = 0
             }
           }  else {
             if (resData.code == '403' || resData.code == '250') {
@@ -303,6 +304,7 @@ export default {
       }else{
         this.initMSG('请选择规格')
       }
+      this.amount++;
       // console.log(this.buyList)
     },
     countPrice(){
@@ -371,6 +373,7 @@ export default {
          
               if (html.isWechat()) {
                 this.payment_url = JSON.parse(resData.result.payment_url);
+                this.orderid = resData.result.orderid;
                 let payVM = this;
                 
                 if (typeof WeixinJSBridge == "undefined"){
@@ -385,7 +388,7 @@ export default {
                 }
               }else{
                 // console.log()
-                location.href = `${JSON.parse(resData.result.payment_url).mweb_url}&redirect_url=${encodeURIComponent(this.ttDomain+'/#/prd/list?seller='+this.UID+'&fromshare=true&goodid='+this.goodid)}`
+                location.href = `${JSON.parse(resData.result.payment_url).mweb_url}&redirect_url=${encodeURIComponent(this.ttDomain+'/#/prd/success?seller='+this.mySeller+'&orderid='+this.orderid)}`
               }
 
 
@@ -406,7 +409,8 @@ export default {
          function(res){ 
           
            if(res.err_msg == "get_brand_wcpay_request:ok" ) {// 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
-            vm.initMSG('购买成功')
+            vm.goto('/prd/success?seller='+vm.mySeller+'&orderid='+vm.orderid);
+            this.loading = false;
            }else if(res.err_msg == "get_brand_wcpay_request:cancel" || res.err_msg == "get_brand_wcpay_request:fail") {
             vm.initMSG('购买失败')
            }
@@ -419,10 +423,11 @@ export default {
           if (index || index === 0) {
             this.buyList[index].count++;
           }
-          else  this.amount++;
+          this.amount++;
         }else{
           if (index || index === 0) {
             this.buyList[index].count--;
+            this.amount--
             if (this.buyList[index].count == 0) {
               this.buyList.splice(index,1)
             }

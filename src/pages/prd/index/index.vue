@@ -33,7 +33,7 @@ export default {
       isApp:false,
       needLogin:false,
       success:false,
-      noDataText:'-----我是有底线的-----',
+      noDataText:'-----技术支持：公众号“小小麦的家"-----',
       paraData:{
         uid:'1',
         pn:1,
@@ -77,7 +77,8 @@ export default {
       },
       // mySeller:'',
       goodid:'',
-      inWeixin:false
+      inWeixin:false,
+      myContact:false
     }
   },
   computed:{
@@ -308,6 +309,7 @@ export default {
       })
     },
     initDefault(){
+      if (!this.goodid) return;
       this.fetchList();
       this.goodid = ''
     },
@@ -330,7 +332,7 @@ export default {
           let resData = response.data;  
           // alert(JSON.stringify(resData))
           if (resData.success) {
-            // this.sellerInfo = resData.result;
+            this.noDataText = ''
             let tempArr = []
             tempArr.push(resData.result)
             this.listData = tempArr;
@@ -454,7 +456,8 @@ export default {
       setTimeout(()=>{
         this.totalPageCount = -1;
         this.paraData.pn = 1;
-        this.fetchList(done);  
+        if (!this.goodid) this.fetchList(done);  
+        else done(true)
       },1000)
     },
     onInfinite(done) {  

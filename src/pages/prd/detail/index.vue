@@ -167,7 +167,6 @@ export default {
               this.singlePrice = Number(this.sellerInfo.price_range)
               this.totalPrice = this.singlePrice;
               
-              console.log()
             }else{
               this.specPrice = JSON.parse(resData.result.price).price;
               this.specName = JSON.parse(resData.result.price).spec_name;
@@ -307,11 +306,12 @@ export default {
       // console.log(this.buyList)
     },
     countPrice(){
-      console.log(this.buyList)
       let totalPrice = 0;
       for (var i = 0; i < this.buyList.length; i++) {
-        this.buyList[i].price = html.mul(this.buyList[i].count,this.specPrice[this.buyList[i][this.specName]])
-        totalPrice += html.mul(this.buyList[i].count,this.specPrice[this.buyList[i][this.specName]])
+        let temPrice = this.seperatePrice ? this.specPrice[this.buyList[i][this.specName]] : this.singlePrice;
+        
+        this.buyList[i].price = html.mul(this.buyList[i].count,temPrice)
+        totalPrice += html.mul(this.buyList[i].count,temPrice)
       }   
       this.totalPrice = totalPrice;   
     },
@@ -358,7 +358,8 @@ export default {
           this.addressID = this.addressList[this.selectIndex].id;
         }
       }
-      this.updateAddress ();
+
+      if (this.paraData.uid) this.updateAddress ();
       axios.post('/seller_api/v1/pay/payment_url',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,

@@ -27,10 +27,6 @@
                   webBridgeAndroid.init((message, responseCallback)=> {})
               }, false)
           }      
-          window.addEventListener('pagehide', 
-            function () {
-                alert('页面要关闭了')
-            });
         },
         methods: {
           ...mapActions([

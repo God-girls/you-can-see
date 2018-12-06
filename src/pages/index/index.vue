@@ -39,7 +39,7 @@ export default {
         uid:'1',
         pn:1
       },
-      noDataText:'-----我是有底线的-----',
+      noDataText:'-----技术支持：公众号“小小麦的家"-----',
       headImg:'',
       token:'',
       onlyWechat:false,
@@ -409,7 +409,7 @@ export default {
                   }
                   this.listData = ranks.items;
                   // if (this.listData.length < 6) this.noDataText = '';
-                  // else this.noDataText = '-----我是有底线的-----';
+                  // else this.noDataText = '-----技术支持：公众号“小小麦的家"-----';
                   if (this.listData.length == 0) this.noData = true;
               }
               else {
@@ -847,10 +847,9 @@ export default {
     },
     goto (arr,title){
       // console.log(arr)
-      if (title) {
-        this.switchState({
-          SHARETITLE:title
-        })
+      if (arr == '/prd/create' && !this.sellerInfo.service_mobileno && !this.sellerInfo.weixin && !this.sellerInfo.qq) {
+        this.initMSG('您个人设置中的客服信息至少需要显示一项')
+        return
       }
       this.$router.push(arr)
     },

@@ -26,6 +26,7 @@ export default {
       noData:false,
       diliver:false,
       notes:false,
+      notify:true,
       statusBar:{},
       loadError:'',
       bottomBarH:[],
@@ -182,12 +183,14 @@ export default {
         this.initMSG('请添加完整快递信息')
         return;
       }
+
       this.loading = true;
       axios.post('/seller_api/v1//seller/package_deliver',qs.stringify({
         'uid':this.paraData.uid,
         'pid':this.pid,
         'deliver': this.deliver,
-        'deliver_no':this.deliver_no
+        'deliver_no':this.deliver_no,
+        'notify':this.notify
       }),{
           headers: {
               "A-Token-Header": this.token,

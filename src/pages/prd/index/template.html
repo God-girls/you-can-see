@@ -5,16 +5,16 @@
     <h3 @click.prevent="changebg = true">
       <img :src="globalAvatar+sellerInfo.background" alt="" class="head">
     </h3>
-    <p class="blueLCR">
+    <p class="blueLCR f24">
       <span>
-        <i class="iconfont icon-heart-opp-copy f30"></i> {{sellerInfo.praise}}
+        <i class="iconfont icon-heart-opp-copy f30 redCR"></i> {{sellerInfo.praise}} 赞
       </span>
     </p>
     <dl class="tR">
       <dt>
         <ol class="flexBox">
-          <li class="flex1 whiteCR f36" @click.prevent="goto('/my/seller?seller='+paraData.seller+(goodid?'&goodid='+goodid:''))">
-            <i class="iconfont icon-erji f48"></i> {{sellerInfo.nick}}
+          <li class="flex1 whiteCR f36" @click.prevent="myContact = true">
+            <i class="iconfont icon-erji f48 redCR"></i> {{sellerInfo.nick}}
           </li>
           <li @click.prevent="initDefault">
             <img :src="headImg" alt="">
@@ -40,7 +40,7 @@
             <h5 class="f30" @click.prevent="goto('/prd/detail?goodid='+item.id+'&seller='+paraData.seller+(goodid?'&from=share':''))">{{item.desc}}</h5>
             <ul class="blueLCR">
               <li v-for="(item2,index2) in JSON.parse(item.imgs)" @click.prevent="previewImage(item2,item.imgs)">
-                <img :src="globalAvatar+'goods/'+item2" alt="">
+                <img :src="globalAvatar+'goods/'+item2+'?imageView2/2/w/300/h/300/t/'" alt="">
               </li>
             </ul>
             <ol class="flexBox">
@@ -91,7 +91,7 @@
                     <span class="f21 grayCR fr">{{item2.updated_at}}</span>
                     {{item2.nick?item2.nick:'小小麦'}}
                   </p>
-                  <template v-if="item2.old_uid">回复<span class="special blueLCR">{{item2.old_nick}}</span></template>{{item2.comment}}
+                  <template v-if="item2.old_uid">回复<span class="special blueLCR">{{item2.old_nick}}: </span></template>{{item2.comment}}
                 </li>
               </ol>
             </dd>
@@ -160,6 +160,17 @@
           <dl>
             <dt class="redCR" @touchend.prevent="praiseBG">赞这个封面</dt>
             <dd @touchend.prevent="closeDialog('changebg')">取消</dd>
+          </dl>          
+        </div>
+
+    </dialog-del>
+
+    <dialog-del :dialogshow2.sync="myContact" @hide="closeDialog('myContact')">
+        <div slot="dialog-footer" class="del-footer special tC f30">
+          <dl>
+            <dt v-if="sellerInfo.service_mobileno">客服手机号：{{sellerInfo.service_mobileno}}</dt>
+            <dd v-if="sellerInfo.weixin">客服微信号：{{sellerInfo.weixin}}</dd>
+            <dd v-if="sellerInfo.qq">客服QQ：{{sellerInfo.qq}}</dd>
           </dl>          
         </div>
 

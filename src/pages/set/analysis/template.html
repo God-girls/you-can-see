@@ -13,7 +13,7 @@
   <div class="detailTop" v-show="isCur == 1">
     <dl class="flexBox" @click.prevent="selectOne = true;">
       <dt>
-        <img :src="globalAvatar+'goods/'+JSON.parse(sellerInfo.imgs)[0]" alt="">
+        <img :src="globalAvatar+'goods/'+JSON.parse(sellerInfo.imgs)[0]+'?imageView2/2/w/300/h/300/t/'" alt="">
       </dt>
       <dd class="flex1 f30">
         {{sellerInfo.title}}
@@ -128,7 +128,7 @@
           <dl class="flexBox" v-for="(item,index) in allPrdData" 
             @click.prevent="setSellerInfo(item)">
             <dd>
-              <img :src="globalAvatar+'goods/'+JSON.parse(item.imgs)[0]" alt="">
+              <img :src="globalAvatar+'goods/'+JSON.parse(item.imgs)[0]+'?imageView2/2/w/300/h/300/t/'" alt="">
             </dd>
             <dt class="flex1">
               <h5 class="blackCR">{{item.title}}</h5>

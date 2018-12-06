@@ -73,8 +73,8 @@ export default {
       // if (html.isWawa()) this.pushpop = this.PUSHPOP
       this.headImg = this.globalAvatar+(this.profile.avatar?this.profile.avatar:'')+'?imageView2/2/w/210/h/210/t/'+new Date().getTime();
     }
-    if (this.$route.query.from == 'shop') {
-      this.header.link = '/shop'
+    if (this.$route.query.from == 'index') {
+      this.header.link = '/'
     }
     if (html.isWawa()) {
       this.initBridge();

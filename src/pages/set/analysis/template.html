@@ -13,7 +13,7 @@
   <div class="detailTop" v-show="isCur == 1">
     <dl class="flexBox" @click.prevent="selectOne = true;">
       <dt>
-        <img :src="globalAvatar+'goods/'+JSON.parse(sellerInfo.imgs)[0]+'?imageView2/2/w/300/h/300/t/'" alt="">
+        <img :src="globalAvatar+'goods/'+JSON.parse(sellerInfo.imgs)[0]+'?imageView2/2/w/300/h/300/t/'" alt="" :onerror="errorImg">
       </dt>
       <dd class="flex1 f30">
         {{sellerInfo.title}}
@@ -99,7 +99,7 @@
             {{index+1}}
           </td>
           <td>
-            <img :src="globalAvatar+'goods/'+item.head_image" alt="">
+            <img :src="globalAvatar+'goods/'+item.head_image" alt="" :onerror="errorImg">
           </td>
           <td>
             {{item.title}}

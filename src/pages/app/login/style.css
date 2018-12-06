@@ -10,21 +10,17 @@
   text-align: center;
 }
 .nowLoading dt img{
-  width: 97px;
+  width: 218px;
 }
 .nowLoading dd {
   padding: 20px 0 70px;
 }
 .nowLoading dd img{
-  /*width: 30px;*/
-  height: 40px;
+  width: 30px;
+  height: 30px;
 }
 .nowLoading dd span{
   display: inline-block;
-  padding: 0 5px;
-}
-.nowLoading dd span.special{
-  padding-left: 30px;
 }
 .fadeIn {
     -webkit-animation-name: fadeIn;

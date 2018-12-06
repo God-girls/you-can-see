@@ -5,8 +5,8 @@
   <div class="header posiR f30">
     
     <h3 @click.prevent="changebg = true">
-      <img :src="sellerInfo.background" alt="" class="head" v-if="sellerInfo.background.indexOf('data:image/') > -1">
-      <img :src="globalAvatar+sellerInfo.background" alt="" class="head" v-if="sellerInfo.background.indexOf('.jpg') > -1">
+      <img :src="sellerInfo.background" alt="" class="head" v-if="sellerInfo.background.indexOf('data:image/') > -1" >
+      <img :src="globalAvatar+sellerInfo.background" alt="" class="head" v-if="sellerInfo.background.indexOf('.jpg') > -1" :onerror="errorBg">
     </h3>
     <p class="blueLCR f24">
       <span @click.prevent="praiseBG">
@@ -56,7 +56,7 @@
             <h5 class="f30" @click.prevent="goto('/prd/create?id='+item.id)">{{item.desc}}</h5>
             <ul class="blueLCR">
               <li v-for="(item2,index2) in JSON.parse(item.imgs)" @click.prevent="previewImage(item2,item.imgs)">
-                <img :src="globalAvatar+'goods/'+item2+'?imageView2/2/w/300/'" alt="">
+                <img :src="globalAvatar+'goods/'+item2+'?imageView2/2/w/300/'" alt="" :onerror="errorImg">
               </li>
             </ul>
             <ol class="flexBox">

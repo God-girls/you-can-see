@@ -27,6 +27,7 @@ export default{
     Vue.prototype.ioShow = userAgent.indexOf("hddgood/ios") > -1 || userAgent.indexOf("rushingking/ios") > -1 ? false : true;
     Vue.prototype.defaultHead = 'this.src="' + require('../assets/img12/index/header.png') +'"';
     Vue.prototype.ttLogoImg = ttDomain + require('../assets/img12/index/logo.png')
-    // Vue.prototype.errorimg = ttDomain + require('../assets/img12/index/errorimg.jpg')
+    Vue.prototype.errorImg = ttDomain + require('../assets/img12/other/errorimg.jpg')
+    Vue.prototype.errorBg = ttDomain + require('../assets/img12/other/errorbg.jpg')
   }
 }

@@ -3,7 +3,7 @@
   <div class="header posiR f30">
     
     <h3 @click.prevent="changebg = true">
-      <img :src="globalAvatar+sellerInfo.background" alt="" class="head">
+      <img :src="globalAvatar+sellerInfo.background" alt="" class="head"  :onerror="errorBg">
     </h3>
     <p class="blueLCR f24">
       <span>
@@ -13,7 +13,7 @@
     <dl class="tR">
       <dt>
         <ol class="flexBox">
-          <li class="flex1 whiteCR f36" @click.prevent="myContact = true">
+          <li class="flex1 whiteCR f36 text-overflow" @click.prevent="myContact = true">
             <i class="iconfont icon-erji f48 redCR"></i> {{sellerInfo.nick}}
           </li>
           <li @click.prevent="initDefault">
@@ -21,7 +21,7 @@
           </li>
         </ol>
       </dt>
-      <dd class="grayCR">{{sellerInfo.signature ? sellerInfo.signature : '这家伙很懒，什么都没留下'}}</dd>
+      <dd class="grayCR text-overflow">{{sellerInfo.signature ? sellerInfo.signature : '这家伙很懒，什么都没留下'}}</dd>
     </dl>
   </div>
 
@@ -41,7 +41,7 @@
             <ul class="blueLCR">
               <template v-for="(item2,index2) in JSON.parse(item.imgs)">
                 <li @click.prevent="previewImage(item2,item.imgs)">
-                  <img :src="globalAvatar+'goods/'+item2+'?imageView2/2/w/300/'" alt="">
+                  <img :src="globalAvatar+'goods/'+item2+'?imageView2/2/w/300/'" alt="" :onerror="errorImg">
                 </li>
               </template>
             </ul>
@@ -170,8 +170,8 @@
     <dialog-del :dialogshow2.sync="myContact" @hide="closeDialog('myContact')">
         <div slot="dialog-footer" class="del-footer special tC f30">
           <dl>
-            <dt v-if="sellerInfo.service_mobileno">客服手机号：{{sellerInfo.service_mobileno}}</dt>
-            <dd v-if="sellerInfo.weixin">客服微信号：{{sellerInfo.weixin}}</dd>
+            <dt v-if="sellerInfo.service_mobileno">客服电话：{{sellerInfo.service_mobileno}}</dt>
+            <dd v-if="sellerInfo.weixin">客服微信：{{sellerInfo.weixin}}</dd>
             <dd v-if="sellerInfo.qq">客服QQ：{{sellerInfo.qq}}</dd>
           </dl>          
         </div>

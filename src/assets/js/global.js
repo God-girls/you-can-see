@@ -2,7 +2,7 @@
 * @Author: xiaoxiao
 * @Date:   2017-11-28 13:47:58
 * @Last Modified by:   xiaoxiao
-* @Last Modified time: 2018-12-03 19:53:45
+* @Last Modified time: 2018-12-06 09:09:21
 */
 import axios from 'axios';
 import qs from 'qs';
@@ -35,7 +35,8 @@ var html = {
                 wawaAndroid : userAgent.indexOf("hddgood/android") > -1 || userAgent.indexOf("rushingking/android") > -1,
                 wawaHideQuit: userAgent.indexOf('babyhidequit') > -1,
                 wawah5Pay: userAgent.indexOf('h5pay') > -1,
-                appshare: userAgent.indexOf('appshare') > -1
+                appshare: userAgent.indexOf('appshare') > -1,
+                inqq: userAgent.indexOf('qq/') > -1
             };
         }()
     },
@@ -65,6 +66,10 @@ var html = {
     	// 	return 'wawaAPP';
     	// }
     	// else return 'pc';
+    },
+    isInqq(){
+        if (html.browser.versions.inqq) return true;
+        else return false
     },
     isIpad(){
         if (html.browser.versions.ipad) return true;

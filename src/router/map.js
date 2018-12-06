@@ -77,12 +77,12 @@ export default {
 			require(['pages/set/analysis'], resolve)
 		}
 	},
-	'/testcanvas': {
-		meta: { title: 'testcanvas'},
-		component: (resolve) => {
-			require(['pages/set/web'], resolve)
-		}
-	},
+	// '/testcanvas': {
+	// 	meta: { title: 'testcanvas'},
+	// 	component: (resolve) => {
+	// 		require(['pages/set/web'], resolve)
+	// 	}
+	// },
 	'/my/about': {
 		meta: { title: '关于小小麦'},
 		component: (resolve) => {
@@ -143,12 +143,18 @@ export default {
 			require(['pages/info/service'], resolve)
 		}
 	},
-	'/prd/share': {//新建商品
-		meta: { title: '发布商品'},
+	'/my/seller': {
+		meta: { title: '卖家信息'},
 		component: (resolve) => {
-			require(['pages/prd/share'], resolve)
+			require(['pages/info/seller'], resolve)
 		}
 	},
+	// '/prd/share': {//新建商品
+	// 	meta: { title: '发布商品'},
+	// 	component: (resolve) => {
+	// 		require(['pages/prd/share'], resolve)
+	// 	}
+	// },
 	'/prd/create': {//新建商品
 		meta: { title: '发布商品'},
 		component: (resolve) => {

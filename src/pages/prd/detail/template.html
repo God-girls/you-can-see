@@ -14,7 +14,7 @@
     </dl>
   </div>
 
-  <div class="specs" v-if="sellerInfo.spec">
+  <div class="specs" v-if="seperatePrice">
     <h3 class="blackCR f30">选择规格</h3>
     <template v-for="(item,index) in JSON.parse(sellerInfo.spec)">
       <dl v-for="(value,key) in item">
@@ -29,7 +29,7 @@
     <p class="btn btn-green btn-sm" @click.prevent="countList">确定</p>
   </div>
 
-  <div class="buyNum" v-if="sellerInfo.spec">
+  <div class="buyNum" v-if="seperatePrice">
     <h3 class="blackCR f30">购买数量</h3>
     <dl class="flexBox" v-for="(item,index) in buyList">
       <dt class="flex1">

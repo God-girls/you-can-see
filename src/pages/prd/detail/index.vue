@@ -90,7 +90,8 @@ export default {
       },
       buyList:[],
       addressList:[],
-      selectIndex:0
+      selectIndex:0,
+      seperatePrice:false
     }
   },
   computed:{
@@ -161,13 +162,16 @@ export default {
           if (resData.success) {
             this.sellerInfo = resData.result;
             if (this.sellerInfo.spec) 
-              this.indexArr.length = JSON.parse(this.sellerInfo.spec).length
+              this.indexArr.length = JSON.parse(this.sellerInfo.spec).length;
             if (JSON.parse(resData.result.price).spec_name == '*') {
               this.singlePrice = Number(this.sellerInfo.price_range)
               this.totalPrice = this.singlePrice;
+              
+              console.log()
             }else{
               this.specPrice = JSON.parse(resData.result.price).price;
               this.specName = JSON.parse(resData.result.price).spec_name;
+              this.seperatePrice = true;
             }
           }  else {
             if (resData.code == '403' || resData.code == '250') {
@@ -332,13 +336,14 @@ export default {
       tempObj.id = this.goodid;
       tempObj.count = this.amount;
       if (this.sellerInfo.spec) {//如果是选规格
-        tempObj.spec = html.objClone(this.buyList);
-        for (var i = 0; i < tempObj.spec.length; i++) {
-          delete tempObj.spec[i].name;
-        }
         if (!this.buyList.length) {
           this.initMSG('请选择商品')
           return;
+        }
+        tempObj.spec = html.objClone(this.buyList);
+        for (var i = 0; i < tempObj.spec.length; i++) {
+          delete tempObj.spec[i].name;
+          delete tempObj.spec[i].price;
         }
       }
       this.paraData.goods = JSON.stringify(tempObj)

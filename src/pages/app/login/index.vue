@@ -42,9 +42,15 @@ export default {
     }
     if (html.isWechat()) {//如果是在微信
       this.getLogin();
-    }else{
+    }else if (html.isInqq()) {
       this.getLogin2();
       this.paraData.oatype = 'qq'
+    }else{
+      console.log('121212',this.$route.query.jumpto)
+
+      // console.log(params)
+      this.goto(this.$route.query.jumpto)
+
     }
 
   },

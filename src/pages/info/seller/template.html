@@ -1,0 +1,80 @@
+<Layout>
+  <myhead slot="header" :hval="header"></myhead>
+
+  <div>
+    <div class="header posiR">
+      <i class="iconfont icon-fanhui f36" @click.prevent="goto('/my')" v-if="isWechat"></i>
+      <dl class="tC">
+        <dt>
+          <p class="img" @click.prevent="chooseImg">
+            <img :src="headImg" alt="" :onerror="defaultHead">
+          </p>
+        </dt>
+        <dd class="f24">
+          <h3 class="f36">{{sellerInfo.nick}}</h3>
+          个性签名：{{sellerInfo.signature?sellerInfo.signature:'无'}}
+        </dd>
+      </dl>
+    </div>
+  </div>
+
+    <div class="my-set f30">
+      <ul>
+
+        <li>
+          <dl class="flexBox">
+            <dt class="flex1">性别：</dt>
+            <dd class="tR">
+              {{sellerInfo.sex}} 
+            </dd>
+          </dl>
+        </li>
+<!--         <li>
+          <dl class="flexBox">
+            <dt class="flex1">出生日期：</dt>
+            <dd class="tR">
+               {{sellerInfo.birthday?sellerInfo.birthday:''}}
+            </dd>
+          </dl>
+        </li> -->
+
+        <li>
+          <dl class="flexBox">
+            <dt class="flex1">地区：</dt>
+            <dd class="tR">
+               {{(sellerInfo.country?sellerInfo.country:'')+' '+(sellerInfo.province?sellerInfo.province:'')+' '+(sellerInfo.city?sellerInfo.city:'')}}
+            </dd>
+          </dl>
+        </li>
+      </ul>
+
+      <ul>
+
+        <li >
+          <dl class="flexBox">
+            <dt class="flex1">客服手机号：</dt>
+            <dd class="tR">
+              {{sellerInfo.service_mobileno?sellerInfo.service_mobileno:'无'}}
+            </dd>
+          </dl>
+        </li>
+        <li>
+          <dl class="flexBox">
+            <dt class="flex1">客服微信号：</dt>
+            <dd class="tR">
+              {{sellerInfo.weixin?sellerInfo.weixin:'无'}}
+            </dd>
+          </dl>
+        </li>
+        <li>
+          <dl class="flexBox">
+            <dt class="flex1">客服QQ号：</dt>
+            <dd class="tR">
+               {{sellerInfo.qq?sellerInfo.qq:'无'}}
+            </dd>
+          </dl>
+        </li>
+      </ul>
+    </div>    
+  
+</Layout>

@@ -585,7 +585,7 @@ export default {
             this.initMSG(resData.codemsg);
           }
       }).catch((response)=>{
-        this.initMSG('网络异常再试一次');
+        // this.initMSG('网络异常再试一次');
       });  
   
     },
@@ -668,7 +668,7 @@ export default {
             this.initMSG(resData.codemsg);
           }
       }).catch((response)=>{
-        this.initMSG('网络异常再试一次');
+        // this.initMSG('网络异常再试一次');
       });  
     },
     goodsComment (){
@@ -700,7 +700,7 @@ export default {
     },
     fetchComment(paraGid,flag){
 
-      if (this.listLen == this.listData.length) return;
+      if (flag && this.listLen == this.listData.length) return;
       axios.post('/seller_api/v1/seller/fetch_comment',qs.stringify({
         uid:this.paraData.uid,
         gid:paraGid ? paraGid : this.comment.gid,

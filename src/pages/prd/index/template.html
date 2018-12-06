@@ -10,11 +10,13 @@
         <i class="iconfont icon-heart-opp-copy f30"></i> {{sellerInfo.praise}}
       </span>
     </p>
-    <dl class="tR" @click.prevent="initDefault">
+    <dl class="tR">
       <dt>
         <ol class="flexBox">
-          <li class="flex1 whiteCR f36">{{sellerInfo.nick}}</li>
-          <li>
+          <li class="flex1 whiteCR f36" @click.prevent="goto('/my/seller?seller='+paraData.seller+(goodid?'&goodid='+goodid:''))">
+            <i class="iconfont icon-erji f48"></i> {{sellerInfo.nick}}
+          </li>
+          <li @click.prevent="initDefault">
             <img :src="headImg" alt="">
           </li>
         </ol>
@@ -110,10 +112,10 @@
         </dd>
       </dl>
     </div>
-    <div class="buyFoot" v-if="goodid">
+    <div class="buyFoot" v-if="goodid && !reply">
       <p class="btn btn-green" @click.prevent="goto('/prd/detail?goodid='+goodid+'&seller='+paraData.seller+(goodid?'&from=share':''))">购买</p>
     </div>
-    <!-- <myfooter :current="navType" v-else></myfooter> -->
+
     <div class="mask" v-if="reply" @touchend.prevent="reply = false"></div>
     
     <modal-dialog :dialogshow2.sync="needLogin" @hide="closeDialog('needLogin')"  :fail='true'>

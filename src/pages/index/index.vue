@@ -445,7 +445,7 @@ export default {
       setTimeout(()=>{
         this.totalPageCount = -1;
         this.paraData.pn = 1;
-        debugger
+        // debugger
         this.fetchList(done);  
       },1000)
     },
@@ -625,9 +625,11 @@ export default {
   
     },
     beforeReply(item,index){
+      // debugger
       this.comment.gid = item.id;
       this.reply = true;
       this.replyIndex = index;
+      this.listData[this.curListIndex].showComment = false
     },
     beforeOnoff(item,index,isTop){
       this.listData[this.curListIndex].showComment = false
@@ -730,7 +732,7 @@ export default {
       });  
     },
     fetchComment(paraGid,flag){
-      if (this.listLen == this.listData.length) return;
+      if (flag && this.listLen == this.listData.length) return;
 
       axios.post('/seller_api/v1/seller/fetch_comment',qs.stringify({
         uid:this.paraData.uid,

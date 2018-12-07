@@ -110,6 +110,8 @@
   border-top: none;
   border-right: none;
   border-left: none;
+  height: 50px;
+  line-height: 50px;
 }
 .myDetail.special{
   padding-bottom: 50px;

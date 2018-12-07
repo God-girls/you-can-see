@@ -33,7 +33,7 @@
     <h3 class="blackCR f30">购买数量</h3>
     <dl class="flexBox" v-for="(item,index) in buyList">
       <dt class="flex1">
-        {{item.name}}，价格：{{item.price}}
+        {{item.name}}，价格：{{(item.price).toFixed(2)}}
       </dt>
       <dd>
         <div class="flexBox1">
@@ -112,7 +112,7 @@
   <div slot="footer" :style="statusBarH">
     <div class="footer tC  f30">
       <dl class="flexBox">
-        <dt class="flex1">商品总价：<span class="redCR">¥ {{totalPrice}}</span></dt>
+        <dt class="flex1">商品总价：<span class="redCR">¥ {{(totalPrice).toFixed(2)}}</span></dt>
         <dd class="whiteCR" @click.prevent="payment">立即购买</dd>
       </dl>
     </div>
@@ -142,15 +142,15 @@
 
     <modal-dialog :dialogshow2.sync="selectOne" @hide="closeDialog('selectOne')" :fail='true'>
         <div class="dialog-header" slot="dialog-header">
-          选择已有地址
+          选择地址
         </div>
         <div class="selectAddress " slot="dialog-body">
           <dl class="flexBox" v-for="(item,index) in addressList" 
-            @click.prevent="setDefault(item,index)">
-            <dd class="special">
+            >
+            <dd class="special" @click.prevent="setDefault(item,index)">
               <i class="iconfont icon-duihao1 f36 redCR" v-if="index == selectIndex"></i>
             </dd>
-            <dt class="flex1">
+            <dt class="flex1" @click.prevent="setDefault(item,index)">
               <h5 class="blackCR">{{JSON.parse(item.info)['name']}}，{{JSON.parse(item.info)['tel']}}</h5>
               <p>
                 {{JSON.parse(item.info)['district']['Province']}}
@@ -158,6 +158,9 @@
                 {{JSON.parse(item.info)['district']['District']}} 
                 {{JSON.parse(item.info)['address']}}</p>
             </dt>
+<!--             <dd class="grayCR" @touchend.prevent="delAddress(item.id)">
+              删除
+            </dd> -->
           </dl>
         </div>        
         <dl class="dialog-footer" slot="dialog-footer">

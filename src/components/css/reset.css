@@ -456,10 +456,12 @@ input:-webkit-autofill {
 }
 .dls dd input[type="text"],
 .dls dd input[type="password"],
+.dls dd input[type="number"],
 .dls dd textarea{
   width: 100%;
   box-sizing: border-box;
 }
+.dls dd input[type="number"],
 .dls dd input[type="text"]{
     border: 1px solid #acacac;/*no*/
     width: 100%; 

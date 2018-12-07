@@ -130,7 +130,17 @@ export default {
       this[arr] = false
     },
     goto(arr){
+      // debugger
 
+      for (let i = 0; i < this.specs.length; i++) {
+        //Things[i]
+        for (let j in this.specs[i]) {
+          if (this.specs[i][j].length == 0) {
+            this.initMSG('请添加规格对应的属性')
+            return;
+          }
+        }      
+      }
       this.switchState({
         CART:Object.assign(this.CART,{specs:this.specs})
       })

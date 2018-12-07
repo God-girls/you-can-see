@@ -86,10 +86,9 @@ export default {
             let priceShow = this.specs[this.priceSet.subIndex][myKey];
             let priceNew = []
             let obj = {};
-
             for (var i = 0; i < priceShow.length; i++) {
-              if (this.priceSet.price[i] == '') {
-                this.initMSG('请设置定价')
+              if (!this.priceSet.price[i]) {
+                this.initMSG('请设置售价')
                 return;
               }
               priceNew.push(this.priceSet.price[i])

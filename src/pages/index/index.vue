@@ -392,7 +392,7 @@ export default {
       axios.post('/seller_api/v1/seller/my_goods',qs.stringify({
         uid:this.paraData.uid,
         pn:this.paraData.pn,
-        ps:'2'
+        ps:'5'
       }),{
           headers: {
               "A-Token-Header": this.token,
@@ -486,7 +486,7 @@ export default {
     },
     upTop (gid){
       this.loading = true;
-      axios.post('/seller_api/v1//seller/create_goods',qs.stringify({
+      axios.post('/seller_api/v1/seller/create_goods',qs.stringify({
         'uid':this.paraData.uid,
         'gid':this.comment.gid,
         'publish':new Date().getTime()

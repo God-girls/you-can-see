@@ -210,6 +210,27 @@ export default {
           }
       }).catch(function(response){});  
     },
+    delAddress (id){
+        axios.post('/seller_api/v1/user/remove_receive_info',qs.stringify({
+          'uid':this.paraData.uid,
+          'ps':'20',
+          'id':id
+        }),{
+            headers: {
+                "A-Token-Header": this.token,
+            }
+          }).then((response)=>{           
+            let resData = response.data;  
+
+            if (resData.success) {
+              this.fetchAddress ('special')
+            }else {
+              if (resData.code == '403' || resData.code == '250') {
+                this.goto('/')
+              }
+            }
+        }).catch(function(response){});        
+    },
     updateAddress (){
       
       let temObj = {}

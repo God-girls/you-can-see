@@ -13,13 +13,13 @@
     </div>
     <ul>
       <li  v-for="(item,index) in imgUrl" class="posiR imgs">
-          <p @touchend.prevent="previewImage(imgUrl[index])"><img :src="imgUrl[index]" alt=""></p> 
-          <span @touchend.prevent="delImg(index)">
+          <p @click.prevent="previewImage(imgUrl[index])"><img :src="imgUrl[index]" alt=""></p> 
+          <span @click.prevent="delImg(index)">
             <i class="iconfont icon-chahao f30"></i>
           </span>
       </li>
       <li class="special posiR" 
-          @touchend.prevent="chooseImg" v-if="imgUrl.length < 9">
+          @click.prevent="chooseImg" v-if="imgUrl.length < 9">
         <i class="iconfont icon-add" ></i>
       </li>      
     </ul>

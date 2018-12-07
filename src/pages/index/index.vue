@@ -658,7 +658,7 @@ export default {
 
         case 4: //复制
           this.imgFile = JSON.parse(this.curProduct.imgs); 
-          this.paraData.desc = this.curProduct.title;
+          this.paraData.desc = this.curProduct.desc;
           this.imgUrl = []
           for (var i = 0; i < this.imgFile.length; i++) {
             this.imgUrl.push(this.globalAvatar+'goods/'+this.imgFile[i])
@@ -862,7 +862,7 @@ export default {
       this.$router.push(arr)
     },
     editPrd(item){
-      if (item.status != 0) {
+      if (item.status == 0) {
         this.initMSG('请先下架商品后再编辑')
         return;
       }else{

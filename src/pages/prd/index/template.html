@@ -170,7 +170,7 @@
     <dialog-del :dialogshow2.sync="myContact" @hide="closeDialog('myContact')">
         <div slot="dialog-footer" class="del-footer special tc f30">
           <dl>
-            <dt v-if="sellerInfo.service_mobileno"><p>客服电话：{{sellerInfo.service_mobileno}}</p></dt>
+            <dt v-if="sellerInfo.service_mobileno"><p><a :href="'tel='+sellerInfo.service_mobileno">客服电话：{{sellerInfo.service_mobileno}}</a></p></dt>
             <dd v-if="sellerInfo.weixin"><p>客服微信：{{sellerInfo.weixin}}</p></dd>
             <dd v-if="sellerInfo.qq"><p>客服QQ：{{sellerInfo.qq}}</p></dd>
           </dl>          

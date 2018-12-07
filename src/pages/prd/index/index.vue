@@ -327,7 +327,7 @@ export default {
           let resData = response.data;  
           // alert(JSON.stringify(resData))
           if (resData.success) {
-            this.noDataText = ''
+            // this.noDataText = ''
             let tempArr = [];
             let vm = this;
             tempArr.push(resData.result)

@@ -5,14 +5,15 @@
 import {setupWebViewJavascriptBridge} from '../../../assets/js/iosbridge.js';
 import loading from '../../../components/base/loading'
 import myhead from '../../../components/base/header'
-import imageClipper from '../../../components/base/imageClipper'
+// import imageClipper from '../../../components/base/imageClipper'
 import {html} from '../../../assets/js/global.js';
 import modalDialog from '../../../components/base/dialog'
 import { mapState, mapActions } from 'vuex'
 import wx from 'weixin-js-sdk'; 
 import axios from 'axios';
 import qs from 'qs';
-
+import Croppa from 'vue-croppa'
+console.log(croppa)
 export default {
   data () {
     return {
@@ -43,15 +44,16 @@ export default {
         push:''
       },
       isWechat:false,
-      showClipper:false,
-      img: ''
+      showClipper:true,
+      img: '',
+      myCroppa:''
     }
   },
   components: {
     loading,
     myhead,
     modalDialog,
-    imageClipper
+    Croppa
   },
   computed:{
     ...mapState([

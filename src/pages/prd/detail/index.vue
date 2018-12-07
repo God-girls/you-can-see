@@ -333,8 +333,8 @@ export default {
       for (var i = 0; i < this.buyList.length; i++) {
         let temPrice = this.seperatePrice ? this.specPrice[this.buyList[i][this.specName]] : this.singlePrice;
         
-        this.buyList[i].price = html.mul(this.buyList[i].count,temPrice)
-        totalPrice += html.mul(this.buyList[i].count,temPrice)
+        this.buyList[i].price = temPrice;
+        totalPrice += html.mul(this.buyList[i].count,temPrice);
       }   
       this.totalPrice = totalPrice;   
     },

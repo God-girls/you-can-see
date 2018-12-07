@@ -132,7 +132,7 @@ export default {
 
         }  else {
           if (resData.code == '403' || resData.code == '250') {
-            location.href = '/';
+            this.goto('/');
           }else{
             this.initMSG(resData.codemsg)
           }
@@ -174,7 +174,7 @@ export default {
               _this.showImg(localIds);
           }else{
             _this.loadImg = 0;
-            _this.modifyImg(_this.imgUrl[this.loadImg]);
+            _this.modifyImg(_this.imgUrl[_this.loadImg]);
           }
         }
       })
@@ -218,12 +218,12 @@ export default {
             this.imgFile.unshift(resData.result)
             this.loadImg++;
             if (this.loadImg < this.imgUrl.length) {
-              this.modifyImg[this.loadImg]
+              this.modifyImg[this.imgUrl[this.loadImg]]
             }
             // this.getProfile ();
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              // this.goto('/')
+              this.goto('/')
             }else{
               this.initMSG(resData.codemsg)
             }

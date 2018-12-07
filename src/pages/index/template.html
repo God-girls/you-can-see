@@ -10,7 +10,7 @@
     </h3>
     <p class="blueLCR f24">
       <span @click.prevent="praiseBG">
-        <i class="iconfont icon-heart-opp-copy f30"></i> {{sellerInfo.praise}} 赞
+        <i class="iconfont icon-heart-opp-copy f30 redCR"></i> {{sellerInfo.praise}} 赞
       </span>
     </p>
     <dl class="tR" @click.prevent="goto('/my/profile?from=index')">
@@ -53,7 +53,7 @@
             <b >{{isYestday(new Date(item.publish.split('-').join('/')).getTime()) ? '昨天' : '今天'}}</b >
           </dt>
           <dd class="flex1">
-            <h5 class="f30" @click.prevent="goto('/prd/create?id='+item.id)">{{item.desc}}</h5>
+            <h5 class="f30" @click.prevent="editPrd(item)">{{item.desc}}</h5>
             <ul class="blueLCR">
               <li v-for="(item2,index2) in JSON.parse(item.imgs)" @click.prevent="previewImage(item2,item.imgs)">
                 <img :src="globalAvatar+'goods/'+item2+'?imageView2/2/w/300/'" alt="" :onerror="errorImg">

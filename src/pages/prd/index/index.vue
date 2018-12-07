@@ -263,7 +263,7 @@ export default {
           ]
       }));   
       wx.ready(function () {
-        let shareOBJ ={
+        let shareOBJ = {
             title: `${vm.sellerInfo.nick}分享了自己的私人主页，新品首发哦！`,
             desc: '我的私密朋友圈，有喜欢的尽管说，好友专享价！',
             link: vm.ttDomain+'/#/app/login?redirecto=true&seller='+vm.paraData.seller,
@@ -281,7 +281,7 @@ export default {
     },
     reinitShare (item,seller){
       let vm = this;
-      let appID = 'wx357ca89ca431b3ca'
+
       let jumpUrl = this.ttDomain+'/#/app/login?redirecto=true&goodid='+item.goodid+'&seller='+seller;
 
       this.listData[this.curListIndex].showComment = false
@@ -313,9 +313,6 @@ export default {
     },
     defaultData(){
       this.getProfile ();
-      if (this.goodid) {
-        this.fetchPrd();
-      }
     },
     fetchPrd(){
       axios.post('/seller_api/v1/seller/goods_info',qs.stringify({
@@ -331,14 +328,35 @@ export default {
           // alert(JSON.stringify(resData))
           if (resData.success) {
             this.noDataText = ''
-            let tempArr = []
+            let tempArr = [];
+            let vm = this;
             tempArr.push(resData.result)
             this.listData = tempArr;
             this.listLen = 0;
             this.praiseLen = 0;
 
-             this.fetchComment(resData.result.id,true);
-             this.fetchPraise(resData.result,0,true)
+           this.fetchComment(resData.result.id,true);
+           this.fetchPraise(resData.result,0,true)
+           //初始化分享
+          this.shareData.shareText = `${resData.result.title}，种草进我的私人主页: ${this.ttDomain}/#/prd/list?seller=${this.paraData.seller}&fromshare=true${this.goodid?'&goodid='+this.goodid:''}`
+          let jumpUrl = this.ttDomain+'/#/app/login?redirecto=true&goodid='+this.goodid+'&seller='+this.paraData.seller;
+          wx.ready(function () {
+            let shareText ={
+                title: `好友${vm.sellerInfo.nick}分享了自己的宝贝，好友专享价！`,
+                desc: resData.result.title,
+                link:jumpUrl,
+                imgUrl: vm.ttLogoImg,
+                success:function() {
+                },
+                cancel: function () {}
+            };
+            wx.onMenuShareAppMessage(shareText);
+            wx.onMenuShareQQ(shareText);
+            wx.onMenuShareWeibo(shareText);
+            wx.onMenuShareQZone(shareText);
+            wx.onMenuShareTimeline(shareText);
+          })
+
 
           }  else {
             if (resData.code == '403' || resData.code == '250') {
@@ -365,9 +383,9 @@ export default {
             this.sellerInfo = resData.result;
             this.sellerInfo.background = this.sellerInfo.background ? this.sellerInfo.background : ' '
             this.headImg = this.globalAvatar+(this.sellerInfo.avatar?this.sellerInfo.avatar:'')+'?imageView2/2/w/100/h/100/t/';
-            // console.log(this.headImg)
-          }  else {
-            
+            if (this.goodid) {
+              this.fetchPrd();
+            }
           }
       }).catch((response)=>{
         // this.logErrors(JSON.stringify(response))
@@ -484,11 +502,12 @@ export default {
       });  
     },
     praiseBG(){
+      this.changebg = false
       if (this.sellerInfo.praised) {
         this.initMSG('已赞过该封面')
-        this.changebg = false
         return;
       }
+
       axios.post('/seller_api/v1/seller/seller_praise',qs.stringify({
         'uid':this.paraData.uid,
         'seller':this.paraData.uid,

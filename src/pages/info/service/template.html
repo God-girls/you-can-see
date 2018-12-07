@@ -7,31 +7,31 @@
         <dl class="flexBox">
           <dd class="flex1">客服电话</dd>
           <dd class=" posiR">
-            <input id="deLock" type="checkbox" class="ace ace-switch" v-model="show_mobileno">
+            <input id="deLock" type="checkbox" class="ace ace-switch" v-model="paraData.show_mobileno">
             <span class="lbl"></span>
           </dd>
         </dl>
-        <p class="f24" v-if="show_mobileno"> <input type="number" placeholder="请输入客服手机号" v-model = "paraData.service_mobileno" name=""></p>
+        <p class="f24" v-if="paraData.show_mobileno"> <input type="number" placeholder="请输入客服手机号" v-model = "paraData.service_mobileno" name=""></p>
       </li>
       <li class="special">
         <dl class="flexBox">
           <dd class="flex1">客服微信</dd>
           <dd class=" posiR">
-            <input id="deLock" type="checkbox" class="ace ace-switch" v-model="show_weixin">
+            <input id="deLock" type="checkbox" class="ace ace-switch" v-model="paraData.show_weixin">
             <span class="lbl"></span>
           </dd>
         </dl>
-        <p class="f24" v-if="show_weixin"> <input type="text" placeholder="请输入客服微信号" v-model = "paraData.weixin" name=""></p>
+        <p class="f24" v-if="paraData.show_weixin"> <input type="text" placeholder="请输入客服微信号" v-model = "paraData.weixin" name=""></p>
       </li>
       <li class="special">
         <dl class="flexBox">
           <dd class="flex1">客服QQ</dd>
           <dd class=" posiR">
-            <input id="deLock" type="checkbox" class="ace ace-switch" v-model="show_qq">
+            <input id="deLock" type="checkbox" class="ace ace-switch" v-model="paraData.show_qq">
             <span class="lbl"></span>
           </dd>
         </dl>
-        <p class="f24" v-if="show_qq"> <input type="text" placeholder="请输入客服QQ" v-model = "paraData.qq" name=""></p>
+        <p class="f24" v-if="paraData.show_qq"> <input type="text" placeholder="请输入客服QQ" v-model = "paraData.qq" name=""></p>
       </li>
     </ul>
   </div>   

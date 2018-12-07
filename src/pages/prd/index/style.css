@@ -151,6 +151,10 @@
   top: -35px;
   color: #f3f3f4
 }
+.icon-gouwuche{
+  position: relative;
+  top: -2px;
+}
 .stars{
   border-bottom: 1px solid #e2e2e2;/*no*/
   padding-bottom: 5px;

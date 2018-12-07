@@ -10,6 +10,9 @@
   height: 130px;
   margin-right: 15px;
 }
+.detailTop dd p{
+  min-height: 84px;
+}
 .specs {
   padding-bottom: 0
 }

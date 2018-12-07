@@ -71,7 +71,7 @@ export default {
     },
     modifyNick (){
       if (this.checkChar(this.paraData.signature) > 30 || this.checkChar(this.paraData.signature) < 1) {
-        this.initMSG('昵称长度1-16位')
+        this.initMSG('个性签名长度1-16位')
         return
       }
 

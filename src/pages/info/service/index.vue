@@ -30,11 +30,11 @@ export default {
         uid:7,
         service_mobileno:'',
         weixin:'',
-        qq:''
+        qq:'',
+        show_mobileno:true,
+        show_weixin:true,
+        show_qq:true,
       },
-      show_mobileno:true,
-      show_weixin:true,
-      show_qq:true,
       token:'',
       guideType:0,
       serviceInput:'',
@@ -63,9 +63,13 @@ export default {
       this.token = this.TOKEN;
       this.paraData.uid = this.UID;
       this.profile = this.PROFILE;
+
       this.paraData.service_mobileno = this.profile.service_mobileno;
       this.paraData.weixin = this.profile.weixin;
       this.paraData.qq = this.profile.qq;
+     this.paraData.show_mobileno = this.profile.show_mobileno ;
+     this.paraData.show_weixin= this.profile.show_weixin;
+     this.paraData.show_qq =  this.profile.show_qq ;
     }
     if (this.$route.query.from == 'index') {
       this.header.link = '/'
@@ -111,13 +115,21 @@ export default {
             this.profile.service_mobileno = this.paraData.service_mobileno;
             this.profile.weixin = this.paraData.weixin;
             this.profile.qq = this.paraData.qq;
+            this.profile.show_mobileno = this.paraData.show_mobileno;
+            this.profile.show_weixin = this.paraData.show_weixin;
+            this.profile.show_qq = this.paraData.show_qq;
             
             this.switchState({
               PROFILE:this.profile
             })
             this.initMSG('修改成功')
             setTimeout(()=>{
-              this.$router.push('/my/profile')
+              
+              if (this.$route.query.from == 'index') {
+                this.header.link = '/'
+              }else{
+                this.$router.push('/my')
+              }
             },2000)
             
           }  else {

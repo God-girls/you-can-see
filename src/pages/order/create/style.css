@@ -17,6 +17,7 @@
 .publish div textarea{
   width: 100%;
   border:none;
+  min-height: 150px;
 }
 .modifyImg{
   width: 100%;

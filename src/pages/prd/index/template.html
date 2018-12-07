@@ -47,17 +47,16 @@
             </ul>
             <ol class="flexBox">
               <li class="flex1 redCR f30" @click.prevent="goto('/prd/detail?goodid='+item.id+'&seller='+paraData.seller)">
-                <span v-if="item.status == 0"><i class="iconfont icon-gouwuche f36 blueLCR"></i></span> 
-                <span v-else ><i class="iconfont icon-ccgl-xiajia f30 blueLCR"></i></span> 
+                <span><i class="iconfont icon-gouwuche f40 blueLCR"></i></span> 
                 ¥ {{item.price_range}} <span class="grayCR f21 mL10" v-if="item.show_sell">已售{{item.total_sell?item.total_sell:0}}件</span>
               </li>
               <li class="blueLCR" v-if="item.status == 0 && inWeixin">
                 <span  class="mL10" v-if="!item.praised" @click.prevent="praisePrd(item,index)">
-                  <i class="iconfont icon-xinheart282 f30"></i>
+                  <i class="iconfont icon-xinheart282 f36"></i>
                 </span>
                 <!-- <span class="mL10"><i class="iconfont icon-zhuanfa f48"></i></span> -->
                 <span class="mL10" @click.prevent="beforeReply(item,index)" 
-                      v-if="item.show_comment"><i class="iconfont icon-xiaoxi15-copy f30"></i></span>
+                      v-if="item.show_comment"><i class="iconfont icon-xiaoxi15-copy f36"></i></span>
               </li>
             </ol>
           </dd>

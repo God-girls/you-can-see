@@ -853,6 +853,14 @@ export default {
       }
       this.$router.push(arr)
     },
+    editPrd(item){
+      if (item.status != 0) {
+        this.initMSG('请先下架商品后再编辑')
+        return;
+      }else{
+        this.goto('/prd/create?id='+item.id)
+      }
+    },
     closeDialog (arr){
       this[arr] = false;
     },
@@ -863,7 +871,7 @@ export default {
       var imgs = JSON.parse(this.curList.imgs)
       var poster = {
         width:750,
-        height:978,
+        height:1020,
         imgWidth:460,
         lineWidth:16,
         lastTop:0,

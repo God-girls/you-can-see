@@ -73,7 +73,7 @@ export default {
     this.paraData.desc = this.CART.desc;
     this.imgUrl = this.CART.imgUrl?this.CART.imgUrl:[]; 
     this.choosed = this.imgUrl.length ? this.imgUrl.length : 0;
-    this.autoTextarea(document.getElementById("text"),'',400)
+    this.autoTextarea(document.getElementById("text"),'',500)
     if (this.$route.query.id) {
       this.prdID = this.$route.query.id
       // debugger
@@ -104,7 +104,7 @@ export default {
         if (resData.success) {
           // debugger          
           this.imgFile = JSON.parse(resData.result.imgs); 
-          this.paraData.desc = resData.result.title;
+          this.paraData.desc = resData.result.description;
           this.imgUrl = []
           for (var i = 0; i < this.imgFile.length; i++) {
             this.imgUrl.push(this.globalAvatar+'goods/'+this.imgFile[i])
@@ -329,7 +329,7 @@ export default {
         this.loading = false;        
           let resData = response.data;  
           if (resData.success) {
-            this.initMSG('发布成功');
+            this.initMSG(this.prdID?'修改成功':'发布成功');
             setTimeout(()=>{
               this.goto('/')
             },2000)

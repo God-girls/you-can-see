@@ -30,7 +30,7 @@ export default {
   mounted (){
 
     if (this.$route.query.search) {
-      this.testToken()
+      location.href = html.openInWechat(this.ttDomain + '/#/app/author?jumpto=/order/list');
       return;
     }
     if (this.$route.query.redirecto) {

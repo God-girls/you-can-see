@@ -75,10 +75,8 @@ export default {
       this.isAndroid = true;
     }
     if (this.TOKEN) {
-      this.profile = this.PROFILE
       this.paraData.uid = this.UID;
       this.token = this.TOKEN;
-      this.headImg = this.globalAvatar+(this.profile.avatar?this.profile.avatar:'')+'?imageView2/2/w/200/h/200/';
       this.getProfile()
     }
     document.body.addEventListener('touchstart', function () {});
@@ -101,6 +99,7 @@ export default {
           
           if (resData.success) {
             this.profile = resData.result;
+            this.headImg = this.globalAvatar+(this.profile.avatar?this.profile.avatar:'')+'?imageView2/2/w/200/h/200/';
             this.switchState({
               PROFILE:resData.result,
             })

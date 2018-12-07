@@ -346,7 +346,7 @@ export default {
             this.sellerInfo = resData.result;
             this.sellerInfo.background = this.sellerInfo.background ? this.sellerInfo.background : ' '
             this.headImg = this.globalAvatar+(this.sellerInfo.avatar?this.sellerInfo.avatar:'')+'?imageView2/2/w/100/h/100/t/';
-            // console.log(this.headImg)
+            console.log(this.sellerInfo)
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.redirect();
@@ -434,7 +434,7 @@ export default {
             if (resData.code == '403' || resData.code == '250') {
               if(done) done(done);
               this.bugInfinite = true;
-              // this.redirect();
+              this.redirect();
             }
             else this.initMSG(resData.msg);
           }

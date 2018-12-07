@@ -5,6 +5,7 @@
 import {setupWebViewJavascriptBridge} from '../../../assets/js/iosbridge.js';
 import loading from '../../../components/base/loading'
 import myhead from '../../../components/base/header'
+import imageClipper from '../../../components/base/imageClipper'
 import {html} from '../../../assets/js/global.js';
 import modalDialog from '../../../components/base/dialog'
 import { mapState, mapActions } from 'vuex'
@@ -41,13 +42,16 @@ export default {
         version:'',
         push:''
       },
-      isWechat:false
+      isWechat:false,
+      showClipper:false,
+      img: ''
     }
   },
   components: {
     loading,
     myhead,
-    modalDialog
+    modalDialog,
+    imageClipper
   },
   computed:{
     ...mapState([
@@ -72,6 +76,7 @@ export default {
       this.profile = this.PROFILE;
       // if (html.isWawa()) this.pushpop = this.PUSHPOP
       this.headImg = this.globalAvatar+(this.profile.avatar?this.profile.avatar:'')+'?imageView2/2/w/210/h/210/t/'+new Date().getTime();
+      // this.img = this.globalAvatar+(this.profile.avatar?this.profile.avatar:'')
     }
     if (this.$route.query.from == 'index') {
       this.header.link = '/'
@@ -137,9 +142,16 @@ export default {
             //第一个替换的是换行符，第二个替换的是图片类型，因为在IOS机上测试时看到它的图片类型时jgp，
             //这不知道时什么格式的图片，为了兼容其他设备就把它转为jpeg
             _this.headImg = localData//images是业务中用到的变量
-            _this.modifyImg(localData);
+            _this.img = localData;
+            _this.showClipper = true;
+            // _this.modifyImg(localData);
         }
       })
+    },
+    ok(data){
+      // let $image = new Image();
+      alert(data)
+      this.modifyImg(data);
     },
     modifyImg (localData){
 

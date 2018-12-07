@@ -1,9 +1,11 @@
 <Layout>
-  <myhead slot="header" :hval="header"></myhead>
+  <myhead slot="header" :hval="header" v-if="!header.opacity"></myhead>
 
   <div>
-    <div class="header posiR whiteCR">
-      <i class="iconfont icon-fanhui f36" @click.prevent="goto('/my')" v-if="isWechat"></i>
+    <div class="header posiR">
+      <span @click.prevent="goto(header.link)" v-if="header.opacity">
+        <i class="iconfont icon-fanhui f36"></i>
+      </span>      
       <dl class="tC">
         <dt>
           <p class="img" @click.prevent="chooseImg">
@@ -13,7 +15,6 @@
       </dl>
     </div>
   </div>
-
     <div class="my-set f30">
       <ul>
         <router-link tag="li" to="/my/nick">
@@ -69,5 +70,11 @@
       </ul>
 
     </div>    
-  
+    
+    <div slot="footer">
+      <div class="clipper" v-if="showClipper">
+        <image-clipper :img="img" @cancel="closeDialog('showClipper')" @ok="ok" :clipper-img-width="500" :clipper-img-height="500"></image-clipper>        
+      </div>
+
+    </div>
 </Layout>

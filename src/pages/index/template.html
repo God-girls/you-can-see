@@ -6,8 +6,7 @@
     
     <h3 @click.prevent="changebg = true">
       <img :src="sellerInfo.background" alt="" class="head" v-if="sellerInfo.background && sellerInfo.background.indexOf('data:image/') > -1" >
-      <img :src="globalAvatar+sellerInfo.background" alt="" class="head" v-else-if="sellerInfo.background && sellerInfo.background.indexOf('.jpg') > -1" :onerror="errorBg">
-      <img :src="errorBg" alt="" class="head" v-else>
+      <img :src="globalAvatar+sellerInfo.background" alt="" class="head" v-else :onerror="errorBg">
     </h3>
     <p class="blueLCR f24">
       <span @click.prevent="praiseBG">

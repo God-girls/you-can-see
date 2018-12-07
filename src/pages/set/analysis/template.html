@@ -99,8 +99,7 @@
             {{index+1}}
           </td>
           <td>
-            <img :src="globalAvatar+'goods/'+item.head_image" alt="" v-if="item.head_image">
-            <img :src="errorImg" alt="" v-else>
+            <img :src="globalAvatar+'goods/'+item.head_image" alt="" v-if="item.head_image"  :onerror="errorImg">
           </td>
           <td>
             {{item.title}}
@@ -129,8 +128,7 @@
           <dl class="flexBox" v-for="(item,index) in allPrdData" 
             @click.prevent="setSellerInfo(item)">
             <dd>
-              <img :src="globalAvatar+'goods/'+JSON.parse(item.imgs)[0]+'?imageView2/2/w/300/h/300/t/'" alt="" v-if="item.imgs">
-              <img :src="errorImg" alt="" v-else>
+              <img :src="globalAvatar+'goods/'+JSON.parse(item.imgs)[0]+'?imageView2/2/w/300/h/300/t/'" alt="" v-if="item.imgs"  :onerror="errorImg">
             </dd>
             <dt class="flex1">
               <h5 class="blackCR">{{item.title}}</h5>

@@ -353,9 +353,9 @@ export default {
 
       if (this.addressList.length) {
         let tempUse = JSON.parse(this.addressList[this.selectIndex].info)
-        if (this.paraReceive.name == tempUse.name ||
-            this.paraReceive.tel == tempUse.tel ||
-            this.paraReceive.address == tempUse.address ||
+        if (this.paraReceive.name == tempUse.name &&
+            this.paraReceive.tel == tempUse.tel &&
+            this.paraReceive.address == tempUse.address &&
             this.paraReceive.district == tempUse.district.Province + ' ' + tempUse.district.City + ' '  + tempUse.district.District) {
           this.addressID = this.addressList[this.selectIndex].id;
         }

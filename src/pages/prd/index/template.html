@@ -3,9 +3,7 @@
   <div class="header posiR f30">
     
     <h3 @click.prevent="changebg = true">
-      <img :src="globalAvatar+sellerInfo.background" alt="" class="head" v-if="sellerInfo.background">
-      <img :src="errorBg" alt="" class="head" v-else>
-
+      <img :src="globalAvatar+sellerInfo.background" alt="" class="head" v-if="sellerInfo.background"  :onerror="errorBg">
     </h3>
     <p class="blueLCR f24">
       <span>
@@ -18,7 +16,7 @@
           <li class="flex1 whiteCR f36 text-overflow" @click.prevent="myContact = true">
             <i class="iconfont icon-erji f48 redCR"></i> {{sellerInfo.nick}}
           </li>
-          <li @click.prevent="initDefault">
+          <li @click.prevent="initDefault" class="default">
             <img :src="headImg" alt="">
           </li>
         </ol>
@@ -45,19 +43,20 @@
                 <li @click.prevent="previewImage(item2,item.imgs)">
                   <img :src="globalAvatar+'goods/'+item2+'?imageView2/2/w/300/'" alt="" :onerror="errorImg">
                 </li>
+                <li class="" v-if="JSON.parse(item.imgs).length == 4 && index2 == 1"></li>
               </template>
             </ul>
             <ol class="flexBox">
-              <li class="flex1 redCR f30" @click.prevent="goto('/prd/detail?goodid='+item.id+'&seller='+paraData.seller)">
+              <li class="flex1 redCR f24" @click.prevent="goto('/prd/detail?goodid='+item.id+'&seller='+paraData.seller)">
                 <span><i class="iconfont icon-gouwuche f40 blueLCR"></i></span> 
-                ¥ {{item.price_range}} <span class="grayCR f21 mL10" v-if="item.show_sell">已售{{item.total_sell?item.total_sell:0}}件</span>
+                <b class="f36">¥ {{item.price_range}}</b> <span class="grayCR mL10" v-if="item.show_sell">已售{{item.total_sell?item.total_sell:0}}件</span>
               </li>
               <li class="blueLCR" v-if="item.status == 0 && inWeixin">
                 <span  class="mL10" v-if="!item.praised" @click.prevent="praisePrd(item,index)">
                   <i class="iconfont icon-xinheart282 f36"></i>
                 </span>
-                <!-- <span class="mL10"><i class="iconfont icon-zhuanfa f48"></i></span> -->
-                <span class="mL10" @click.prevent="beforeReply(item,index)" 
+
+                <span class="mL20" @click.prevent="beforeReply(item,index)" 
                       v-if="item.show_comment"><i class="iconfont icon-xiaoxi15-copy f36"></i></span>
               </li>
             </ol>

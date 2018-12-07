@@ -37,7 +37,8 @@ export default {
       jumpUrl += encodeURIComponent(params);
 
       if (html.isWechat()) location.href = html.openInWechat(jumpUrl);
-      else  location.href = html.openInOher(jumpUrl)
+      else if (html.inqq())  location.href = html.openInOher(jumpUrl);
+      else this.goto(params)
       return;
     }
     if (html.isWechat()) {//如果是在微信

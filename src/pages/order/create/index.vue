@@ -154,7 +154,7 @@ export default {
     },
     showImg(localIds){
       let _this = this;
-      let localId = localIds.pop();
+      let localId = localIds.splice(0,1);
       wx.getLocalImgData({
         localId: localId,
         success: function (res) {

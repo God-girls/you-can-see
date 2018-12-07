@@ -284,7 +284,7 @@ export default {
       wx.ready(function () {
         let shareOBJ ={
             title: `${vm.profile.nick}分享了自己的私人主页，新品首发哦！`,
-            desc: '我的私密朋友圈，有喜欢的尽管说，好友专享价！',
+            desc: vm.profile.signature ? vm.profile.signature : '我的好货朋友圈，有喜欢的尽管说，好友专享价！',
             link: vm.ttDomain+'/#/app/login?redirecto=true&seller='+vm.paraData.uid,
             imgUrl: vm.ttLogoImg,
             success:function () {
@@ -707,6 +707,9 @@ export default {
       });  
     },
     goodsComment (){
+      if (this.comment.tips == '') {
+        this.initMSG('评论内容不能为空')
+      }
       if (this.placeholder.indexOf('回复') > -1) {
         this.replyComment()
         return
@@ -891,7 +894,7 @@ export default {
       var canvas = document.createElement("canvas");
       var ctx = canvas.getContext("2d");
 
-      drawCanvas.height = 978;
+      drawCanvas.height = poster.height;
       drawCanvas.width = poster.width;
       
 

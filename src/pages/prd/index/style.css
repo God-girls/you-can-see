@@ -19,12 +19,16 @@
   bottom: -45px;
   width: 70%;
 }
+.header .default{
+  width: 150px;
+  height: 140px;
+}
 .header dl img{
   width: 130px;
   height: 130px;
   border: 5px solid #fff;
   background: #fff;
-  margin-left: 20px;
+  /*margin-left: 20px;*/
 }
 .header dl li.flex1{
   position: relative;
@@ -82,10 +86,11 @@
   /*color: #5b6a91;*/
 }
 .oneTop ol{
-  padding-top: 3px;
+  padding-top: 10px;
 }
-.oneTop ol span{
-  /*margin-left: 10px;*/
+.oneTop ol .grayCR{
+  position: relative;
+  top: -3px;
 }
 .oneTop ul {
   display: flex;

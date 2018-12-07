@@ -6,8 +6,8 @@
     
     <h3 @click.prevent="changebg = true">
       <img :src="sellerInfo.background" alt="" class="head" v-if="sellerInfo.background.indexOf('data:image/') > -1" >
-      <img :src="globalAvatar+sellerInfo.background" alt="" class="head" v-else-if="sellerInfo.background.indexOf('.jpg') > -1">
-      <img :src="errorBg" alt="" class="head" v-else>
+      <img :src="globalAvatar+sellerInfo.background" alt="" class="head" v-else-if="sellerInfo.background.indexOf('.jpg') > -1" :onerror="errorBg">
+      <!-- <img :src="errorBg" alt="" class="head" v-else> -->
     </h3>
     <p class="blueLCR f24">
       <span @click.prevent="praiseBG">
@@ -19,7 +19,8 @@
         <ol class="flexBox">
           <li class="flex1 whiteCR f36">{{sellerInfo.nick}}</li>
           <li>
-            <img :src="headImg" alt="">
+            <img :src="headImg" alt="" v-if="headImg">
+            <img :src="ttLogoImg" alt="" v-else>
           </li>
         </ol>
       </dt>
@@ -45,7 +46,7 @@
     </div>
 
     <div class="conOne" v-for="(item,index) in listData" v-if="listData[0].id">
-      <div class="oneTop">
+      <div :class="['oneTop',{'grayBG':item.status != 0}]">
         <dl class="flexBox">
           <dt v-if="formatDateTime(new Date().getTime()) != item.publish.split(' ')[0] && !isYestday(new Date(item.publish.split('-').join('/')).getTime())">
             <b >{{item.publish.split(' ')[0].split('-')[2]}}</b>{{item.publish.split(' ')[0].split('-')[1]}}月
@@ -56,16 +57,19 @@
           <dd class="flex1">
             <h5 class="f30" @click.prevent="editPrd(item)">{{item.desc}}</h5>
             <ul class="blueLCR">
-              <li v-for="(item2,index2) in JSON.parse(item.imgs)" @click.prevent="previewImage(item2,item.imgs)">
-                <img :src="globalAvatar+'goods/'+item2+'?imageView2/2/w/300/'" alt="" :onerror="errorImg">
-              </li>
+              <template v-for="(item2,index2) in JSON.parse(item.imgs)">
+                <li @click.prevent="previewImage(item2,item.imgs)">
+                  <img :src="globalAvatar+'goods/'+item2+'?imageView2/2/w/300/'" alt="" :onerror="errorImg">
+                </li>
+                <li v-if="JSON.parse(item.imgs).length == 4 && index2 == 1"></li>                
+              </template>
             </ul>
             <ol class="flexBox">
-              <li class="flex1 redCR f30">
+              <li class="flex1 redCR f24">
                 <span v-if="item.status == 0"
                      @touchend.prevent="beforeOnoff(item,1)"><i class="iconfont icon-xiajia f36 blueLCR"></i></span> 
                 <span v-else  @touchend.prevent="beforeOnoff(item,2)"><i class="iconfont icon-ccgl-xiajia f36 blueLCR"></i></span> 
-                ¥ {{item.price_range}} <span class="grayCR f21 mL10">已售{{item.total_sell?item.total_sell:0}}件</span>
+                <b class="mL10 f36">¥ {{item.price_range}}</b> <span class="grayCR mL10">已售{{item.total_sell?item.total_sell:0}}件</span>
               </li>
 
               <li class="blueLCR posiR" v-if="item.status == 0">

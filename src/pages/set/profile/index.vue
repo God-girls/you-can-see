@@ -43,8 +43,8 @@ export default {
         push:''
       },
       isWechat:false,
-      showClipper:true,
-      img: require('../../../assets/img12/poster/christmas/bgtop.jpg')
+      showClipper:false,
+      img: ''
     }
   },
   components: {

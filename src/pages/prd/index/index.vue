@@ -552,9 +552,6 @@ export default {
             }else{
               this.listData[index].praised = true;
             }
-          }  else {
-            
-            // console.log(resData.msg);
           }
       }).catch((response)=>{
         // this.logErrors(JSON.stringify(response))
@@ -565,8 +562,8 @@ export default {
       this.comment.cid = item.id;
       this.replyIndex = index;
       if (item.uid == this.UID) {
-        this.del = true;
-        this.popIndex = 0;
+        this.reply = true;
+        // this.popIndex = 0;
         this.placeholder = '评论'
       }else{
         this.reply = true;
@@ -574,9 +571,6 @@ export default {
       }
     },
     replyComment (type){
-      if (this.comment.tips == '') {
-        this.initMSG('评论内容不能为空')
-      }
 
       axios.post('/seller_api/v1/seller/reply_comment',qs.stringify({
         uid:this.paraData.uid,
@@ -684,6 +678,10 @@ export default {
       });  
     },
     goodsComment (){
+      if (!this.comment.tips) {
+        this.reply = false;
+        return;
+      }
       if (this.placeholder.indexOf('回复') > -1) {
         this.replyComment()
         return

@@ -49,6 +49,7 @@ export default {
       setTel:false,
       popBuy:false,
       popFriend:false,
+      oneReply:false,
       changebg:false,
       countBonus:0,
       statusBar:{},
@@ -598,7 +599,7 @@ export default {
         this.popIndex = 0;
         this.placeholder = '评论'
       }else{
-        this.reply = true;
+        this.oneReply = true;
         this.placeholder = '回复'+item.nick+'：';
       }
     },
@@ -707,8 +708,9 @@ export default {
       });  
     },
     goodsComment (){
-      if (this.comment.tips == '') {
-        this.initMSG('评论内容不能为空')
+      if (!this.comment.tips) {
+        this.reply = false;
+        return;
       }
       if (this.placeholder.indexOf('回复') > -1) {
         this.replyComment()

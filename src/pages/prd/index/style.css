@@ -44,7 +44,7 @@
 }
 .icon-erji{
   position: relative;
-  top: -3px;
+  /*top: -3px;*/
 }
 /*购买商品*/
 .conOne{
@@ -241,7 +241,11 @@
   padding: 5px 10px;
 
 }
-
+.del-footer p{
+  width: 380px;
+  display: inline-block;
+  text-align: left;
+}
 .buyFoot{
   padding: 30px;
 }

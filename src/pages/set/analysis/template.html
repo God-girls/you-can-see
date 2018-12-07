@@ -34,7 +34,7 @@
         </li>
         <li class="posiR">
           本月售出（件）
-          <p>{{saleData.month_sale_count?saleData.month_sale_count:'0.00'}}</p>
+          <p>{{saleData.month_sale_count?saleData.month_sale_count:'0'}}</p>
         </li>
       </ul>
     </div>    
@@ -65,7 +65,7 @@
     <div class="balance f30">
       <dl class="flexBox blackCR">
         <dt>总收入：</dt>
-        <dd class="grayCR">{{listData.total_amount?listData.total_amount:0}} 元</dd>
+        <dd class="grayCR">{{listData.total_amount?listData.total_amount:'0.00'}} 元</dd>
       </dl>
       <dl class="flexBox blackCR">
         <dt>售出商品：</dt>

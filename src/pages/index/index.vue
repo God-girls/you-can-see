@@ -64,7 +64,7 @@ export default {
       placeholder:'评论',
       fetBonusType:[],
       popDel:{
-        title:['删除我的评论','下架本条商品','上架本条商品','置顶本条商品','复制本条商品'],
+        title:['删除当前评论','下架本条商品','上架本条商品','置顶本条商品','复制本条商品'],
         content:['删除','下架','上架','置顶','复制']
       },
       popIndex:0,
@@ -628,7 +628,8 @@ export default {
   
     },
     beforeReply(item,index){
-      // debugger
+      this.popIndex = 0;
+      this.placeholder = '评论'
       this.comment.gid = item.id;
       this.reply = true;
       this.replyIndex = index;

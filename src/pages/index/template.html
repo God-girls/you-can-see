@@ -210,8 +210,8 @@
     <dialog-del :dialogshow2.sync="oneReply" @hide="closeDialog('oneReply')">
         <div slot="dialog-footer" class="del-footer tC f30">
           <dl>
-            <dt @touchend.prevent="del = true" class="grayCR f24">删除当前评论</dt>
-            <dd class="redCR" @touchend.prevent="reply = true">回复当前评论</dd>
+            <dt @touchend.prevent="delComment();oneReply=false" class="grayCR f24">删除当前评论</dt>
+            <dd class="redCR" @touchend.prevent="reply = true;oneReply=false">回复当前评论</dd>
             <dd @touchend.prevent="closeDialog('oneReply')">取消</dd>
           </dl>          
         </div>

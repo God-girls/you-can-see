@@ -43,8 +43,8 @@ export default {
         push:''
       },
       isWechat:false,
-      showClipper:false,
-      img: ''
+      showClipper:true,
+      img: require('../../../assets/img12/poster/christmas/bgtop.jpg')
     }
   },
   components: {
@@ -141,7 +141,7 @@ export default {
             localData = localData.replace(/\r|\n/g, '').replace('data:image/jgp', 'data:image/jpeg')
             //第一个替换的是换行符，第二个替换的是图片类型，因为在IOS机上测试时看到它的图片类型时jgp，
             //这不知道时什么格式的图片，为了兼容其他设备就把它转为jpeg
-            _this.headImg = localData//images是业务中用到的变量
+            // _this.headImg = localData//images是业务中用到的变量
             _this.img = localData;
             _this.showClipper = true;
             // _this.modifyImg(localData);
@@ -150,11 +150,13 @@ export default {
     },
     ok(data){
       // let $image = new Image();
-      alert(data)
-      this.modifyImg(data);
+      // alert(data)
+      this.modifyImg(data.replace('data:image/png', 'data:image/jpeg'));
     },
     modifyImg (localData){
-
+      this.headImg = localData;
+      // console.log(localData)
+      // return;
       axios.post('/seller_api/v1/user/upd_profile',qs.stringify({
         uid:this.paraData.uid,
         avatar_b64:localData
@@ -167,6 +169,7 @@ export default {
           let resData = response.data;  
           if (resData.success) {
             this.getProfile ();
+            this.showClipper = false;
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.goto('/')

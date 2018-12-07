@@ -234,9 +234,13 @@ export default {
 
           if (resData.success) {
             if (resData.result.items.length) {
-               this.allPrdData = resData.result.items;
-               this.sellerInfo = resData.result.items[0]
-               this.totalPages = resData.result.totalPageCount;              
+              if (this.paraData.pn == 1) {
+                this.sellerInfo = resData.result.items[0];
+                this.allPrdData = resData.result.items;
+                this.totalPages = resData.result.totalPageCount;
+              }else{
+                this.allPrdData = this.allPrdData.concat(resData.result.items)
+              }              
             }
           }  else {
             if (resData.code == '403' || resData.code == '250') {

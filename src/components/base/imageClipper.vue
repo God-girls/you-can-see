@@ -167,8 +167,8 @@
                 let $canvas = this.$refs.canvas,
                     $pCanvas = this.$refs.pCanvas,
                     clipperClientRect = this.$refs.clipper.getBoundingClientRect(),
-                    clipperWidth = parseInt(this.clipperImgWidth / window.devicePixelRatio),
-                    clipperHeight = parseInt(this.clipperImgHeight / window.devicePixelRatio);
+                    clipperWidth = parseInt(this.clipperImgWidth / 1),
+                    clipperHeight = parseInt(this.clipperImgHeight / 1);
 
                 this.ctx = $canvas.getContext('2d');
                 this.pCtx = $pCanvas.getContext('2d');
@@ -456,7 +456,7 @@
                 $pCanvas.height = $pCanvas.height;
             },
             _ratio(size) {
-                return parseInt(window.devicePixelRatio * size);
+                return parseInt(1 * size);
             },
             _pointDistance(x1, y1, x2, y2) {
                 return parseInt(Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)));

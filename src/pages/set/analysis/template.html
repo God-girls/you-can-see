@@ -138,7 +138,7 @@
               <i class="iconfont icon-jiantou f36 lightCR"></i>
             </dd>
           </dl>
-          <p class="greenCR tC" v-if="paraData.pn != totalPages" @click.prevent="paraData.pn++;fetchList">查看更多</p>
+          <p class="greenCR tC" v-if="paraData.pn != totalPages" @click.prevent="paraData.pn++;fetchList()">查看更多</p>
         </div>        
 <!--         <dl class="dialog-footer" slot="dialog-footer">
           <dd @touchend.prevent="closeDialog('selectOne')">

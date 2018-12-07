@@ -470,12 +470,12 @@ export default {
         this.totalPageCount = -1;
         this.paraData.pn = 1;
         if (!this.goodid) this.fetchList(done);  
-        else done(true)
+        else this.fetchPrd()
       },1000)
     },
     onInfinite(done) {  
       this.indexDone = done;   
-      // console.log('infinite')
+
       if (this.goodid) {
         done(true)
       }else this.fetchList(done);

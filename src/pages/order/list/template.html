@@ -37,7 +37,9 @@
         <dd>
           <ul class="flexBox">
             <li class="special">
-              <img :src="globalAvatar+'goods/'+item.head_image+'?imageView2/2/w/300/h/300/t/'" alt="" :onerror="errorImg">
+              <!-- {{errorImg}} -->
+              <img v-if="item.head_image" :src="globalAvatar+'goods/'+item.head_image+'?imageView2/2/w/300/h/300/t/'" alt="" >
+              <img :src="errorImg" alt="" v-else>
             </li>
             <li class="f30 flex1">
               {{item.title}}

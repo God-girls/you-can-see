@@ -6,7 +6,8 @@
     
     <h3 @click.prevent="changebg = true">
       <img :src="sellerInfo.background" alt="" class="head" v-if="sellerInfo.background.indexOf('data:image/') > -1" >
-      <img :src="globalAvatar+sellerInfo.background" alt="" class="head" v-if="sellerInfo.background.indexOf('.jpg') > -1" :onerror="errorBg">
+      <img :src="globalAvatar+sellerInfo.background" alt="" class="head" v-else-if="sellerInfo.background.indexOf('.jpg') > -1">
+      <img :src="errorBg" alt="" class="head" v-else>
     </h3>
     <p class="blueLCR f24">
       <span @click.prevent="praiseBG">
@@ -43,7 +44,7 @@
       </div>
     </div>
 
-    <div class="conOne" v-for="(item,index) in listData">
+    <div class="conOne" v-for="(item,index) in listData" v-if="listData[0].id">
       <div class="oneTop">
         <dl class="flexBox">
           <dt v-if="formatDateTime(new Date().getTime()) != item.publish.split(' ')[0] && !isYestday(new Date(item.publish.split('-').join('/')).getTime())">

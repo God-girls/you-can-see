@@ -233,9 +233,11 @@ export default {
           let resData = response.data;  
 
           if (resData.success) {
-           this.allPrdData = resData.result.items;
-           this.sellerInfo = resData.result.items[0]
-           this.totalPages = resData.result.totalPageCount
+            if (resData.result.items.length) {
+               this.allPrdData = resData.result.items;
+               this.sellerInfo = resData.result.items[0]
+               this.totalPages = resData.result.totalPageCount;              
+            }
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.needLogin = true;
@@ -248,6 +250,10 @@ export default {
 
     },
     getList(done){
+      if (!this.prdGid) {
+        this.noData = true;
+        return;
+      }
       this.noData = false;
       axios.post('/seller_api/v1/seller/goods_chart',qs.stringify({
         uid:this.paraData.uid,
@@ -264,24 +270,26 @@ export default {
           
           if (resData.success) {
             let ranks = resData.result;
-              this.listData = ranks;
+              if (ranks.length) {
+                this.listData = ranks;
 
-              let lineData = resData.result.list;
-              let count = 0;
-              let xData = [];
-              let yData = [];
-              // console.log(resData)
-              for (let i = 0; i < lineData.length; i++) {
-                xData.push(lineData[i].id);
-                yData.push(lineData[i].amount);
-                count = html.add(count,lineData[i].count);
+                let lineData = resData.result.list;
+                let count = 0;
+                let xData = [];
+                let yData = [];
+                // console.log(resData)
+                for (let i = 0; i < lineData.length; i++) {
+                  xData.push(lineData[i].id);
+                  yData.push(lineData[i].amount);
+                  count = html.add(count,lineData[i].count);
+                }
+                // console.log(count)
+                if (count) {
+                  this.$nextTick(function(){
+                      this.drawLine (xData,yData);
+                  })
+                }else this.noData = true;                          
               }
-              // console.log(count)
-              if (count) {
-                this.$nextTick(function(){
-                    this.drawLine (xData,yData);
-                })
-              }else this.noData = true;          
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.$router.push('/')

@@ -10,7 +10,7 @@
           @click.prevent="changeTabs(index)">{{item.name}}</li>
     </ul>
   </div>
-  <div class="detailTop" v-show="isCur == 1">
+  <div class="detailTop" v-show="isCur == 1 && sellerInfo.title">
     <dl class="flexBox" @click.prevent="selectOne = true;">
       <dt>
         <img :src="globalAvatar+'goods/'+JSON.parse(sellerInfo.imgs)[0]+'?imageView2/2/w/300/h/300/t/'" alt="" :onerror="errorImg">
@@ -65,11 +65,11 @@
     <div class="balance f30">
       <dl class="flexBox blackCR">
         <dt>总收入：</dt>
-        <dd class="grayCR">{{listData.total_amount}} 元</dd>
+        <dd class="grayCR">{{listData.total_amount?listData.total_amount:0}} 元</dd>
       </dl>
       <dl class="flexBox blackCR">
         <dt>售出商品：</dt>
-        <dd class="grayCR">{{listData.total_count}} 件</dd>
+        <dd class="grayCR">{{listData.total_count?listData.total_count:0}} 件</dd>
       </dl>
     </div>
     
@@ -99,7 +99,8 @@
             {{index+1}}
           </td>
           <td>
-            <img :src="globalAvatar+'goods/'+item.head_image" alt="" :onerror="errorImg">
+            <img :src="globalAvatar+'goods/'+item.head_image" alt="" v-if="item.head_image">
+            <img :src="errorImg" alt="" v-else>
           </td>
           <td>
             {{item.title}}
@@ -128,7 +129,8 @@
           <dl class="flexBox" v-for="(item,index) in allPrdData" 
             @click.prevent="setSellerInfo(item)">
             <dd>
-              <img :src="globalAvatar+'goods/'+JSON.parse(item.imgs)[0]+'?imageView2/2/w/300/h/300/t/'" alt="">
+              <img :src="globalAvatar+'goods/'+JSON.parse(item.imgs)[0]+'?imageView2/2/w/300/h/300/t/'" alt="" v-if="item.imgs">
+              <img :src="errorImg" alt="" v-else>
             </dd>
             <dt class="flex1">
               <h5 class="blackCR">{{item.title}}</h5>

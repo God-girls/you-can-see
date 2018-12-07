@@ -25,7 +25,7 @@ export default {
   },
   data () {
     return {
-      listData: [{showComment:false,publish:'  ',imgs:'[]'}], // 下拉更新数据存放数组
+      listData: [{showComment:false,publish:'',imgs:'[]'}], // 下拉更新数据存放数组
       isCur: 0,
       isSlider:0,
       header:{
@@ -401,15 +401,17 @@ export default {
           if (resData.success) {
             let ranks = resData.result;
             this.totalPageCount = ranks.totalPageCount;
-
+              if (ranks.items.length == 0) {
+                if(done) done();
+                return;
+              }
               if (this.paraData.pn == 1) {
                   
                   for (var i = 0; i < ranks.items.length; i++) {
                     ranks.items[i].showComment = false;
                   }
                   this.listData = ranks.items;
-                  // if (this.listData.length < 6) this.noDataText = '';
-                  // else this.noDataText = '-----技术支持：公众号“小小麦的家"-----';
+
                   if (this.listData.length == 0) this.noData = true;
               }
               else {
@@ -745,7 +747,7 @@ export default {
           }
         }).then((response)=>{   
           let resData = response.data;   
-          // debugger;
+          if (flag && this.listLen >= this.listData.length) return;
           if (resData.success) {
             this.listData[flag ? this.listLen : this.replyIndex].comment_head = resData.result.items.length ? JSON.stringify(resData.result.items) : ''
             if (flag) {
@@ -757,7 +759,7 @@ export default {
             this.initMSG(resData.codemsg);
           }
       }).catch((response)=>{
-        this.initMSG('网络异常再试一次');
+        // this.initMSG('网络异常再试一次');
       });  
     },
     chooseImg(){

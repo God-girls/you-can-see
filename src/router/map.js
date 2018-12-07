@@ -179,10 +179,10 @@ export default {
 			require(['pages/order/price'], resolve)
 		}
 	},
-	'/order/select': {//选择地址
-		meta: { title: '选择收货地址'},
+	'/order/buyer': {//选择地址
+		meta: { title: '已购宝贝'},
 		component: (resolve) => {
-			require(['pages/order/select'], resolve)
+			require(['pages/order/buyer'], resolve)
 		}
 	},
 	'/prd/list': {

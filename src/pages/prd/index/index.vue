@@ -748,7 +748,11 @@ export default {
       },2000)
     },
     redirect (){
-
+      if (this.iAmGuest) {
+        this.goto('/app/login')
+        this.$router.isBack = true;
+        return;
+      }
       if (html.isWawa()) {
         this.needLogin = false;
         this.lock = true;
@@ -760,9 +764,9 @@ export default {
       }
       else {
         if (html.isWechat()) {
-          this.goto('/app/login')
+          location.href = html.openInWechat(this.ttDomain+'/#/app/app')
         }else{
-          this.goto('/app/login')
+          // this.goto('/app/login')
         }
       }
     },

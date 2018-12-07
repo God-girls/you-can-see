@@ -846,7 +846,7 @@ export default {
       }
       else {
         if (html.isWechat()) {
-          html.openInWechat(this.ttDomain+'/#/app/author')
+          location.href = html.openInWechat(this.ttDomain+'/#/app/author')
         }else{
           // this.goto('/app/login')
         }

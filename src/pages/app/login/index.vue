@@ -47,11 +47,7 @@ export default {
       this.getLogin2();
       this.paraData.oatype = 'qq'
     }else{
-      console.log('121212',this.$route.query.jumpto)
-
-      // console.log(params)
       this.goto(this.$route.query.jumpto)
-
     }
 
   },

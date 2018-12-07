@@ -1,0 +1,91 @@
+<Layout>
+  <div slot="header" class="head">
+    <dl class="flexBox">
+      <dt>
+        <img :src="headImg" alt="" :onerror="defaultHead">
+      </dt>
+      <dd class="blackCR f30">
+        {{profile.nick}}
+      </dd>
+      <dd class="flex1 tR grayCR" >
+        已购宝贝 {{totalBuy}} 件
+      </dd>
+    </dl>
+  </div>
+
+  <scroller :on-refresh="onRefresh" :noDataText="noDataText" :on-infinite="onInfinite"  ref="my_scroller">
+
+    <div class="prdOne blackCR" v-for="(item,index) in listData">
+      <dl>
+        <dt class="grayCR">
+          <span class="fr redCR" v-if="item.status == 0">未发货</span>
+          <span class="fr grayCR" v-else>已发货</span>
+          {{item.created_at}}
+        </dt>
+      </dl>
+      <dl class="flexBox">
+        <dt>商品：</dt>
+        <dd class="flex1">{{item.title}}</dd>
+      </dl>
+      <dl class="flexBox">
+        <dt>价格：</dt>
+        <dd class="flex1">{{item.amount}}</dd>
+      </dl>
+      <dl class="flexBox">
+        <dt>数量：</dt>
+        <dd class="flex1">{{item.count}}</dd>
+      </dl>
+      <dl class="flexBox">
+        <dt>订单号：</dt>
+        <dd class="flex1">{{item.orderid}}</dd>
+      </dl>
+      <dl class="flexBox special">
+        <dt>收货人：</dt>
+        <dd class="flex1">
+          {{item.receiver}}
+        </dd>
+      </dl>
+      <dl class="flexBox">
+        <dt>电话：</dt>
+        <dd class="flex1">{{item.mobileno}}</dd>
+      </dl>
+      <dl class="flexBox">
+        <dt>地址：</dt>
+        <dd class="flex1">{{item.address}}</dd>
+      </dl>
+      <dl class="flexBox" v-if="item.deliver_no">
+        <dt>快递信息：</dt>
+        <dd class="flex1">{{item.deliver}}：{{item.deliver_no}}</dd>
+      </dl>
+
+      <dl class="paddTop">
+        <dt class="greenCR"> <span @click.prevent="sellerFunc(item.seller)">联系卖家</span></dt>
+      </dl>
+    </div>
+
+    <div class="tC noDataDiv"  v-if="noData">
+      <nodate noText="暂无数据"></nodate>
+    </div>
+
+  </scroller>
+
+  <div  slot="footer">
+    <div class="footer tC f30">
+      <dl>
+        <dd><p class="btn btn-green" @click.prevent="redirect">会花也会赚，去成为小卖家！</p></dd>
+      </dl>
+    </div>
+    <loading :loading="loading" :loadError="loadError"></loading>
+    <dialog-del :dialogshow2.sync="myContact" @hide="closeDialog('myContact')">
+        <div slot="dialog-footer" class="del-footer special tc f30">
+          <dl>
+            <dt v-if="sellerInfo.service_mobileno"><p>客服电话：{{sellerInfo.service_mobileno}}</p></dt>
+            <dd v-if="sellerInfo.weixin"><p>客服微信：{{sellerInfo.weixin}}</p></dd>
+            <dd v-if="sellerInfo.qq"><p>客服QQ：{{sellerInfo.qq}}</p></dd>
+          </dl>          
+        </div>
+    </dialog-del>
+   
+  </div>
+
+</Layout>

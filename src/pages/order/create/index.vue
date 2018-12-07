@@ -154,7 +154,7 @@ export default {
     },
     showImg(localIds){
       let _this = this;
-      let localId = localIds.splice(0,1);
+      let localId = localIds.pop();
       wx.getLocalImgData({
         localId: localId,
         success: function (res) {
@@ -165,7 +165,7 @@ export default {
           localData = localData.replace(/\r|\n/g, '').replace('data:image/jgp', 'data:image/jpeg')
           //第一个替换的是换行符，第二个替换的是图片类型，因为在IOS机上测试时看到它的图片类型时jgp，
           //这不知道时什么格式的图片，为了兼容其他设备就把它转为jpeg
-          _this.imgUrl.push(localData)
+          _this.imgUrl.unshift(localData)
           _this.modifyImg(localData);
           _this.choosed++;
 

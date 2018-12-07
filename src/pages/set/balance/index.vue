@@ -45,6 +45,7 @@ export default {
       minDate:'2018-1-01',
       profile:{},
       listData:[],
+      
     }
   },
   components: {

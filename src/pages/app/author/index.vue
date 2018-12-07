@@ -4,6 +4,7 @@
 <script>
 import {html} from '../../../assets/js/global.js';
 import wx from 'weixin-js-sdk'; 
+import modalDialog from '../../../components/base/dialog'
 import { mapState, mapActions } from 'vuex'
 import axios from 'axios';
 import qs from 'qs';
@@ -15,8 +16,13 @@ export default {
       paraData:{
         type:'H5'
       },
+      loading:false,
+      loadError:'',
       inviterMini:''
     }
+  },
+  components: {
+    modalDialog,
   },
   computed:{
     ...mapState([
@@ -107,6 +113,14 @@ export default {
         wx.closeWindow();
       })      
     },
+    initMSG(arr){
+      this.loading = true;
+      this.loadError = arr;
+      setTimeout(()=>{
+        this.loading = false;
+        this.loadError = '';
+      },2000)
+    },
     resolveInviter(){
       if (location.href.indexOf('inviter') > -1) {
           this.paraData.inviter = this.getCode('inviter');
@@ -157,11 +171,11 @@ export default {
               }
 
             }else{
-              alert(resData.codemsg)
+              this.initMSG(resData.codemsg)
             }
         }).catch(function(response){
           console.log(response)
-          alert('宝贝太火爆了，系统繁忙，请稍后再试~~')
+          this.initMSG('宝贝太火爆了，系统繁忙，请稍后再试~~')
         });        
     },
     getLogin2 (){//qq微博登录登录
@@ -186,11 +200,11 @@ export default {
               }
 
             }else{
-              alert(resData.codemsg)
+              this.initMSG(resData.codemsg)
             }
         }).catch(function(response){
           console.log(response)
-          alert('宝贝太火爆了，系统繁忙，请稍后再试~')
+          this.initMSG('宝贝太火爆了，系统繁忙，请稍后再试~')
         });        
     },
     testToken(){//检验token,如果失败重新登录
@@ -213,6 +227,9 @@ export default {
         
       });        
     },
+    closeDialog(arr){
+      this[arr] = false
+    }
     // getLogin (){
     //     this.paraData.code = unescape(this.$route.query.code);
 

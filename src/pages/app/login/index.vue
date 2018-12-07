@@ -5,6 +5,7 @@
 import {html} from '../../../assets/js/global.js';
 import wx from 'weixin-js-sdk'; 
 import { mapState, mapActions } from 'vuex'
+import modalDialog from '../../../components/base/dialog'
 import axios from 'axios';
 import qs from 'qs';
 
@@ -12,11 +13,16 @@ export default {
   data () {
     return {
       avatar:'',
+      loading:false,
+      loadError:'',
       paraData:{
         type:'H5'
       },
       inviterMini:''
     }
+  },
+  components: {
+    modalDialog,
   },
   computed:{
     ...mapState([
@@ -120,11 +126,11 @@ export default {
               }
 
             }else{
-              alert(resData.codemsg)
+              this.initMSG(resData.codemsg)
             }
         }).catch(function(response){
           console.log(response)
-          alert('宝贝太火爆了，系统繁忙，请稍后再试~~')
+          this.initMSG('宝贝太火爆了，系统繁忙，请稍后再试~~')
         });        
     },
     getLogin2 (){//qq微博登录登录
@@ -149,11 +155,11 @@ export default {
               }
 
             }else{
-              alert(resData.codemsg)
+              this.initMSG(resData.codemsg)
             }
         }).catch(function(response){
           console.log(response)
-          alert('宝贝太火爆了，系统繁忙，请稍后再试~')
+          this.initMSG('宝贝太火爆了，系统繁忙，请稍后再试~')
         });        
     },
     testToken(){//检验token,如果失败重新登录
@@ -177,6 +183,9 @@ export default {
       }).catch((response)=>{
         wx.miniProgram.redirectTo({url: `/pages/login/login${this.inviterMini}`})
       });        
+    },
+    closeDialog(arr){
+      this[arr] = false
     },
     goto(arr){
       this.$router.push(arr)

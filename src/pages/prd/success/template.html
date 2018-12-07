@@ -1,8 +1,13 @@
 <Layout>
-  <myhead :hval="header" slot="header"></myhead>
+  <myhead :hval="header" slot="header" v-if="!header.opacity"></myhead>
 
   <div class="success blackCR f30">
-    <h3>{{orderStatus}}</h3>
+    <h3 class="posiR">
+      {{orderStatus}}
+      <span v-if="header.opacity" @click.prevent="goto(header.link)">
+        <i class="iconfont icon-fanhui f36"></i>
+      </span>      
+    </h3>
     <div class="bg">
       <dl class="dls">
         <dt>商品：</dt>

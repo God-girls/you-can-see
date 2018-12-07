@@ -1,6 +1,6 @@
 <Layout>
   
-  <myhead :hval="header" slot="header"></myhead>
+  <myhead :hval="header" slot="header" v-if="!header.opacity"></myhead>
   <div class="posiR myTop">
     
   </div>
@@ -15,7 +15,10 @@
       <dd class="blackCR f30">{{profile.nick}}</dd>
       <dd class="grayCR">扫描二维码打开我的主页</dd>
     </dl>
-    
+    <span v-if="header.opacity" @click.prevent="goto('/my')">
+        <i class="iconfont icon-fanhui f36"></i>
+    </span>
+
   </div>
 
 

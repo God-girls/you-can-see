@@ -1,6 +1,6 @@
 <Layout>
   <div slot="header">
-    <myhead :hval="header"></myhead>
+    <myhead :hval="header" v-if="!header.opacity"></myhead>
     <div class="header posiR whiteCR">
       <ul class="flexBox1 tC">
         <li class="posiR">
@@ -14,6 +14,9 @@
           <span class="btn btn-green" @click.prevent="goto('/my/withdraw')">提现</span>
         </dd>
       </dl>
+      <span v-if="header.opacity" @click.prevent="goto('/my')">
+        <i class="iconfont icon-fanhui f36"></i>
+      </span>
     </div>    
   </div>
 

@@ -150,7 +150,7 @@ export default {
 		}
 	},
 	'/prd/success': {//新建商品
-		meta: { title: '订单支付成功'},
+		meta: { title: '支付结果'},
 		component: (resolve) => {
 			require(['pages/prd/success'], resolve)
 		}

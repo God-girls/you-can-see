@@ -20,6 +20,12 @@
   width: 280px;
   height: 280px;
 }
+.myDetail > span{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  padding: 30px 10px 20px 30px;
+}
 
 .myDetail dl dt img{
   width: 100px;

@@ -126,6 +126,9 @@ export default {
       }
        this.$router.push(arr)        
     },
+    wakeQQ(){
+      location.href = 'https://jq.qq.com/?_wv=1027&k=5MTN7jt'
+    },
     closeDialog (arr){
       this[arr] = false
     }

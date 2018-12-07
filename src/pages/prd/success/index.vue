@@ -133,12 +133,12 @@ export default {
             this.count = JSON.parse(resData.result.spec).count;
             this.addressInfo = JSON.parse(resData.result.addrinfo);
 
-            if (resData.result.status != 9 && resData.result.status != 9 && resData.result.status != 9) {
-              this.orderStatus = '等待支付结果'
-              setTimeout(()=>{
-                this.fetchOrder()
-              },5000)
-            }
+            // if (resData.result.status != 9 && resData.result.status != 9 && resData.result.status != 9) {
+            //   this.orderStatus = '等待支付结果'
+            //   setTimeout(()=>{
+            //     this.fetchOrder()
+            //   },5000)
+            // }
           }else {
             if (resData.code == '403' || resData.code == '250') {
                // this.goto('/')
@@ -264,7 +264,7 @@ export default {
       this.$router.push(arr)        
     },
     fansXxm(){
-      location.href = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzU2Mzc0NjQwNw==&scene=116#wechat_redirect';
+      location.href = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzU2Mzc0NjQwNw==#wechat_redirect';
     },
     closeDialog (arr){
       this[arr] = false;

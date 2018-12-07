@@ -33,6 +33,21 @@
     </div>
 
     <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
+    
+    <modal-dialog :dialogshow2.sync="setTel" @hide="closeDialog('setTel')" :fail='true'>
+        <div class="dialog-header" slot="dialog-header">
+          发布商品前需要先设置客服联系方式
+        </div>
+    
+        <dl class="dialog-footer" slot="dialog-footer">
+          <dd @touchend.prevent="closeDialog('setTel')">
+            <button type="button" class="btn btn-green">取消</button>
+          </dd>
+          <dd @touchend.prevent="goto('/my/service?from=index')">
+            <button type="button" class="btn btn-green">去设置</button>
+          </dd>
+        </dl>
+    </modal-dialog>
    
   </div>
 

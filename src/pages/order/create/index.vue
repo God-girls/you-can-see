@@ -202,7 +202,7 @@ export default {
       },2000)
     },
     modifyImg (b64data){
-      alert(this.loadImg)
+      // alert(this.loadImg)
       axios.post('/seller_api/v1/seller/upload_image',qs.stringify({
         uid:this.paraData.uid,
         image_b64:b64data
@@ -220,8 +220,8 @@ export default {
             this.loadImg++;
 
             if (this.loadImg < this.imgUrl.length) {
-              alert(this.imgUrl[this.loadImg])
-              this.modifyImg[this.imgUrl[this.loadImg]]
+              // alert(this.imgUrl[this.loadImg])
+              this.modifyImg(this.imgUrl[this.loadImg])
             }
             // this.getProfile ();
           }  else {

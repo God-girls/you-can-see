@@ -72,31 +72,6 @@ export default {
         this.statusBar = this.STATUSBARH+'px';     
       }
     },
-    getProfile (){ 
-      
-      axios.post('/seller_api/v1/seller/userinfo',qs.stringify({
-        uid:this.paraData.uid
-      }),{
-          headers: {
-              "A-Token-Header": this.token,
-          }
-        }).then((response)=>{   
-          let resData = response.data;
-          
-          if (resData.success) {
-            this.profile = resData.result;
-            this.switchState({
-              PROFILE:resData.result,
-            })
-          }  else {
-            if (resData.code == '403' || resData.code == '250') {
-              this.goto('/')
-            }
-          }
-      }).catch((response)=>{
-        // this.logErrors(JSON.stringify(response))
-      });  
-    },    
     goto (arr){
        this.$router.push(arr)        
     },

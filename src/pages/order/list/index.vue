@@ -96,9 +96,9 @@ export default {
       this.isAndroid = true;
     }
     if (this.TOKEN) {
-      this.profile = this.PROFILE
       this.paraData.uid = this.UID;
       this.token = this.TOKEN;
+      this.getProfile ();
     }
 
     dplus.track('订单管理',{'from':html.useragent()});//统计代码
@@ -143,6 +143,31 @@ export default {
         this.diliver = true;
       this.pid = item.id;
     },
+    getProfile (){ 
+      
+      axios.post('/seller_api/v1/seller/userinfo',qs.stringify({
+        uid:this.paraData.uid
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;
+          
+          if (resData.success) {
+            this.profile = resData.result;
+            this.switchState({
+              PROFILE:resData.result,
+            })
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.goto('/')
+            }
+          }
+      }).catch((response)=>{
+        // this.logErrors(JSON.stringify(response))
+      });  
+    },    
     setRemark (){
       if (!this.remark) {
         this.initMSG('请添加备注')

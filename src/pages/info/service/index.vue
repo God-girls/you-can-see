@@ -130,7 +130,7 @@ export default {
             setTimeout(()=>{
               
               if (this.$route.query.from == 'index') {
-                this.header.link = '/'
+                this.$router.push('/')
               }else{
                 this.$router.push('/my')
               }

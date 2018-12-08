@@ -29,12 +29,13 @@ export default {
     if (html.isPc()) {
       document.body.setAttribute('class','pcBody');
     }    
-      if (this.$route.query.seller) {
-        this.mySeller = this.$route.query.seller
-      }
-      if (this.$route.query.goodid) {
-        this.goodid = this.$route.query.goodid
-      }
+    
+    if (this.$route.query.seller) {
+      this.mySeller = this.$route.query.seller
+    }
+    if (this.$route.query.goodid) {
+      this.goodid = this.$route.query.goodid
+    }
     this.makeCode()
 
   },

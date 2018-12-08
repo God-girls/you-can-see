@@ -393,11 +393,11 @@ export default {
           let resData = response.data;  
 
           if (resData.success) {
+              this.orderid = resData.result.orderid;
+              this.orderkey = resData.result.key;
          
               if (html.isWechat()) {
                 this.payment_url = JSON.parse(resData.result.payment_url);
-                this.orderid = resData.result.orderid;
-                this.orderkey = resData.result.key;
                 let payVM = this;
                 
                 if (typeof WeixinJSBridge == "undefined"){
@@ -410,10 +410,8 @@ export default {
                 }else{
                    this.onBridgeReady();
                 }
-              }else{
-                alert(`${JSON.parse(resData.result.payment_url).mweb_url}&redirect_url=${encodeURIComponent(this.ttDomain+'/#/prd/success?seller='+this.mySeller+'&key='+this.orderkey+'&orderid='+this.orderid)}`)
-                
-                // location.href = `${JSON.parse(resData.result.payment_url).mweb_url}&redirect_url=${encodeURIComponent(this.ttDomain+'/#/prd/success?seller='+this.mySeller+'&key='+this.orderkey+'&orderid='+this.orderid)}`
+              }else{                
+                location.href = `${JSON.parse(resData.result.payment_url).mweb_url}&redirect_url=${encodeURIComponent(this.ttDomain+'/#/prd/success?seller='+this.mySeller+'&key='+this.orderkey+'&orderid='+this.orderid)}`
               }
 
 

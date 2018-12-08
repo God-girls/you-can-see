@@ -167,7 +167,7 @@ export default {
           //第一个替换的是换行符，第二个替换的是图片类型，因为在IOS机上测试时看到它的图片类型时jgp，
           //这不知道时什么格式的图片，为了兼容其他设备就把它转为jpeg
           _this.imgUrl.push(localData)
-          _this.modifyImg(localData)
+          _this.modifyImg(localData,_this.choosed)
           _this.choosed++;
 
           if(localIds.length > 0){
@@ -197,7 +197,7 @@ export default {
         this.loadError = '';
       },2000)
     },
-    modifyImg (b64data){
+    modifyImg (b64data,index){
 
       axios.post('/seller_api/v1/seller/upload_image',qs.stringify({
         uid:this.paraData.uid,
@@ -212,7 +212,7 @@ export default {
           let resData = response.data;  
           if (resData.success) {
             
-            this.imgFile.push(resData.result)
+            this.imgFile.splice(index,1,resData.result)
             // this.loadImg++;
             // if (this.loadImg < this.imgUrl.length) {
             //   this.modifyImg[this.imgUrl[this.loadImg]]

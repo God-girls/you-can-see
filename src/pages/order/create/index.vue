@@ -332,7 +332,6 @@ export default {
       }
 
       this.loading = true;
-      alert(this.imgUrl.length+' , file='+this.imgFile.length)
       if (this.imgUrl.length != this.imgFile.length) {
         setTimeout(()=>{
           this.created();

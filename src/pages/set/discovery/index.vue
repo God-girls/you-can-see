@@ -53,13 +53,13 @@ export default {
 
     if (this.TOKEN) {
       this.token = this.TOKEN;
-      this.paraData.uid = this.UID;  
-      this.profile = this.PROFILE
-    }
-    if (!this.TOKEN && localStorage.ttToken){
-      this.token = localStorage.ttToken;
-      this.paraData.uid = localStorage.ttUid; 
-      this.getProfile(); 
+      this.paraData.uid = this.UID;
+      if (this.PROFILE) {
+        this.profile = this.PROFILE;
+      } else{
+        this.getProfile(); 
+      } 
+      
     }
     dplus.track('发现',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});

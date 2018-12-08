@@ -41,6 +41,7 @@ export default {
       isWechat:false,
       choosed:0,
       prdID:'',
+      defaultImgLen:0,
     }
   },
   components: {
@@ -148,6 +149,7 @@ export default {
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
             var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+            this.defaultImgLen = localIds.length;
             _this.showImg(localIds)            
           }
       });      
@@ -166,11 +168,14 @@ export default {
           //第一个替换的是换行符，第二个替换的是图片类型，因为在IOS机上测试时看到它的图片类型时jgp，
           //这不知道时什么格式的图片，为了兼容其他设备就把它转为jpeg
           _this.imgUrl.push(localData)
-          _this.modifyImg(localData,_this.choosed)
+          
           _this.choosed++;
 
           if(localIds.length > 0){
               _this.showImg(localIds);
+          }else{
+            _this.loadImg = 0;
+            _this.modifyImg(_this.imgUrl[0])
           }
         }
       })
@@ -196,7 +201,7 @@ export default {
         this.loadError = '';
       },2000)
     },
-    modifyImg (b64data,index){
+    modifyImg (b64data){
 
       axios.post('/seller_api/v1/seller/upload_image',qs.stringify({
         uid:this.paraData.uid,
@@ -210,12 +215,12 @@ export default {
           // this.loading = false;        
           let resData = response.data;  
           if (resData.success) {
-            alert(index)
-            this.imgFile.splice(index,1,resData.result)
-            // this.loadImg++;
-            // if (this.loadImg < this.imgUrl.length) {
-            //   this.modifyImg[this.imgUrl[this.loadImg]]
-            // }
+            
+            this.imgFile.push(resData.result)
+            this.loadImg++;
+            if (this.loadImg < this.imgUrl.length) {
+              this.modifyImg[this.imgUrl[this.loadImg]]
+            }
             // this.getProfile ();
           }  else {
             if (resData.code == '403' || resData.code == '250') {

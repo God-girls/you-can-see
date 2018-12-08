@@ -33,7 +33,8 @@ export default {
       isApp:'',
       navType:'discovery',
       profile:{},
-      isWechat:false
+      isWechat:false,
+      paraData:{}
     }
   },
   components: {

@@ -82,6 +82,29 @@
         </dl>
     </modal-dialog>
 
+    <modal-dialog :dialogshow2.sync="success" @hide="closeDialog('success')" :fail='true'>
+        <div class="dialog-header" slot="dialog-header">
+          提现申请已提交成功！
+        </div>
+
+        <div class="dialog-success" slot="dialog-body">
+          <dl class="dls">
+            <dt>提现金额：</dt>
+            <dd class="redCR">{{paraData.amount}} 元</dd>
+          </dl>
+          <dl class="dls">
+            <dt>提现支付宝账号：</dt>
+            <dd class="redCR">{{paraData.account}}</dd>
+          </dl>
+        </div>
+    
+        <dl class="dialog-footer" slot="dialog-footer">
+          <dd @touchend.prevent="goto(header.link)">
+            <p class="grayCR special f24">审核通过后1个工作日到账</p>
+            <button type="button" class="btn btn-green">确定</button>
+          </dd>
+        </dl>
+    </modal-dialog>
    
   </div>
 

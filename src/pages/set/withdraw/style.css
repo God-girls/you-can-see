@@ -91,9 +91,22 @@
 .guestCON p{
   padding-top: 15px;
 }
-
-
-
+.dialog-success{
+  padding-top: 20px
+}
+.dialog-success .dls{
+  line-height: 50px;
+  height: 50px;
+}
+.dialog-success .dls dt{
+   width: 40%;
+}
+.dialog-success .dls dd{
+   width: 59%;
+}
+.dialog-footer p{
+  padding-bottom: 15px;
+}
 
 
 

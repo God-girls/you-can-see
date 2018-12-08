@@ -53,7 +53,9 @@
 
 .icon-home{
   position: absolute;
-  left:10px;
+  left:0;
+  right: 0;
+  margin: auto;
   top: -52px;
   /*display: inline-block;*/
   background: url(../../assets/img12/index/mai.png) no-repeat;
@@ -95,7 +97,9 @@
 }
 .my-footer ul li.homeLi span{
   position: absolute;
-  left:9px;
+  left:0;
+  right: 0;
+  margin: auto;
   top: -52px;
   display: inline-block;
   /*background: rgba(42,14,60,.36);*/
@@ -107,7 +111,9 @@
 }
 .my-footer ul li.homeLi b{
   position: absolute;
-  left:10px;
+  left:0;
+  right: 0;
+  margin: auto;
   bottom: 0px;
   display: inline-block;
   /*background: url(../../assets/img12/default/mask.png) no-repeat center bottom;*/
@@ -172,11 +178,18 @@
   width: 94px;
   height: 113px;
 }
-
+.special{
+  width: 100%;
+  text-align: color
+}
+.special ul{
+    border-top:none;/*no*/
+    height:0px;
+}
 </style>
 <template>
   <div>
-    <div class="my-footer" >
+    <div :class="['animated my-footer',{'fadeInUp':showCircle,'dn':!showCircle}]">
       <ul>
         <li :class="['special',{'current':current=='task'}]" @touchend.prevent="goto('/')">
           <i class="myicon icon-task"></i>
@@ -186,7 +199,7 @@
           <i class="myicon icon-book"></i>
           <p>订单</p>
         </li>
-        <li :class="['homeLi',{'current':current=='home'}]" @touchend.prevent="">
+        <li :class="['homeLi',{'current':current=='home'}]" @touchend.prevent="changeShow">
           <i class="icon-home"></i>
           <span></span>
           <b></b>
@@ -203,24 +216,40 @@
         </li>
       </ul>
     </div>
+
+   <div :class="['animated my-footer special',{'fadeInUp':!showCircle,'dn':showCircle}]" >
+      <ul>
+        <li :class="['homeLi flex1',{'current':current=='home'}]" @touchend.prevent="changeShow">
+          <i class="icon-home"></i>
+          <span></span>
+          <b></b>
+        </li>
+      </ul>
+    </div>
+
+
   </div>
 
 </template>
 <script>
 import {html} from '../../assets/js/global.js';
-// import {vestAPP,h5RemoveAd} from '../../assets/js/config';
+import { mapState, mapActions } from 'vuex'
 export default {
   props: {
     current:''
   },
   data () {
     return {
-      canDown: false,
+      showCircle: true,
       isH5:false,
       isIos:false
     }
   },
   computed:{
+    ...mapState([
+      // 映射 this.count 为 store.state.count
+      'SHOWFOOTER',
+    ]),
     isApp(){
       if (html.isWawa()) 
       return localStorage['bottomBarH'] ? JSON.parse(localStorage['bottomBarH']) : ''
@@ -228,11 +257,13 @@ export default {
   },
   mounted: function () {
     // console.log('current'+this.current)
-    this.isIos = gisIOS;
-
-    // this.clickDown();
+    this.showCircle = this.SHOWFOOTER;
   },
   methods: {
+    ...mapActions([
+      'switchState', // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`'
+      'clearState'
+    ]),
     goto (arr){
       if (sessionStorage['isGuest']) {
         this.guestClick()
@@ -244,9 +275,11 @@ export default {
         this.$router.push(arr);
       }
     },
-    downAPP(){
-      location.href = 'http://a.app.qq.com/o/simple.jsp?pkgname=com.bhu.WaWa';
-      dplus.track('wawa_h5点击下载app',{'from':html.useragent()});
+    changeShow(){
+      this.showCircle = !this.showCircle;
+      this.switchState({
+        SHOWFOOTER:this.showCircle
+      })                
     },
     clickDown(){
       this.canDown = !this.canDown;

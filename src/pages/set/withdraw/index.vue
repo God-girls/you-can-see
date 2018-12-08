@@ -42,7 +42,8 @@ export default {
       realData:{},
       newAlipay:'',
       newAlipay2:'',
-      isIosWechat:false
+      isIosWechat:false,
+      success:false
     }
   },
   computed:{
@@ -173,14 +174,12 @@ export default {
           let resData = response.data;
 
           if (resData.success) {
-            this.initMSG('提现成功');
-            // this.getProfile ();
-
+            this.loading = false;
+            this.success = true;
             this.profile.balance = html.sub(this.profile.balance,this.paraData.amount);
             this.switchState({
               PROFILE:this.profile,
             })            
-            this.clickCaptcha = false;
 
             clearInterval(this.timer);
           }  else {

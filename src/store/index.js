@@ -28,7 +28,8 @@ export default new vuex.Store({
             }
         },
         SHARETITLE:{},
-        ISWXAAPPINSTALLED:''
+        ISWXAAPPINSTALLED:'',
+        SHOWFOOTER:false
     },
     getters:{//getters 和 vue 中的 computed 类似 , 都是用来计算 state 然后生成新的数据 ( 状态 ) 的。
         not_show(state){//这里的state对应着上面这个state

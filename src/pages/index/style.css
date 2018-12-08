@@ -17,6 +17,7 @@
   position: absolute;
   right: 18px;
   bottom: -45px;
+  width: 70%;
 }
 .header .default{
   width: 150px;
@@ -39,12 +40,15 @@
 }
 .header p i{
   position: relative;
-  top: 2px;
+  /*top: 2px;*/
 }
 /*购买商品*/
 .conOne{
   padding: 20px 0;
   border-bottom: 1px solid #e2e2e2;/*no*/
+}
+.special{
+  padding-bottom: 15px;
 }
 .conList{
  padding: 70px 15px 0;
@@ -126,7 +130,7 @@
 .icon-xiajia,
 .icon-ccgl-xiajia{
   position: relative;
-  top: -3px;
+  top: -5px;
 }
 .oneTop ul li img{
   width: 100%;

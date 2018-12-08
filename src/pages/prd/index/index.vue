@@ -281,20 +281,19 @@ export default {
     },
     reinitShare (item,seller){
       let vm = this;
-
+      let shareImg = this.globalAvatar+'goods/'+JSON.parse(item.imgs)[0]+'?imageView2/2/w/300/'
       let jumpUrl = this.ttDomain+'/#/app/login?redirecto=true&goodid='+item.goodid+'&seller='+seller;
 
       this.listData[this.curListIndex].showComment = false
       this.curList = item;
       this.shareFlag = true;
-      this.shareData.shareText = `${item.title}，种草进我的私人主页: ${this.ttDomain}/#/prd/list?seller=${this.paraData.seller}&fromshare=true${item.id?'&goodid='+item.id:''}`
       
       wx.ready(function () {
         let shareText ={
             title: `好友${vm.sellerInfo.nick}分享了自己的宝贝，好友专享价！`,
             desc: item.title,
             link:jumpUrl,
-            imgUrl: vm.ttLogoImg,
+            imgUrl: shareImg,
             success:function() {
             },
             cancel: function () {}
@@ -338,14 +337,14 @@ export default {
            this.fetchComment(resData.result.id,true);
            this.fetchPraise(resData.result,0,true)
            //初始化分享
-          this.shareData.shareText = `${resData.result.title}，种草进我的私人主页: ${this.ttDomain}/#/prd/list?seller=${this.paraData.seller}&fromshare=true${this.goodid?'&goodid='+this.goodid:''}`
           let jumpUrl = this.ttDomain+'/#/app/login?redirecto=true&goodid='+this.goodid+'&seller='+this.paraData.seller;
+          let shareImg = this.globalAvatar+'goods/'+JSON.parse(resData.result.imgs)[0]+'?imageView2/2/w/300/'
           wx.ready(function () {
             let shareText ={
                 title: `好友${vm.sellerInfo.nick}分享了自己的宝贝，好友专享价！`,
                 desc: resData.result.title,
                 link:jumpUrl,
-                imgUrl: vm.ttLogoImg,
+                imgUrl: shareImg,
                 success:function() {
                 },
                 cancel: function () {}
@@ -363,6 +362,11 @@ export default {
               // location.href = '/';
             }else{
               this.initMSG(resData.codemsg)
+              if (resData.code == '350') {
+                setTimeout(()=>{
+                  this.initDefault();
+                },2000)
+              }
             }
           }
       })

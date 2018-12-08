@@ -16,7 +16,7 @@ body {
     overflow: hidden;
     font-family: 'Yuanti SC',"Helvetica Neue", Helvetica, STHeiTi, Arial, sans-serif;
     color: #5e5e5e;
-    touch-callout:none;
+    /*touch-callout:none;*/
     /*user-select:none;  */
 }
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {

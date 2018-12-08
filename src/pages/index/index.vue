@@ -448,12 +448,10 @@ export default {
       setTimeout(()=>{
         this.totalPageCount = -1;
         this.paraData.pn = 1;
-        // debugger
         this.fetchList(done);  
       },1000)
     },
     onInfinite(done) {  
-      // console.log(this.paraData.pn) 
       this.indexDone = done;   
       this.fetchList(done);
     },

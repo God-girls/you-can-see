@@ -6,7 +6,7 @@
     <!-- <p class="grayCR tC">根据支付通道协议规定，退款提现需缴纳 1% 手续费。</p> -->
     <dl>
       <dt>
-        <span class="fr redCR">余额：{{profile.balance?profile.balance:0}} 元</span>
+        <span class="fr redCR">余额：{{profile.balance?profile.balance:'0.00'}} 元</span>
         请输入提现金额
       </dt>
       <dd><input type="number" placeholder="最少提现 1 元" name="" value="" v-model="paraData.amount"></dd>

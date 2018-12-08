@@ -48,7 +48,8 @@
 }
 /*购买商品*/
 .conOne{
-  padding-bottom: 30px;
+  padding: 20px 0;
+  border-bottom: 1px solid #e2e2e2;/*no*/
 }
 .conList{
  padding: 70px 15px 0;
@@ -158,7 +159,7 @@
 }
 .icon-gouwuche{
   position: relative;
-  top: -5px;
+  top: -7px;
 }
 .stars{
   border-bottom: 1px solid #e2e2e2;/*no*/

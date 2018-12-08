@@ -21,7 +21,7 @@
           </li>
         </ol>
       </dt>
-      <dd class="grayCR text-overflow">{{sellerInfo.signature ? sellerInfo.signature : '这家伙很懒，什么都没留下'}}</dd>
+      <dd class="grayCR text-overflow">{{sellerInfo.signature ? sellerInfo.signature : '我的好货朋友圈，有喜欢的尽管说，好友专享价！'}}</dd>
     </dl>
   </div>
 
@@ -76,7 +76,7 @@
           </dd>
         </dl>
         <!--评论内容-->
-        <div class="comList" v-if="item.comment_head">
+        <div class="comList" v-if="item.show_comment && item.comment_head">
           <dl class="flexBox">
             <dt>
               <i class="iconfont icon-pinglun blueLCR f30"></i>
@@ -170,7 +170,12 @@
     <dialog-del :dialogshow2.sync="myContact" @hide="closeDialog('myContact')">
         <div slot="dialog-footer" class="del-footer special tc f30">
           <dl>
-            <dt v-if="sellerInfo.service_mobileno"><p><a :href="'tel='+sellerInfo.service_mobileno">客服电话：{{sellerInfo.service_mobileno}}</a></p></dt>
+            <dt v-if="sellerInfo.service_mobileno">
+              <p>
+                <a  class="blackCR" :href="'tel:'+sellerInfo.service_mobileno">客服电话：{{sellerInfo.service_mobileno}}
+                </a>
+              </p>
+            </dt>
             <dd v-if="sellerInfo.weixin"><p>客服微信：{{sellerInfo.weixin}}</p></dd>
             <dd v-if="sellerInfo.qq"><p>客服QQ：{{sellerInfo.qq}}</p></dd>
           </dl>          

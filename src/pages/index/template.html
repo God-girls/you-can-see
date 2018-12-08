@@ -16,21 +16,21 @@
     <dl class="tR" @click.prevent="goto('/my/profile?from=index')">
       <dt>
         <ol class="flexBox">
-          <li class="flex1 whiteCR f36">{{sellerInfo.nick}}</li>
+          <li class="flex1 whiteCR f36 text-overflow">{{sellerInfo.nick}}</li>
           <li>
             <img :src="headImg" alt="" v-if="headImg">
             <img :src="ttLogoImg" alt="" v-else>
           </li>
         </ol>
       </dt>
-      <dd class="grayCR">{{sellerInfo.signature ? sellerInfo.signature : '这家伙很懒，什么都没留下'}}</dd>
+      <dd class="grayCR text-overflow">{{sellerInfo.signature ? sellerInfo.signature : '我的好货朋友圈，有喜欢的尽管说，好友专享价！'}}</dd>
     </dl>
   </div>
 
   <div class="conList">
   
     <div class="conOne">
-      <div class="oneTop">
+      <div class="oneTop special">
         <dl class="flexBox">
           <dt>
             <b>今天</b>
@@ -75,7 +75,7 @@
                 <span @click.prevent="item.showComment = !item.showComment;curListIndex = index"><i class="iconfont icon-xiaoxi15-copy f36"></i></span>
                 <p class="whiteCR flexBox1 fadeIn animated2dot" v-if="item.showComment">
                   <span @click.prevent="beforeOnoff(item,4)">
-                    <i class="iconfont icon-fuzhi f30"></i> 复制
+                    <i class="iconfont icon-fuzhi f28"></i> 复制
                   </span>
 
                   <span  v-if="!item.praised" @click.prevent="praisePrd(item,index)">
@@ -114,9 +114,8 @@
            <img :src="globalAvatar+item3" alt="" v-for="(item3,index3) in JSON.parse(item.praise_head)">
           </dd>
         </dl>
-
         <!--评论内容-->
-        <div class="comList" v-if="item.comment_head">
+        <div class="comList" v-if="item.show_comment && item.comment_head">
           <dl class="flexBox">
             <dt>
               <i class="iconfont icon-pinglun blueLCR f30"></i>

@@ -77,7 +77,7 @@
           </dt>
           <dd class="flex1 f30">绑定手机号</dd>
           <dd class="tR">
-             {{profile.acc?profile.acc:'0'}}<i class="iconfont icon-jiantou f24"></i>
+             {{profile.acc?profile.acc:''}}<i class="iconfont icon-jiantou f24"></i>
           </dd>
         </dl>
       </li>
@@ -98,7 +98,7 @@
     </ul>
 
     <ul>
-      <li @click.prevent="wakeQQ()">
+      <li @click.prevent="wakeQQ">
         <dl class="flexBox">
           <dt>
             <i class="iconfont icon-20pxqqqun f40"></i>

@@ -325,10 +325,11 @@ export default {
       }
 
       this.loading = true;
+      alert(this.imgUrl.length+' , file='+this.imgFile.length)
       if (this.imgUrl.length != this.imgFile.length) {
         setTimeout(()=>{
           this.created();
-        },500)
+        },1000)
         return;
       }
       axios.post('/seller_api/v1/seller/create_goods',qs.stringify(this.paraData),{
@@ -338,6 +339,7 @@ export default {
         }).then((response)=>{   
         this.loading = false;        
           let resData = response.data;  
+          alert(resData)
           if (resData.success) {
             this.initMSG(this.prdID?'修改成功':'发布成功');
             setTimeout(()=>{

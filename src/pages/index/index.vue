@@ -303,18 +303,18 @@ export default {
       let vm = this;
       let appID = 'wx357ca89ca431b3ca'
       let jumpUrl = this.ttDomain+'/#/app/login?redirecto=true&goodid='+item.id+'&seller='+seller;
+      let shareImg = this.globalAvatar+'goods/'+JSON.parse(item.imgs)[0]+'?imageView2/2/w/300/'
 
       this.listData[this.curListIndex].showComment = false
       this.curList = item;
       this.shareFlag = true;
       this.shareData.shareText = `${item.title}，种草进我的私人主页: ${this.ttDomain}/#/prd/list?seller=${this.UID}&fromshare=true${item.id?'&goodid='+item.id:''}`
-      
       wx.ready(function () {
         let shareText ={
-            title: `好友${vm.profile.nick}分享了自己的宝贝，好友专享价！`,
+            title: `${vm.profile.nick}分享了自己的宝贝，好友专享价！`,
             desc: item.title,
             link:jumpUrl,
-            imgUrl: vm.ttLogoImg,
+            imgUrl: shareImg,
             success:function() {
             },
             cancel: function () {}

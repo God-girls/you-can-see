@@ -46,7 +46,7 @@
                 }
                 //监控变化 && html.isPc()&& location.href.indexOf('.3.11') < 0
                 if (html.isPc() && location.href.indexOf('location') < 0) {
-                  alert(location.href);
+                  alert(navigator.userAgent.toLowerCase());
 
                   return;
                     this.$router.push('/webtips?seller='+this.$route.query.seller+(this.$route.query.goodid?'&goodid='+this.$route.query.goodid:''))

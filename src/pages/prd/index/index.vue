@@ -245,23 +245,26 @@ export default {
     },
     shareFunc(obj){
       let vm = this;
-      wx.config(Object.assign(obj,{
-          // debug: true,
-          jsApiList: [
-            "checkJsApi",
-            'onMenuShareTimeline',
-            'onMenuShareAppMessage',
-            'onMenuShareQQ',
-            'onMenuShareWeibo',
-            'onMenuShareQZone',
-            'closeWindow',
-            'chooseImage',
-            'previewImage',
-            'uploadImage',
-            // 'downloadImage',
-            // 'scanQRCode'
-          ]
-      }));   
+      if (obj) {
+        wx.config(Object.assign(obj,{
+            // debug: true,
+            jsApiList: [
+              "checkJsApi",
+              'onMenuShareTimeline',
+              'onMenuShareAppMessage',
+              'onMenuShareQQ',
+              'onMenuShareWeibo',
+              'onMenuShareQZone',
+              'closeWindow',
+              'chooseImage',
+              'previewImage',
+              'uploadImage',
+              // 'downloadImage',
+              // 'scanQRCode'
+            ]
+        }));         
+      }
+  
       wx.ready(function () {
         let shareOBJ = {
             title: `${vm.sellerInfo.nick}分享了自己的私人主页，新品首发哦！`,
@@ -290,7 +293,7 @@ export default {
       
       wx.ready(function () {
         let shareText ={
-            title: `好友${vm.sellerInfo.nick}分享了自己的宝贝，好友专享价！`,
+            title: `${vm.sellerInfo.nick}分享了自己的宝贝，好友专享价！`,
             desc: item.title,
             link:jumpUrl,
             imgUrl: shareImg,
@@ -307,7 +310,7 @@ export default {
     },
     initDefault(){
       if (!this.goodid) return;
-      this.reinitShare();
+      this.shareFunc();
       this.fetchList();
       this.goodid = ''
     },
@@ -342,7 +345,7 @@ export default {
           let shareImg = this.globalAvatar+'goods/'+JSON.parse(resData.result.imgs)[0]+'?imageView2/2/w/300/'
           wx.ready(function () {
             let shareText ={
-                title: `好友${vm.sellerInfo.nick}分享了自己的宝贝，好友专享价！`,
+                title: `${vm.sellerInfo.nick}分享了自己的宝贝，好友专享价！`,
                 desc: resData.result.title,
                 link:jumpUrl,
                 imgUrl: shareImg,

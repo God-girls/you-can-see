@@ -76,10 +76,9 @@ export default {
     this.autoTextarea(document.getElementById("text"),'',500)
     if (this.$route.query.id) {
       this.prdID = this.$route.query.id
-      // debugger
       if (!this.CART.imgFile) this.fetchList();
     }
-    console.log(this.CART)
+
     dplus.track('我的',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
 
@@ -326,6 +325,12 @@ export default {
       }
 
       this.loading = true;
+      if (this.imgUrl.length != this.imgFile.length) {
+        setTimeout(()=>{
+          this.created();
+        },500)
+        return;
+      }
       axios.post('/seller_api/v1/seller/create_goods',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,

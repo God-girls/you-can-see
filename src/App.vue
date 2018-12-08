@@ -46,8 +46,8 @@
                 }
                 //监控变化 && html.isPc()&& location.href.indexOf('.3.11') < 0
                 if (html.isPc() && location.href.indexOf('location') < 0) {
-                  alert('seller'+this.$route.query.seller);
-                  alert('goodid'+this.$route.query.goodid);
+                  alert(location.href);
+
                   return;
                     this.$router.push('/webtips?seller='+this.$route.query.seller+(this.$route.query.goodid?'&goodid='+this.$route.query.goodid:''))
                 }else{

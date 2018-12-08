@@ -155,7 +155,7 @@ export default {
     },
     showImg(localIds){
       let _this = this;
-      let localId = localIds.pop();
+      let localId = localIds.shift();
       wx.getLocalImgData({
         localId: localId,
         success: function (res) {
@@ -166,15 +166,12 @@ export default {
           localData = localData.replace(/\r|\n/g, '').replace('data:image/jgp', 'data:image/jpeg')
           //第一个替换的是换行符，第二个替换的是图片类型，因为在IOS机上测试时看到它的图片类型时jgp，
           //这不知道时什么格式的图片，为了兼容其他设备就把它转为jpeg
-          _this.imgUrl.unshift(localData)
-          
+          _this.imgUrl.push(localData)
+          _this.modifyImg(localData)
           _this.choosed++;
 
           if(localIds.length > 0){
               _this.showImg(localIds);
-          }else{
-            _this.loadImg = 0;
-            _this.modifyImg(_this.imgUrl[_this.loadImg]);
           }
         }
       })
@@ -215,11 +212,11 @@ export default {
           let resData = response.data;  
           if (resData.success) {
             
-            this.imgFile.unshift(resData.result)
-            this.loadImg++;
-            if (this.loadImg < this.imgUrl.length) {
-              this.modifyImg[this.imgUrl[this.loadImg]]
-            }
+            this.imgFile.push(resData.result)
+            // this.loadImg++;
+            // if (this.loadImg < this.imgUrl.length) {
+            //   this.modifyImg[this.imgUrl[this.loadImg]]
+            // }
             // this.getProfile ();
           }  else {
             if (resData.code == '403' || resData.code == '250') {

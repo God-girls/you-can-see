@@ -12,8 +12,8 @@ import { mapState, mapActions } from 'vuex'
 import wx from 'weixin-js-sdk'; 
 import axios from 'axios';
 import qs from 'qs';
-import Croppa from 'vue-croppa'
-console.log(croppa)
+// import Croppa from 'vue-croppa'
+// console.log(croppa)
 export default {
   data () {
     return {
@@ -53,7 +53,7 @@ export default {
     loading,
     myhead,
     modalDialog,
-    Croppa
+    // Croppa
   },
   computed:{
     ...mapState([
@@ -143,10 +143,10 @@ export default {
             localData = localData.replace(/\r|\n/g, '').replace('data:image/jgp', 'data:image/jpeg')
             //第一个替换的是换行符，第二个替换的是图片类型，因为在IOS机上测试时看到它的图片类型时jgp，
             //这不知道时什么格式的图片，为了兼容其他设备就把它转为jpeg
-            // _this.headImg = localData//images是业务中用到的变量
-            _this.img = localData;
-            _this.showClipper = true;
-            // _this.modifyImg(localData);
+            _this.headImg = localData//images是业务中用到的变量
+            // _this.img = localData;
+            // _this.showClipper = true;
+            _this.modifyImg(localData);
         }
       })
     },

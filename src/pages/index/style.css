@@ -122,6 +122,11 @@
 .oneTop dd i.icon-zhuanhuan{
   right: 2px;
 }
+.icon-xiajia,
+.icon-ccgl-xiajia{
+  position: relative;
+  top: -3px;
+}
 .oneTop ul li img{
   width: 100%;
   position: absolute;

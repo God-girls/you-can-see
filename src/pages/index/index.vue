@@ -346,7 +346,7 @@ export default {
             this.sellerInfo = resData.result;
             this.sellerInfo.background = this.sellerInfo.background ? this.sellerInfo.background : ' '
             this.headImg = this.globalAvatar+(this.sellerInfo.avatar?this.sellerInfo.avatar:'')+'?imageView2/2/w/100/h/100/t/';
-            console.log(this.sellerInfo)
+            // console.log(this.sellerInfo)
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.redirect();
@@ -862,12 +862,13 @@ export default {
       this.$router.push(arr)
     },
     editPrd(item){
-      if (item.status == 0) {
-        this.initMSG('请先下架商品后再编辑')
-        return;
-      }else{
-        this.goto('/prd/create?id='+item.id)
-      }
+      // if (item.status == 0) {
+      //   this.initMSG('请先下架商品后再编辑')
+      //   return;
+      // }else{
+      //   this.goto('/prd/create?id='+item.id)
+      // }
+      this.goto('/prd/create?id='+item.id)
     },
     closeDialog (arr){
       this[arr] = false;

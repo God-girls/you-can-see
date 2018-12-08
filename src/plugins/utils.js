@@ -2,11 +2,9 @@ export default{
   install(Vue,options)
   {
     let iamMiniprogram = false;
-    let avatarg='https://bonusimg.hddgood.com/bonus/';//头像
-    let ttDomain = 'https://bonus.hddgood.com';
-    let randomTime = new Date().getTime();
-    let qiimgsg = 'https://bonusimg.hddgood.com/'
-    let qMusic = 'https://bonusimg.hddgood.com/'
+    let avatarg='https://sellerimg.hddgood.com/seller/';//头像
+    let ttDomain = 'https://seller.hddgood.com';
+    let qiimgsg = 'https://sellerimg.hddgood.com/'
     let userAgent = navigator.userAgent.toLowerCase();     
     //测试
     if (location.href.indexOf('testseller.bhuwifi.com') > -1 

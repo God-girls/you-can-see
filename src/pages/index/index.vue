@@ -64,8 +64,8 @@ export default {
       placeholder:'评论',
       fetBonusType:[],
       popDel:{
-        title:['删除当前评论','下架本条商品','上架本条商品','置顶本条商品','复制本条商品'],
-        content:['删除','下架','上架','置顶','复制']
+        title:['删除当前评论','下架当前商品','上架当前商品','置顶当前商品','复制当前商品','编辑当前商品'],
+        content:['删除','下架','上架','置顶','复制','编辑']
       },
       popIndex:0,
       del:false,
@@ -682,6 +682,10 @@ export default {
           // this.created();
         break; 
 
+        case 5:
+          this.goto('/prd/create?id='+this.curProduct.id)
+          break;
+
         default :
           this.onOffGoods();
         break; 
@@ -868,7 +872,10 @@ export default {
       // }else{
       //   this.goto('/prd/create?id='+item.id)
       // }
-      this.goto('/prd/create?id='+item.id)
+      this.curProduct = item;
+      this.del = true;
+      this.popIndex = 5;
+      
     },
     closeDialog (arr){
       this[arr] = false;

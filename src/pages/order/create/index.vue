@@ -218,7 +218,9 @@ export default {
             
             this.imgFile.push(resData.result)
             this.loadImg++;
+            alert(this.loadImg,this.imgUrl.length)
             if (this.loadImg < this.imgUrl.length) {
+              alert(this.imgUrl[this.loadImg])
               this.modifyImg[this.imgUrl[this.loadImg]]
             }
             // this.getProfile ();
@@ -344,7 +346,6 @@ export default {
         }).then((response)=>{   
         this.loading = false;        
           let resData = response.data;  
-          alert(resData)
           if (resData.success) {
             this.initMSG(this.prdID?'修改成功':'发布成功');
             setTimeout(()=>{

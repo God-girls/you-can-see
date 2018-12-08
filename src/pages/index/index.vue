@@ -403,7 +403,7 @@ export default {
             let ranks = resData.result;
             this.totalPageCount = ranks.totalPageCount;
               if (ranks.items.length == 0) {
-                if(done) done();
+                if(done) done(true);
                 return;
               }
               if (this.paraData.pn == 1) {

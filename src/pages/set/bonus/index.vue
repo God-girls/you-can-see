@@ -26,6 +26,7 @@ export default {
       token:'',
       loading:false,
       noData:false,
+      isIosWechat:false,
       isCur:1,
       statusBar:{},
       loadError:'',
@@ -75,8 +76,8 @@ export default {
   },
   mounted () {
 
-    if (html.isWebAndroid()) {
-      this.isAndroid = true;
+    if (html.isIosWechat()) {
+      this.isIosWechat = true;
     }
     if (this.TOKEN) {
       this.profile = this.PROFILE

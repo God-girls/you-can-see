@@ -1,5 +1,5 @@
 <Layout>
-  <div slot="header" class="itop">
+  <div slot="header" class="itop" v-if="!isIosWechat">
     <myhead :hval="header"></myhead>
   </div>
   <div>

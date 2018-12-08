@@ -39,7 +39,8 @@ export default {
         show_comment:true,
         show_sell:true,
         sell_base:0
-      }
+      },
+      isIosWechat:false
     }
   },
   components: {
@@ -55,6 +56,12 @@ export default {
       'STATUSBARH',
       'CART'
     ])
+  },
+  created () {
+    if (html.isIosWechat()) {
+      this.isIosWechat = true;
+    }
+
   },
   mounted () {
     if (this.$route.query.id) {

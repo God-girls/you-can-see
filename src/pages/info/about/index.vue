@@ -40,7 +40,8 @@ export default {
         version:'',
         push:''
       },
-      isWechat:false
+      isWechat:false,
+      isIosWechat:false
     }
   },
   components: {
@@ -61,6 +62,9 @@ export default {
     if (html.isWechat()) {
       this.header.opacity = true;
       this.isWechat = true;
+    }
+    if (html.isIosWechat()) {
+      this.isIosWechat = true;
     }
   },
   mounted () {

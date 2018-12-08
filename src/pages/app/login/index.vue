@@ -42,8 +42,8 @@ export default {
         params += '&goodid='+ this.$route.query.goodid;
       jumpUrl += encodeURIComponent(params);
 
+      // else if (html.inqq())  location.href = html.openInOher(jumpUrl);
       if (html.isWechat()) location.href = html.openInWechat(jumpUrl);
-      else if (html.inqq())  location.href = html.openInOher(jumpUrl);
       else this.goto(params)
       return;
     }

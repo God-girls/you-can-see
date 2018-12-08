@@ -1,5 +1,5 @@
 <Layout>
-  <myhead :hval="header" slot="header"></myhead>
+  <myhead :hval="header" slot="header" v-if="!isIosWechat"></myhead>
 
   <div class="my-set">
     <ul class="blackCR f30">

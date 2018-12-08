@@ -30,7 +30,8 @@ export default {
         uid:7,
         nick:''
       },
-      token:''
+      token:'',
+      isIosWechat:false
     }
   },
   computed:{
@@ -44,6 +45,9 @@ export default {
   created(){
     if (html.isWechat()) {
       this.header.opacity = true;
+    }
+    if (html.isIosWechat()) {
+      this.isIosWechat = true;
     }
   },
   mounted () {

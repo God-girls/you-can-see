@@ -1,6 +1,6 @@
 <Layout>
   <div slot="header">
-    <myhead :hval="header"></myhead>
+    <myhead :hval="header" v-if="!isIosWechat"></myhead>
     <div class="header posiR whiteCR">
       <ul class="flexBox1 tC">
         <li class="posiR">

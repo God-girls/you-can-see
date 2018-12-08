@@ -44,7 +44,8 @@ export default {
         {'name':'客服微信号',type:'weixin',show:'show_weixin'},
         {'name':'客服QQ号',type:'qq',show:'show_qq'},
       ],
-      placeholder:''
+      placeholder:'',
+      isIosWechat:false
     }
   },
   computed:{
@@ -70,6 +71,9 @@ export default {
      this.paraData.show_mobileno = this.profile.show_mobileno ;
      this.paraData.show_weixin= this.profile.show_weixin;
      this.paraData.show_qq =  this.profile.show_qq ;
+    }
+    if (html.isIosWechat()) {
+      this.isIosWechat = true;
     }
     if (this.$route.query.from == 'index') {
       this.header.link = '/'

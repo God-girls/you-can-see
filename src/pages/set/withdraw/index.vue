@@ -31,7 +31,8 @@ export default {
       clickCaptcha:false,
       clickCaptcha2:false,
       paraData:{
-        'paytype':'Alipay',
+        'real_name':'',
+        'account':''
       },
       receiveAlipay:'',
       profile:{},
@@ -41,7 +42,7 @@ export default {
       realData:{},
       newAlipay:'',
       newAlipay2:'',
-      firstWithdraw:false
+      isIosWechat:false
     }
   },
   computed:{
@@ -54,8 +55,8 @@ export default {
     ])
   },
   created(){
-    if (html.isWechat()) {
-      this.header.opacity = true;
+    if (html.isIosWechat()) {
+      this.isIosWechat = true;
     }
   },
   mounted: function () {
@@ -63,7 +64,7 @@ export default {
       this.token = this.TOKEN;
       this.paraData.uid = this.UID;
       this.profile = this.PROFILE;
-
+      this.getAlipay ()
       dplus.track('提现',{'from':html.useragent()});//统计代码      
     }
   },
@@ -77,11 +78,36 @@ export default {
         this.bottomBarH = {'padding-bottom':this.BOTTOMBARH+'px'};     
       }
     },
-    getCaptcha(type){
-      if (!this.profile.acc) {
-        this.initMSG('请先到 ”我的“ 绑定手机号')
-        return;
-      }
+    getAlipay (){
+      axios.post('/seller_api/v1/user/fetch_alipay_account',qs.stringify({
+        uid:this.paraData.uid
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;
+
+          if (resData.success) {
+            if (resData.result) {
+             this.paraData.account = resData.result.alipay_account;
+             this.paraData.real_name = resData.result.real_name;
+             console.log(this.paraData)
+            }
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.goto('/')
+            }  else {
+                 this.initMSG(resData.codemsg)
+            }
+          }
+      }).catch((response)=>{
+        // this.logErrors(JSON.stringify(response))
+      });  
+    },
+
+     getCaptcha(type){
+      // this.getImage();
       axios.post('/seller_api/v1/user/captcha/fetch_captcha',qs.stringify({
         acc:this.profile.acc,
         act:type
@@ -91,19 +117,30 @@ export default {
         let resData = response.data;  
 
         if (resData.success) {
+          if (type == 'W') {
             this.clickCaptcha = true;
             this.leftTime = 60;
-
+          }else{
+            this.clickCaptcha2 = true;
+            this.leftTime2 = 60;
+          }
           clearInterval(this.timer);
           this.timer = setInterval(()=>{
-
+            if (type == 'W') {
               this.leftTime = this.leftTime -1;
               if (this.leftTime <= 0) {
                 this.clickCaptcha = false;
                 clearInterval(this.timer);
                 this.leftTime = 0;
               }             
-
+            }else{
+              this.leftTime2 = this.leftTime2 -1;
+              if (this.leftTime2 <= 0) {
+                this.clickCaptcha2 = false;
+                clearInterval(this.timer);
+                this.leftTime2 = 0;
+              }                           
+            }
           }, 1000)
         }  else {
              this.initMSG(resData.codemsg)
@@ -113,6 +150,7 @@ export default {
       });  
     },
    withDraw (){
+      this.loading = true;
       if (!this.profile.balance || Number(this.paraData.amount) > Number(this.profile.balance)) {
         this.initMSG('账户余额不足')
         return;
@@ -121,13 +159,11 @@ export default {
         this.initMSG('最少提现 1 元')
         return;
       }
-      if (!this.profile.acc) {
-        this.initMSG('请先到 ”我的“ 绑定手机号')
+      if (!this.paraData.account || !this.paraData.real_name || !this.paraData.captcha) {
+        this.initMSG('请填写完整信息信息')
         return;
       }
-      this.loading = true;
-
-      axios.post('/seller_api/v1/bonus/withdraw_balance',qs.stringify(this.paraData),{
+      axios.post('/seller_api/v1/seller/withdraw',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,
           }
@@ -136,21 +172,20 @@ export default {
 
           if (resData.success) {
             this.initMSG('提现成功');
-            this.getProfile ();
-            clearInterval(this.timer);
-            setTimeout(()=>{
-              this.goto('/my/balance')
-            },2000)
+            // this.getProfile ();
+
+            this.profile.balance = html.sub(this.profile.balance,this.paraData.amount);
+            this.switchState({
+              PROFILE:this.profile,
+            })            
             this.clickCaptcha = false;
 
+            clearInterval(this.timer);
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.goto('/')
             }  else {
-              if (resData.code == '344' || resData.code == '340' || resData.code == '343'
-                 || resData.code == '341' || resData.code == '342') {
-                this.realAuth = false;
-              }             
+           
               this.initMSG(resData.codemsg)
             }
           }
@@ -160,30 +195,7 @@ export default {
         this.getProfile ();
       });  
     },
-    getProfile (){
-      axios.post('/seller_api/v1/bonus/userinfo',qs.stringify(this.paraData),{
-          headers: {
-              "A-Token-Header": this.token,
-          }
-        }).then((response)=>{   
-          let resData = response.data;
 
-          if (resData.success) {
-            this.profile = resData.result;
-            this.switchState({
-              PROFILE:resData.result,
-            })
-
-          }  else {
-            if (resData.code == '403' || resData.code == '250') {
-              this.needLogin = true;
-              this.noToken = true;
-            }
-          }
-      }).catch((response)=>{
-        // this.logErrors(JSON.stringify(response))
-      });  
-    },
     goto(arr){
       this.$router.push(arr)        
     },

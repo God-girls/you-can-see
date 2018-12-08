@@ -2,7 +2,7 @@
 * @Author: xiaoxiao
 * @Date:   2017-11-28 13:47:58
 * @Last Modified by:   xiaoxiao
-* @Last Modified time: 2018-12-06 17:54:51
+* @Last Modified time: 2018-12-08 10:49:08
 */
 import axios from 'axios';
 import qs from 'qs';
@@ -85,6 +85,10 @@ var html = {
     },
     isWechat(){
         if (html.browser.versions.wechat) return true;
+        else return false
+    },
+    isIosWechat(){
+        if (html.browser.versions.wechat && (html.browser.versions.iphone || html.browser.versions.ipad)) return true;
         else return false
     },
     istestPay(){//2.0.2版本开始增加支付

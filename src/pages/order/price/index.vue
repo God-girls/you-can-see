@@ -60,6 +60,9 @@ export default {
     if (this.$route.query.id) {
       this.header.link = '/prd/create?id='+this.$route.query.id
     }
+    if (html.isIosWechat()) {
+      this.isIosWechat = true;
+    }
     this.specs = html.objClone(this.CART.specs);
     this.priceSet = html.objClone(this.CART.priceSet);
   },

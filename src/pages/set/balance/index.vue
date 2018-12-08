@@ -29,12 +29,6 @@ export default {
       bottomBarH:[],
       isApp:'',
       noDataText:'-----我是有底线的-----',
-      tabs:[
-        {name:'昨日',type:'0'},
-        {name:'今日',type:'1'},
-        {name:'7天',type:null},
-        {name:'30天',type:null}
-      ],
       totalPageCount:-1,
       paraData:{
         begin_time:'',
@@ -45,7 +39,7 @@ export default {
       minDate:'2018-1-01',
       profile:{},
       listData:[],
-      
+
     }
   },
   components: {

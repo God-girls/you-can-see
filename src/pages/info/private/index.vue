@@ -15,10 +15,13 @@ export default {
         'link':'/my/about',
       },
       bottomBarH:'',
+      isIosWechat:false
     }
   },
   mounted () {
-    // this.getStatusBar();
+    if (html.isIosWechat()) {
+      this.isIosWechat = true;
+    }
   },
   methods: {
     getStatusBar(){

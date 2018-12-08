@@ -20,8 +20,8 @@ export default {
   data () {
     return {
       header:{
-        'name':'绑定手机号',
-        'link':'/my',
+        'name':'提现',
+        'link':'/my/balance',
       },
       loading:false,
       loadError:'',
@@ -31,6 +31,7 @@ export default {
       clickCaptcha:false,
       clickCaptcha2:false,
       paraData:{
+        'paytype':'Alipay',
       },
       receiveAlipay:'',
       profile:{},
@@ -40,7 +41,7 @@ export default {
       realData:{},
       newAlipay:'',
       newAlipay2:'',
-      isIosWechat:false
+      firstWithdraw:false
     }
   },
   computed:{
@@ -53,10 +54,9 @@ export default {
     ])
   },
   created(){
-    if (html.isIosWechat()) {
-      this.isIosWechat = true;
+    if (html.isWechat()) {
+      this.header.opacity = true;
     }
-
   },
   mounted: function () {
     if (this.TOKEN) {
@@ -78,12 +78,12 @@ export default {
       }
     },
     getCaptcha(type){
-      if (!this.paraData.acc) {
-        this.initMSG('请输入手机号')
+      if (!this.profile.acc) {
+        this.initMSG('请先到 ”我的“ 绑定手机号')
         return;
       }
       axios.post('/seller_api/v1/user/captcha/fetch_captcha',qs.stringify({
-        acc:this.paraData.acc,
+        acc:this.profile.acc,
         act:type
       })
       ).then((response)=>{   
@@ -91,17 +91,19 @@ export default {
         let resData = response.data;  
 
         if (resData.success) {
+            this.clickCaptcha = true;
+            this.leftTime = 60;
 
-          this.clickCaptcha = true;
-          this.leftTime = 60;
           clearInterval(this.timer);
           this.timer = setInterval(()=>{
+
               this.leftTime = this.leftTime -1;
               if (this.leftTime <= 0) {
                 this.clickCaptcha = false;
                 clearInterval(this.timer);
                 this.leftTime = 0;
               }             
+
           }, 1000)
         }  else {
              this.initMSG(resData.codemsg)
@@ -110,44 +112,76 @@ export default {
         this.initMSG('呃哦，网络异常，再试一次~')
       });  
     },
-    bindAcc(){
-      if (!this.paraData.acc) {
-        this.initMSG('请输入手机号')
+   withDraw (){
+      if (!this.profile.balance || Number(this.paraData.amount) > Number(this.profile.balance)) {
+        this.initMSG('账户余额不足')
         return;
       }
-      if (!this.paraData.captcha) {
-        this.initMSG('请输入验证码')
+      if (!this.paraData.amount || Number(this.paraData.amount) < 1) {
+        this.initMSG('最少提现 1 元')
         return;
       }
-      document.activeElement.blur(); 
-      if (this.mobileLoginClick) return;
-      this.mobileLoginClick = true;
-      setTimeout(()=>this.mobileLoginClick = false,2000) 
-
+      if (!this.profile.acc) {
+        this.initMSG('请先到 ”我的“ 绑定手机号')
+        return;
+      }
       this.loading = true;
 
-      axios.post('/seller_api/v1/user/upd_mobileno',qs.stringify(this.paraData),{
-        headers: {
-            "A-Token-Header": this.token,
-        }
-      }).then((response)=>{   
-        let resData = response.data;  
-        if (resData.success) {
-          this.loading = false;
-            this.profile.sex = this.paraData.sex;
-            this.switchState({
-              PROFILE:this.profile
-            })
-            this.initMSG('操作成功')
-            setTimeout(()=>{
-              this.$router.push('/my')
-            },2000)
-        }else{
+      axios.post('/seller_api/v1/bonus/withdraw_balance',qs.stringify(this.paraData),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;
 
-          this.initMsg(resData.codemsg);     
-        }
-      }).catch(function(response){
-        alert('网络异常，请重试')
+          if (resData.success) {
+            this.initMSG('提现成功');
+            this.getProfile ();
+            clearInterval(this.timer);
+            setTimeout(()=>{
+              this.goto('/my/balance')
+            },2000)
+            this.clickCaptcha = false;
+
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.goto('/')
+            }  else {
+              if (resData.code == '344' || resData.code == '340' || resData.code == '343'
+                 || resData.code == '341' || resData.code == '342') {
+                this.realAuth = false;
+              }             
+              this.initMSG(resData.codemsg)
+            }
+          }
+      }).catch((response)=>{
+        this.loading = false;
+        this.initMSG('操作超时');
+        this.getProfile ();
+      });  
+    },
+    getProfile (){
+      axios.post('/seller_api/v1/bonus/userinfo',qs.stringify(this.paraData),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;
+
+          if (resData.success) {
+            this.profile = resData.result;
+            this.switchState({
+              PROFILE:resData.result,
+            })
+
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.needLogin = true;
+              this.noToken = true;
+            }
+          }
+      }).catch((response)=>{
+        // this.logErrors(JSON.stringify(response))
       });  
     },
     goto(arr){

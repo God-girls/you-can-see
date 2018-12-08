@@ -68,7 +68,8 @@ export default {
       saleData:{},
       dataTime:{},
       prdGid:'',
-      allPrdData:[]
+      allPrdData:[],
+      isIosWechat:false
     }
   },
   components: {
@@ -88,8 +89,8 @@ export default {
     ])
   },
   created(){
-    if (html.isWechat()) {
-      this.header.opacity = true;
+    if (html.isIosWechat()) {
+      this.isIosWechat = true;
     }
   },
   mounted () {

@@ -90,7 +90,7 @@ export default {
 		}
 	},
 	'/my/agreement': {
-		meta: { title: '用户服务协议'},
+		meta: { title: '服务协议'},
 		component: (resolve) => {
 			require(['pages/info/agreement'], resolve)
 		}

@@ -3,6 +3,7 @@
 
 <script>
 import myhead from '../../../components/base/header'
+import {html} from '../../../assets/js/global.js';
 
 export default {
   components: {
@@ -18,10 +19,12 @@ export default {
       isIosWechat:false
     }
   },
-  mounted () {
+  created(){
     if (html.isIosWechat()) {
       this.isIosWechat = true;
     }
+  },
+  mounted () {
   },
   methods: {
     getStatusBar(){

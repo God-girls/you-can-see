@@ -38,7 +38,7 @@ export default {
       profile:{},
       leftTime:60,
       leftTime2:60,
-      realAuth:false,
+      setTel:false,
       realData:{},
       newAlipay:'',
       newAlipay2:'',
@@ -105,9 +105,11 @@ export default {
         // this.logErrors(JSON.stringify(response))
       });  
     },
-
      getCaptcha(type){
-      // this.getImage();
+      if (!this.profile.acc) {
+        this.setTel = true;
+        return
+      }
       axios.post('/seller_api/v1/user/captcha/fetch_captcha',qs.stringify({
         acc:this.profile.acc,
         act:type

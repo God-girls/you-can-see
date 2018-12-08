@@ -21,7 +21,8 @@ export default {
       loading:false,
       profile:{},
       loadError:'',
-      paraData:{}
+      paraData:{},
+      isIosWechat:false
     }
   },
   computed:{
@@ -33,8 +34,8 @@ export default {
     ])
   },
   created(){
-    if (html.isWechat()) {
-      this.header.opacity = true;
+    if (html.isIosWechat()) {
+      this.isIosWechat = true;
     }
   },
   mounted(){

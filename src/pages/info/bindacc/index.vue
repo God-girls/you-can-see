@@ -134,20 +134,23 @@ export default {
         let resData = response.data;  
         if (resData.success) {
           this.loading = false;
-            this.profile.sex = this.paraData.sex;
+            this.profile.acc = this.paraData.acc;
             this.switchState({
               PROFILE:this.profile
             })
             this.initMSG('操作成功')
             setTimeout(()=>{
-              this.$router.push('/my')
+              if (this.$route.query.from == 'widthdraw') {
+                this.goto('/my/widthdraw')
+              }else
+                this.goto('/my')
             },2000)
         }else{
 
-          this.initMsg(resData.codemsg);     
+          this.initMSG(resData.codemsg);     
         }
       }).catch(function(response){
-        alert('网络异常，请重试')
+        this.initMSG('网络异常，请重试')
       });  
     },
     goto(arr){

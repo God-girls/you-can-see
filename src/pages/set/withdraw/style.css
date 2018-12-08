@@ -44,7 +44,13 @@
  .guestCON  dl dd.special span{
   top: 0px
  }
- 
+ .myDetail ol {
+  line-height: 36px;
+  padding-top: 30px;
+ }
+.myDetail ol li{
+    padding-top: 10px;
+}
 .footer dl{
   width: 100%;
   padding: 30px 30px;

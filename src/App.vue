@@ -45,16 +45,8 @@
                   })
                 }
                 //监控变化 && html.isPc()&& location.href.indexOf('.3.11') < 0
-                if (!html.isWechat() && !html.isWawa() 
-                  && location.href.indexOf('localhost') < 0 
-                  && location.href.indexOf('4.114') < 0 
-                  && location.href.indexOf('testbonus.bhuwifi.com') < 0 
-                  && location.href.indexOf('/webtips') < 0 
-                  && location.href.indexOf('app/author') < 0
-                  && location.href.indexOf('fromshare=true') < 0
-                  && location.href.indexOf('/admin/') < 0
-                ) {
-                    // this.$router.push('/webtips')
+                if (html.isPc()) {
+                    this.$router.push('/webtips?seller='+this.$route.query.seller+(this.$route.query.goodid?'&goodid='+this.$route.query.goodid:''))
                 }else{
                     if (location.href.indexOf('/app/login') < 0  
                         && location.href.indexOf('/index') < 0 

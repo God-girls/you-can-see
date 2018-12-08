@@ -91,7 +91,9 @@ export default {
       buyList:[],
       addressList:[],
       selectIndex:0,
-      seperatePrice:false
+      seperatePrice:false,
+      orderid:'',
+      orderkey:''
     }
   },
   computed:{

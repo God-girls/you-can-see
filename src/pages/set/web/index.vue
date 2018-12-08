@@ -3,6 +3,7 @@
 
 <script>
 import {html} from '../../../assets/js/global.js';
+import qrCode from 'qrcode';
 
 export default {
   data () {
@@ -19,31 +20,23 @@ export default {
       onlyWechat:false,
       inviter:'',
       isIos:false,
-      testCanvas:''
+      qrcodeUrl:''
     }
   },
   components: {
   },
   mounted () {
-    var img = new Image();
+    if (html.isPc()) {
+      document.body.setAttribute('class','pcBody');
+    }    
+      if (this.$route.query.seller) {
+        this.mySeller = this.$route.query.seller
+      }
+      if (this.$route.query.goodid) {
+        this.goodid = this.$route.query.goodid
+      }
+    this.makeCode()
 
-     img.src = 'https://testsellerimg.bhuwifi.com/seller/goods/1507al2dae.jpg';
-     img.crossOrigin = "Anonymous";
-      var canvas = document.getElementById("canvas");
-      var ctx = canvas.getContext("2d");
-
-
-     //浏览器加载图片完毕后再绘制图片
-     img.onload = ()=>{
-
-      // debugger
-      //以Canvas画布上的坐标(10,10)为起始点，绘制图像
-      ctx.drawImage(img,0,0, img.width, img.height);    
-
-      this.testCanvas = canvas.toDataURL()
-
-      
-     };
   },
   methods: {
     closeDialog (){
@@ -52,9 +45,15 @@ export default {
     goBack (){
       this.$router.push(this.header.link)      
     },
-    goDown (){
-      location.href = this.downMobile;
-      // location.href = 'https://wawa.ttkuaizhua.com/download/ethmain.apk?time='+new Date().getTime();
+    makeCode (){
+      qrCode.toDataURL( this.ttDomain+'/#/app/author?redirecto=true&seller='+this.mySeller + (this.goodid?'&goodid='+this.goodid:''), {
+          margin: 0,
+          width:400,
+          height:400
+      }, (error,url)=> {
+          if (error) console.log(error);
+          this.qrcodeUrl = url;
+      });   
     }
   }
 }

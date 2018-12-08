@@ -77,12 +77,12 @@ export default {
 			require(['pages/set/analysis'], resolve)
 		}
 	},
-	// '/testcanvas': {
-	// 	meta: { title: 'testcanvas'},
-	// 	component: (resolve) => {
-	// 		require(['pages/set/web'], resolve)
-	// 	}
-	// },
+	'/webtips': {
+		meta: { title: '小小麦'},
+		component: (resolve) => {
+			require(['pages/set/web'], resolve)
+		}
+	},
 	'/my/about': {
 		meta: { title: '关于小小麦'},
 		component: (resolve) => {

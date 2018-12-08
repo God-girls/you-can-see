@@ -11,6 +11,12 @@
 	width: 100%;
 }
 
-.test img{
-  width: 100%;/*no*/
+.qrcode img{
+  width: 400px;
+  height: 400px;
+  padding-bottom: 20px
+}
+.qrcode{
+	padding-top: 100px;
+	text-align: center;
 }

@@ -40,7 +40,7 @@ export default {
       imgFile:[],
       isWechat:false,
       choosed:0,
-      prdID:''
+      prdID:'',
     }
   },
   components: {
@@ -210,7 +210,7 @@ export default {
           // this.loading = false;        
           let resData = response.data;  
           if (resData.success) {
-            
+            alert(index)
             this.imgFile.splice(index,1,resData.result)
             // this.loadImg++;
             // if (this.loadImg < this.imgUrl.length) {

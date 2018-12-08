@@ -37,7 +37,6 @@
         watch: {
             '$route' (to, from, next) {
 
-
                 if (!this.TOKEN && localStorage.ttToken) {
                   this.switchState({
                     TOKEN:localStorage.ttToken,
@@ -46,9 +45,6 @@
                 }
                 //监控变化 && html.isPc()&& location.href.indexOf('.3.11') < 0
                 if (html.isPc() && location.href.indexOf('location') < 0) {
-                  alert(navigator.userAgent.toLowerCase());
-
-                  return;
                     this.$router.push('/webtips?seller='+this.$route.query.seller+(this.$route.query.goodid?'&goodid='+this.$route.query.goodid:''))
                 }else{
                     if (location.href.indexOf('/app/login') < 0  

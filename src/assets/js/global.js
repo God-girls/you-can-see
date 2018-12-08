@@ -2,7 +2,7 @@
 * @Author: xiaoxiao
 * @Date:   2017-11-28 13:47:58
 * @Last Modified by:   xiaoxiao
-* @Last Modified time: 2018-12-08 10:49:08
+* @Last Modified time: 2018-12-08 16:52:36
 */
 import axios from 'axios';
 import qs from 'qs';
@@ -119,7 +119,7 @@ var html = {
         else return false
     },
     isPc(){
-        if (html.browser.versions.iphone || html.browser.versions.android || html.browser.versions.mobile) return false
+        if (html.browser.versions.wechat || html.browser.versions.iphone || html.browser.versions.android || html.browser.versions.mobile) return false
         else return true;
     },
     isMiniprogram (){

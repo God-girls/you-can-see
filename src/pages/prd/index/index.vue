@@ -307,6 +307,7 @@ export default {
     },
     initDefault(){
       if (!this.goodid) return;
+      this.reinitShare();
       this.fetchList();
       this.goodid = ''
     },

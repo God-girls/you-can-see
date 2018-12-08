@@ -885,7 +885,7 @@ export default {
       var imgs = JSON.parse(this.curList.imgs)
       var poster = {
         width:750,
-        height:1020,
+        height:1050,
         imgWidth:460,
         lineWidth:16,
         lastTop:0,

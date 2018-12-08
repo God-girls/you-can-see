@@ -109,20 +109,20 @@
   box-shadow: 0px -8px 14px rgba(142,142,140,.56);
   z-index: 1;
 }
-.my-footer ul li.homeLi b{
+/*.my-footer ul li.homeLi b{
   position: absolute;
   left:0;
   right: 0;
   margin: auto;
   bottom: 0px;
   display: inline-block;
-  /*background: url(../../assets/img12/default/mask.png) no-repeat center bottom;*/
+  background: url(../../assets/img12/default/mask.png) no-repeat center bottom;
   background-size: 112px;
   width:112px;
   height: 112px;
   border-radius: 50%;
   z-index: 3;
-}
+}*/
 
 .icon-my{
   background-position: 0 -338px;
@@ -180,15 +180,25 @@
 }
 .special{
   width: 100%;
-  text-align: color
+  background: none;
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }
 .special ul{
     border-top:none;/*no*/
-    height:0px;
+    height:80px;
+    background: none;
+}
+.special .icon-home{
+  top: 0px;
+}
+.special  ul li.homeLi span{
+  top: 0px;
 }
 </style>
 <template>
-  <div>
+  <div class="posoR">
     <div :class="['animated my-footer',{'fadeInUp':showCircle,'dn':!showCircle}]">
       <ul>
         <li :class="['special',{'current':current=='task'}]" @touchend.prevent="goto('/')">

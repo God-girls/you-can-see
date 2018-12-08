@@ -255,11 +255,7 @@ export default {
 
     },
     getList(done){
-      if (!this.prdGid) {
-        this.noData = true;
-        return;
-      }
-      this.noData = false;
+      this.noData = true;
       axios.post('/seller_api/v1/seller/goods_chart',qs.stringify({
         uid:this.paraData.uid,
         gid:this.prdGid,
@@ -275,7 +271,7 @@ export default {
           
           if (resData.success) {
             let ranks = resData.result;
-              if (ranks.length) {
+              if (ranks.list.length) {
                 this.listData = ranks;
 
                 let lineData = resData.result.list;
@@ -290,6 +286,7 @@ export default {
                 }
                 // console.log(count)
                 if (count) {
+                  this.noData = false;
                   this.$nextTick(function(){
                       this.drawLine (xData,yData);
                   })

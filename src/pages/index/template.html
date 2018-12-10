@@ -16,7 +16,8 @@
     <dl class="tR" @click.prevent="goto('/my/profile?from=index')">
       <dt>
         <ol class="flexBox">
-          <li class="flex1 whiteCR f36 text-overflow">{{sellerInfo.nick}}</li>
+          <li class="flex1 whiteCR f36 text-overflow">
+            <i class="iconfont icon-erji f48 blueCR"></i> {{sellerInfo.nick}}</li>
           <li>
             <img :src="headImg" alt="" v-if="headImg">
             <img :src="ttLogoImg" alt="" v-else>
@@ -64,11 +65,14 @@
               </template>
             </ul>
             <ol class="flexBox">
-              <li class="flex1 redCR f24">
-                <span v-if="item.status == 0"
-                     @touchend.prevent="beforeOnoff(item,1)"><i class="iconfont icon-xiajia f36 blueLCR"></i></span> 
-                <span v-else  @touchend.prevent="beforeOnoff(item,2)"><i class="iconfont icon-ccgl-xiajia f36 blueLCR"></i></span> 
-                <b class="mL10 f36">¥ {{item.price_range}}</b> <span class="grayCR mL10" v-if="item.show_sell">已售{{item.total_sell?item.total_sell:0}}件</span>
+              <li class="f24 blueLCR">
+                  <span @click.prevent="reinitShare (item,paraData.uid)">
+                    <i class="iconfont icon-zhuanfa1 f36"></i> 转发
+                  </span>
+                
+              </li>
+              <li class="flex1 redCR tC">
+                <b class=" f36">¥ {{item.price_range}}</b> <span class="grayCR mL10" v-if="item.show_sell">已售{{item.total_sell?item.total_sell:0}}件</span>
               </li>
 
               <li class="blueLCR posiR" v-if="item.status == 0">
@@ -78,16 +82,17 @@
                     <i class="iconfont icon-fuzhi f28"></i> 复制
                   </span>
 
-                  <span  v-if="!item.praised" @click.prevent="praisePrd(item,index)">
-                    <i class="iconfont icon-xinheart282 f24"></i> 点赞
-                  </span>
 
                   <span  @click.prevent="beforeOnoff(item,3,index)">
                     <i class="iconfont icon-top f24"></i> 置顶
                   </span>
 
-                  <span @click.prevent="reinitShare (item,paraData.uid)">
-                    <i class="iconfont icon-zhuanfa f36"></i> 转发
+                  <span v-if="item.status == 0"
+                       @touchend.prevent="beforeOnoff(item,1)"><i class="iconfont icon-xiajia f24"></i> 下架</span> 
+                  <span v-else  @touchend.prevent="beforeOnoff(item,2)"><i class="iconfont icon-ccgl-xiajia f24"></i> 上架</span> 
+
+                  <span  v-if="!item.praised" @click.prevent="praisePrd(item,index)">
+                    <i class="iconfont icon-xinheart282 f24"></i> 点赞
                   </span>
 
                   <span @click.prevent="beforeReply(item,index)" 

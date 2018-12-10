@@ -166,6 +166,10 @@ export default {
         this.initMSG('请填写完整信息信息')
         return;
       }
+      if (!this.profile.acc) {
+        this.setTel = true;
+        return
+      }
       axios.post('/seller_api/v1/seller/withdraw',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,

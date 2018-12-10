@@ -33,7 +33,6 @@ export default {
       paraData:{
         ps:50,
         pn:1,
-        status:'0'
       },
       minDate:'2018-1-01',
       profile:{},

@@ -26,7 +26,7 @@ export default {
       isCur: 0,
       isSlider:0,
       header:{
-        'name':'以太大陆',
+        'name':'小小麦',
         'link':'/diamond_record',
         noBack:true
       },
@@ -609,10 +609,10 @@ export default {
       this.replyIndex = index;
     },
     beforeOnoff(item,index,isTop){
-      if (isTop == 0) {
-        this.initMSG('已置顶')
-        return;
-      }
+      // if (isTop == 0) {
+      //   this.initMSG('已置顶')
+      //   return;
+      // }
       this.comment.gid = item.id;
       this.popIndex = index;
       this.curProduct = item;

@@ -175,7 +175,7 @@ export default {
               let yData = [];
               // console.log(resData)
               for (let i = 0; i < lineData.length; i++) {
-                xData.push(lineData[i].id);
+                xData.push(this.isCur == 0 || this.isCur == 1 ? lineData[i].id.split(' ')[1] : lineData[i].id);
                 yData.push(lineData[i].amount);
                 count = html.add(count,lineData[i].count);
               }

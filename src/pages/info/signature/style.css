@@ -33,7 +33,7 @@
   display: block;
   text-align: center;
 }
-.my-set p{
+.my-set > p{
   padding: 34px 0 115px 30px;
   font-size: 22px;
 }
@@ -44,4 +44,21 @@
   position: absolute;
   right: 30px;
   top: 30px;
+}
+.my-set dl{
+  width: 100%;
+  padding: 30px 30px;
+}
+.my-set dl dt{
+}
+.my-set dl p{
+  width: 90%;
+}
+.my-set dl dt p{
+  background: #fff;
+  border:1px solid #51aa38!important
+}
+.my-set dl dt p:active{
+  background: #b9ddaf;
+  /*border:1px solid #51aa38!important*/
 }

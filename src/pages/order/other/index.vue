@@ -2,7 +2,6 @@
 <template src="./template.html"></template>
 
 <script>
-import {setupWebViewJavascriptBridge} from '../../../assets/js/iosbridge.js';
 import loading from '../../../components/base/loading'
 import myhead from '../../../components/base/header'
 import {html} from '../../../assets/js/global.js';
@@ -38,7 +37,7 @@ export default {
       other:{
         show_comment:true,
         show_sell:true,
-        sell_base:0
+        sell_base:'0'
       },
       isIosWechat:false
     }
@@ -67,7 +66,7 @@ export default {
     if (this.$route.query.id) {
       this.header.link = '/prd/create?id='+this.$route.query.id
     }
-    dplus.track('我的',{'from':html.useragent()});//统计代码
+    dplus.track('其它设置',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
     this.other = this.CART.other;
   },
@@ -80,7 +79,22 @@ export default {
         this.statusBar = this.STATUSBARH+'px';     
       }
     },
+    initMSG(arr){
+      this.loading = true;
+      this.loadError = arr;
+      setTimeout(()=>{
+        this.loading = false;
+        this.loadError = '';
+      },2000)
+    },
+    goBack(){
+      this.$router.push('/prd/create')        
+    },
     goto(arr){
+      if (this.other.show_sell && (Number(this.other.sell_base) < 0 || Number(this.other.sell_base) > 10000)) {
+        this.initMSG('数量基数0-10000');
+        return;
+      }
       this.switchState({
         CART:Object.assign(this.CART,{other:this.other})
       })      

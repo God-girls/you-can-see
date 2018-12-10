@@ -134,10 +134,9 @@
 .oneTop dd i.icon-zhuanhuan{
   right: 2px;
 }
-.icon-xiajia,
-.icon-ccgl-xiajia{
+.icon-ccgl-xiajia.special{
   position: relative;
-  /*top: -5px;*/
+  top: 2px;
 }
 .oneTop ul li img{
   width: 100%;

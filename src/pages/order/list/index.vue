@@ -51,7 +51,8 @@ export default {
       hasClick:false,
       remark:'',
       deliver:'',
-      deliver_no:''
+      deliver_no:'',
+      packageStat:{}
     }
   },
   components: {
@@ -144,7 +145,6 @@ export default {
       this.pid = item.id;
     },
     getProfile (){ 
-      
       axios.post('/seller_api/v1/seller/userinfo',qs.stringify({
         uid:this.paraData.uid
       }),{
@@ -281,6 +281,23 @@ export default {
           }
           if (done) done(true);
 
+      }).catch((response)=>{if (done) done(true)});  
+
+      axios.post('/seller_api/v1/seller/package_stat',qs.stringify(this.paraData),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{     
+
+          let resData = response.data; 
+
+          if (resData.success) {
+               this.packageStat = resData.result;
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.$router.push('/')
+            }
+          }
       }).catch((response)=>{if (done) done(true)});  
 
     },

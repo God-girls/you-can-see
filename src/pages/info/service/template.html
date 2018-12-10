@@ -1,11 +1,11 @@
 <Layout>
-  <myhead :hval="header" slot="header" v-if="!isIosWechat"></myhead>
+  <!-- <myhead :hval="header" slot="header" v-if="!isIosWechat"></myhead> -->
 
   <div class="my-set">
     <ul class="blackCR f30">
       <li class="special">
         <dl class="flexBox">
-          <dd class="flex1">客服电话</dd>
+          <dd class="flex1">客服电话显示</dd>
           <dd class=" posiR">
             <input id="deLock" type="checkbox" class="ace ace-switch" v-model="paraData.show_mobileno">
             <span class="lbl"></span>
@@ -15,7 +15,7 @@
       </li>
       <li class="special">
         <dl class="flexBox">
-          <dd class="flex1">客服微信</dd>
+          <dd class="flex1">客服微信显示</dd>
           <dd class=" posiR">
             <input id="deLock" type="checkbox" class="ace ace-switch" v-model="paraData.show_weixin">
             <span class="lbl"></span>
@@ -25,7 +25,7 @@
       </li>
       <li class="special">
         <dl class="flexBox">
-          <dd class="flex1">客服QQ</dd>
+          <dd class="flex1">客服QQ显示</dd>
           <dd class=" posiR">
             <input id="deLock" type="checkbox" class="ace ace-switch" v-model="paraData.show_qq">
             <span class="lbl"></span>
@@ -38,12 +38,13 @@
 
   <div slot="footer">
     <div class="footer tC f30">
-      <dl>
-        <dd>
-          <p class="btn btn-green" @click.prevent="modify">确定</p>
-        </dd>
+      <dl class="flexBox1">
+        <dt class="f21 grayCR">
+            <p class="btn btn-green greenCR" @click.prevent="goto(header.link)">取消</p>
+        </dt>
+        <dd><p class="btn btn-green" @click.prevent="modify">确定</p></dd>
       </dl>
     </div>
-      <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
+    <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
   </div>
 </Layout>

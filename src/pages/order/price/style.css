@@ -73,16 +73,23 @@
   background: #fff;
   margin: 0 10px;
 }
-.footer{
+.footer dl{
   width: 100%;
   padding: 30px 30px;
 }
-.footer dl{
+.footer dl dt{
 }
-.footer p{
-  width: 100%;
+.footer dl p{
+  width: 90%;
 }
-
+.footer dl dt p{
+  background: #fff;
+  border:1px solid #51aa38!important
+}
+.footer dl dt p:active{
+  background: #b9ddaf;
+  /*border:1px solid #51aa38!important*/
+}
 
 
 

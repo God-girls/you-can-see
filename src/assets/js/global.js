@@ -2,7 +2,7 @@
 * @Author: xiaoxiao
 * @Date:   2017-11-28 13:47:58
 * @Last Modified by:   xiaoxiao
-* @Last Modified time: 2018-12-10 10:06:02
+* @Last Modified time: 2018-12-10 10:57:31
 */
 import axios from 'axios';
 import qs from 'qs';
@@ -192,6 +192,9 @@ var html = {
     　　let D2 = (time2.getDate() > 9 ? time2.getDate() : '0' + time2.getDate())
 
     　　return Y2 + '-' + M2 + '-' + D2;
+    },
+    trimStr(str){
+        return str.replace(/(^\s*)|(\s*$)/g,"");
     },
     add (a, b) {
         var c, d, e;

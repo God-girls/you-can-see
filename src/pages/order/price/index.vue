@@ -35,9 +35,11 @@ export default {
         def_price:'',
         subIndex: 0,
         curIndex:0,
-        price:[]
+        price:[],
+        list:{}
       },
-      curType:0
+      curType:0,
+      isIosWechat:false
     }
   },
   computed:{
@@ -85,19 +87,20 @@ export default {
         this.priceSet.spec_name = '*';
       }else{
         if (this.specs.length) {
+          // debugger
             let myKey = Object.keys(this.specs[this.priceSet.subIndex])
             let priceShow = this.specs[this.priceSet.subIndex][myKey];
             let priceNew = []
             let obj = {};
             for (var i = 0; i < priceShow.length; i++) {
-              if (!this.priceSet.price[i]) {
+              if (!this.priceSet.list[priceShow[i]]) {
                 this.initMSG('请设置售价')
                 return;
               }
-              priceNew.push(this.priceSet.price[i])
-              obj[priceShow[i]] = this.priceSet.price[i];
+              priceNew.push(this.priceSet.list[priceShow[i]])
+              obj[priceShow[i]] = this.priceSet.list[priceShow[i]];
             }
-            this.priceSet.price = priceNew;
+            // this.priceSet.price = priceNew;
             this.priceSet.def_price = '';
             this.priceSet.spec_name = myKey[0];
             this.priceSet.list = obj;
@@ -113,9 +116,13 @@ export default {
       })      
       this.$router.push(arr)        
     },
+    changeSpec(){
+      if(!this.specs.length) return;
+      this.priceSet.curIndex = 1
+    },
     changeType(index){
       // console.log(this.priceSet.price)
-      if (this.priceSet.subIndex == index) return;
+      if (this.priceSet.subIndex == index || !this.specs.length) return;
       for (var i = 0; i < this.priceSet.price.length; i++) {
         if (this.priceSet.price[i] != '') {
           this.isToggle = true;
@@ -126,6 +133,9 @@ export default {
       this.priceSet.subIndex = index;
 
       
+    },
+    goBack(){
+      this.$router.push('/prd/create')        
     },
     changeSubmit(){
       this.isToggle = false;

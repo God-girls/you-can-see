@@ -85,8 +85,10 @@
       </dl>
 
       <ol class="blackCR flexBox f30">
-        <li class="flex1"></li>
-        <li class="flex1 tR" v-if="!item.deliver_no" @click.prevent="popOrder(item,index,false)">快递信息</li>
+        <li class="flex1">
+          总价：¥ {{item.amount}}
+        </li>
+        <li class="tR" v-if="!item.deliver_no" @click.prevent="popOrder(item,index,false)">快递信息</li>
         <li class="special posiR" @click.prevent="popOrder(item,index,true)">订单备注</li>
       </ol>
     </div>

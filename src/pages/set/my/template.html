@@ -8,8 +8,9 @@
               <p>
                 <img :src="headImg" alt="" :onerror="defaultHead">
               </p>
-              <p class="flex1 ">
+              <p class="flex1 text-overflow">
                 <span class="f30">{{profile.nick}}</span>
+                <span class="grayCR">个性签名：{{profile.signature ? profile.signature : '我的好货朋友圈，有喜欢的尽管说。'}}</span>
               </p>
             </div>
           </dd>

@@ -1,6 +1,6 @@
 <Layout>
   
-  <myhead :hval="header" slot="header" v-if="!isIosWechat"></myhead>
+  <!-- <myhead :hval="header" slot="header" v-if="!isIosWechat"></myhead> -->
   
 
   <div class="method1">
@@ -24,9 +24,11 @@
 
 
   <div class="method1 special">
-    <dl class="flexBox f30 blackCR" @click.prevent="priceSet.curIndex = 1">
+    <dl class="flexBox f30 blackCR" @click.prevent="changeSpec">
       <dt class="">
-        <i :class="['iconfont f30',{'icon-danxuankuang':priceSet.curIndex != 1},{'greenCR icon-danxuankuang1':priceSet.curIndex == 1}]"></i>
+        <i :class="['iconfont f30',{'icon-danxuankuang':priceSet.curIndex != 1},
+            {'greenCR icon-danxuankuang1':priceSet.curIndex == 1},
+            {'grayCR':!specs.length}]"></i>
       </dt>
       <dd class="flex1">
         方式二：按规格定价
@@ -52,8 +54,8 @@
           </dt>
           <dd>
             售价 <input type="number" name="" 
-                  v-model="priceSet.price[index]" v-if="priceSet.curIndex == 1">
-                  <input v-model="priceSet.price[index]" type="number" disabled="disabled" name="" v-else> 元
+                  v-model="priceSet.list[item]" v-if="priceSet.curIndex == 1">
+                  <input v-model="priceSet.list[item]" type="number" disabled="disabled" name="" v-else> 元
           </dd>
         </dl>
         
@@ -67,7 +69,12 @@
 
   <div slot="footer" :style="statusBarH">
     <div class="footer tC f30">
-      <p class="btn btn-green" @click.prevent="goto(header.link)">确定</p>
+      <dl class="flexBox1">
+        <dt class="f21 grayCR">
+            <p class="btn btn-green greenCR" @click.prevent="goBack">取消</p>
+        </dt>
+        <dd><p class="btn btn-green" @click.prevent="goto(header.link)">确定</p></dd>
+      </dl>
     </div>
     <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
 

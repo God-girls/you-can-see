@@ -1,6 +1,6 @@
 <Layout>
-  <myhead slot="header" :hval="header" v-if="!isIosWechat"></myhead>
-
+<!--   <myhead slot="header" :hval="header" v-if="!isIosWechat"></myhead>
+ -->
 
   <div class="my-set">
     <ul class="blackCR f30">
@@ -21,13 +21,22 @@
             <span class="lbl"></span>
           </dd>
         </dl>
-        <p class="f24" v-if="other.show_sell">显示数量基数 <input type="number" v-model = "other.sell_base" name=""></p>
+        <p class="f24" v-if="other.show_sell">显示数量基数 <input type="number" v-model = "other.sell_base" name="" placeholder="1-10000"></p>
       </li>
     </ul>
   </div>    
 
-  <div class="footer tC f30" slot="footer">
-    <p class="btn btn-green" @click.prevent="goto(header.link)">设置完成</p>
+  <div class="" slot="footer">
+    <!-- <p class="btn btn-green" @click.prevent="goto(header.link)">设置完成</p> -->
+    <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
+    <div class="footer tC f30">
+      <dl class="flexBox1">
+        <dt class="f21 grayCR">
+            <p class="btn btn-green greenCR" @click.prevent="goBack">取消</p>
+        </dt>
+        <dd><p class="btn btn-green" @click.prevent="goto(header.link)">确定</p></dd>
+      </dl>
+    </div>
   </div>
   
 </Layout>

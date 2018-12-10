@@ -118,36 +118,36 @@ export default {
       this.getStatusBar();
     }else{
 
-        if (this.$route.query.token) {
-          this.paraData.uid = this.$route.query.uid;
-          this.token = unescape(this.$route.query.token);
+      if (this.$route.query.token) {
+        this.paraData.uid = this.$route.query.uid;
+        this.token = unescape(this.$route.query.token);
 
-          this.switchState({
-            TOKEN:this.token,
-            UID:this.paraData.uid
-          })
+        this.switchState({
+          TOKEN:this.token,
+          UID:this.paraData.uid
+        })
 
-        }else if (this.TOKEN){
+      }else if (this.TOKEN){
 
-          this.token = this.TOKEN;
-          this.paraData.uid = this.UID;  
-          this.profile = this.PROFILE;
-          // if (this.LISTDATA.length) 
-          //   this.listData = this.LISTDATA
-        }else if (!this.TOKEN && localStorage.ttToken){
+        this.token = this.TOKEN;
+        this.paraData.uid = this.UID;  
+        this.profile = this.PROFILE;
+        // if (this.LISTDATA.length) 
+        //   this.listData = this.LISTDATA
+      }else if (!this.TOKEN && localStorage.ttToken){
 
-          this.token = localStorage.ttToken;
-          this.paraData.uid = localStorage.ttUid;  
-          // this.profile = this.PROFILE;
+        this.token = localStorage.ttToken;
+        this.paraData.uid = localStorage.ttUid;  
+        // this.profile = this.PROFILE;
 
-        }else{
-          this.redirect();
-        }
-        if (this.LISTDATA.length) {
-          // tthis.paraData.pn = 2;
-          this.listData = this.LISTDATA
-          this.fetchList();
-        }
+      }else{
+        this.redirect();
+      }
+      if (this.LISTDATA.length) {
+        this.paraData.pn = 2;
+        this.listData = this.LISTDATA
+        // this.fetchList();
+      }
       if (html.isWawa()) {
         this.isApp = true;
 

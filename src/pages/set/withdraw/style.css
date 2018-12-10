@@ -56,11 +56,19 @@
   padding: 30px 30px;
 }
 .footer dl dt{
-  padding-bottom: 20px;
 }
 .footer dl p{
-  width: 100%;
+  width: 90%;
 }
+.footer dl dt p{
+  background: #fff;
+  border:1px solid #51aa38!important
+}
+.footer dl dt p:active{
+  background: #b9ddaf;
+  /*border:1px solid #51aa38!important*/
+}
+
 
 .myFinish{
   /*padding-top: 30px;*/

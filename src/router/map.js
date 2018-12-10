@@ -150,7 +150,7 @@ export default {
 		}
 	},
 	'/prd/success': {//新建商品
-		meta: { title: '支付结果'},
+		meta: { title: '小小麦'},
 		component: (resolve) => {
 			require(['pages/prd/success'], resolve)
 		}
@@ -192,7 +192,7 @@ export default {
 		}
 	},
 	'/prd/detail': {
-		meta: { title: '商品详情'},
+		meta: { title: '小小麦'},
 		component: (resolve) => {
 			require(['pages/prd/detail'], resolve)
 		}

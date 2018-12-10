@@ -18,7 +18,8 @@ export default new vuex.Store({
                 def_price:'',
                 subIndex: 0,
                 curIndex:0,
-                price:[]                
+                price:[]  ,
+                list:{}             
             },
             specs:[],
             other:{

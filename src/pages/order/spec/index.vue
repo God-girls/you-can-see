@@ -42,7 +42,7 @@ export default {
       addFirst:false,
       addSecond:false,
       delSpec:false,
-      specs:[],
+      specs:[{"颜色":["红色"]},{"尺寸":["L"]},{"重量":["1Kg"]}],
       firstVal:'',
       secondVal:'',
       curProperty:0,
@@ -73,8 +73,8 @@ export default {
     if (this.$route.query.id) {
       this.header.link = '/prd/create?id='+this.$route.query.id
     }    
-    if (this.CART.specs) this.specs = html.objClone(this.CART.specs);
-    console.log(this.specs)
+    if (this.CART.specs.length) this.specs = html.objClone(this.CART.specs);
+    // console.log(this.CART.specs)
   },
   methods: {
     ...mapActions([
@@ -94,6 +94,10 @@ export default {
       this.addFirst = true;
     },
     addSpec (){
+      if (!html.trimStr(this.firstVal)) {
+        this.initMSG('请添加规格')
+        return;
+      }
       let obj = {};
       // obj.type = this.firstVal;
       // obj.value = [];
@@ -103,9 +107,13 @@ export default {
       this.closeDialog('addFirst')
     },
     addProperty(){
+      if (!html.trimStr(this.secondVal)) {
+        this.initMSG('请添加属性')
+        return;
+      }
       let myKey = Object.keys(this.specs[this.curProperty])[0]
       this.specs[this.curProperty][myKey].push(this.secondVal);
-      // console.log(this.specs)
+      console.log(JSON.stringify(this.specs))
       // this.specs[this.curProperty].value.push(this.secondVal);
       this.secondVal = '';
       this.closeDialog('addSecond')
@@ -128,6 +136,9 @@ export default {
     },
     closeDialog(arr){
       this[arr] = false
+    },
+    goBack(){
+      this.$router.push('/prd/create')        
     },
     goto(arr){
       // debugger

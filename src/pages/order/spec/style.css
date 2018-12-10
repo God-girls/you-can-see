@@ -59,12 +59,31 @@
   top: 1px
 }
 
-.footer,.speTop{
+.speTop{
   width: 100%;
   padding: 30px 30px;
 }
-.footer p,.speTop p{
+.speTop p{
   width: 100%;
+  background: #fff;
+  border:1px solid #51aa38!important
+}
+.footer dl{
+  width: 100%;
+  padding: 30px 30px;
+}
+.footer dl dt{
+}
+.footer dl p{
+  width: 90%;
+}
+.footer dl dt p{
+  background: #fff;
+  border:1px solid #51aa38!important
+}
+.footer dl dt p:active{
+  background: #b9ddaf;
+  /*border:1px solid #51aa38!important*/
 }
 .inputSet {
   padding-top: 15px;

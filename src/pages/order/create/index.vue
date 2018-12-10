@@ -42,6 +42,10 @@ export default {
       choosed:0,
       prdID:'',
       defaultImgLen:0,
+      curSpecs:[],
+      priceSet:'',
+      curPrice:[],
+      priceRang:'',
     }
   },
   components: {
@@ -74,11 +78,28 @@ export default {
     this.paraData.desc = this.CART.desc;
     this.imgUrl = this.CART.imgUrl?this.CART.imgUrl:[]; 
     this.choosed = this.imgUrl.length ? this.imgUrl.length : 0;
+    this.curSpecs = html.objClone(this.CART.specs);
+    // debugger
+    this.priceSet = html.objClone(this.CART.priceSet);
+    if (this.curSpecs.length) {
+      let tempArr = []
+      for (var i in this.priceSet.list) {
+        tempArr.push(Number(this.priceSet.list[i]))
+      }
+
+      tempArr.sort(function compare(val1,val2){return val1-val2;})
+
+      this.priceRang = '￥' + tempArr[0];
+      if (tempArr.length > 1) {
+        this.priceRang += '-' + tempArr.pop()
+      }
+    }
     this.autoTextarea(document.getElementById("text"),'',500)
     if (this.$route.query.id) {
       this.prdID = this.$route.query.id
       if (!this.CART.imgFile) this.fetchList();
     }
+    console.log(this.priceSet)
 
     dplus.track('我的',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});

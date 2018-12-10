@@ -33,7 +33,8 @@
             <i class="iconfont icon-guigecanshu f30"></i>
           </dt>
           <dd class="flex1">规格</dd>
-          <dd class="tR">
+          <dd class="tR f24 redCR">
+             {{curSpecs.length?'已添加':''}}
             <i class="iconfont icon-jiantou f30"></i>
           </dd>
         </dl>
@@ -44,7 +45,9 @@
             <i class="iconfont icon-jin f30"></i>
           </dt>
           <dd class="flex1">单价</dd>
-          <dd class="tR">
+          <dd class="tR f24 redCR">
+            <span v-if="!curSpecs.length && priceSet.spec_name == '*'">￥{{priceSet.def_price}}</span>
+            <span v-if="priceRang.length">{{priceRang}}</span>
             <i class="iconfont icon-jiantou f30"></i>
           </dd>
         </dl>

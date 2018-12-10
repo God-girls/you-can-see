@@ -1,5 +1,5 @@
 <Layout>
-  <myhead :hval="header" slot="header" v-if="!isIosWechat"></myhead>
+  <!-- <myhead :hval="header" slot="header" v-if="!isIosWechat"></myhead> -->
 
   <div class="my-set f30">
     <ul>
@@ -9,7 +9,13 @@
       </li>
     </ul>
     <p class="grayCR">最多30个字符,一个汉字为两个字符</p>
-    <a href="javascript:;" class="btn btn-green" @touchend.prevent="modifyNick">提交</a>
+    <!-- <a href="javascript:;" class="btn btn-green" @touchend.prevent="modifyNick">提交</a> -->
+    <dl class="flexBox1">
+      <dt class="f21 grayCR">
+          <p class="btn btn-green greenCR" @click.prevent="goto(header.link)">取消</p>
+      </dt>
+      <dd><p class="btn btn-green" @click.prevent="modifyNick">确定</p></dd>
+    </dl>
   </div>
 
   <div slot="footer">

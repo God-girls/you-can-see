@@ -61,6 +61,12 @@
 .prdOne ol li{
   padding: 0 30px;
 }
+.prdOne ol li.flex1{
+  padding: 0 0px;
+}
+.prdOne ol li.special{
+  padding-right: 0;
+}
 .prdOne ol li.special:before{
   content: ' ';
   border-left:1px solid #dedede ;/*no*/

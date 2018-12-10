@@ -28,7 +28,7 @@ export default {
       loadError:'',
       bottomBarH:[],
       isApp:'',
-      noDataText:'-----我是有底线的-----',
+      noDataText:'-----技术支持：公众号“小小麦的家"-----',
       totalPageCount:-1,
       paraData:{
         begin_time:'',

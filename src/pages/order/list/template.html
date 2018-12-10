@@ -74,12 +74,12 @@
           </template>
         </dd>
         <dd v-else>
-<!--           <p v-for="(item3,index2) in JSON.parse(item.spec).spec">
-            {{item3.spec}}
-            <template v-for="(value,key,index4) in item3.spec">
+          <p v-for="(item3,index2) in JSON.parse(item.spec)">
+
+            <template v-for="(value,key,index4) in item3">
               {{key == 'count' ? '数量' : key}}：{{value}} {{index4 == Object.keys(item3).length - 1 ? '' :' ，'}} 
             </template>
-          </p> -->
+          </p>
         </dd>
       </dl>
 <!--       <dl>

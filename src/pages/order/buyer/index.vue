@@ -104,7 +104,7 @@ export default {
             })
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              this.redirect();
+              // this.redirect();
             }
             else this.initMSG(resData.msg);
           }
@@ -203,7 +203,7 @@ export default {
        this.$router.push(arr)        
     },
     redirect(arr){
-      location.href = html.openInWechat(this.ttDomain+'/#'+arr)
+      location.href = html.openInWechat(this.ttDomain+'/#/app/login')
     },
     closeDialog (arr){
       this[arr] = false

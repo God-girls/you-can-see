@@ -99,7 +99,7 @@ export default {
       this.prdID = this.$route.query.id
       if (!this.CART.imgFile) this.fetchList();
     }
-    console.log(this.CART)
+    // console.log(this.CART)
 
     dplus.track('我的',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
@@ -132,13 +132,16 @@ export default {
             this.imgUrl.push(this.globalAvatar+'goods/'+this.imgFile[i])
           }
           this.choosed = this.imgFile.length;
-
+          let temPrice = JSON.parse(resData.result.ext);
+          if (!temPrice.list) {
+            temPrice.list = {}
+          }
           this.switchState({
             CART:Object.assign(this.CART,{
               imgFile:this.imgFile,
               desc:this.paraData.desc,
               imgUrl:this.imgUrl,
-              priceSet:JSON.parse(resData.result.ext),
+              priceSet:temPrice,
               specs:resData.result.spec ? JSON.parse(resData.result.spec) : [],
               other:{
                 show_comment:resData.result.show_comment,
@@ -147,7 +150,7 @@ export default {
               }
             })
           })    
-          // console.log(this.CART)
+
           // this.imgFile = this.CART.imgFile?this.CART.imgFile:[]; 
           // this.imgUrl = this.CART.imgUrl?this.CART.imgUrl:[]; 
 

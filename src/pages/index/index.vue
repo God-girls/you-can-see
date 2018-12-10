@@ -144,6 +144,7 @@ export default {
         this.redirect();
       }
       if (this.LISTDATA.length) {
+        alert('LISTDATA:'+this.LISTDATA.length)
         this.paraData.pn = 2;
         this.listData = this.LISTDATA
         // this.fetchList();
@@ -382,7 +383,7 @@ export default {
       });  
     },
     fetchList(done){
-
+      alert(this.paraData.pn)
       if (this.totalPageCount+1 == this.paraData.pn || this.totalPageCount == 0 || this.totalPageCount == 1 || this.bugInfinite){
         if(done) done(true) 
         return;
@@ -452,6 +453,7 @@ export default {
       },1000)
     },
     onInfinite(done) {  
+      alert('infinite')
       this.indexDone = done;   
       this.fetchList(done);
     },

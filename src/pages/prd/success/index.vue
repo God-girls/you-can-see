@@ -51,7 +51,8 @@ export default {
       orderStatus:'订单支付成功！',
       canvasCont:{
 
-      }
+      },
+      head_image:''
     }
   },
   computed:{
@@ -130,8 +131,9 @@ export default {
           this.loading = false
           if (resData.success) {            
             this.orderInfo = resData.result;
-            this.count = JSON.parse(resData.result.spec).count;
+            this.count = JSON.parse(resData.result.spec).spec.count;
             this.addressInfo = JSON.parse(resData.result.addrinfo);
+            this.head_image = JSON.parse(resData.result.spec).head_image
 
             // if (resData.result.status != 9 && resData.result.status != 9 && resData.result.status != 9) {
             //   this.orderStatus = '等待支付结果'
@@ -159,6 +161,7 @@ export default {
         imgs:[],
       }
       this.canvasCont = [
+        '卖家：'+this.sellerInfo.nick,
         '商品：'+this.orderInfo.commdity_name,
         '价格：'+this.orderInfo.amount,
         '数量：'+this.count,

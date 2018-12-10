@@ -30,6 +30,19 @@
 .success .bg{
   background: #fff;
 }
+.success .bg p{
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+}
+.success .bg p img{
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+}
 .success dl.special{
   border-top: 1px solid #a0a0a0;/*no*/  
   padding-top: 15px;

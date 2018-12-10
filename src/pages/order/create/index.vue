@@ -410,7 +410,6 @@ export default {
           imgs:[]
         };
         this.imgFile = []
-
       }
        this.$router.push(arr);        
     },

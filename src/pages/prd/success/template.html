@@ -10,8 +10,15 @@
     </h3>
     <div class="bg">
       <dl class="dls">
+        <dt>卖家：</dt>
+        <dd>{{sellerInfo.nick}}</dd>
+      </dl>
+      <dl class="dls">
         <dt>商品：</dt>
-        <dd>{{orderInfo.commdity_name}}</dd>
+        <dd>
+          <p class="posiR"><img :src="globalAvatar+'goods/'+head_image+'?imageView2/2/w/100/'" alt="" :onerror="errorImg"></p>
+          {{orderInfo.commdity_name}}
+        </dd>
       </dl>
       <dl class="dls">
         <dt>价格：</dt>

@@ -43,7 +43,7 @@ export default {
       jumpUrl += encodeURIComponent(params);
 
       if (html.isWechat()) location.href = html.openInWechat(jumpUrl);
-      else if (html.inqq())  location.href = html.openInOher(jumpUrl);
+      else if (html.isInqq())  location.href = html.openInOher(jumpUrl);
       else this.goto(params)
       return;
     }

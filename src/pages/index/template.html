@@ -65,7 +65,7 @@
               </template>
             </ul>
             <ol class="flexBox">
-              <li class="f24 blueLCR">
+              <li class="f24 blueLCR" v-if="item.status == 0">
                   <span @click.prevent="reinitShare (item,paraData.uid)">
                     <i class="iconfont icon-zhuanfa1 f36"></i> 转发
                   </span>
@@ -75,8 +75,9 @@
                 <b class=" f36">¥ {{item.price_range}}</b> <span class="grayCR mL10" v-if="item.show_sell">已售{{item.total_sell?item.total_sell:0}}件</span>
               </li>
 
-              <li class="blueLCR posiR" v-if="item.status == 0">
-                <span @click.prevent="item.showComment = !item.showComment;curListIndex = index"><i class="iconfont icon-gongju f48"></i></span>
+              <li class="blueLCR posiR">
+                <span @click.prevent="item.showComment = !item.showComment;curListIndex = index" v-if="item.status == 0"><i class="iconfont icon-gongju f48"></i></span>
+                <span v-else  @click.prevent="beforeOnoff(item,2)"><i class="iconfont icon-ccgl-xiajia f24"></i> 上架</span> 
                 <p class="whiteCR flexBox1 fadeIn animated2dot" v-if="item.showComment">
                   <span @click.prevent="beforeOnoff(item,4)">
                     <i class="iconfont icon-fuzhi f28"></i> 复制
@@ -88,8 +89,8 @@
                   </span>
 
                   <span v-if="item.status == 0"
-                       @touchend.prevent="beforeOnoff(item,1)"><i class="iconfont icon-xiajia f24"></i> 下架</span> 
-                  <span v-else  @touchend.prevent="beforeOnoff(item,2)"><i class="iconfont icon-ccgl-xiajia f24"></i> 上架</span> 
+                       @click.prevent="beforeOnoff(item,1)"><i class="iconfont icon-xiajia f24"></i> 下架</span> 
+                  <span v-else  @click.prevent="beforeOnoff(item,2)"><i class="iconfont icon-ccgl-xiajia f24"></i> 上架</span> 
 
                   <span  v-if="!item.praised" @click.prevent="praisePrd(item,index)">
                     <i class="iconfont icon-xinheart282 f24"></i> 点赞

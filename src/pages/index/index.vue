@@ -634,7 +634,7 @@ export default {
       this.listData[this.curListIndex].showComment = false
     },
     beforeOnoff(item,index,isTop){
-      this.listData[this.curListIndex].showComment = false
+      // debugger
       // if (isTop == 0) {
       //   this.initMSG('已置顶')
       //   return;
@@ -643,6 +643,7 @@ export default {
       this.popIndex = index;
       this.curProduct = item;
       this.del = true;
+      this.listData[this.curListIndex].showComment = false
     },
     popFuncs(){
       switch(this.popIndex){

@@ -154,13 +154,13 @@ export default {
     typeFormat(){
       switch(this.isCur2){
         case 0:
-          this.dataTime.start = html.timeForMat(1)
-          this.dataTime.end = html.timeForMat(1)
+          this.dataTime.start = html.timeForMat(1) + ' 00'
+          this.dataTime.end = html.timeForMat(1) + ' 59'
         break;
 
         case 1:
-          this.dataTime.start = html.timeForMat(0)
-          this.dataTime.end = html.timeForMat(0)
+          this.dataTime.start = html.timeForMat(0) + ' 00'
+          this.dataTime.end = html.timeForMat(0) + ' 59'
         break;
 
         case 2:

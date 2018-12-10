@@ -6,9 +6,9 @@
             :class="{'greenCR current':index == isCur}"
             @click.prevent="changeType(index,item.type)">
           {{item.name}}
-          <p class="f21" v-if="index == 2">{{packageStat.all}}</p>
-          <p class="f21" v-if="index == 0">{{packageStat.init}}</p>
-          <p class="f21" v-if="index == 1">{{packageStat.delivered}}</p>    
+          <p class="f21" v-if="index == 2">( {{packageStat.all}} )</p>
+          <p class="f21" v-if="index == 0">( {{packageStat.init}} )</p>
+          <p class="f21" v-if="index == 1">( {{packageStat.delivered}} )</p>    
         </li>
       </ul>
     </div>

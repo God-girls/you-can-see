@@ -104,6 +104,9 @@ export default {
       'CART'
     ])
   },
+  created(){
+    console.log('created')
+  },
   mounted () {
 
     if (html.istestPay()) {
@@ -144,9 +147,10 @@ export default {
         this.redirect();
       }
       if (this.LISTDATA.length) {
-        this.listData = this.LISTDATA
+        this.listData = html.objClone(this.LISTDATA)
         this.fetchList();
-        this.paraData.pn = 2;
+        this.bugInfinite = true;
+        // this.paraData.pn = 2;
       }
       if (html.isWawa()) {
         this.isApp = true;
@@ -162,6 +166,7 @@ export default {
         }
       }     
     }
+    console.log('mounted')
     // this.hideToolBar()
     this.getShare ();
     dplus.track('首页',{'from':html.useragent()});//统计代码
@@ -388,7 +393,7 @@ export default {
         return;
       }
       //debugger
-      this.bugInfinite = false;
+      
       axios.post('/seller_api/v1/seller/my_goods',qs.stringify({
         uid:this.paraData.uid,
         pn:this.paraData.pn,
@@ -398,6 +403,7 @@ export default {
               "A-Token-Header": this.token,
           }
         }).then((response)=>{   
+          this.bugInfinite = false;
           let resData = response.data;  
           if (resData.success) {
             let ranks = resData.result;
@@ -440,6 +446,7 @@ export default {
           }
           if(done) done();
       }).catch((response)=>{
+        this.bugInfinite = false;
         if(done) done(done)
       });  
 
@@ -452,7 +459,7 @@ export default {
       },1000)
     },
     onInfinite(done) {  
-      // alert('infinite')
+      console.log('infinite')
       this.indexDone = done;   
       this.fetchList(done);
     },

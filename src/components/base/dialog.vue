@@ -174,7 +174,11 @@
   color: #fff;
   /*box-shadow: 5px 5px 8px rgba(248,97,1,1);*/
   font-size: 24px;
-
+}
+.dialog-footer dd:first-child button{
+  background: #fff;
+  border:1px solid #51aa38!important;
+  color:#51aa38!important;
 }
 .dialog-overlay {
     content: "";

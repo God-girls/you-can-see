@@ -33,7 +33,7 @@
     <h3 class="blackCR f30">购买数量</h3>
     <dl class="flexBox" v-for="(item,index) in buyList">
       <dt class="flex1">
-        {{item.name}}，单价：{{Number(item.price).toFixed(2)}}
+        {{item.name}}，<span>单价：￥ {{Number(item.price).toFixed(2)}}</span>
       </dt>
       <dd>
         <div class="flexBox1">

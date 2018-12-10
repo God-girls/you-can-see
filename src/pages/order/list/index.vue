@@ -301,6 +301,9 @@ export default {
       }).catch((response)=>{if (done) done(true)});  
 
     },
+    transObj(arr){
+      console.log(arr)
+    },
     onRefresh(done) {
       setTimeout(()=>{
         this.totalPageCount = -1;

@@ -85,8 +85,8 @@ export default {
       this.token = this.TOKEN;
     }
 
-    this.dataTime.start = html.timeForMat(0)
-    this.dataTime.end = html.timeForMat(0)
+    this.dataTime.start = html.timeForMat(0) + ' 00'
+    this.dataTime.end = html.timeForMat(0) + ' 23'
 
     this.getList ();
     this.getBonus()
@@ -107,13 +107,13 @@ export default {
     typeFormat(){
       switch(this.isCur){
         case 0:
-          this.dataTime.start = html.timeForMat(1)
-          this.dataTime.end = html.timeForMat(1)
+          this.dataTime.start = html.timeForMat(1) + ' 00'
+          this.dataTime.end = html.timeForMat(1) + ' 23'
         break;
 
         case 1:
-          this.dataTime.start = html.timeForMat(0)
-          this.dataTime.end = html.timeForMat(0)
+          this.dataTime.start = html.timeForMat(0) + ' 00'
+          this.dataTime.end = html.timeForMat(0) + ' 23'
         break;
 
         case 2:
@@ -151,7 +151,7 @@ export default {
       });  
     },
     getList(done){
-      this.noData = false;
+      this.noData = true;
       axios.post('/seller_api/v1/seller/goods_chart',qs.stringify({
         uid:this.paraData.uid,
         gid:'',
@@ -181,6 +181,7 @@ export default {
               }
               // console.log(count)
               if (count) {
+                this.noData = false
                 this.$nextTick(function(){
                     this.drawLine (xData,yData);
                 })

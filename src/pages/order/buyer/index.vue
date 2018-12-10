@@ -202,8 +202,8 @@ export default {
     goto (arr){
        this.$router.push(arr)        
     },
-    redirect(){
-      location.href = html.openInWechat(this.ttDomain+'/#/app/author')
+    redirect(arr){
+      location.href = html.openInWechat(this.ttDomain+'/#'+arr)
     },
     closeDialog (arr){
       this[arr] = false

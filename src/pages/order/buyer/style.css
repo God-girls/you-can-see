@@ -19,13 +19,27 @@
 }
 .prdOne dl.special{
   border-top: 1px solid #dedede ;/*no*/
-  padding-top: 10px;
-  margin-top: 10px;
+  padding: 15px 0 0;
+  margin-top: 15px;
   /*padding: 20px 0px;*/
 }
+.topMargin{
+  padding-bottom: 10px;
+}
+.prdOne dl p.img{
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+  margin-right: 10px;
+}
 .prdOne dl dd img{
-  width: 100px;
-  height: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0px;
+  margin: auto;
+  border-radius: 5px;
 }
 
 .prdOne ul{
@@ -44,11 +58,21 @@
 .prdOne ol li{
   padding: 0 30px;
 }
-.paddTop{
+.prdOne .paddTop{
   padding-top: 30px;
+  align-items: center;
 }
 .paddTop span{
-  padding: 10px 20px 10px 0;
+  /*padding: 10px 20px 10px 0;*/
+  display: block;
+
+}
+.paddTop p.flex1{
+  padding-left: 15px;
+}
+.paddTop img{
+  width: 80px;
+  height: 80px;
 }
 .prdOne ol li.special:before{
   content: ' ';

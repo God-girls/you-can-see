@@ -104,8 +104,8 @@ export default {
       this.token = this.TOKEN;
     }
 
-    this.dataTime.start = html.timeForMat(0)
-    this.dataTime.end = html.timeForMat(0)
+    this.dataTime.start = html.timeForMat(0) + ' 00'
+    this.dataTime.end = html.timeForMat(0) + ' 23'
 
     this.getList ();
     this.fetchList();
@@ -155,12 +155,12 @@ export default {
       switch(this.isCur2){
         case 0:
           this.dataTime.start = html.timeForMat(1) + ' 00'
-          this.dataTime.end = html.timeForMat(1) + ' 59'
+          this.dataTime.end = html.timeForMat(1) + ' 23'
         break;
 
         case 1:
           this.dataTime.start = html.timeForMat(0) + ' 00'
-          this.dataTime.end = html.timeForMat(0) + ' 59'
+          this.dataTime.end = html.timeForMat(0) + ' 23'
         break;
 
         case 2:
@@ -280,11 +280,10 @@ export default {
                 let yData = [];
                 // console.log(resData)
                 for (let i = 0; i < lineData.length; i++) {
-                  xData.push(lineData[i].id);
+                  xData.push(this.isCur2 == 0 || this.isCur2 == 1 ? lineData[i].id.split(' ')[1] : lineData[i].id);
                   yData.push(lineData[i].amount);
                   count = html.add(count,lineData[i].count);
                 }
-                // console.log(count)
                 if (count) {
                   this.noData = false;
                   this.$nextTick(function(){

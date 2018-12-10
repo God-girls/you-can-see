@@ -44,7 +44,11 @@
             </li>
             <li class="f30 flex1">
               {{item.title}}
-              <p class="redCR">¥ {{item.amount}}</p>
+              <p class="redCR"  v-if="item.spec != 'null'">
+                ¥ {{JSON.parse(item.spec).price_range}}
+                
+              </p>
+
             </li>
             <li class="liPadd f30">
               X {{item.count}}
@@ -54,12 +58,28 @@
       </dl>
       <dl v-if="item.spec != 'null'">
         <dt class="blackCR f30">规格信息：</dt>
-        <dd>
-          <p v-for="(item2,index2) in JSON.parse(item.spec)">
-            <template v-for="(value,key,index3) in item2">
-              {{key == 'count' ? '数量' : key}}：{{value}} {{index3 == Object.keys(item2).length - 1 ? '' :' ，'}} 
+        <dd v-if="JSON.parse(item.spec).spec">
+          <template v-if="JSON.parse(item.spec).spec">
+            <p v-for="(item2,index2) in JSON.parse(item.spec).spec.spec">
+              <template v-for="(value,key,index3) in item2" v-if="key != 'amount'">
+                <span v-if="key == 'price'">
+                  单价：{{value}} 元
+                </span>
+                <span v-else>
+                  {{key == 'count' ? '数量' : key}}：{{value}} {{index3 == Object.keys(item2).length - 1 ? '' :' ，'}} 
+                </span>
+                
+              </template>
+            </p>
+          </template>
+        </dd>
+        <dd v-else>
+<!--           <p v-for="(item3,index2) in JSON.parse(item.spec).spec">
+            {{item3.spec}}
+            <template v-for="(value,key,index4) in item3.spec">
+              {{key == 'count' ? '数量' : key}}：{{value}} {{index4 == Object.keys(item3).length - 1 ? '' :' ，'}} 
             </template>
-          </p>
+          </p> -->
         </dd>
       </dl>
 <!--       <dl>

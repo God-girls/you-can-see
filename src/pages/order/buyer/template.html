@@ -16,20 +16,29 @@
   <scroller :on-refresh="onRefresh" :noDataText="noDataText" :on-infinite="onInfinite"  ref="my_scroller">
 
     <div class="prdOne blackCR" v-for="(item,index) in listData">
-      <dl>
-        <dt class="grayCR">
-          <span class="fr redCR" v-if="item.status == 0">未发货</span>
-          <span class="fr grayCR" v-else>已发货</span>
+      <dl class="flexBox topMargin">
+        <dt class="grayCR flex1">
           {{item.created_at}}
         </dt>
+        <dd class="">
+          <span class="redCR" v-if="item.status == 0">未发货</span>
+          <span class="grayCR" v-else>已发货</span>          
+        </dd>
       </dl>
       <dl class="flexBox">
         <dt>商品：</dt>
-        <dd class="flex1">{{item.title}}</dd>
+        <dd class="flex1">
+          <div class="flexBox">
+            <p class="img posiR">
+              <img :src="globalAvatar+'goods/'+item.head_image+'?imageView2/2/w/100/'" alt="">
+            </p>
+            <p class="flex1">{{item.title}}</p>
+          </div>
+        </dd>
       </dl>
       <dl class="flexBox">
         <dt>价格：</dt>
-        <dd class="flex1">{{item.amount}}</dd>
+        <dd class="flex1">{{item.amount}} 元</dd>
       </dl>
       <dl class="flexBox">
         <dt>数量：</dt>
@@ -58,8 +67,23 @@
         <dd class="flex1">{{item.deliver}}：{{item.deliver_no}}</dd>
       </dl>
 
-      <dl class="paddTop">
-        <dt class="greenCR"> <span @click.prevent="sellerFunc(item.seller)">联系卖家</span></dt>
+      <dl class="flexBox special paddTop">
+
+        <dt class="flex1"> 
+          <div class="flexBox">
+            <p v-if="item.spec != 'null'" 
+                 @click.prevent="redirect('/prd/list?seller='+item.seller)">
+                 <img :src="globalAvatar+JSON.parse(item.spec).seller_avatar+'?imageView2/2/w/300/'" alt="">
+            </p>
+            <p class="flex1">              
+              <span v-if="item.spec != 'null'" @click.prevent="redirect('/prd/list?seller='+item.seller)">{{JSON.parse(item.spec).seller_nick}}</span>
+              <span @click.prevent="sellerFunc(item.seller)" class="greenCR">联系卖家</span>
+            </p>
+          </div>
+        </dt>
+        <dd v-if="item.spec != 'null'">
+          <span class="btn btn-green btn-sm" @click.prevent="redirect('/prd/list?seller='+item.seller+'&goodid='+JSON.parse(item.spec).spec.id)">再来一单</span>
+        </dd>
       </dl>
     </div>
 
@@ -72,7 +96,7 @@
   <div  slot="footer">
     <div class="footer tC f30">
       <dl>
-        <dd><p class="btn btn-green" @click.prevent="redirect">会花也会赚，去成为小卖家！</p></dd>
+        <dd><p class="btn btn-green" @click.prevent="redirect('/app/author')">会花也会赚，去成为小卖家！</p></dd>
       </dl>
     </div>
     <loading :loading="loading" :loadError="loadError"></loading>

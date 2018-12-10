@@ -44,7 +44,7 @@
             </li>
             <li class="f30 flex1">
               {{item.title}}
-              <p class="redCR"  v-if="item.spec != 'null'">
+              <p class="redCR"  v-if="item.spec != 'null' && JSON.parse(item.spec).spec">
                 ¥ {{JSON.parse(item.spec).price_range}}
                 
               </p>

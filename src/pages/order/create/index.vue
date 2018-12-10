@@ -89,7 +89,7 @@ export default {
 
       tempArr.sort(function compare(val1,val2){return val1-val2;})
 
-      this.priceRang = '￥' + tempArr[0];
+      if (tempArr.length) this.priceRang = '￥' + tempArr[0];
       if (tempArr.length > 1) {
         this.priceRang += '-' + tempArr.pop()
       }

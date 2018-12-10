@@ -46,7 +46,7 @@
           </dt>
           <dd class="flex1">单价</dd>
           <dd class="tR f24 redCR">
-            <span v-if="!curSpecs.length && priceSet.spec_name == '*'">￥{{priceSet.def_price}}</span>
+            <span v-if="!curSpecs.length && priceSet.spec_name == '*' && priceSet.def_price">￥{{priceSet.def_price}}</span>
             <span v-if="priceRang.length">{{priceRang}}</span>
             <i class="iconfont icon-jiantou f30"></i>
           </dd>

@@ -104,7 +104,7 @@ export default {
             })
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              // this.redirect();
+              this.redirect();
             }
             else this.initMSG(resData.msg);
           }

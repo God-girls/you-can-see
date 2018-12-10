@@ -67,6 +67,10 @@ export default {
     }
     this.specs = html.objClone(this.CART.specs);
     this.priceSet = html.objClone(this.CART.priceSet);
+    console.log(this.CART)
+    if (!this.specs.length && this.priceSet.curIndex == 1) {
+      this.priceSet.curIndex = 0
+    }
   },
   mounted: function () {
 

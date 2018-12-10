@@ -99,7 +99,7 @@ export default {
       this.prdID = this.$route.query.id
       if (!this.CART.imgFile) this.fetchList();
     }
-    console.log(this.priceSet)
+    console.log(this.CART)
 
     dplus.track('我的',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});

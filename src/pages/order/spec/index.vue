@@ -152,6 +152,7 @@ export default {
           }
         }      
       }
+      console.log(this.specs)
       this.switchState({
         CART:Object.assign(this.CART,{specs:this.specs})
       })

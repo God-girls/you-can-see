@@ -635,10 +635,10 @@ export default {
     },
     beforeOnoff(item,index,isTop){
       this.listData[this.curListIndex].showComment = false
-      if (isTop == 0) {
-        this.initMSG('已置顶')
-        return;
-      }
+      // if (isTop == 0) {
+      //   this.initMSG('已置顶')
+      //   return;
+      // }
       this.comment.gid = item.id;
       this.popIndex = index;
       this.curProduct = item;

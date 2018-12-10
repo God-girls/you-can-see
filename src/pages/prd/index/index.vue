@@ -604,6 +604,8 @@ export default {
   
     },
     beforeReply(item,index){
+      this.placeholder = '评论'
+      this.popIndex = 0;
       this.comment.gid = item.id;
       this.reply = true;
       this.replyIndex = index;
@@ -694,6 +696,7 @@ export default {
         this.replyComment()
         return
       }
+      this.reply = false;
       axios.post('/seller_api/v1/seller/goods_comment',qs.stringify({
         uid:this.paraData.uid,
         gid:this.comment.gid,
@@ -706,7 +709,6 @@ export default {
           let resData = response.data;   
 
           if (resData.success) {
-            this.reply = false;
             this.comment.tips = '';
             this.fetchComment();
           }else{

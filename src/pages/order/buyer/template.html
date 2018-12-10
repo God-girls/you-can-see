@@ -27,7 +27,7 @@
       </dl>
       <dl class="flexBox">
         <dt>商品：</dt>
-        <dd class="flex1">
+        <dd class="flex1" @click.prevent="goto('/prd/list?seller='+item.seller)">
           <div class="flexBox">
             <p class="img posiR">
               <img :src="globalAvatar+'goods/'+item.head_image+'?imageView2/2/w/100/'" alt="">
@@ -72,17 +72,17 @@
         <dt class="flex1"> 
           <div class="flexBox">
             <p v-if="item.spec != 'null'" 
-                 @click.prevent="redirect('/prd/list?seller='+item.seller)">
+                 @click.prevent="goto('/prd/list?seller='+item.seller)">
                  <img :src="globalAvatar+JSON.parse(item.spec).seller_avatar+'?imageView2/2/w/300/'" alt="">
             </p>
             <p class="flex1">              
-              <span v-if="item.spec != 'null'" @click.prevent="redirect('/prd/list?seller='+item.seller)">{{JSON.parse(item.spec).seller_nick}}</span>
+              <span v-if="item.spec != 'null'" @click.prevent="goto('/prd/list?seller='+item.seller)">{{JSON.parse(item.spec).seller_nick}}</span>
               <span @click.prevent="sellerFunc(item.seller)" class="greenCR">联系卖家</span>
             </p>
           </div>
         </dt>
         <dd v-if="item.spec != 'null'">
-          <span class="btn btn-green btn-sm" @click.prevent="redirect('/prd/list?seller='+item.seller+'&goodid='+JSON.parse(item.spec).spec.id)">再来一单</span>
+          <span class="btn btn-green btn-sm" @click.prevent="goto('/prd/list?seller='+item.seller+'&goodid='+JSON.parse(item.spec).spec.id)">再来一单</span>
         </dd>
       </dl>
     </div>
@@ -96,7 +96,7 @@
   <div  slot="footer">
     <div class="footer tC f30">
       <dl>
-        <dd><p class="btn btn-green" @click.prevent="redirect('/app/author')">会花也会赚，去成为小卖家！</p></dd>
+        <dd><p class="btn btn-green" @click.prevent="goto('/')">会花也会赚，去成为小卖家！</p></dd>
       </dl>
     </div>
     <loading :loading="loading" :loadError="loadError"></loading>

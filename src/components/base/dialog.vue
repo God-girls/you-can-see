@@ -58,7 +58,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 253;
+    z-index: 53;
 }
 .dialogs{
     display: table;
@@ -69,7 +69,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 255;
+    z-index: 55;
     margin: auto;
     width: 100%;
 }

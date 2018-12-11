@@ -30,7 +30,7 @@
         bottom: 0;
         left: 0;
         right: 0;
-        z-index: 100;
+        z-index: 10;
     }
     .clipper-container {
         .position();
@@ -39,7 +39,7 @@
         .clipper-part {
             .position();
             bottom: 61px;
-            z-index: 102;
+            z-index: 12;
             .pCanvas-container {
                 position: absolute;
                 top: 50%;
@@ -52,7 +52,7 @@
             box-sizing: content-box;
             .position();
             top: auto;
-            z-index: 103;
+            z-index: 13;
             height: 90px;
             line-height: 90px;
             border-top: 1px solid rgba(256, 256, 256, 0.3);
@@ -75,7 +75,7 @@
         }
         .mask {
             .position();
-            z-index: 101;
+            z-index: 11;
             transition: opacity 500ms;
             background-color: #000;
             opacity: 0;
@@ -86,7 +86,7 @@
         .gesture-mask {
             .position();
             bottom: 61px;
-            z-index: 103;
+            z-index: 13;
         }
     }
 </style>

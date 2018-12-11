@@ -3,7 +3,7 @@
   width: 100%;
   /*height: 100px;*/
   position: relative;
-  z-index: 12;
+  z-index: 3;
 }
 .my-footer ul{
   display: -webkit-box;

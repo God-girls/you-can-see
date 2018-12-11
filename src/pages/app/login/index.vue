@@ -47,13 +47,13 @@ export default {
       else this.goto(params)
       return;
     }
-    alert('inqq:'+html.isInqq())
     if (html.isWechat()) {//如果是在微信
       this.getLogin();
     }else if (html.isInqq()) {
-
-      this.getLogin2();
+    alert('inqq:'+html.isInqq())
+      
       this.paraData.oatype = 'qq'
+      this.getLogin2();
     }else{
       this.getLogin2();
       // this.goto(this.$route.query.jumpto)
@@ -138,7 +138,7 @@ export default {
     },
     getLogin2 (){//qq微博登录登录
         alert('create_oauth2')
-        if (location.href.indexOf('code') > -1) this.paraData.code = unescape(this.getQueryValue('code'));
+        if (this.$route.query.code) this.paraData.code = this.$route.query.code;
         
         axios.post('/seller_api/v1/sessions/create_oauth2',qs.stringify(this.paraData)).then((response)=>{   
             let resData = response.data;  

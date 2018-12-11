@@ -288,6 +288,9 @@ input:-webkit-autofill {
 .mL10{
   margin-left: 10px;
 }
+.tL{
+    text-align: left!important;
+}
 .tR{
     text-align: right!important;
 }

@@ -8,7 +8,8 @@ import myhead from '../../../components/base/header'
 import modalDialog from '../../../components/base/dialog'
 import loading from '../../../components/base/loading'
 import { mapState, mapActions } from 'vuex'
-import qrCode from 'qrcode';
+import VueQr from 'vue-qr'
+// import qrCode from 'qrcode';
 import axios from 'axios';
 import qs from 'qs';
 
@@ -16,7 +17,8 @@ export default {
   components: {
     myhead,
     modalDialog,
-    loading
+    loading,
+    VueQr
   },
   data () {
     return {
@@ -41,7 +43,8 @@ export default {
       realData:{},
       qrcodeUrl:'',
       showCanvas:false,
-      testCanvas:''
+      testCanvas:'',
+      
     }
   },
   computed:{
@@ -57,23 +60,26 @@ export default {
     if (html.isWechat()) {
       this.header.opacity = true;
     }
-  },
-  mounted: function () {
     if (this.TOKEN) {
       this.token = this.TOKEN;
       this.paraData.uid = this.UID;
       this.profile = this.PROFILE;
       this.headImg = this.globalAvatar+(this.profile.avatar?this.profile.avatar:'')+'?imageView2/2/w/100/h/100/t/';
 
-      qrCode.toDataURL( this.ttDomain+'/#/app/author?redirecto=true&seller='+this.paraData.uid , {
-          margin: 0,
-          width:280,
-          height:280
-      }, (error,url)=> {
-          if (error) console.log(error);
-          this.qrcodeUrl = url;
-      });      
+      // qrCode.toDataURL( this.ttDomain+'/#/app/author?redirecto=true&seller='+this.paraData.uid , {
+      //     margin: 0,
+      //     width:280,
+      //     height:280
+      // }, (error,url)=> {
+      //     if (error) console.log(error);
+      //     this.qrcodeUrl = url;
+      //     this.getPoster()
+      // });  
+      
+ 
     }
+  },
+  mounted: function () {
   },
   methods: {
     ...mapActions([
@@ -85,77 +91,10 @@ export default {
         this.bottomBarH = {'padding-bottom':this.BOTTOMBARH+'px'};     
       }
     },
-    getCaptcha(type){
-      if (!this.paraData.acc) {
-        this.initMSG('请输入手机号')
-        return;
-      }
-      axios.post('/seller_api/v1/user/captcha/fetch_captcha',qs.stringify({
-        acc:this.paraData.acc,
-        act:type
-      })
-      ).then((response)=>{   
-        
-        let resData = response.data;  
-
-        if (resData.success) {
-
-          this.clickCaptcha = true;
-          this.leftTime = 60;
-          clearInterval(this.timer);
-          this.timer = setInterval(()=>{
-              this.leftTime = this.leftTime -1;
-              if (this.leftTime <= 0) {
-                this.clickCaptcha = false;
-                clearInterval(this.timer);
-                this.leftTime = 0;
-              }             
-          }, 1000)
-        }  else {
-             this.initMSG(resData.codemsg)
-        }
-      }).catch((response)=>{
-        this.initMSG('呃哦，网络异常，再试一次~')
-      });  
-    },
-    bindAcc(){
-      if (!this.paraData.acc) {
-        this.initMSG('请输入手机号')
-        return;
-      }
-      if (!this.paraData.captcha) {
-        this.initMSG('请输入验证码')
-        return;
-      }
-      document.activeElement.blur(); 
-      if (this.mobileLoginClick) return;
-      this.mobileLoginClick = true;
-      setTimeout(()=>this.mobileLoginClick = false,2000) 
-
-      this.loading = true;
-
-      axios.post('/seller_api/v1/user/upd_mobileno',qs.stringify(this.paraData),{
-        headers: {
-            "A-Token-Header": this.token,
-        }
-      }).then((response)=>{   
-        let resData = response.data;  
-        if (resData.success) {
-          this.loading = false;
-            this.profile.sex = this.paraData.sex;
-            this.switchState({
-              PROFILE:this.profile
-            })
-            this.initMSG('操作成功')
-            setTimeout(()=>{
-              this.$router.push('/my')
-            },2000)
-        }else{
-          this.initMsg(resData.codemsg);     
-        }
-      }).catch(function(response){
-        alert('网络异常，请重试')
-      });  
+    test(dataUrl,id){
+      // console.log(dataUrl)
+      this.qrcodeUrl = dataUrl;
+      this.getPoster()
     },
     /**
      * 把图片处理成圆形,如果不是正方形就按最小边一半为半径处理

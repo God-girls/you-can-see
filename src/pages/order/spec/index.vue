@@ -47,7 +47,12 @@ export default {
       secondVal:'',
       curProperty:0,
       curDel:0,
-      tabs:['尺寸','颜色','重量']
+      tabs:[
+        {name:'尺寸',type:'0'},
+        {name:'颜色',type:'1'},
+        {name:'重量',type:null},
+      ],
+      // tabs:['尺寸','颜色','重量']
     }
   },
   computed:{
@@ -87,6 +92,12 @@ export default {
         this.bottomBarH = {'padding-bottom':this.BOTTOMBARH+'px'}
       }
     },
+    changeType(index,item){
+      this.specs.push({"颜色":[]})
+      // this.isCur = index;
+      // this.typeFormat();
+      // {"颜色":[]}
+    },
     addFirstSpec(){
       if (this.specs.length == 5) {
         this.initMSG('最多添加5种规格')
@@ -114,7 +125,7 @@ export default {
       }
       let myKey = Object.keys(this.specs[this.curProperty])[0]
       this.specs[this.curProperty][myKey].push(this.secondVal);
-      console.log(JSON.stringify(this.specs))
+      // console.log(JSON.stringify(this.specs))
       // this.specs[this.curProperty].value.push(this.secondVal);
       this.secondVal = '';
       this.closeDialog('addSecond')

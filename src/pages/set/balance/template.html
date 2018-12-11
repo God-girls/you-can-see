@@ -34,7 +34,7 @@
             <th>时间</th>
             <th>金额(元)</th>
             <th>余额(元)</th>
-            <th>状态</th>
+            <th>操作</th>
           </tr>
         </thead>
         <tbody>
@@ -48,11 +48,16 @@
             <td>
               {{item.amount}}
             </td>
-            <td>
-              <template v-if="item.status == -1">提现失败</template>
-              <template v-else-if="item.status == 0">审核中</template>
-              <template v-else-if="item.status == 1">审核通过</template>
-              <template v-else-if="item.status == 10">提现成功</template>
+            <td>    
+              <template v-if="item.transtype == 'WTH'">
+                <template v-if="item.status == -1">提现失败</template>
+                <template v-else-if="item.status == 0">提现审核中</template>
+                <template v-else-if="item.status == 1">提现审核通过</template>
+                <template v-else-if="item.status == 10">提现成功</template>                
+              </template>
+              <template v-else>
+                {{item.transtype_desc}}
+              </template>
             </td>
           </tr>
         </tbody>

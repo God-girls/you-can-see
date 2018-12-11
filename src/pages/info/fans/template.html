@@ -1,0 +1,49 @@
+<Layout>
+  <div slot="header">
+    <myhead :hval="header" v-if="!header.opacity"></myhead>
+  </div>
+
+  <scroller :on-infinite="onInfinite" :on-refresh="onRefresh" :noDataText="noDataText" ref="my_scroller" loadingLayerColor="#b0abbd">
+    <div class="index-wrap whiteCR  fadeIn animateds">
+      <table class="">
+        <thead>
+          <tr class="">
+            <th width="30%">微信买家</th>
+            <th>订单数(件)</th>
+            <th>金额(元)</th>
+            <th>最后购买时间</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item,index) in listData">
+            <td class="tL">
+              <dl class="flexBox">
+                <dt><img :src="globalAvatar+(item.avatar?item.avatar:'')+'?imageView2/2/w/100/h/100/t/'" alt="" ></dt>
+                <dd class="flex1 tL">{{item.nick}}</dd>
+              </dl>
+              
+              
+            </td>
+            <td>
+              {{item.count}}
+            </td>
+            <td>
+              {{item.amount}}
+            </td>
+            <td>
+              {{item.lastbuy}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="tC noDataDiv"  v-if="noData">
+        <nodate noText="暂无记录"></nodate>
+      </div>
+    </div>
+  </scroller>
+
+
+
+
+  
+</Layout>

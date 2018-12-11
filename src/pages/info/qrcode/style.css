@@ -6,19 +6,17 @@
 .myDetail{
   width: 522px;
   height: 740px;
-  background: url(../../../assets/img12/other/qrbg.jpg) no-repeat center center;
-  background-size: 482px;
   margin: 0 auto;
   text-align: center;
-  border:5px solid #51aa38;
-  border-radius: 30px;
+  /*border:5px solid #51aa38;*/
+  /*border-radius: 30px;*/
 }
 .myDetail p{
   padding: 85px 0 40px;
 }
 .myDetail p img{
-  width: 280px;
-  height: 280px;
+  width: 100%;
+  height: 100%;
 }
 .myDetail > span{
   position: absolute;

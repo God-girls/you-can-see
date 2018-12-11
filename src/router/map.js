@@ -83,6 +83,12 @@ export default {
 			require(['pages/set/web'], resolve)
 		}
 	},
+	'/my/fans': {
+		meta: { title: '我的粉丝'},
+		component: (resolve) => {
+			require(['pages/info/fans'], resolve)
+		}
+	},
 	'/my/about': {
 		meta: { title: '关于小小麦'},
 		component: (resolve) => {

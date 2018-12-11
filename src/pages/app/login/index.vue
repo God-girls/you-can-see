@@ -34,7 +34,7 @@ export default {
   },
 
   mounted (){
-
+    alert(location.href)
     if (this.$route.query.redirecto) {
       let jumpUrl = this.ttDomain + '/#/app/login?jumpto=';
       let params = '/prd/list?seller='+this.$route.query.seller
@@ -47,13 +47,16 @@ export default {
       else this.goto(params)
       return;
     }
+    alert('inqq:'+html.isInqq())
     if (html.isWechat()) {//如果是在微信
       this.getLogin();
     }else if (html.isInqq()) {
+
       this.getLogin2();
       this.paraData.oatype = 'qq'
     }else{
-      this.goto(this.$route.query.jumpto)
+      this.getLogin2();
+      // this.goto(this.$route.query.jumpto)
     }
 
   },
@@ -134,12 +137,12 @@ export default {
         });        
     },
     getLogin2 (){//qq微博登录登录
-
+        alert('create_oauth2')
         if (location.href.indexOf('code') > -1) this.paraData.code = unescape(this.getQueryValue('code'));
         
         axios.post('/seller_api/v1/sessions/create_oauth2',qs.stringify(this.paraData)).then((response)=>{   
             let resData = response.data;  
-            // alert(JSON.stringify(resData))
+            alert(JSON.stringify(resData))
             if (resData.success) {
               window.localStorage.setItem('ttUid', resData.result.id);
               window.localStorage.setItem('ttToken', resData.result.atoken);
@@ -147,7 +150,7 @@ export default {
                 TOKEN:resData.result.atoken,
                 UID:resData.result.id
               })
-
+              return;
               if (this.$route.query.jumpto) {
                 this.$router.push(this.$route.query.jumpto)
               }else{

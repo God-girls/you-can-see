@@ -293,7 +293,6 @@
                             } else if (scale > this.imgMaxScale) {
                                 scale = this.imgMaxScale;
                             }
-
                             pinchScale = scale;
                             this._scale(scx, scy, scale);
                         }
@@ -339,17 +338,49 @@
                         y = this.imgY,
                         pClientRect = this.$refs.pCanvas.getBoundingClientRect();
 
-                    if (x > pClientRect.left + pClientRect.width) {
-                        x = pClientRect.left
-                    } else if (x + this.imgCurrentWidth < pClientRect.left) {
-                        x = pClientRect.left + pClientRect.width - this.imgCurrentWidth;
+                    // if (x > pClientRect.left) {
+                    //     x = pClientRect.left
+                    // } else if (pClientRect.left + this.imgCurrentWidth < pClientRect.left) {
+                    //     x = pClientRect.left + pClientRect.width - this.imgCurrentWidth;
+                    // }
+
+                    // if (y > pClientRect.top + pClientRect.height) {
+                    //     y = pClientRect.top;
+                    // } else if (y + this.imgCurrentHeight < pClientRect.top) {
+                    //     y = pClientRect.top + pClientRect.height - this.imgCurrentHeight;
+                    // }
+
+
+
+                    if (pClientRect.width > this.imgCurrentWidth) {
+                     if (x < pClientRect.left) {
+                      x = pClientRect.left;
+                     } else if (x > pClientRect.left + pClientRect.width - this.imgCurrentWidth) {
+                      x = pClientRect.left + pClientRect.width - this.imgCurrentWidth;
+                     }
+                    } else {
+                     if (x < pClientRect.left + pClientRect.width - this.imgCurrentWidth) {
+                      x = pClientRect.left + pClientRect.width - this.imgCurrentWidth;
+                     } else if (x > pClientRect.left) {
+                      x = pClientRect.left;
+                     }
                     }
 
-                    if (y > pClientRect.top + pClientRect.height) {
-                        y = pClientRect.top;
-                    } else if (y + this.imgCurrentHeight < pClientRect.top) {
-                        y = pClientRect.top + pClientRect.height - this.imgCurrentHeight;
+                    if (pClientRect.height > this.imgCurrentHeight) {
+                     if (y < pClientRect.top) {
+                      y = pClientRect.top;
+                     } else if (y > pClientRect.top + pClientRect.height - this.imgCurrentHeight) {
+                      y = pClientRect.top + pClientRect.height - this.imgCurrentHeight;
+                     }
+                    } else {
+                     if (y < pClientRect.top + pClientRect.height - this.imgCurrentHeight) {
+                      y = pClientRect.top + pClientRect.height - this.imgCurrentHeight;
+                     } else if (y > pClientRect.top) {
+                      y = pClientRect.top;
+                     }
                     }
+
+
 
                     if (this.imgX !== x || this.imgY !== y) {
                         this._drawImage(x, y, this.imgCurrentWidth, this.imgCurrentHeight);
@@ -378,6 +409,11 @@
                         this.$emit('loadSuccess', e);
                         this.$emit('loadComplete', e);
                         this._loadImg();
+                        var arr = [$img.width,$img.height];
+
+                        var max = Math.max.apply(null, arr);
+
+                        if (max > this.clipperImgWidth) this.imgMinScale = this.clipperImgWidth / max ;//初始化图片的最小缩放值
                     },
                     onError = e => {
                         $img.removeEventListener('error', onError, false);
@@ -393,6 +429,7 @@
                 this.imgLoading = true;
                 this.imgLoaded = false;
                 $img.src = this.img;
+
                 $img.crossOrigin = 'Anonymous'; //因为canvas toDataUrl不能操作未经允许的跨域图片，这需要服务器设置Access-Control-Allow-Origin头
                 $img.addEventListener('load', onLoad, false);
                 $img.addEventListener('error', onError, false);

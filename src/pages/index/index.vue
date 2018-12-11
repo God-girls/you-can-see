@@ -70,6 +70,7 @@ export default {
       popIndex:0,
       del:false,
       scrollFlag:false,
+      myContact:false,
       scrollLeftpx:'',
       testCanvas:'',
       noticeData:[],

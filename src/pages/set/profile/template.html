@@ -56,7 +56,7 @@
           </dl>
         </li> -->
 
-        <li>
+        <li><!--   @click.prevent="choseAdd()" -->
           <dl class="flexBox">
             <dt class="flex1">地区：</dt>
             <dd class="tR">
@@ -73,12 +73,30 @@
     
     <div slot="footer">
       <div class="clipper" v-if="showClipper">
-<!--         <croppa v-model="myCroppa"
-                :prevent-white-space="true"
-                :width="500"
-                :height="500"></croppa> -->
-<!--         <image-clipper :img="img" @cancel="closeDialog('showClipper')" @ok="ok" :clipper-img-width="500" :clipper-img-height="500"></image-clipper>     -->    
+        <image-clipper :img="img" @cancel="closeDialog('showClipper')" @ok="ok" :clipper-img-width="500" :clipper-img-height="500"></image-clipper>        
       </div>
+
+    <!-- 收货地址三级联动选项 start-->
+      <section class="address f30" :class="{toggHeight:istoggHeight}">
+        <section class="title">
+          <div class="btn btn-green btn-sm fr determine" v-show="showDeter" @click="determine()">确定</div>
+          <div class="area" @click="provinceSelected()" :class="[oneac ? 'accolor' : '']">{{Province?Province:'请选择'}}</div>
+          <div class="area" @click="citySelected()" :class="[twoac ? 'accolor':'']" v-show="twoshow">{{City?City:'请选择'}}</div>
+          <div class="area" @click="districtSelected()" :class="threeac ? 'accolor':''" v-show="threeshow">{{District?District:'请选择'}}</div>
+        </section>
+        <ul :class="['proJuli animated2dot',{'slideInRight':showProvince},{'dn':!showProvince}]">
+          <li class="addList" v-for="(v,k) in info" @click="getProvinceId(v.id, v.name, k)" :key="v.id"  :class="{active : v.selected}"><span>{{v.name}}</span></li>
+        </ul>
+        <ul :class="['citJuli animated2dot',{'slideInRight':showCity},{'dn':!showCity}]">
+          <li class="addList" v-for="(v,k) in showCityList" @click="getCityId(v.id, v.name, k)"  :key="v.id"  :class="{active : v.selected}"><span>{{v.name}}</span></li>
+        </ul>
+        <ul :class="['disJuli animated2dot',{'slideInRight':showDistrict},{'dn':!showDistrict}]">
+          <li class="addList" v-for="(v,k) in showDistrictList" @click="getDistrictId(v.id, v.name, k)" :key="v.id" :class="{active : v.selected}"><span>{{v.name}}</span></li>
+        </ul>
+      </section>
+
+    <!-- 收货地址三级联动选项 end-->
+    <div class="layout" :class="{layoutBg:islayout}" @click="closeAdd()"></div>
 
     </div>
 </Layout>

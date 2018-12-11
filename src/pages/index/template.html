@@ -13,12 +13,12 @@
         <i class="iconfont icon-heart-opp-copy f30 redCR"></i> {{sellerInfo.praise}} 赞
       </span>
     </p>
-    <dl class="tR" @click.prevent="goto('/my/profile?from=index')">
+    <dl class="tR">
       <dt>
         <ol class="flexBox">
-          <li class="flex1 whiteCR f36 text-overflow">
+          <li class="flex1 whiteCR f36 text-overflow" @click.prevent="myContact = true">
             <i class="iconfont icon-erji f48 blueCR"></i> {{sellerInfo.nick}}</li>
-          <li>
+          <li @click.prevent="goto('/my/profile?from=index')">
             <img :src="headImg" alt="" v-if="headImg">
             <img :src="ttLogoImg" alt="" v-else>
           </li>
@@ -220,6 +220,22 @@
           </dl>          
         </div>
 
+    </dialog-del>
+
+    <dialog-del :dialogshow2.sync="myContact" @hide="closeDialog('myContact')">
+        <div slot="dialog-footer" class="del-footer special tc f30">
+          <dl>
+            <dt v-if="sellerInfo.service_mobileno">
+              <p>
+                <a  class="blackCR" :href="'tel:'+sellerInfo.service_mobileno">客服电话：{{sellerInfo.service_mobileno}}
+                </a>
+              </p>
+            </dt>
+            <dd v-if="sellerInfo.weixin"><p>客服微信：{{sellerInfo.weixin}}</p></dd>
+            <dd v-if="sellerInfo.qq"><p>客服QQ：{{sellerInfo.qq}}</p></dd>
+            <dd v-if="!sellerInfo.service_mobileno && !sellerInfo.weixin && !sellerInfo.qq" @click.prevent="goto('/my/service?from=index')">请先设置客服方式</dd>
+          </dl>          
+        </div>
     </dialog-del>
 
     <!-- <div class="shareMask" v-if="fromShare" @click.prevent="webClick = true"></div> -->

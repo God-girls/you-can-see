@@ -155,7 +155,7 @@ export default {
       var _this = this;
       var poster = {
         width:750,
-        height:1000,
+        height:1100,
         lineWidth:16,
         lastTop:60,
         imgs:[],

@@ -405,15 +405,15 @@
                         this.imgLoaded = true;
                         this.imgLoading = false;
 
+                        var arr = [$img.width,$img.height];
+
+                        var max = Math.max.apply(null, arr);
+                        // alert(this.clipperImgWidth)
+                        if (max > this.clipperImgWidth) this.imgMinScale = this.clipperImgWidth / max ;//初始化图片的最小缩放值
                         this._initImg($img.width, $img.height);
                         this.$emit('loadSuccess', e);
                         this.$emit('loadComplete', e);
                         this._loadImg();
-                        var arr = [$img.width,$img.height];
-
-                        var max = Math.max.apply(null, arr);
-
-                        if (max > this.clipperImgWidth) this.imgMinScale = this.clipperImgWidth / max ;//初始化图片的最小缩放值
                     },
                     onError = e => {
                         $img.removeEventListener('error', onError, false);

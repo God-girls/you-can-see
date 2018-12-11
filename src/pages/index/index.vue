@@ -7,6 +7,7 @@ import appshare from '../../components/base/appshare'
 import myfooter from '../../components/base/footer'
 import loading from '../../components/base/loading'
 import modalDialog from '../../components/base/dialog'
+import imageClipper from '../../components/base/imageClipper'
 import dialogDel from '../../components/base/dialogDel'
 import {html} from '../../assets/js/global.js';
 import { mapState, mapActions } from 'vuex'
@@ -21,7 +22,8 @@ export default {
     myfooter,
     loading,
     dialogDel,
-    appshare
+    appshare,
+    imageClipper
   },
   data () {
     return {

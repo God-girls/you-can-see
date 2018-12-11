@@ -34,7 +34,7 @@ export default {
   },
 
   mounted (){
-    alert(location.href)
+
     if (this.$route.query.redirecto) {
       let jumpUrl = this.ttDomain + '/#/app/login?jumpto=';
       let params = '/prd/list?seller='+this.$route.query.seller
@@ -50,13 +50,12 @@ export default {
     if (html.isWechat()) {//如果是在微信
       this.getLogin();
     }else if (html.isInqq()) {
-    alert('inqq:'+html.isInqq())
-      
+
+
       this.paraData.oatype = 'qq'
       this.getLogin2();
     }else{
-      this.getLogin2();
-      // this.goto(this.$route.query.jumpto)
+      this.goto(this.$route.query.jumpto)
     }
 
   },
@@ -137,7 +136,8 @@ export default {
         });        
     },
     getLogin2 (){//qq微博登录登录
-        alert('create_oauth2')
+        alert(location.href)
+        alert(JSON.stringify(this.paraData))
         if (this.$route.query.code) this.paraData.code = this.$route.query.code;
         
         axios.post('/seller_api/v1/sessions/create_oauth2',qs.stringify(this.paraData)).then((response)=>{   

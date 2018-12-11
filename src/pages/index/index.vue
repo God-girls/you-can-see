@@ -44,6 +44,8 @@ export default {
       noDataText:'-----技术支持：公众号“小小麦的家"-----',
       headImg:'',
       token:'',
+      showClipper:false,
+      img: '',
       onlyWechat:false,
       loading:false,
       loadError:'',
@@ -169,7 +171,7 @@ export default {
         }
       }     
     }
-    console.log('mounted')
+    // console.log('mounted')
     // this.hideToolBar()
     this.getShare ();
     dplus.track('首页',{'from':html.useragent()});//统计代码
@@ -806,12 +808,21 @@ export default {
               localData = 'data:image/jpeg;base64,' +  localData
             }
             localData = localData.replace(/\r|\n/g, '').replace('data:image/jgp', 'data:image/jpeg')
-            _this.sellerInfo.background = localData//images是业务中用到的变量
-            _this.modifyImg(localData);
+            // _this.sellerInfo.background = localData//images是业务中用到的变量
+            // _this.modifyImg(localData);
+            _this.img = localData;
+            _this.showClipper = true;
         }
       })
     },
+    ok(data){
+      this.modifyImg(data.replace('data:image/png', 'data:image/jpeg'));
+    },
     modifyImg (localData){
+
+      this.sellerInfo.background = localData;
+      this.loading = true;
+
       axios.post('/seller_api/v1/user/upd_profile',qs.stringify({
         uid:this.paraData.uid,
         background_b64:localData
@@ -822,10 +833,12 @@ export default {
         }).then((response)=>{         
           let resData = response.data;  
           if (resData.success) {
+            this.loading = false;
+            this.showClipper = false;
             // this.sellerInfo ();
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              // this.goto('/')
+              this.redirect()
             }else{
               this.initMSG(resData.codemsg)
             }

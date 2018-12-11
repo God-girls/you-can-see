@@ -95,8 +95,9 @@
         </ul>
       </section>
 
-    <!-- 收货地址三级联动选项 end-->
-    <div class="layout" :class="{layoutBg:islayout}" @click="closeAdd()"></div>
+      <!-- 收货地址三级联动选项 end-->
+      <div class="layout" :class="{layoutBg:islayout}" @click="closeAdd()"></div>
+      <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
 
     </div>
 </Layout>

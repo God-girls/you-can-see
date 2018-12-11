@@ -29,6 +29,7 @@ export default {
       iquit:0,
       token:'',
       loading:false,
+      loadError:'',
       begin_seconds:false,
       isBc: false, // 用于控制保存按钮高亮
       toggle: false, // 用于切换默认地址

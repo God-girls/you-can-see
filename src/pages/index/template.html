@@ -161,7 +161,7 @@
     <myfooter :current="navType" v-else></myfooter>
     <div class="mask" v-if="reply" @touchend.prevent="reply = false"></div>
     <div class="clipper" v-if="showClipper">
-      <image-clipper :img="img" @cancel="closeDialog('showClipper')" @ok="ok" :clipper-img-width="750" :clipper-img-height="400"></image-clipper>        
+      <image-clipper :img="img" @cancel="closeDialog('showClipper')" @ok="ok" :clipper-img-width="600" :clipper-img-height="320"></image-clipper>        
     </div>
     
     <modal-dialog :dialogshow2.sync="needLogin" @hide="closeDialog('needLogin')"  :fail='true'>

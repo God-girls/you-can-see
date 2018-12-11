@@ -147,11 +147,10 @@ export default {
                 TOKEN:resData.result.atoken,
                 UID:resData.result.id
               })
-              return;
               if (this.$route.query.jumpto) {
-                this.$router.push(this.$route.query.jumpto)
+                this.goto(this.$route.query.jumpto)
               }else{
-                this.$router.push('/')
+                this.goto('/')
               }
 
             }else{

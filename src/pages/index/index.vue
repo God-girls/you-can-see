@@ -109,9 +109,6 @@ export default {
       'CART'
     ])
   },
-  created(){
-    console.log('created')
-  },
   mounted () {
 
     if (html.istestPay()) {

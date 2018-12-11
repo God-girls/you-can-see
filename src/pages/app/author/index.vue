@@ -52,8 +52,8 @@ export default {
     if (html.isWechat()) {//如果是在微信
       this.getLogin();     
     }else{
-      this.getLogin2();
-      this.paraData.oatype = 'qq'
+      // this.getLogin2();
+      // this.paraData.oatype = 'qq'
     }
   
   },
@@ -178,35 +178,6 @@ export default {
           this.initMSG('宝贝太火爆了，系统繁忙，请稍后再试~~')
         });        
     },
-    getLogin2 (){//qq微博登录登录
-
-        if (location.href.indexOf('code') > -1) this.paraData.code = unescape(this.getQueryValue('code'));
-        
-        axios.post('/seller_api/v1/sessions/create_oauth2',qs.stringify(this.paraData)).then((response)=>{   
-            let resData = response.data;  
-            // alert(JSON.stringify(resData))
-            if (resData.success) {
-              window.localStorage.setItem('ttUid', resData.result.id);
-              window.localStorage.setItem('ttToken', resData.result.atoken);
-              this.switchState({
-                TOKEN:resData.result.atoken,
-                UID:resData.result.id
-              })
-
-              if (this.$route.query.jumpto) {
-                this.$router.push(this.$route.query.jumpto)
-              }else{
-                this.$router.push('/')
-              }
-
-            }else{
-              this.initMSG(resData.codemsg)
-            }
-        }).catch(function(response){
-          console.log(response)
-          this.initMSG('宝贝太火爆了，系统繁忙，请稍后再试~')
-        });        
-    },
     testToken(){//检验token,如果失败重新登录
 
       axios.post('/seller_api/v1/user/info',qs.stringify({
@@ -219,9 +190,17 @@ export default {
         let resData = response.data;  
 
         if (resData.success) {
-           this.$router.push('/order/list')
+          this.switchState({
+            TOKEN:localStorage.ttToken,
+            UID:localStorage.ttUid
+          })
+          if (this.$route.query.jumpto) {
+            this.$router.push(this.$route.query.jumpto)
+          }else{
+            this.getLogin()
+          }
         }else{
-            location.href = html.openInWechat(this.ttDomain + '/#/app/author?jumpto=/order/list');
+            location.href = html.openInWechat(this.ttDomain + '/#/app/author'+(this.$route.query.jumpto?'?jumpto='+this.$route.query.jumpto:''));
         }
       }).catch((response)=>{
         
@@ -230,28 +209,6 @@ export default {
     closeDialog(arr){
       this[arr] = false
     }
-    // getLogin (){
-    //     this.paraData.code = unescape(this.$route.query.code);
-
-    //     this.jumpto = this.$route.query.jumpto ? unescape(this.$route.query.jumpto) : (this.ttDomain+'?'+this.timeStamp);
-    //     if (this.getCode('inviter')) this.paraData.inviter = this.$route.query.jumpto;
-    //     axios.post('/bonus_api/v1/sessions/create_oauth',qs.stringify(this.paraData))
-    //     .then((response)=>{   
-    //         let resData = response.data;  
-
-    //         if (resData.success) {
-    //           dplus.track('红多多_登录成功',{'from':html.useragent()});//统计代码
-
-    //           this.switchState({
-    //             TOKEN:resData.result.atoken,
-    //             UID:resData.result.id
-    //           })
-    //           this.goto(this.jumpto)
-    //         }else{
-    //           location.href = this.wechatDirect;
-    //         }
-    //     }).catch(function(response){});        
-    // },
   }
 }
 </script>

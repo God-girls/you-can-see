@@ -36,7 +36,7 @@
         <dd>
           <p v-for="(item2,index2) in value">
             {{item2}}
-            <span @click.prevent="value.splice(index2,1)"><i class="iconfont icon-chahao f30"></i></span>
+            <span @click.prevent="delSecProperty(value,index2,item2)"><i class="iconfont icon-chahao f30"></i></span>
           </p>
           <p class="special" @click.prevent="curProperty = index;addSecond = true">
             <span><i class="iconfont icon-iconjia"></i></span>

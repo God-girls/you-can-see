@@ -141,6 +141,18 @@ export default {
       this.secondVal = '';
       this.closeDialog('addSecond')
     },
+    delSecProperty(value,index,item){
+
+      value.splice(index,1);
+      let temSet = this.CART.priceSet;
+
+      if (temSet.list[item]) {
+        delete temSet.list[item];
+        this.switchState({
+          CART:Object.assign(this.CART,{priceSet:temSet})
+        })
+      }
+   },
     delProperty(params){
       this.curDel = params;
       this.delSpec = true;
@@ -175,7 +187,6 @@ export default {
           }
         }      
       }
-      console.log(this.specs)
       this.switchState({
         CART:Object.assign(this.CART,{specs:this.specs})
       })

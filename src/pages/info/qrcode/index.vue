@@ -44,7 +44,7 @@ export default {
       qrcodeUrl:'',
       showCanvas:false,
       testCanvas:'',
-      
+
     }
   },
   computed:{
@@ -162,7 +162,7 @@ export default {
 
       var fillImgs = ()=>{
         drawCtx.drawImage(this.qrcodeBg, 0, 0, poster.width,poster.height);
-        drawCtx.drawImage(this.qrcodeImg, 125, 100, 280, 280);
+        drawCtx.drawImage(this.qrcodeImg, 140, 100, 280, 280);
 
         let newHead = this.circle_image(this.qrcodeHead,this.qrcodeHead.width,this.qrcodeHead.height);
 

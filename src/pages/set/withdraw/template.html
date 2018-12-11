@@ -24,7 +24,7 @@
     <dl>
       <dt>请输入验证码（ 绑定手机号：{{this.profile.acc}} ）</dt>
       <dd class="special posiR">
-        <span class="" v-if="clickCaptcha"> {{leftTime}} s</span>
+        <span class="greenCR" v-if="clickCaptcha"> {{leftTime}} s</span>
         <span class="" v-else  @click.prevent="getCaptcha('A')">获取验证码</span>            
         <input type="number" name="" value="" v-model="paraData.captcha">
       </dd>

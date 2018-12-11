@@ -78,22 +78,7 @@ export default {
     this.paraData.desc = this.CART.desc;
     this.imgUrl = this.CART.imgUrl?this.CART.imgUrl:[]; 
     this.choosed = this.imgUrl.length ? this.imgUrl.length : 0;
-    this.curSpecs = html.objClone(this.CART.specs);
-    // debugger
-    this.priceSet = html.objClone(this.CART.priceSet);
-    if (this.curSpecs.length) {
-      let tempArr = []
-      for (var i in this.priceSet.list) {
-        tempArr.push(Number(this.priceSet.list[i]))
-      }
-
-      tempArr.sort(function compare(val1,val2){return val1-val2;})
-
-      if (tempArr.length) this.priceRang = '￥' + tempArr[0];
-      if (tempArr.length > 1) {
-        this.priceRang += '-' + tempArr.pop()
-      }
-    }
+    this.initPrice()
     this.autoTextarea(document.getElementById("text"),'',500)
     if (this.$route.query.id) {
       this.prdID = this.$route.query.id
@@ -109,7 +94,24 @@ export default {
     ...mapActions([
       'switchState', // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`'
     ]),
+    initPrice(){
+      this.curSpecs = html.objClone(this.CART.specs);
+      // debugger
+      this.priceSet = html.objClone(this.CART.priceSet);
+      if (this.curSpecs.length) {
+        let tempArr = []
+        for (var i in this.priceSet.list) {
+          tempArr.push(Number(this.priceSet.list[i]))
+        }
 
+        tempArr.sort(function compare(val1,val2){return val1-val2;})
+
+        if (tempArr.length) this.priceRang = '￥' + tempArr[0];
+        if (tempArr.length > 1) {
+          this.priceRang += '-' + tempArr.pop()
+        }
+      }
+    },
     fetchList(){
 
       axios.post('/seller_api/v1/seller/seller_goods_info',qs.stringify({
@@ -150,7 +152,7 @@ export default {
               }
             })
           })    
-
+          this.initPrice();
           // this.imgFile = this.CART.imgFile?this.CART.imgFile:[]; 
           // this.imgUrl = this.CART.imgUrl?this.CART.imgUrl:[]; 
 

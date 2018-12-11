@@ -46,7 +46,8 @@ export default {
       firstVal:'',
       secondVal:'',
       curProperty:0,
-      curDel:0
+      curDel:0,
+      tabs:['尺寸','颜色','重量']
     }
   },
   computed:{

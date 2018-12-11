@@ -281,7 +281,7 @@ export default {
                 // console.log(resData)
                 for (let i = 0; i < lineData.length; i++) {
                   xData.push(this.isCur2 == 0 || this.isCur2 == 1 ? lineData[i].id.split(' ')[1] : lineData[i].id);
-                  yData.push(lineData[i].amount);
+                  yData.push(lineData[i].count);
                   count = html.add(count,lineData[i].count);
                 }
                 if (count) {
@@ -357,7 +357,7 @@ export default {
             color:['#1caf9a'],
             series: [
                 {
-                    name:'收入',
+                    name:'售出',
                     type:'line',
                     stack: '总量',
                     data:yData,

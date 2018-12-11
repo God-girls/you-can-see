@@ -93,7 +93,18 @@ export default {
       }
     },
     changeType(index,item){
-      this.specs.push({"颜色":[]})
+      let obj = {}
+      obj[item.name] = [];
+      for (var i = 0; i < this.specs.length; i++) {
+        for (var j in this.specs[i]) {
+          if (item.name == j) {
+            return;
+          }
+        }
+      }
+      this.specs.push(obj);
+      // this.
+      console.log(this.specs)
       // this.isCur = index;
       // this.typeFormat();
       // {"颜色":[]}

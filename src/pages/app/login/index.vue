@@ -50,8 +50,6 @@ export default {
     if (html.isWechat()) {//如果是在微信
       this.getLogin();
     }else if (html.isInqq()) {
-
-
       this.paraData.oatype = 'qq'
       this.getLogin2();
     }else{
@@ -136,13 +134,12 @@ export default {
         });        
     },
     getLogin2 (){//qq微博登录登录
-        alert(location.href)
+
         if (this.$route.query.code) this.paraData.code = this.$route.query.code;
-        alert(JSON.stringify(this.paraData))
         
         axios.post('/seller_api/v1/sessions/create_oauth2',qs.stringify(this.paraData)).then((response)=>{   
             let resData = response.data;  
-            alert(JSON.stringify(resData))
+
             if (resData.success) {
               window.localStorage.setItem('ttUid', resData.result.id);
               window.localStorage.setItem('ttToken', resData.result.atoken);

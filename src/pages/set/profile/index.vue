@@ -184,7 +184,7 @@ export default {
     ok(data){
       // let $image = new Image();
       // alert(data)
-      _this.headImg = data;
+      this.headImg = data;
       this.modifyImg(data.replace('data:image/png', 'data:image/jpeg'));
     },
     modifyImg (localData){

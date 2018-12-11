@@ -42,7 +42,7 @@ export default {
       addFirst:false,
       addSecond:false,
       delSpec:false,
-      specs:[{"颜色":["红色"]},{"尺寸":["L"]},{"重量":["1Kg"]}],
+      specs:[],
       firstVal:'',
       secondVal:'',
       curProperty:0,

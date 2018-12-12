@@ -2,9 +2,9 @@
   
   <!-- <myhead :hval="header" slot="header" @popshow="addFirstSpec"></myhead> -->
   <div class="speTop">
-    <p class="btn btn-green greenCR" @touchend.prevent="addFirstSpec">添加规格</p>
+    <!-- <p class="btn btn-green greenCR" @touchend.prevent="addFirstSpec">添加规格</p> -->
     <h6 class="grayCR tC f21">
-      如：
+      <!-- 如： -->
       <span :class="['btn btn-default btn-sm mL10']" 
             v-for="(item,index) in tabs" 
             @click.prevent="changeType(index,item)">{{item.name}}</span>

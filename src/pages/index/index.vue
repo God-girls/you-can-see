@@ -415,7 +415,7 @@ export default {
                 return;
               }
               if (this.paraData.pn == 1) {
-                  
+                  this.curListIndex = 0;
                   for (var i = 0; i < ranks.items.length; i++) {
                     ranks.items[i].showComment = false;
                   }
@@ -430,7 +430,7 @@ export default {
 
                 this.listData = this.listData.concat(ranks.items);
               }
-
+              // console.log(this.listData)
               this.fetchComment(this.listData[0].id,true);
               this.fetchPraise(this.listData[0],0,true)
               this.listLen = 0;
@@ -656,6 +656,7 @@ export default {
       this.listData[this.curListIndex].showComment = false
     },
     popFuncs(){
+      this.del = false;
       switch(this.popIndex){
         case 0:
           this.delComment();

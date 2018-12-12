@@ -51,9 +51,6 @@ export default {
     }
     if (html.isWechat()) {//如果是在微信
       this.getLogin();     
-    }else{
-      // this.getLogin2();
-      // this.paraData.oatype = 'qq'
     }
   
   },

@@ -112,7 +112,7 @@ export default {
 
 
     if (html.isWechat()) {
-      this.header.opacity = true;
+      // this.header.opacity = true;
       this.paraData.agent = 'weixin' 
     }
 

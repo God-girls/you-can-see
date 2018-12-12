@@ -51,6 +51,7 @@ export default {
         {name:'尺寸',type:'0'},
         {name:'颜色',type:'1'},
         {name:'重量',type:null},
+        {name:'其它',type:null},
       ],
       // tabs:['尺寸','颜色','重量']
     }

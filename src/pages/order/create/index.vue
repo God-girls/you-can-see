@@ -353,9 +353,12 @@ export default {
       }
 
 
-      if (!obj.spec_name || obj.spec_name && !Object.keys(obj.price).length) {
+      if (!obj.spec_name || obj.spec_name != '*' && !Object.keys(obj.price).length) {
         this.initMSG('请设置定价')
         return;
+      }
+      if (obj.spec_name == '*') {
+        this.paraData.spec = ''
       }
 
       this.loading = true;

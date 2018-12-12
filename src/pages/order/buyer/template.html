@@ -27,7 +27,7 @@
       </dl>
       <dl class="flexBox">
         <dt>商品：</dt>
-        <dd class="flex1" @click.prevent="goto('/prd/list?seller='+item.seller)">
+        <dd class="flex1" @click.prevent="goto('/prd/list?seller='+item.seller+'&goodid='+JSON.parse(item.spec).spec.id)">
           <div class="flexBox">
             <p class="img posiR">
               <img :src="globalAvatar+'goods/'+item.head_image+'?imageView2/2/w/100/'" alt="">
@@ -72,7 +72,7 @@
         <dt class="flex1"> 
           <div class="flexBox">
             <p v-if="item.spec != 'null' && JSON.parse(item.spec).spec" 
-                 @click.prevent="goto('/prd/list?seller='+item.seller)">
+                 @click.prevent="goto('/prd/list?seller='+item.seller)" class="imgHead">
                  <img :src="globalAvatar+JSON.parse(item.spec).seller_avatar+'?imageView2/2/w/300/'" alt="">
             </p>
             <p class="flex1">              

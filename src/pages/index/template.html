@@ -9,8 +9,8 @@
       <img :src="globalAvatar+sellerInfo.background" alt="" class="head" v-else :onerror="errorBg">
     </h3>
     <p class="blueLCR f24">
-      <span @click.prevent="praiseBG">
-        <i class="iconfont icon-heart-opp-copy f30 redCR"></i> {{sellerInfo.praise}} 赞
+      <span @click.prevent="praised = true">
+        <i :class="['iconfont f30 redCR',{'icon-xinheart282':!sellerInfo.praised},{'icon-heart-opp-copy':sellerInfo.praised}]"></i> {{sellerInfo.praise}} 赞
       </span>
     </p>
     <dl class="tR">
@@ -209,6 +209,16 @@
           <dl>
             <dt class="redCR" @touchend.prevent="chooseImg">更换背景</dt>
             <dd @touchend.prevent="closeDialog('changebg')">取消</dd>
+          </dl>          
+        </div>
+
+    </dialog-del>
+
+    <dialog-del :dialogshow2.sync="praised" @hide="closeDialog('praised')">
+        <div slot="dialog-footer" class="del-footer tC f30">
+          <dl>
+            <dt class="redCR" @touchend.prevent="praiseBG">赞这个封面</dt>
+            <dd @touchend.prevent="closeDialog('praised')">取消</dd>
           </dl>          
         </div>
 

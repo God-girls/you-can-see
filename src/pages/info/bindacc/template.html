@@ -26,8 +26,14 @@
         <dt class="f21 grayCR">
           请使用常用手机号，绑定后无法修改
         </dt>
-        <dd><p class="btn btn-green" @click.prevent="bindAcc">确认</p></dd>
       </dl>
+      <dl class="flexBox1">
+        <dt class="f21 grayCR">
+            <p class="btn btn-green greenCR" @click.prevent="goto(header.link)">取消</p>
+        </dt>
+        <dd><p class="btn btn-green" @click.prevent="bindAcc">确定</p></dd>
+      </dl>
+
     </div>
 
     <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>

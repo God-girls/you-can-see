@@ -65,6 +65,7 @@ export default {
       fromShare:false,
       shareFlag:false,
       showCanvas:false,
+      praised:false,
       placeholder:'评论',
       fetBonusType:[],
       popDel:{
@@ -544,7 +545,11 @@ export default {
       });  
     },
     praiseBG(){
-      if (this.sellerInfo.praised) return;
+      this.praised = false;
+      if (this.sellerInfo.praised) {
+        this.initMSG('已赞过该封面')
+        return;
+      }
       axios.post('/seller_api/v1/seller/seller_praise',qs.stringify({
         'uid':this.paraData.uid,
         'seller':this.paraData.uid,

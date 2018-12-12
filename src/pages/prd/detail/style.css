@@ -115,8 +115,9 @@
 }
 .myDetail dl dd textarea{
   border: none;
-  padding: 10px;
+  padding: 25px 10px 10px;
   border-bottom:1px solid #acacac;/*no*/  
+  line-height: 36px;
 }
 .myDetail.special{
   padding-bottom: 50px;

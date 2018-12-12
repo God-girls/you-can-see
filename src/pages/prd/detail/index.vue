@@ -384,7 +384,7 @@ export default {
       tempObj.count = this.amount;
       if (this.sellerInfo.spec) {//如果是选规格
         if (!this.buyList.length) {
-          this.initMSG('请选择商品')
+          this.initMSG('请选择规格')
           return;
         }
         tempObj.spec = html.objClone(this.buyList);

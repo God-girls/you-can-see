@@ -6,7 +6,7 @@
       <img :src="globalAvatar+sellerInfo.background" alt="" class="head" v-if="sellerInfo.background"  :onerror="errorBg">
     </h3>
     <p class="blueLCR f24">
-      <span>
+      <span @click.prevent="changebg = true">
         <i :class="['iconfont f30 redCR',{'icon-xinheart282':!sellerInfo.praised},{'icon-heart-opp-copy':sellerInfo.praised}]"></i> {{sellerInfo.praise}} 赞
       </span>
     </p>
@@ -100,6 +100,9 @@
           </dl>
         </div>
       </div>
+    </div>
+    <div class="tC noDataDiv"  v-if="noData">
+      <nodate noText="该卖家暂无发布商品"></nodate>
     </div>
   </div>
 

@@ -5,6 +5,7 @@
 import {setupWebViewJavascriptBridge} from '../../../assets/js/iosbridge.js';
 import myhead from '../../../components/base/header'
 import myfooter from '../../../components/base/footer'
+import nodate from '../../../components/base/nodate'
 import loading from '../../../components/base/loading'
 import modalDialog from '../../../components/base/dialog'
 import {html} from '../../../assets/js/global.js';
@@ -18,7 +19,8 @@ export default {
     modalDialog,
     myfooter,
     loading,
-    dialogDel
+    dialogDel,
+    nodate
   },
   data () {
     return {
@@ -33,6 +35,7 @@ export default {
       isApp:false,
       needLogin:false,
       success:false,
+      noData:false,
       noDataText:'-----技术支持：公众号“小小麦的家"-----',
       paraData:{
         uid:'1',
@@ -457,12 +460,17 @@ export default {
               }
               this.listData = this.listData.concat(ranks.items);
             }
-             this.listLen = 0;
-             this.praiseLen = 0;
+            if (this.listData.length) {
+               this.listLen = 0;
+               this.praiseLen = 0;
 
-            this.fetchComment(this.listData[0].id,true);
-            this.fetchPraise(this.listData[0],0,true)
-             this.paraData.pn = this.paraData.pn + 1;
+              this.fetchComment(this.listData[0].id,true);
+              this.fetchPraise(this.listData[0],0,true)
+              this.paraData.pn = this.paraData.pn + 1;
+
+            }else{
+              done(true)
+            }
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               if(done) done(done);

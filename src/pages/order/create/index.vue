@@ -137,7 +137,8 @@ export default {
           if (!temPrice.list) {
             temPrice.list = {}
           }
-          this.switchState({
+
+         this.switchState({
             CART:Object.assign(this.CART,{
               imgFile:this.imgFile,
               desc:this.paraData.desc,
@@ -333,10 +334,14 @@ export default {
       obj.def_price = this.CART.priceSet.def_price;
       obj.price = this.CART.priceSet.list;
 
+
       this.paraData.imgs = JSON.stringify(this.imgFile);
       this.paraData.price = JSON.stringify(obj)
       if (this.CART.specs.length) 
         this.paraData.spec = JSON.stringify(this.CART.specs);
+      else{
+        if (this.prdID) this.paraData.spec = '';
+      }
       this.paraData.show_comment = this.CART.other.show_comment;
       this.paraData.show_sell = this.CART.other.show_sell;
       this.paraData.sell_base = this.CART.other.sell_base;
@@ -356,9 +361,6 @@ export default {
       if (!obj.spec_name || obj.spec_name != '*' && !Object.keys(obj.price).length) {
         this.initMSG('请设置定价')
         return;
-      }
-      if (obj.spec_name == '*') {
-        this.paraData.spec = ''
       }
 
       this.loading = true;

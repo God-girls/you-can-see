@@ -198,10 +198,12 @@ export default {
         temSet.subIndex = 0;     
         temSet.list = {};        
       }
- 
+      
       this.switchState({
         CART:Object.assign(this.CART,{specs:this.specs},{priceSet:temSet})
       })
+      console.log(this.CART)
+      // return;
       this.$router.push(arr)        
     },
   }

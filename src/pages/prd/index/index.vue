@@ -520,7 +520,7 @@ export default {
 
       axios.post('/seller_api/v1/seller/seller_praise',qs.stringify({
         'uid':this.paraData.uid,
-        'seller':this.paraData.uid,
+        'seller':this.paraData.seller,
       }),{
           headers: {
               "A-Token-Header": this.token,

@@ -18,7 +18,8 @@ export default {
       paraData:{
         type:'H5'
       },
-      inviterMini:''
+      inviterMini:'',
+      // jumpto:''
     }
   },
   components: {
@@ -36,18 +37,16 @@ export default {
   mounted (){
 
     if (this.$route.query.redirecto) {
-      let jumpUrl = this.ttDomain + '/#/app/login?jumpto=';
       let params = '/prd/list?seller='+this.$route.query.seller
-      if (this.$route.query.goodid) 
-        params += '&goodid='+ this.$route.query.goodid;
-      jumpUrl += encodeURIComponent(params);
-
-      if (html.isWechat()) location.href = html.openInWechat(jumpUrl);
-      else if (html.isInqq())  location.href = html.openInOher(jumpUrl);
-      else this.goto(params)
-      return;
+      if (this.$route.query.goodid) params += '&goodid='+ this.$route.query.goodid;
+      this.jumpto = params;
     }
-    this.initJumpto()
+    if (localStorage.ttToken) {
+      this.testToken()
+    }else{
+      this.initJumpto()
+    }
+
 
   },
   methods: {
@@ -55,7 +54,20 @@ export default {
       'switchState', // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`'
       'clearState'
     ]),
+
     initJumpto(){
+      if (this.$route.query.redirecto) {
+        let jumpUrl = this.ttDomain + '/#/app/login?jumpto=';
+        let params = '/prd/list?seller='+this.$route.query.seller
+        if (this.$route.query.goodid) 
+          params += '&goodid='+ this.$route.query.goodid;
+        jumpUrl += encodeURIComponent(params);
+
+        if (html.isWechat()) location.href = html.openInWechat(jumpUrl);
+        else if (html.isInqq())  location.href = html.openInOher(jumpUrl);
+        else this.goto(params)
+        return;
+      }
       if (html.isWechat()) {//如果是在微信
         this.getLogin();
       }else if (html.isInqq()) {
@@ -75,28 +87,6 @@ export default {
       wx.ready(function () {
         wx.closeWindow();
       })      
-    },
-    resolveInviter(){
-      if (location.href.indexOf('inviter') > -1) {
-          this.paraData.inviter = this.getCode('inviter');
-          this.inviterMini = '?inviter='+this.getCode('inviter');                
-        if (location.href.indexOf('params') > -1) {
-            this.paraData.inviter = this.getCode('params');
-            this.inviterMini += '&params='+this.getCode('params');                
-        }
-      }
-    },
-    openWechat (){
-      let appID = 'wx357ca89ca431b3ca';
-      let jumpUrl = this.ttDomain + '/?'
-                  +'&goodid=' + this.$route.query.goodid
-                  +'&seller=' + this.$route.query.seller
-                  +'#/app/author';
-
-     location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='+appID
-            +'&redirect_uri='+encodeURIComponent(jumpUrl)
-            +'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
-
     },
     getQueryValue (name) {
         var str = self.location.href.split('#')[0].split('?')[1];
@@ -173,25 +163,18 @@ export default {
         let resData = response.data;  
 
         if (resData.success) {
-          // this.goto('/prd/list?seller='+this.$route.query.seller)
-          if (html.isWechat()) {//如果是在微信
-            this.getLogin();
-          }else if (html.isInqq()) {
-            this.paraData.oatype = 'qq'
-            this.getLogin2();
-          }else{
-            this.goto(this.$route.query.jumpto)
-          }
-            
+          this.switchState({
+            TOKEN:localStorage.ttToken,
+            UID:localStorage.ttUid
+          })            
+          this.goto(this.jumpto)
         }else{
-          this.clearState();
-          localStorage.clear();
-          this.initJumpto();
+          localStorage.clear()
+          this.initJumpto()
         }
       }).catch((response)=>{
-          this.clearState();
-          localStorage.clear();
-          this.initJumpto();
+        localStorage.clear()
+        this.initJumpto()
       });        
     },
     closeDialog(arr){

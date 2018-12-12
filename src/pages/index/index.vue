@@ -462,7 +462,7 @@ export default {
       },1000)
     },
     onInfinite(done) {  
-      console.log('infinite')
+      // console.log('infinite')
       this.indexDone = done;   
       this.fetchList(done);
     },

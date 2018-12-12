@@ -612,6 +612,7 @@ export default {
       }
     },
     replyComment (type){
+      this.reply = false;
       axios.post('/seller_api/v1/seller/reply_comment',qs.stringify({
         uid:this.paraData.uid,
         cid:this.comment.cid,
@@ -624,7 +625,6 @@ export default {
           let resData = response.data;   
 
           if (resData.success) {
-            this.reply = false;
             this.comment.tips = '';
             this.fetchComment();
           }else{

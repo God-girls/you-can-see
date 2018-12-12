@@ -476,6 +476,7 @@ export default {
 
     },
     onRefresh(done) {
+      console.log('onRefresh')
       setTimeout(()=>{
         this.totalPageCount = -1;
         this.paraData.pn = 1;
@@ -581,7 +582,7 @@ export default {
       }
     },
     replyComment (type){
-
+      this.reply = false;
       axios.post('/seller_api/v1/seller/reply_comment',qs.stringify({
         uid:this.paraData.uid,
         cid:this.comment.cid,

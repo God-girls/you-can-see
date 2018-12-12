@@ -7,7 +7,7 @@
     </h3>
     <p class="blueLCR f24">
       <span>
-        <i class="iconfont icon-heart-opp-copy f30 redCR"></i> {{sellerInfo.praise}} 赞
+        <i :class="['iconfont f30 redCR',{'icon-xinheart282':!sellerInfo.praised},{'icon-heart-opp-copy':sellerInfo.praised}]"></i> {{sellerInfo.praise}} 赞
       </span>
     </p>
     <dl class="tR">

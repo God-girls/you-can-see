@@ -74,7 +74,7 @@ export default {
     }
 
     this.getBonus()
-    dplus.track('收入分析',{'from':html.useragent()});//统计代码
+    dplus.track('我的余额',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
 
   },

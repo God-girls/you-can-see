@@ -36,21 +36,22 @@ export default {
 
   mounted (){
 
-    if (this.$route.query.search) {
-      this.jumpto = '/order/list'
-    }
-    if (this.$route.query.redirecto) {
-      let params = '/prd/list?seller='+this.$route.query.seller
-      if (this.$route.query.goodid) params += '&goodid='+ this.$route.query.goodid;
-      this.jumpto = params;
-    }
-    if (localStorage.ttToken) {
-      this.testToken()
-    }else{
-      this.initJumpto()
-    }
+    // if (this.$route.query.search) {
+    //   this.jumpto = '/order/list'
+    // }
+    // if (this.$route.query.redirecto) {
+    //   let params = '/prd/list?seller='+this.$route.query.seller
+    //   if (this.$route.query.goodid) params += '&goodid='+ this.$route.query.goodid;
+    //   this.jumpto = params;
+    // }
+    // if (localStorage.ttToken) {
+    //   this.testToken()
+    // }else{
+    //   this.initJumpto()
+    // }
+    this.initJumpto()
+    dplus.track('微信登录',{'from':html.useragent()});//统计代码
 
-  
   },
   methods: {
     ...mapActions([

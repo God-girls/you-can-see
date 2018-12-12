@@ -135,12 +135,12 @@ export default {
             this.addressInfo = JSON.parse(resData.result.addrinfo);
             this.head_image = JSON.parse(resData.result.spec).head_image
 
-            // if (resData.result.status != 9 && resData.result.status != 9 && resData.result.status != 9) {
-            //   this.orderStatus = '等待支付结果'
-            //   setTimeout(()=>{
-            //     this.fetchOrder()
-            //   },5000)
-            // }
+            if (resData.result.status != 9 && resData.result.status != 10 && resData.result.status != 11) {
+              this.orderStatus = '等待支付结果'
+              setTimeout(()=>{
+                this.fetchOrder()
+              },5000)
+            }
           }else {
             if (resData.code == '403' || resData.code == '250') {
                // this.goto('/')

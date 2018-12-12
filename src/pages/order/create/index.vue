@@ -85,7 +85,7 @@ export default {
       if (!this.CART.imgFile) this.fetchList();
     }
 
-    dplus.track('我的',{'from':html.useragent()});//统计代码
+    dplus.track('创建商品',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
 
   },

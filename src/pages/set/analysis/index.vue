@@ -103,14 +103,20 @@ export default {
       this.paraData.uid = this.UID;
       this.token = this.TOKEN;
     }
-
+    if (this.$route.query.goodid){
+      this.goodid = this.$route.query.goodid;
+      this.prdGid = this.goodid;
+      this.isCur = 1;
+      this.fetchGood();
+      this.header.link = '/'
+    }
     this.dataTime.start = html.timeForMat(0) + ' 00'
     this.dataTime.end = html.timeForMat(0) + ' 23'
 
     this.getList ();
     this.fetchList();
     this.getBonus();
-    dplus.track('收入分析',{'from':html.useragent()});//统计代码
+    dplus.track('商品分析',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
 
   },
@@ -143,6 +149,12 @@ export default {
       }
     },
     changeType(index){
+      if (this.isCur == 0) {
+        this.prdGid = '';
+      }else if(this.isCur == 1){
+        this.prdGid = this.sellerInfo.id;
+
+      }
       this.isCur2 = index;
       this.typeFormat();
       this.getList()
@@ -174,6 +186,33 @@ export default {
         break;
 
       }
+    },
+    fetchGood(){
+
+      axios.post('/seller_api/v1/seller/seller_goods_info',qs.stringify({
+        uid:this.paraData.uid,
+        gid:this.goodid
+      }),{
+        headers: {
+            "A-Token-Header": this.token,
+        }
+      }).then((response)=>{   
+        
+        let resData = response.data;  
+
+        if (resData.success) {
+          // debugger          
+          this.sellerInfo = resData.result;
+
+        }  else {
+          if (resData.code == '403' || resData.code == '250') {
+            this.goto('/');
+          }else{
+            this.initMSG(resData.codemsg)
+          }
+        }
+      })
+
     },
     getRank (type){
       axios.post('/seller_api/v1/seller/board',qs.stringify({
@@ -236,7 +275,7 @@ export default {
           if (resData.success) {
             if (resData.result.items.length) {
               if (this.paraData.pn == 1) {
-                this.sellerInfo = resData.result.items[0];
+                if (!this.goodid) this.sellerInfo = resData.result.items[0];
                 this.allPrdData = resData.result.items;
                 this.totalPages = resData.result.totalPageCount;
               }else{

@@ -79,6 +79,7 @@ export default {
       this.getProfile()
     }
     document.body.addEventListener('touchstart', function () {});
+    dplus.track('已购宝贝',{'from':html.useragent()});//统计代码
 
   },
   methods: {

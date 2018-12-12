@@ -69,8 +69,8 @@ export default {
       placeholder:'评论',
       fetBonusType:[],
       popDel:{
-        title:['删除当前评论','下架当前商品','上架当前商品','置顶当前商品','复制当前商品','编辑当前商品'],
-        content:['删除','下架','上架','置顶','复制','编辑']
+        title:['删除当前评论','下架当前商品','上架当前商品','置顶当前商品','复制当前商品','编辑当前商品','查看当前商品的数据分析'],
+        content:['删除','下架','上架','置顶','复制','编辑','确定']
       },
       popIndex:0,
       del:false,
@@ -432,10 +432,10 @@ export default {
                 this.listData = this.listData.concat(ranks.items);
               }
               // console.log(this.listData)
-              this.fetchComment(this.listData[0].id,true);
-              this.fetchPraise(this.listData[0],0,true)
               this.listLen = 0;
               this.praiseLen = 0;
+              this.fetchComment(this.listData[0].id,true);
+              this.fetchPraise(this.listData[0],0,true)
 
               this.loading = false;
               this.paraData.pn = this.paraData.pn + 1;
@@ -595,10 +595,7 @@ export default {
             }else{
               this.listData[index].praised = true;
             }
-          }  else {
-            
-            // console.log(resData.codemsg);
-          }
+          } 
       }).catch((response)=>{
         this.logErrors(JSON.stringify(response))
       });  
@@ -638,7 +635,6 @@ export default {
       }).catch((response)=>{
         this.initMSG('网络异常再试一次');
       });  
-  
     },
     beforeReply(item,index){
       this.popIndex = 0;
@@ -699,6 +695,10 @@ export default {
 
         case 5:
           this.goto('/prd/create?id='+this.curProduct.id)
+          break;
+
+        case 6:
+          this.goto('/my/analysis?goodid='+this.curProduct.id)
           break;
 
         default :

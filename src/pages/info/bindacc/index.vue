@@ -64,7 +64,7 @@ export default {
       this.paraData.uid = this.UID;
       this.profile = this.PROFILE;
 
-      dplus.track('提现',{'from':html.useragent()});//统计代码      
+      dplus.track('绑定手机号',{'from':html.useragent()});//统计代码      
     }
   },
   methods: {

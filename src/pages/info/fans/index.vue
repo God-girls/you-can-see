@@ -5,6 +5,7 @@
 import loading from '../../../components/base/loading'
 import myhead from '../../../components/base/header'
 import nodate from '../../../components/base/nodate'
+import modalDialog from '../../../components/base/dialog'
 import { mapState, mapActions } from 'vuex'
 import {html} from '../../../assets/js/global.js';
 import axios from 'axios';
@@ -23,6 +24,7 @@ export default {
       token:'',
       loading:false,
       noData:false,
+      seeDetail:false,
       isCur:1,
       statusBar:{},
       loadError:'',
@@ -31,22 +33,31 @@ export default {
       noDataText:'-----技术支持：公众号“小小麦的家"-----',
       totalPageCount:-1,
       paraData:{
-        begin_time:'',
-        end_time:'',
+        orderby:'count desc',
         ps:50,
         pn:1
       },
+      tabs:[
+        {name:'买家',type:'',flag:false},
+        {name:'订单数(件)',type:'count',flag:true},
+        {name:'金额元',type:'amount',flag:false},        
+        {name:'最后购买时间',type:'lastbuy',flag:false}        
+      ],
       minDate:'2018-1-01',
       profile:{},
       listData:[],
-
+      orderInfo:{},
+      fansPn:1,
+      fansList:[],
+      fansTotal:-1,
+      fansName:''
     }
   },
   components: {
     loading,
     nodate,
     myhead,
-    // datepicker
+    modalDialog
   },
   computed:{
     ...mapState([
@@ -73,7 +84,7 @@ export default {
       this.token = this.TOKEN;
     }
 
-    dplus.track('收入分析',{'from':html.useragent()});//统计代码
+    dplus.track('我的粉丝',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
 
   },
@@ -82,9 +93,13 @@ export default {
       'switchState', // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`'
       'clearState'
     ]),
-    changeType(index){
+    changeType(item,index){
+      if (index == 0) return;
       this.isCur = index;
-      this.typeFormat();
+      item.flag = !item.flag
+      this.paraData.orderby = item.type + ' ' + (item.flag?'desc':'asc');
+      this.totalPageCount = -1;
+      this.paraData.pn = 1;
       this.getList()
     },
     typeFormat(){
@@ -147,6 +162,42 @@ export default {
       }).catch((response)=>{
         if(done) done(done)
       });  
+    },
+    fetchFans(item){
+      this.buyer = item.uid;
+      this.seeDetail = true;
+      this.fansName = item.nick
+      this.fansPn = 1;
+      this.fansTotal = -1;
+      this.fetchInfo()
+    },  
+    fetchInfo(flag){
+      if (flag) {
+        this.fansPn++
+      }
+      axios.post('/seller_api/v1/seller/package_list',qs.stringify({
+        uid:this.UID,
+        buyer:this.buyer,
+        ps:10,
+        pn:this.fansPn
+      }),{
+          headers: {
+              "A-Token-Header": this.TOKEN,
+          }
+        }).then((response)=>{   
+          let resData = response.data;
+          
+          if (resData.success) {
+            this.fansList = resData.result.items;
+            this.fansTotal = resData.result.totalPageCount;
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.goto('/')
+            }
+          }
+      }).catch((response)=>{
+        // this.logErrors(JSON.stringify(response))
+      });  
 
     },
     onRefresh(done) {
@@ -170,6 +221,9 @@ export default {
     },
     goto (arr){
        this.$router.push(arr)        
+    },
+    closeDialog(arr){
+      this[arr] = false
     },
     goBack (){
       this.$router.push('/')      

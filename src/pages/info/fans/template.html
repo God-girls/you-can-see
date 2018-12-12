@@ -8,21 +8,21 @@
       <table class="">
         <thead>
           <tr class="">
-            <th width="30%">买家</th>
-            <th>订单数(件)</th>
-            <th>金额(元)</th>
-            <th>最后购买时间</th>
+            <template v-for="(item,index) in tabs" >
+              <th :class="[{'special':index ==3}]" @click.prevent="changeType(item,index)">
+                {{item.name}}
+                <i :class="['iconfont icon-sort1 grayCR f21',{'greenCR':index == isCur}]" v-if="index != 0"></i>
+              </th>
+            </template>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item,index) in listData">
+          <tr v-for="(item,index) in listData" @click.prevent="fetchFans(item)">
             <td class="tL">
               <dl class="flexBox">
                 <dt><img :src="globalAvatar+(item.avatar?item.avatar:'')+'?imageView2/2/w/100/h/100/t/'" alt="" ></dt>
                 <dd class="flex1 tL">{{item.nick}}</dd>
               </dl>
-              
-              
             </td>
             <td>
               {{item.count}}
@@ -42,7 +42,60 @@
     </div>
   </scroller>
 
+  <div slot="footer">
+    <modal-dialog :dialogshow2.sync="seeDetail" @hide="closeDialog('seeDetail')"  :fail='true'>
+      <div class="dialog-header" slot="dialog-header">
+        {{fansName}}的战力
+      </div>
 
+    <div class="success" slot="dialog-body">
+      <template v-for="(item,index) in fansList">
+        <div class="bg">
+          
+        <h3 class="greenCR tL">{{item.created_at}}</h3>
+        <dl class="flexBox">
+          <dt>商品：</dt>
+          <dd class="flex1">
+            {{item.title}}
+          </dd>
+        </dl>
+        <dl class="flexBox">
+          <dt>价格：</dt>
+          <dd class="flex1">{{item.amount}} 元</dd>
+        </dl>
+        <dl class="flexBox">
+          <dt>数量：</dt>
+          <dd class="flex1">{{item.count}}</dd>
+        </dl>
+        <dl class="flexBox">
+          <dt>订单号：</dt>
+          <dd class="flex1">{{item.orderid}}</dd>
+        </dl>
+        <dl class="flexBox special">
+          <dt>收件人：</dt>
+          <dd class="flex1">{{item.receiver}}</dd>
+        </dl>
+        <dl class="flexBox">
+          <dt>电话：</dt>
+          <dd class="flex1">{{item.mobileno}}</dd>
+        </dl>
+        <dl class="flexBox">
+          <dt>地址：</dt>
+          <dd class="flex1">{{item.address}}</dd>
+        </dl>        
+        </div>
+      </template>
+      <p v-if="fansTotal > fansPn" class="greenCR tC" @click.prevent="fetchInfo(2)">查看更多</p>
+
+    </div>
+      <dl class="dialog-footer" slot="dialog-footer">
+        <dd  @touchend.prevent="closeDialog('seeDetail')">
+          <button type="button" class="btn btn-green">确定</button>
+        </dd>
+      </dl>    
+    </modal-dialog>
+    
+  </div>
 
 
   

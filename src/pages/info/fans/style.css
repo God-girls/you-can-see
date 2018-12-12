@@ -76,10 +76,52 @@
   padding: 15px 0;
   font-weight: normal;
 }
+.index-wrap table tr th.special{
+  width: 28%;
+}
 .index-wrap table tr td{
   border-bottom: 1px solid #c1c1cc;/*no*/
   padding: 20px 0;
 }
 .index-wrap table tbody tr:active{
   background: rgba(0,0,0,.01);
+}
+
+.success h3{
+  padding: 20px 0 10px 30px;    
+  line-height: 40px;
+}
+.success {
+  height: 500px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+}
+
+.success .bg{
+  padding: 15px 0 30px;
+  border-bottom:15px solid #ebebeb;
+  background: #fff;
+}
+.success dl{
+  line-height: 45px;
+  margin: 0 30px;
+  width: auto;
+  align-items: flex-start;
+}
+.success  p{
+  padding-top: 20px;
+}
+.success  p img{
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+}
+.success dl.special{
+  border-top: 1px solid #a0a0a0;/*no*/  
+  padding-top: 15px;
+  margin-top: 15px;
 }

@@ -21,14 +21,12 @@
 .success .bg{
   padding: 15px 0;
   border-bottom:15px solid #ebebeb;
+  background: #fff;
 }
 .success dl{
   line-height: 60px;
   margin: 0 30px;
   width: auto;
-}
-.success .bg{
-  background: #fff;
 }
 .success .bg p{
   width: 100px;

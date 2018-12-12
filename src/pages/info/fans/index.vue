@@ -59,7 +59,7 @@ export default {
   },
   created(){
     if (html.isWechat()) {
-      this.header.opacity = true;
+      // this.header.opacity = true;
     }
   },
   mounted () {

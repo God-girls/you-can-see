@@ -158,8 +158,9 @@ export default {
       this.delSpec = true;
     },
     delSubmit(){
+
       this.specs.splice(this.curDel,1);
-      this.closeDialog('delSpec')
+      this.closeDialog('delSpec');
     },
     initMSG(arr){
       this.loading = true;
@@ -177,18 +178,28 @@ export default {
     },
     goto(arr){
       // debugger
-
+      let temSet = this.CART.priceSet;
+      let curSpec = -1; //如果把已经设置的规格删掉
       for (let i = 0; i < this.specs.length; i++) {
         //Things[i]
         for (let j in this.specs[i]) {
+          if (j == temSet.spec_name) {
+            curSpec = i;
+          }
           if (this.specs[i][j].length == 0) {
             this.initMSG('请添加规格对应的属性')
             return;
           }
         }      
       }
+      if (curSpec == -1) { //初始化规格属性
+        // temSet.spec_name = '*';
+        temSet.subIndex = 0;     
+        temSet.list = {};        
+      }
+ 
       this.switchState({
-        CART:Object.assign(this.CART,{specs:this.specs})
+        CART:Object.assign(this.CART,{specs:this.specs},{priceSet:temSet})
       })
       this.$router.push(arr)        
     },

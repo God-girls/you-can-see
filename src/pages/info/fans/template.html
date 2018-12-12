@@ -1,6 +1,6 @@
 <Layout>
   <div slot="header">
-    <myhead :hval="header" v-if="!header.opacity"></myhead>
+    <myhead :hval="header"></myhead>
   </div>
 
   <scroller :on-infinite="onInfinite" :on-refresh="onRefresh" :noDataText="noDataText" ref="my_scroller" loadingLayerColor="#b0abbd">

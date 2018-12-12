@@ -84,7 +84,6 @@ export default {
       this.prdID = this.$route.query.id
       if (!this.CART.imgFile) this.fetchList();
     }
-    // console.log(this.CART)
 
     dplus.track('我的',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
@@ -352,7 +351,9 @@ export default {
         this.initMSG('请选择图片');
         return
       }
-      if (!obj.spec_name) {
+
+
+      if (!obj.spec_name || obj.spec_name && !Object.keys(obj.price).length) {
         this.initMSG('请设置定价')
         return;
       }
@@ -364,6 +365,7 @@ export default {
         },1000)
         return;
       }
+
       axios.post('/seller_api/v1/seller/create_goods',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,

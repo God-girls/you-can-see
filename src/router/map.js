@@ -84,7 +84,7 @@ export default {
 		}
 	},
 	'/my/fans': {
-		meta: { title: '我的粉丝'},
+		meta: { title: '小小麦'},
 		component: (resolve) => {
 			require(['pages/info/fans'], resolve)
 		}

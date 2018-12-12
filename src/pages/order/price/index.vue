@@ -53,7 +53,7 @@ export default {
     ])
   },
   created () {
-    console.log(this.CART)
+    // console.log(this.CART)
 
     if (this.TOKEN) {
       this.token = this.TOKEN;
@@ -106,7 +106,7 @@ export default {
               obj[priceShow[i]] = this.priceSet.list[priceShow[i]];
             }
             // this.priceSet.price = priceNew;
-            this.priceSet.def_price = '';
+            // this.priceSet.def_price = '';
             this.priceSet.spec_name = myKey[0];
             this.priceSet.list = obj;
 

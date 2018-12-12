@@ -93,7 +93,8 @@ export default {
       selectIndex:0,
       seperatePrice:false,
       orderid:'',
-      orderkey:''
+      orderkey:'',
+      oneSpec:true
     }
   },
   computed:{
@@ -160,7 +161,7 @@ export default {
       }).then((response)=>{   
         // alert()
           let resData = response.data;  
-
+          console.log(resData.result)
           if (resData.success) {
             this.sellerInfo = resData.result;
             if (this.sellerInfo.spec) 
@@ -173,7 +174,21 @@ export default {
               this.specPrice = JSON.parse(resData.result.price).price;
               this.specName = JSON.parse(resData.result.price).spec_name;
               this.seperatePrice = true;
-              this.amount = 0
+              this.amount = 0;
+              let temSpec = JSON.parse(this.sellerInfo.spec);
+
+              for (var i = 0; i < this.indexArr.length; i++) {
+                if (Object.keys(temSpec[i]).length > 1) 
+                  this.oneSpec = false;
+              }
+
+              if (this.oneSpec) {
+                for (let i = 0; i < this.indexArr.length; i++) {
+                  this.indexArr[i] = 0;
+                }
+                this.countList()
+              }
+
             }
           }  else {
             if (resData.code == '403' || resData.code == '250') {
@@ -298,9 +313,10 @@ export default {
 
      this.indexArr.splice(index,1,index2)
       // this.countList()
-      // console.log(this.indexArr)
+      console.log(this.indexArr)
     },
     countList(){
+      // debugger
       let specs = JSON.parse(this.sellerInfo.spec);
       let names = []
       for (var i = 0; i < this.indexArr.length; i++) {
@@ -328,7 +344,7 @@ export default {
         this.initMSG('请选择规格')
       }
       this.amount++;
-      // console.log(this.buyList)
+      console.log(this.buyList)
     },
     countPrice(){
       let totalPrice = 0;
@@ -448,6 +464,7 @@ export default {
           }
           this.amount++;
         }else{
+          if (this.amount == 1) return;
           if (index || index === 0) {
             this.buyList[index].count--;
             this.amount--
@@ -459,6 +476,7 @@ export default {
             this.amount--;            
           }
         }
+
         if (index || index === 0){
           this.countPrice();
         }else{

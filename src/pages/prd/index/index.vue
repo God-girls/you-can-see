@@ -94,6 +94,9 @@ export default {
   },
   mounted () {
       // alert(navigator.userAgent.toLowerCase())
+    if (html.isInqq() || html.isWechat()) {
+      this.inWeixin = true;
+    }
 
       if (this.$route.query.seller) {
         this.paraData.seller = this.$route.query.seller
@@ -131,9 +134,6 @@ export default {
 
     if (html.isWechat()) {
       this.getShare ();
-    }
-    if (html.isInqq() || html.isWechat()) {
-      this.inWeixin = true;
     }
     dplus.track('首页',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {}); 

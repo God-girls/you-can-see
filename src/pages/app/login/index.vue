@@ -47,14 +47,7 @@ export default {
       else this.goto(params)
       return;
     }
-    if (html.isWechat()) {//如果是在微信
-      this.getLogin();
-    }else if (html.isInqq()) {
-      this.paraData.oatype = 'qq'
-      this.getLogin2();
-    }else{
-      this.goto(this.$route.query.jumpto)
-    }
+    this.initJumpto()
 
   },
   methods: {
@@ -62,8 +55,15 @@ export default {
       'switchState', // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`'
       'clearState'
     ]),
-
     initJumpto(){
+      if (html.isWechat()) {//如果是在微信
+        this.getLogin();
+      }else if (html.isInqq()) {
+        this.paraData.oatype = 'qq'
+        this.getLogin2();
+      }else{
+        this.goto(this.$route.query.jumpto)
+      }
     },
     getCode (name) {
         var str = self.location.search.substr(1);
@@ -173,14 +173,25 @@ export default {
         let resData = response.data;  
 
         if (resData.success) {
-          this.goto('/prd/list?seller='+this.$route.query.seller)
+          // this.goto('/prd/list?seller='+this.$route.query.seller)
+          if (html.isWechat()) {//如果是在微信
+            this.getLogin();
+          }else if (html.isInqq()) {
+            this.paraData.oatype = 'qq'
+            this.getLogin2();
+          }else{
+            this.goto(this.$route.query.jumpto)
+          }
             
         }else{
           this.clearState();
-          wx.miniProgram.redirectTo({url: `/pages/login/login${this.inviterMini}`})
+          localStorage.clear();
+          this.initJumpto();
         }
       }).catch((response)=>{
-        wx.miniProgram.redirectTo({url: `/pages/login/login${this.inviterMini}`})
+          this.clearState();
+          localStorage.clear();
+          this.initJumpto();
       });        
     },
     closeDialog(arr){

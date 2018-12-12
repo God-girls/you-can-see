@@ -21,12 +21,12 @@
         <dt class="blackCR">{{key}}</dt>
         <dd>
           <span v-for="(item2,index2) in value"
-              :class="{'current':index2 === indexArr[index]}"
+              :class="{'current':index2 === indexArr[index] || oneSpec}"
               @click.prevent="changeType(index,index2)">{{item2}}</span>
         </dd>
       </dl>      
     </template>
-    <p class="btn btn-green btn-sm" @click.prevent="countList">确定</p>
+    <p class="btn btn-green btn-sm" @click.prevent="countList" v-if="!oneSpec">确定</p>
   </div>
 
   <div class="buyNum" v-if="sellerInfo.spec">

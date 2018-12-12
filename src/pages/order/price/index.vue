@@ -128,8 +128,9 @@ export default {
     changeType(index){
       // console.log(this.priceSet.price)
       if (this.priceSet.subIndex == index || !this.specs.length) return;
-      for (var i = 0; i < this.priceSet.price.length; i++) {
-        if (this.priceSet.price[i] != '') {
+      // debugger
+      for (var i in this.priceSet.list) {
+        if (this.priceSet.list[i] != '') {
           this.isToggle = true;
           this.curType = index;
           return;

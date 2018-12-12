@@ -136,6 +136,7 @@ export default {
       }
       this.fetchPrd();
     }
+    // console.log(this.C)
     dplus.track('订单确认',{'from':html.useragent()});//统计代码
   },
   methods: {
@@ -161,11 +162,28 @@ export default {
       }).then((response)=>{   
         // alert()
           let resData = response.data;  
-          console.log(resData.result)
+          // console.log(resData.result)
           if (resData.success) {
             this.sellerInfo = resData.result;
-            if (this.sellerInfo.spec) 
+            if (this.sellerInfo.spec) {
               this.indexArr.length = JSON.parse(this.sellerInfo.spec).length;
+              let temSpec = JSON.parse(this.sellerInfo.spec);
+
+              for (var i = 0; i < this.indexArr.length; i++) {
+                for (var j in temSpec[i]) {
+                if (temSpec[i][j].length > 1) 
+                  this.oneSpec = false;
+                }
+              }
+
+              if (this.oneSpec) {
+                this.singlePrice = Number(this.sellerInfo.price_range)
+                for (let i = 0; i < this.indexArr.length; i++) {
+                  this.indexArr[i] = 0;
+                }
+                this.countList();
+              }
+            }
             if (JSON.parse(resData.result.price).spec_name == '*') {
               this.singlePrice = Number(this.sellerInfo.price_range)
               this.totalPrice = this.singlePrice;
@@ -175,19 +193,6 @@ export default {
               this.specName = JSON.parse(resData.result.price).spec_name;
               this.seperatePrice = true;
               this.amount = 0;
-              let temSpec = JSON.parse(this.sellerInfo.spec);
-
-              for (var i = 0; i < this.indexArr.length; i++) {
-                if (Object.keys(temSpec[i]).length > 1) 
-                  this.oneSpec = false;
-              }
-
-              if (this.oneSpec) {
-                for (let i = 0; i < this.indexArr.length; i++) {
-                  this.indexArr[i] = 0;
-                }
-                this.countList()
-              }
 
             }
           }  else {
@@ -343,14 +348,15 @@ export default {
       }else{
         this.initMSG('请选择规格')
       }
-      this.amount++;
-      console.log(this.buyList)
+      if (!this.oneSpec) {
+        this.amount++;
+      }
     },
     countPrice(){
       let totalPrice = 0;
       for (var i = 0; i < this.buyList.length; i++) {
         let temPrice = this.seperatePrice ? this.specPrice[this.buyList[i][this.specName]] : this.singlePrice;
-        
+        // debugger
         this.buyList[i].price = temPrice;
         totalPrice += html.mul(this.buyList[i].count,temPrice);
       }   
@@ -464,7 +470,8 @@ export default {
           }
           this.amount++;
         }else{
-          if (this.amount == 1) return;
+
+          if (this.amount < 2 && this.oneSpec) return;
           if (index || index === 0) {
             this.buyList[index].count--;
             this.amount--

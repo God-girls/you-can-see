@@ -53,12 +53,12 @@ export default {
 			require(['pages/set/profile'], resolve)
 		}
 	},
-	'/my/recharge': {
-		meta: { title: '充值'},
-		component: (resolve) => {
-			require(['pages/set/recharge'], resolve)
-		}
-	},
+	// '/my/recharge': {
+	// 	meta: { title: '充值'},
+	// 	component: (resolve) => {
+	// 		require(['pages/set/recharge'], resolve)
+	// 	}
+	// },
 	'/my/balance': {
 		meta: { title: '我的钱包'},
 		component: (resolve) => {
@@ -209,12 +209,6 @@ export default {
 			require(['pages/order/list'], resolve)
 		}
 	},
-	// '/prd/suborder': {
-	// 	meta: { title: '管理收货地址'},
-	// 	component: (resolve) => {
-	// 		require(['pages/order/suborder'], resolve)
-	// 	}
-	// },
 	'/admin/list': {
 		meta: { title: '小小麦'},
 		component: (resolve) => {

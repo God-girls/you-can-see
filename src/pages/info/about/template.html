@@ -1,5 +1,10 @@
 <Layout>
-  <myhead slot="header" :hval="header" v-if="!isIosWechat"></myhead>
+  <myhead slot="header" :hval="header" v-if="!isIosWechat && false"></myhead>
+  <div class="setDefault whiteCR" slot="header" v-else>
+    <span @click.prevent="goto('/my')">
+        <i class="iconfont icon-fanhui f36"></i>
+      </span>
+  </div>
 
 
     <div class="my-set f30">

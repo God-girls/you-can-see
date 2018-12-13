@@ -314,7 +314,13 @@ export default {
       })
     },
     initDefault(){
-      if (!this.goodid) return;
+      if (!this.goodid) {
+        wx.previewImage({
+          current: this.headImg,
+          urls: [this.headImg]
+        });
+        return;
+      }
       this.shareFunc();
       this.fetchList();
       this.goodid = ''

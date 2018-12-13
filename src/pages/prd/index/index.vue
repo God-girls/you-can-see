@@ -14,6 +14,7 @@ import { mapState, mapActions } from 'vuex'
 import wx from 'weixin-js-sdk'; 
 import axios from 'axios';
 import qs from 'qs';
+
 export default {
   components: {
     modalDialog,
@@ -94,6 +95,14 @@ export default {
       'BOTTOMBARH',
       'LISTDATA'
     ])
+  },
+  directives:{
+    focus:{
+      inserted(el,binding){
+        el.focus();
+        alert(2)
+      }
+    }
   },
   mounted () {
       // alert(navigator.userAgent.toLowerCase())
@@ -594,6 +603,9 @@ export default {
         this.reply = true;
         this.placeholder = '回复'+item.nick+'：';
       }
+    },
+    keyFunc(){
+      this.$refs.commentInput.scrollIntoView();
     },
     replyComment (type){
       this.reply = false;

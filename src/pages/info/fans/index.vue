@@ -98,33 +98,11 @@ export default {
       this.isCur = index;
       item.flag = !item.flag
       this.paraData.orderby = item.type + ' ' + (item.flag?'desc':'asc');
-      this.totalPageCount = -1;
-      this.paraData.pn = 1;
-      this.getList()
-    },
-    typeFormat(){
-      switch(this.isCur){
-        case 0:
-          this.dataTime.start = html.timeForMat(1)
-          this.dataTime.end = html.timeForMat(1)
-        break;
-
-        case 1:
-          this.dataTime.start = html.timeForMat(0)
-          this.dataTime.end = html.timeForMat(0)
-        break;
-
-        case 2:
-          this.dataTime.start = html.timeForMat(6)
-          this.dataTime.end = html.timeForMat(0)
-        break;
-
-        case 3:
-          this.dataTime.start = html.timeForMat(29)
-          this.dataTime.end = html.timeForMat(0)
-        break;
-
-      }
+      setTimeout(()=>{
+        this.totalPageCount = -1;
+        this.paraData.pn = 1;
+        this.getList()
+      },500)
     },
     getList(done){
 
@@ -207,9 +185,11 @@ export default {
         this.getList(done);  
       },1000)
     },
-    onInfinite(done) {   
-      this.indexDone = done;   
-      this.getList(done);
+    onInfinite(done) {  
+      setTimeout(()=>{ 
+        this.indexDone = done;   
+        this.getList(done);
+      },500)
     },
     initMSG(errors){
       this.loadError = errors;

@@ -312,8 +312,10 @@ export default {
       },1000)
     },
     onInfinite(done) {   
-      this.indexDone = done;   
-      this.getList(done);
+      setTimeout(()=>{
+        this.indexDone = done;   
+        this.getList(done);
+      },500)
     },
     initMSG(errors){
       this.loadError = errors;

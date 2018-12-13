@@ -462,9 +462,10 @@ export default {
       },1000)
     },
     onInfinite(done) {  
-      // console.log('infinite')
-      this.indexDone = done;   
-      this.fetchList(done);
+      setTimeout(()=>{
+        this.indexDone = done;   
+        this.fetchList(done);
+      },500)
     },
     onOffGoods (){
 

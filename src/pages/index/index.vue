@@ -49,7 +49,7 @@ export default {
       headImg:'',
       token:'',
       wechat_code:false,
-      wechat_code_show:true,
+      wechat_code_show:false,
       showClipper:false,
       img: '',
       onlyWechat:false,
@@ -415,6 +415,7 @@ export default {
           this.bugInfinite = false;
           let resData = response.data;  
           if (resData.success) {
+            this.wechat_code_show = true
             let ranks = resData.result;
             this.totalPageCount = ranks.totalPageCount;
               if (ranks.items.length == 0) {

@@ -88,7 +88,7 @@ export default {
       inWeixin:false,
       myContact:false,
       wechat_code:false,
-      wechat_code_show:true
+      wechat_code_show:false
     }
   },
   computed:{
@@ -404,7 +404,7 @@ export default {
           }
         }).then((response)=>{   
           let resData = response.data;
-          
+          this.wechat_code_show = true
           if (resData.success) {
             this.sellerInfo = resData.result;
             this.sellerInfo.background = this.sellerInfo.background ? this.sellerInfo.background : ' '

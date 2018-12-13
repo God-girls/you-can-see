@@ -150,7 +150,7 @@
       </div>
     </div>
   </div>
-
+  <endWechat :wechat_code_show.sync="wechat_code_show" @wechat="wechatOpen('wechat_code')"></endWechat>
 </scroller>
   <div slot="footer">
     <div class="footComment animateds slideInUp" v-if="reply">
@@ -166,7 +166,8 @@
     <div class="clipper" v-if="showClipper">
       <image-clipper :img="img" @cancel="closeDialog('showClipper')" @ok="ok" :clipper-img-width="600" :clipper-img-height="320"></image-clipper>        
     </div>
-    
+
+    <endWechat2 :wechat_code2.sync="wechat_code" @hide2="closeDialog('wechat_code')"  :fail='true'></endWechat2>
     <modal-dialog :dialogshow2.sync="needLogin" @hide="closeDialog('needLogin')"  :fail='true'>
       <div class="dialog-header" slot="dialog-header">
         您的登陆信息已失效，请重新登陆
@@ -232,7 +233,7 @@
           <dl>
             <dt class="redCR" @touchend.prevent="reply = true;oneReply=false">回复当前评论</dt>
             <dd @touchend.prevent="delComment();oneReply=false" class="grayCR">删除当前评论</dd>
-            <dd @touchend.prevent="closeDialog('oneReply')">取消</dd>
+            <dd @touchend.prevent="closeDialßog('oneReply')">取消</dd>
           </dl>          
         </div>
 

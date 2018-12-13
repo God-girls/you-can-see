@@ -10,6 +10,8 @@ import loading from '../../../components/base/loading'
 import modalDialog from '../../../components/base/dialog'
 import {html} from '../../../assets/js/global.js';
 import dialogDel from '../../../components/base/dialogDel'
+import endWechat from '../../../components/base/endWechat'
+import endWechat2 from '../../../components/base/endWechat2'
 import { mapState, mapActions } from 'vuex'
 import wx from 'weixin-js-sdk'; 
 import axios from 'axios';
@@ -20,7 +22,9 @@ export default {
     myfooter,
     loading,
     dialogDel,
-    nodate
+    nodate,
+    endWechat,
+    endWechat2
   },
   data () {
     return {
@@ -36,7 +40,7 @@ export default {
       needLogin:false,
       success:false,
       noData:false,
-      noDataText:'-----技术支持：公众号“小小麦的家"-----',
+      noDataText:'',
       paraData:{
         uid:'1',
         pn:1,
@@ -81,7 +85,9 @@ export default {
       // mySeller:'',
       goodid:'',
       inWeixin:false,
-      myContact:false
+      myContact:false,
+      wechat_code:false,
+      wechat_code_show:true
     }
   },
   computed:{
@@ -799,6 +805,9 @@ export default {
     },
     goto (arr){
       this.$router.push(arr)
+    },
+    wechatOpen(arr){
+      this[arr]=true;
     },
     closeDialog (arr){
         this[arr] = false;

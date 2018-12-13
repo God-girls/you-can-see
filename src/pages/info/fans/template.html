@@ -40,9 +40,11 @@
         <nodate noText="暂无记录"></nodate>
       </div>
     </div>
+    <endWechat :wechat_code_show.sync="wechat_code_show" @wechat="wechatOpen('wechat_code')"></endWechat>
   </scroller>
 
   <div slot="footer">
+    <endWechat2 :wechat_code2.sync="wechat_code" @hide2="closeDialog('wechat_code')"  :fail='true'></endWechat2>
     <modal-dialog :dialogshow2.sync="seeDetail" @hide="closeDialog('seeDetail')"  :fail='true'>
       <div class="dialog-header" slot="dialog-header">
         {{fansName}}的战力

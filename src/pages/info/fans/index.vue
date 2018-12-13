@@ -6,6 +6,8 @@ import loading from '../../../components/base/loading'
 import myhead from '../../../components/base/header'
 import nodate from '../../../components/base/nodate'
 import modalDialog from '../../../components/base/dialog'
+import endWechat from '../../../components/base/endWechat'
+import endWechat2 from '../../../components/base/endWechat2'
 import { mapState, mapActions } from 'vuex'
 import {html} from '../../../assets/js/global.js';
 import axios from 'axios';
@@ -30,7 +32,7 @@ export default {
       loadError:'',
       bottomBarH:[],
       isApp:'',
-      noDataText:'-----技术支持：公众号“小小麦的家"-----',
+      noDataText:'',
       totalPageCount:-1,
       paraData:{
         orderby:'count desc',
@@ -50,14 +52,18 @@ export default {
       fansPn:1,
       fansList:[],
       fansTotal:-1,
-      fansName:''
+      fansName:'',
+      wechat_code:false,
+      wechat_code_show:true
     }
   },
   components: {
     loading,
     nodate,
     myhead,
-    modalDialog
+    modalDialog,
+    endWechat,
+    endWechat2
   },
   computed:{
     ...mapState([
@@ -144,7 +150,7 @@ export default {
 
               if (this.paraData.pn == 1) {
                   this.listData = ranks.items;
-                  if (this.listData.length < 6) this.noDataText = '';
+                  if (this.listData.length < 6) this.wechat_code_show = false;
                   if (this.listData.length == 0) this.noData = true;
               }
               else {
@@ -221,6 +227,9 @@ export default {
     },
     goto (arr){
        this.$router.push(arr)        
+    },
+    wechatOpen(arr){
+      this[arr]=true;
     },
     closeDialog(arr){
       this[arr] = false

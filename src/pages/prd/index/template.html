@@ -106,6 +106,7 @@
     </div>
   </div>
 
+    <endWechat :wechat_code_show.sync="wechat_code_show" @wechat="wechatOpen('wechat_code')"></endWechat>
 </scroller>
 
   <div slot="footer">
@@ -123,6 +124,7 @@
 
     <div class="mask" v-if="reply" @touchend.prevent="reply = false"></div>
     
+    <endWechat2 :wechat_code2.sync="wechat_code" @hide2="closeDialog('wechat_code')"  :fail='true'></endWechat2>
     <modal-dialog :dialogshow2.sync="needLogin" @hide="closeDialog('needLogin')"  :fail='true'>
       <div class="dialog-header" slot="dialog-header">
         您的登陆信息已失效，请重新登陆

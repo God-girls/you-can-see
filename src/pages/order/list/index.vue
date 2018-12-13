@@ -7,6 +7,8 @@ import myfooter from '../../../components/base/footer'
 import nodate from '../../../components/base/nodate'
 import modalDialog from '../../../components/base/dialog'
 import datepicker from '../../../components/base/Datepicker.vue'
+import endWechat from '../../../components/base/endWechat'
+import endWechat2 from '../../../components/base/endWechat2'
 import { mapState, mapActions } from 'vuex'
 import {html} from '../../../assets/js/global.js';
 import axios from 'axios';
@@ -31,7 +33,7 @@ export default {
       loadError:'',
       bottomBarH:[],
       isApp:'',
-      noDataText:'-----技术支持：公众号“小小麦的家"-----',
+      noDataText:'',
       paraData:{
         ps:50,
         pn:1,
@@ -52,7 +54,9 @@ export default {
       remark:'',
       deliver:'',
       deliver_no:'',
-      packageStat:{}
+      packageStat:{},
+      wechat_code:false,
+      wechat_code_show:true
     }
   },
   components: {
@@ -60,7 +64,9 @@ export default {
     modalDialog,
     nodate,
     myfooter,
-    datepicker
+    datepicker,
+    endWechat,
+    endWechat2
   },
   watch: {//深度 watcher
     'searchCon': {
@@ -264,7 +270,7 @@ export default {
               if (this.paraData.pn == 1) {
                   this.listData = ranks.items;
 
-                  if (this.listData.length < 6) this.noDataText = '';
+                  if (this.listData.length < 6) this.wechat_code_show = false;
                   if (this.listData.length == 0) this.noData = true;
                   this.tabs[this.isCur].count = `( ${resData.result.totalItemsCount} )`
               }
@@ -325,6 +331,9 @@ export default {
     },
     goto (arr){
        this.$router.push(arr)        
+    },
+    wechatOpen(arr){
+      this[arr]=true;
     },
     closeDialog (arr){
       this[arr] = false

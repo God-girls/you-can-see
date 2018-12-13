@@ -7,6 +7,8 @@ import appshare from '../../components/base/appshare'
 import myfooter from '../../components/base/footer'
 import loading from '../../components/base/loading'
 import modalDialog from '../../components/base/dialog'
+import endWechat from '../../components/base/endWechat'
+import endWechat2 from '../../components/base/endWechat2'
 import imageClipper from '../../components/base/imageClipper'
 import dialogDel from '../../components/base/dialogDel'
 import {html} from '../../assets/js/global.js';
@@ -23,7 +25,9 @@ export default {
     loading,
     dialogDel,
     appshare,
-    imageClipper
+    imageClipper,
+    endWechat,
+    endWechat2
   },
   data () {
     return {
@@ -41,9 +45,11 @@ export default {
         uid:'1',
         pn:1
       },
-      noDataText:'-----技术支持：公众号“小小麦的家"-----',
+      noDataText:'',
       headImg:'',
       token:'',
+      wechat_code:false,
+      wechat_code_show:true,
       showClipper:false,
       img: '',
       onlyWechat:false,
@@ -466,6 +472,9 @@ export default {
       this.indexDone = done;   
       this.fetchList(done);
     },
+    noData(done) {  
+      console.log('noData')
+    },
     onOffGoods (){
 
       axios.post('/seller_api/v1//seller/goods_control',qs.stringify({
@@ -857,6 +866,12 @@ export default {
         this.loadError = '';
       },2000)
     },
+    wechatOpen(arr){
+      this[arr]=true;
+    },
+    closeDialog (arr){
+        this[arr] = false;
+    },
     logErrors(log){
       axios.post('/land_api/v1/debug/log',qs.stringify({'logstr':log}));  
     },
@@ -877,7 +892,7 @@ export default {
       }
       else {
         if (html.isWechat()) {
-          location.href = html.openInWechat(this.ttDomain+'/#/app/author')
+          // location.href = html.openInWechat(this.ttDomain+'/#/app/author')
         }else{
           // this.goto('/app/login')
         }
@@ -891,6 +906,9 @@ export default {
       }
       this.$router.push(arr)
     },
+    fansXxm(){
+      location.href = 'https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzU2Mzc0NjQwNw==#wechat_redirect';
+    },
     editPrd(item){
       // if (item.status == 0) {
       //   this.initMSG('请先下架商品后再编辑')
@@ -902,10 +920,8 @@ export default {
       this.del = true;
       this.popIndex = 5;
       
-    },
-    closeDialog (arr){
-      this[arr] = false;
-    },
+    }
+    ,
     getPoster(){
       this.loading = true;
       var _this = this;

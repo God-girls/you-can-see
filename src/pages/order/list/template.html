@@ -119,10 +119,12 @@
       <nodate noText="暂无数据"></nodate>
     </div>
 
+    <endWechat :wechat_code_show.sync="wechat_code_show" @wechat="wechatOpen('wechat_code')"></endWechat>
   </scroller>
 
   <div slot="footer">
     <myfooter :current="navType"></myfooter>
+    <endWechat2 :wechat_code2.sync="wechat_code" @hide2="closeDialog('wechat_code')"  :fail='true'></endWechat2>
     <modal-dialog :dialogshow2.sync="notes" @hide="closeDialog('notes')" :fail='true'>
 
       <div slot="dialog-body" class="guestCON">

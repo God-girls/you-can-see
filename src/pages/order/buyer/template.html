@@ -90,7 +90,7 @@
     <div class="tC noDataDiv"  v-if="noData">
       <nodate noText="暂无数据"></nodate>
     </div>
-
+    <endWechat :wechat_code_show.sync="wechat_code_show" @wechat="wechatOpen('wechat_code')"></endWechat>
   </scroller>
 
   <div  slot="footer">
@@ -99,6 +99,7 @@
         <dd><p class="btn btn-green" @click.prevent="redirect">会花也会赚，去成为小卖家！</p></dd>
       </dl>
     </div>
+    <endWechat2 :wechat_code2.sync="wechat_code" @hide2="closeDialog('wechat_code')"  :fail='true'></endWechat2>
     <loading :loading="loading" :loadError="loadError"></loading>
     <dialog-del :dialogshow2.sync="myContact" @hide="closeDialog('myContact')">
         <div slot="dialog-footer" class="del-footer special tc f30">

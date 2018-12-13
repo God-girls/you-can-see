@@ -112,7 +112,7 @@
     <div class="footComment animateds slideInUp" v-if="reply">
       <dl class="flexBox">
         <dt class="flex1">
-          <input type="text" class="f30 blackCR" @keyup="keyFunc" :placeholder="placeholder" v-model="comment.tips" ref="commentInput">
+          <input type="text" class="f30 blackCR" @click.prevent="keyFunc" :placeholder="placeholder" v-model="comment.tips" ref="commentInput">
         </dt>
         <dd>
           <span class="btn btn-green btn-sm" @touchend.prevent="goodsComment">发送</span>

@@ -455,17 +455,28 @@ export default {
 
     },
     onRefresh(done) {
+      if (this.refreshed) return;
+      this.refreshed = true;
       setTimeout(()=>{
+        this.refreshed = false;
         this.totalPageCount = -1;
         this.paraData.pn = 1;
         this.fetchList(done);  
       },1000)
     },
     onInfinite(done) {  
+      if (this.infinited) return;
+      this.infinited = true;
       setTimeout(()=>{
+        this.infinited = false;
         this.indexDone = done;   
         this.fetchList(done);
       },500)
+    },
+    keyFunc(){
+      setTimeout(()=>{
+        this.$refs.commentInput.scrollIntoView();
+      },100)
     },
     onOffGoods (){
 

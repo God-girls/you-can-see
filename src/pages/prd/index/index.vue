@@ -491,11 +491,10 @@ export default {
 
     },
     onRefresh(done) {
-      // if (this.goodid) {
-      //   done(true)
-      //   return;
-      // }
+      if (this.refreshed) return;
+      this.refreshed = true;
       setTimeout(()=>{
+        this.refreshed = false;
         this.totalPageCount = -1;
         this.paraData.pn = 1;
         if (!this.goodid) this.fetchList(done);  
@@ -504,10 +503,14 @@ export default {
     },
     onInfinite(done) {  
       this.indexDone = done;   
-
-      if (this.goodid) {
-        done(true)
-      }else this.fetchList(done);
+      if (this.infinited) return;
+      this.infinited = true;
+      setTimeout(()=>{
+        this.infinited = false;
+        if (this.goodid) {
+          done(true)
+        }else this.fetchList(done);
+      },500)
     },
     praisePrd(item,index){
       axios.post('/seller_api/v1/seller/goods_praise',qs.stringify({
@@ -600,7 +603,9 @@ export default {
       }
     },
     keyFunc(){
-      this.$refs.commentInput.scrollIntoView();
+      setTimeout(()=>{
+        this.$refs.commentInput.scrollIntoView();
+      },100)
     },
     replyComment (type){
       this.reply = false;

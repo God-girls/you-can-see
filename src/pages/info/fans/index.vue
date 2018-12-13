@@ -54,7 +54,7 @@ export default {
       fansTotal:-1,
       fansName:'',
       wechat_code:false,
-      wechat_code_show:true
+      wechat_code_show:false
     }
   },
   components: {
@@ -128,7 +128,7 @@ export default {
 
               if (this.paraData.pn == 1) {
                   this.listData = ranks.items;
-                  if (this.listData.length < 6) this.wechat_code_show = false;
+                  if (this.listData.length < 6) {this.wechat_code_show = false}else{this.wechat_code_show = true};
                   if (this.listData.length == 0) this.noData = true;
               }
               else {

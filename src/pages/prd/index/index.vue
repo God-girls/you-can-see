@@ -96,14 +96,6 @@ export default {
       'LISTDATA'
     ])
   },
-  directives:{
-    focus:{
-      inserted(el,binding){
-        el.focus();
-        alert(2)
-      }
-    }
-  },
   mounted () {
       // alert(navigator.userAgent.toLowerCase())
     if (html.isInqq() || html.isWechat()) {
@@ -282,7 +274,7 @@ export default {
       wx.ready(function () {
         let shareOBJ = {
             title: `${vm.sellerInfo.nick}分享了自己的私人主页，新品首发哦！`,
-            desc: vm.profile.signature ? vm.profile.signature : '我的好货朋友圈，有喜欢的尽管说，好友专享价！',
+            desc: vm.sellerInfo.signature ? vm.sellerInfo.signature : '我的好货朋友圈，有喜欢的尽管说，好友专享价！',
             link: vm.ttDomain+'/#/app/login?redirecto=true&seller='+vm.paraData.seller,
             imgUrl: vm.ttLogoImg,
             success:function () {
@@ -499,7 +491,10 @@ export default {
 
     },
     onRefresh(done) {
-      console.log('onRefresh')
+      // if (this.goodid) {
+      //   done(true)
+      //   return;
+      // }
       setTimeout(()=>{
         this.totalPageCount = -1;
         this.paraData.pn = 1;

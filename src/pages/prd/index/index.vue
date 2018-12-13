@@ -16,6 +16,7 @@ import { mapState, mapActions } from 'vuex'
 import wx from 'weixin-js-sdk'; 
 import axios from 'axios';
 import qs from 'qs';
+
 export default {
   components: {
     modalDialog,
@@ -279,7 +280,7 @@ export default {
       wx.ready(function () {
         let shareOBJ = {
             title: `${vm.sellerInfo.nick}分享了自己的私人主页，新品首发哦！`,
-            desc: vm.profile.signature ? vm.profile.signature : '我的好货朋友圈，有喜欢的尽管说，好友专享价！',
+            desc: vm.sellerInfo.signature ? vm.sellerInfo.signature : '我的好货朋友圈，有喜欢的尽管说，好友专享价！',
             link: vm.ttDomain+'/#/app/login?redirecto=true&seller='+vm.paraData.seller,
             imgUrl: vm.ttLogoImg,
             success:function () {
@@ -322,8 +323,8 @@ export default {
     initDefault(){
       if (!this.goodid) {
         wx.previewImage({
-          current: this.headImg,
-          urls: [this.headImg]
+          current: this.globalAvatar+this.sellerInfo.avatar,
+          urls: [this.globalAvatar+this.sellerInfo.avatar]
         });
         return;
       }
@@ -496,8 +497,10 @@ export default {
 
     },
     onRefresh(done) {
-      console.log('onRefresh')
+      if (this.refreshed) return;
+      this.refreshed = true;
       setTimeout(()=>{
+        this.refreshed = false;
         this.totalPageCount = -1;
         this.paraData.pn = 1;
         if (!this.goodid) this.fetchList(done);  
@@ -506,10 +509,14 @@ export default {
     },
     onInfinite(done) {  
       this.indexDone = done;   
-
-      if (this.goodid) {
-        done(true)
-      }else this.fetchList(done);
+      if (this.infinited) return;
+      this.infinited = true;
+      setTimeout(()=>{
+        this.infinited = false;
+        if (this.goodid) {
+          done(true)
+        }else this.fetchList(done);
+      },500)
     },
     praisePrd(item,index){
       axios.post('/seller_api/v1/seller/goods_praise',qs.stringify({
@@ -600,6 +607,11 @@ export default {
         this.reply = true;
         this.placeholder = '回复'+item.nick+'：';
       }
+    },
+    keyFunc(){
+      setTimeout(()=>{
+        this.$refs.commentInput.scrollIntoView();
+      },100)
     },
     replyComment (type){
       this.reply = false;

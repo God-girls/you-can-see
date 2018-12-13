@@ -217,7 +217,7 @@ export default {
     getRank (type){
       axios.post('/seller_api/v1/seller/board',qs.stringify({
         uid:this.paraData.uid,
-        type:type
+        type:type,
       }),{
           headers: {
               "A-Token-Header": this.token,

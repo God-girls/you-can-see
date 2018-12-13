@@ -178,15 +178,23 @@ export default {
 
     },
     onRefresh(done) {
+      if (this.refreshed) return;
+      this.refreshed = true;
       setTimeout(()=>{
+        this.refreshed = false;
         this.totalPageCount = -1;
         this.paraData.pn = 1;
         this.getList(done);  
       },1000)
     },
     onInfinite(done) {   
-      this.indexDone = done;   
-      this.getList(done);
+      if (this.infinited) return;
+      this.infinited = true;
+      setTimeout(()=>{
+        this.infinited = false;
+        this.indexDone = done;   
+        this.getList(done);
+      },500)
     },
     initMSG(errors){
       this.loadError = errors;

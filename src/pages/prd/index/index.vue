@@ -316,8 +316,8 @@ export default {
     initDefault(){
       if (!this.goodid) {
         wx.previewImage({
-          current: this.headImg,
-          urls: [this.headImg]
+          current: this.globalAvatar+this.sellerInfo.avatar,
+          urls: [this.globalAvatar+this.sellerInfo.avatar]
         });
         return;
       }

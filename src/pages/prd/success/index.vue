@@ -140,6 +140,8 @@ export default {
               setTimeout(()=>{
                 this.fetchOrder()
               },5000)
+            }else{
+              this.orderStatus = '订单支付成功！';
             }
           }else {
             if (resData.code == '403' || resData.code == '250') {

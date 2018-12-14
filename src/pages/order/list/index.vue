@@ -33,7 +33,7 @@ export default {
       loadError:'',
       bottomBarH:[],
       isApp:'',
-      noDataText:'-----技术支持：公众号“小小麦的家”-----',
+      noDataText:'--技术支持：小小麦--',
       paraData:{
         ps:50,
         pn:1,

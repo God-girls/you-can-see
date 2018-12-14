@@ -45,7 +45,7 @@ export default {
         uid:'1',
         pn:1
       },
-      noDataText:'-----技术支持：公众号“小小麦的家”-----',
+      noDataText:'--技术支持：小小麦--',
       headImg:'',
       token:'',
       wechat_code:false,

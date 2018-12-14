@@ -74,7 +74,7 @@ export default {
         return;
       }
       if (this.$route.query.from == 'seller') {
-        if (html.isWechat()) location.href = html.openInWechat(this.$route.query.jumpto);
+        if (html.isWechat()) location.href = html.openInWechat(this.ttDomain + '/#/app/author?jumpto=' + this.$route.query.jumpto);
         return;
       }
       if (html.isWechat()) {//如果是在微信

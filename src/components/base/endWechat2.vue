@@ -46,7 +46,7 @@
             </div>
             <div class="wechat_end">
                <img src="../../assets/img12/index/qrcode.jpg" height="344" width="344"> 
-               <p>长按扫码关注公众号</p>
+               <p>{{ text }}</p>
             </div>
           </div>    
         </modal-dialog>
@@ -54,6 +54,7 @@
 </template>
 <script>
 import modalDialog from './dialog'
+import {html} from '../../assets/js/global.js';
     export default {
         components: {
             modalDialog
@@ -64,10 +65,18 @@ import modalDialog from './dialog'
         data() {
             return {
                 noClickBg:true,
-                noCloseText:true
+                noCloseText:true,
+                text:"长按保存图片 打开微信扫码关注公众号"
             }
         },
         computed: {
+        },
+        mounted: function () {
+            if(html.isInqq()){
+                this.text="长按保存图片 打开微信扫码关注公众号";
+            }else{
+                this.text="长按扫码关注公众号";
+            }
         },
         methods: {
             closeDialog (arr){

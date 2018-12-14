@@ -73,9 +73,10 @@ export default {
       this.isAndroid = true;
     }
     if (this.TOKEN) {
-      this.profile = this.PROFILE
+      //this.profile = this.PROFILE
       this.paraData.uid = this.UID;
       this.token = this.TOKEN;
+      this.getProfile();
     }
 
     this.getBonus()
@@ -116,6 +117,28 @@ export default {
         break;
 
       }
+    },
+    getProfile (){
+      axios.post('/seller_api/v1/seller/userinfo',qs.stringify({
+        uid:this.paraData.uid
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;
+          
+          if (resData.success) {
+            this.profile = resData.result;
+            this.switchState({
+              PROFILE:resData.result,
+            })
+          }  else {
+            this.profile = this.PROFILE;
+          }
+      }).catch((response)=>{
+        // this.logErrors(JSON.stringify(response))
+      });  
     },
     getBonus (){
       axios.post('/seller_api/v1/seller/goods_stat',qs.stringify({

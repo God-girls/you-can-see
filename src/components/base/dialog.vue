@@ -4,7 +4,7 @@
             <div :class="['dialog-content',{ 'slideInDown': isActive}]">
                 <div class="diaplg-border">
                     <div class="close rotate" @click.prevent="close" v-if="dialogClose">
-                      <span class="iconfont icon-close redCR"></span>
+                      <span class="iconfont icon-close redCR">{{ closeText }}</span>
                     </div>
                     <slot name="dialog-header"></slot>
                     <slot name="dialog-body"></slot>
@@ -21,8 +21,14 @@
         props: [
             'dialogshow2',
             'closeShow',
-            'noClickBg'
+            'noClickBg',
+            'noCloseText'
         ],
+        data() {
+            return {
+                closeText:"关闭"
+            }
+        },
         computed: {
           isActive: function () {
             return this.dialogshow2
@@ -30,6 +36,9 @@
           dialogClose(){
             return this.closeShow ? this.closeShow : true
           }
+        },
+        mounted: function () {
+            if(this.noCloseText) this.closeText = "";
         },
         methods: {
             closeDefault(e){
@@ -248,7 +257,6 @@
 .dialog-active[fail="true"] .close{
   display: none;
 }
-
 .borNone{
   border: none!important;
 }

@@ -1,15 +1,54 @@
+
+<style scoped>
+.dialog-body{
+    text-align: center;
+}
+<style scoped>
+
+.dialog-body{
+    text-align: center;
+}
+.wechat_titel > img{
+    width: 30%;
+    height: 100%;
+}
+.wechat_titel > p{
+    font-size: 30px;
+    color: #484848;
+}
+.wechat_body{
+    margin: 40px 0;
+}
+.wechat_body > p{
+    line-height: 50px;
+    font-size: 30px;
+    color: #000;
+}
+.wechat_end > img{
+    width: 50%;
+    height: 100%;
+}
+.wechat_end > p{
+    font-size: 30px;
+    color: #303030;
+}
+</style>
 <template>
     <div> 
-        <modal-dialog :dialogshow2.sync="wechat_code2" @hide="closeDialog('wechat_code2')"  :fail='true'>
-          <div class="dialog-header" slot="dialog-header">
-            识别二维码关注公众号
-          </div>
-
-          <dl class="dialog-footer" slot="dialog-footer">
-            <dd>
-               <img src="../../assets/img12/index/qrcode.jpg" alt=""> 
-            </dd>
-          </dl>    
+        <modal-dialog :dialogshow2.sync="wechat_code2" @hide="closeDialog('wechat_code2')" :noClickBg.sync="noClickBg" :noCloseText.sync="noCloseText">
+          <div class="dialog-body" slot="dialog-body">
+            <div class="wechat_titel">
+                <img src="../../assets/img12/index/mai.png" height="120" width="120" alt="">
+                <p>小小卖的家</p>
+            </div>
+            <div class="wechat_body">
+                <p>查询购买记录 / 物流信息 / 卖家动态 / 我的关注 / 成为新卖家 / 在线客服等</p>
+            </div>
+            <div class="wechat_end">
+               <img src="../../assets/img12/index/qrcode.jpg" height="344" width="344"> 
+               <p>长按扫码关注公众号</p>
+            </div>
+          </div>    
         </modal-dialog>
     </div>
 </template>
@@ -20,8 +59,14 @@ import modalDialog from './dialog'
             modalDialog
         },
         props: [
-            'wechat_code2'
+            'wechat_code2',
         ],
+        data() {
+            return {
+                noClickBg:true,
+                noCloseText:true
+            }
+        },
         computed: {
         },
         methods: {
@@ -32,18 +77,3 @@ import modalDialog from './dialog'
         }
     }
 </script>
-<style scoped>
-img{
-    width: 60%;
-    height: 100%;
-}
-.end_text{
-    width: 100%;
-    height: 1.3rem;
-    margin-top: 20px;
-    text-align: center;
-    font-size: 0.32rem;
-    line-height: 1.3rem;
-    color: #aaa;
-}
-</style>

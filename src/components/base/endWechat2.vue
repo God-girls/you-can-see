@@ -41,7 +41,7 @@
           <div class="dialog-body wchat_tc" slot="dialog-body">
             <div class="wechat_titel">
                 <img src="../../assets/img12/index/mai.png" height="120" width="120" alt="">
-                <p>小小卖的家</p>
+                <p>小小麦的家</p>
             </div>
             <div class="wechat_body">
                 <p>查询购买记录 / 物流信息 / 卖家动态 / 我的关注 / 成为新卖家 / 在线客服等</p>

@@ -45,7 +45,7 @@ export default {
         uid:'1',
         pn:1
       },
-      noDataText:'',
+      noDataText:'-----技术支持：公众号“小小麦的家”-----',
       headImg:'',
       token:'',
       wechat_code:false,
@@ -486,7 +486,7 @@ export default {
           this.bugInfinite = false;
           let resData = response.data;  
           if (resData.success) {
-            this.wechat_code_show = true
+            // this.wechat_code_show = true
             let ranks = resData.result;
             this.totalPageCount = ranks.totalPageCount;
               if (ranks.items.length == 0) {

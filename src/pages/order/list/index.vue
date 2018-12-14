@@ -33,7 +33,7 @@ export default {
       loadError:'',
       bottomBarH:[],
       isApp:'',
-      noDataText:'',
+      noDataText:'-----技术支持：公众号“小小麦的家”-----',
       paraData:{
         ps:50,
         pn:1,
@@ -270,7 +270,8 @@ export default {
               if (this.paraData.pn == 1) {
                   this.listData = ranks.items;
 
-                  if (this.listData.length < 6) {this.wechat_code_show = false}else{this.wechat_code_show = true};
+                  // if (this.listData.length < 6) {this.wechat_code_show = false}else{this.wechat_code_show = true};
+                  if (this.listData.length < 6) this.noDataText='';
                   if (this.listData.length == 0) this.noData = true;
                   this.tabs[this.isCur].count = `( ${resData.result.totalItemsCount} )`
               }

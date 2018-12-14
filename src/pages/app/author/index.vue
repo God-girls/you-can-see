@@ -73,6 +73,10 @@ export default {
         else  location.href = html.openInOher(jumpUrl)
         return;
       }
+      if (this.$route.query.from == 'seller') {
+        if (html.isWechat()) location.href = html.openInWechat(this.$route.query.jumpto);
+        return;
+      }
       if (html.isWechat()) {//如果是在微信
         this.getLogin();     
       }

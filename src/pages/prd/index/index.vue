@@ -609,6 +609,8 @@ export default {
       }
     },
     keyFunc(){
+      if (this.hasClicked) return;
+      this.hasClicked = true;
       setTimeout(()=>{
         this.$refs.commentInput.scrollIntoView();
       },100)

@@ -185,8 +185,8 @@
 }
 .stars dd img{
   margin: 0 12px 12px 0;
-  width: 65px;
-  height: 65px;
+  width: 80px;
+  height: 80px;
 }
 
 .comList dt{
@@ -204,9 +204,13 @@
   border-bottom: none;
 }
 .comList ol img{
-  width: 65px;
-  height: 65px;
+  width: 80px;
+  height: 80px;
   margin-right: 12px;  
+}
+.comList .mynick{
+  position: relative;
+  top: -5px; 
 }
 .mask{
   position: fixed;

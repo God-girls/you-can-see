@@ -23,7 +23,7 @@ export default{
     Vue.prototype.timeStamp = new Date().getTime();
     //判断是否是ios 审核 显示就是true
     Vue.prototype.ioShow = userAgent.indexOf("hddgood/ios") > -1 || userAgent.indexOf("rushingking/ios") > -1 ? false : true;
-    Vue.prototype.defaultHead = 'this.src="' + require('../assets/img12/index/header.png') +'"';
+    Vue.prototype.defaultHead = 'this.src="' + require('../assets/img12/other/errorimg.jpg') +'"';
     Vue.prototype.ttLogoImg = ttDomain + require('../assets/img12/index/logo.png')
     Vue.prototype.errorImg = 'this.src="' + require('../assets/img12/other/errorimg.jpg') +'"';
     Vue.prototype.errorBg = 'this.src="'  + require('../assets/img12/other/errorbg.jpg') +'"';

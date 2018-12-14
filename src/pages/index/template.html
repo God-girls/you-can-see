@@ -137,9 +137,9 @@
                   <img :src="globalAvatar+item2.avatar" alt="">
                 </li>
                 <li class="flex1">
-                  <p class="blueLCR">
+                  <p class="blueLCR posiR">
                     <span class="f21 grayCR fr">{{item2.updated_at}}</span>
-                    {{item2.nick?item2.nick:'小小麦'}}
+                    <span class="mynick">{{item2.nick?item2.nick:'小小麦'}}</span>
                   </p>
                   <template v-if="item2.old_uid">回复<span class="special blueLCR">{{item2.old_nick}}</span>: </template>{{item2.comment}}
                 </li>
@@ -257,7 +257,6 @@
         </div>
     </dialog-del>
 
-    <!-- <div class="shareMask" v-if="fromShare" @click.prevent="webClick = true"></div> -->
     <appshare :shareData="shareData" @initPoster="getPoster" @shareclose="closeDialog('shareFlag')" v-show="shareFlag"></appshare>
 
     <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
@@ -266,6 +265,13 @@
       <p><img :src="testCanvas" alt=""></p>
       <!-- <p class="btn btn-green">长按图片保存到手机</p> -->
       <i class="iconfont icon-close f48 blackCR" @touchend.prevent="showCanvas = false"></i>
+    </div>
+
+    <div class="guideCon" v-if="newGuide">
+      <p class="flexBox" @touchend.prevent="skipGuide">
+        <img :src="guideImg[guideIndex]" alt="">
+      </p>
+      <span class="f30" @touchend.prevent="skipGuide('skipe')">跳过</span>
     </div>
   </div>
 

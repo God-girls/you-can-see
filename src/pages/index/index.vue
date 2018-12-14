@@ -101,7 +101,21 @@ export default {
       },
       copyWords:'',
       curListIndex:0,
-      tempLen:0
+      tempLen:0,
+      guideImg:[
+        require('../../assets/img12/other/guide/01.jpg'),
+        require('../../assets/img12/other/guide/02.jpg'),
+        require('../../assets/img12/other/guide/03.jpg'),
+        require('../../assets/img12/other/guide/04.jpg'),
+        require('../../assets/img12/other/guide/05.jpg'),
+        require('../../assets/img12/other/guide/06.jpg'),
+        require('../../assets/img12/other/guide/07.jpg'),
+        require('../../assets/img12/other/guide/08.jpg'),
+        require('../../assets/img12/other/guide/09.jpg'),
+        require('../../assets/img12/other/guide/10.jpg'),
+      ],
+      newGuide:false,
+      guideIndex:0
     }
   },
   computed:{
@@ -342,8 +356,65 @@ export default {
     },
     defaultData(){
       this.getProfile ();
-      // this.fetchList();
-      // this.getNotice()
+      this.getFlag();
+    },
+    getFlag(){
+      axios.post('/seller_api/v1/user/get_user_flag',qs.stringify({
+        uid:this.paraData.uid,
+        key:'lession'
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;
+          
+          if (resData.success) {
+            if (!resData.result) {
+              this.newGuide = true;
+            }
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.redirect();
+            }
+            else this.initMSG(resData.msg);
+          }
+      });  
+    },
+    setFlag(){
+      axios.post('/seller_api/v1/user/set_user_flag',qs.stringify({
+        uid:this.paraData.uid,
+        key:'lession',
+        value:true
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;
+          
+          if (resData.success) {
+            
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.redirect();
+            }
+            else this.initMSG(resData.msg);
+          }
+      });  
+    },
+    skipGuide(param){
+      if (param == 'skip') {
+        this.setFlag();
+        this.newGuide = false;
+      }
+      this.guideIndex++;
+      if (this.guideIndex == 1) {
+        this.setFlag();
+      }
+      if (this.guideIndex > 9) {
+        this.newGuide = false;
+      }
     },
     getProfile (){
       axios.post('/seller_api/v1/seller/seller_info',qs.stringify({
@@ -481,6 +552,8 @@ export default {
       },500)
     },
     keyFunc(){
+      if (this.hasClicked) return;
+      this.hasClicked = true;
       setTimeout(()=>{
         this.$refs.commentInput.scrollIntoView();
       },100)
@@ -905,7 +978,7 @@ export default {
       }
       else {
         if (html.isWechat()) {
-           location.href = html.openInWechat(this.ttDomain+'/#/app/author')
+           // location.href = html.openInWechat(this.ttDomain+'/#/app/author')
         }else{
           // this.goto('/app/login')
         }
@@ -930,8 +1003,7 @@ export default {
       this.del = true;
       this.popIndex = 5;
       
-    }
-    ,
+    },
     getPoster(){
       this.loading = true;
       var _this = this;
@@ -1108,9 +1180,6 @@ export default {
       }else{
         imgLoad(poster.needLoad[this.tempLen])
       }
-
-    
-
       // transImg(imgs[imgCounter])
     }
   },

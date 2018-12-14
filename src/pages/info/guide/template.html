@@ -1,0 +1,24 @@
+<Layout>
+  
+  <myhead :hval="header" slot="header"></myhead>
+
+  <div class="guide">
+    <p><img src="../../../assets/img12/other/guide/01.jpg" alt=""></p>
+    <p><img src="../../../assets/img12/other/guide/02.jpg" alt=""></p>
+    <p><img src="../../../assets/img12/other/guide/03.jpg" alt=""></p>
+    <p><img src="../../../assets/img12/other/guide/04.jpg" alt=""></p>
+    <p><img src="../../../assets/img12/other/guide/05.jpg" alt=""></p>
+    <p><img src="../../../assets/img12/other/guide/06.jpg" alt=""></p>
+    <p><img src="../../../assets/img12/other/guide/07.jpg" alt=""></p>
+    <p><img src="../../../assets/img12/other/guide/08.jpg" alt=""></p>
+    <p><img src="../../../assets/img12/other/guide/09.jpg" alt=""></p>
+    <p><img src="../../../assets/img12/other/guide/10.jpg" alt=""></p>
+  </div>
+
+  <div slot="footer" :style="statusBarH">
+
+    <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
+   
+  </div>
+
+</Layout>

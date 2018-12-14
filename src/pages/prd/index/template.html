@@ -89,9 +89,9 @@
                   <img :src="globalAvatar+item2.avatar" alt="">
                 </li>
                 <li class="flex1">
-                  <p class="blueLCR">
+                  <p class="blueLCR posiR">
                     <span class="f21 grayCR fr">{{item2.updated_at}}</span>
-                    {{item2.nick?item2.nick:'小小麦'}}
+                    <span class="mynick">{{item2.nick?item2.nick:'小小麦'}}</span>
                   </p>
                   <template v-if="item2.old_uid">回复<span class="special blueLCR">{{item2.old_nick}}</span>: </template>{{item2.comment}}
                 </li>
@@ -106,7 +106,7 @@
     </div>
   </div>
 
-    <endWechat :wechat_code_show.sync="wechat_code_show" @wechat="wechatOpen('wechat_code')"></endWechat>
+  <endWechat :wechat_code_show.sync="wechat_code_show" @wechat="wechatOpen('wechat_code')"></endWechat>
 </scroller>
 
   <div slot="footer">

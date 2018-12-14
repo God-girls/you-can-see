@@ -68,9 +68,7 @@
         </dl>
       </li>
 
-    </ul>
 
-    <ul>
       <li @click.prevent="goto('/my/bindacc')">
         <dl class="flexBox">
           <dt>
@@ -96,9 +94,7 @@
           </dd>
         </dl>
       </li>
-    </ul>
 
-    <ul>
       <li @click.prevent="wakeQQ">
         <dl class="flexBox">
           <dt>
@@ -110,8 +106,18 @@
           </dd>
         </dl>
       </li>
+      <router-link tag="li" to="/my/guide">
+        <dl class="flexBox">
+          <dt>
+            <i class="iconfont icon-zaixianzhidao f36"></i>
+          </dt>
+          <dd class="flex1 f30">新手指导</dd>
+          <dd class="tR">
+             <i class="iconfont icon-jiantou f24"></i>
+          </dd>
+        </dl>
+      </router-link>
     </ul>
-
     <ul>
       <router-link tag="li" to="/my/about">
         <dl class="flexBox">
@@ -124,6 +130,7 @@
           </dd>
         </dl>
       </router-link>
+
     </ul>
   </div>    
 

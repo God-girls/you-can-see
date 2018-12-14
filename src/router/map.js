@@ -77,6 +77,12 @@ export default {
 			require(['pages/set/analysis'], resolve)
 		}
 	},
+	'/my/guide': {
+		meta: { title: '小小麦'},
+		component: (resolve) => {
+			require(['pages/info/guide'], resolve)
+		}
+	},
 	'/webtips': {
 		meta: { title: '小小麦'},
 		component: (resolve) => {

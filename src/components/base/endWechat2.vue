@@ -4,7 +4,9 @@
     text-align: center;
 }
 <style scoped>
-
+.wchat_tc{
+    text-align: center;
+}
 .wechat_titel, .wechat_body, .wechat_end{
     text-align: center;
 }
@@ -36,7 +38,7 @@
 <template>
     <div> 
         <modal-dialog :dialogshow2.sync="wechat_code2" @hide="closeDialog('wechat_code2')" :noClickBg.sync="noClickBg" :noCloseText.sync="noCloseText">
-          <div class="dialog-body" slot="dialog-body">
+          <div class="dialog-body wchat_tc" slot="dialog-body">
             <div class="wechat_titel">
                 <img src="../../assets/img12/index/mai.png" height="120" width="120" alt="">
                 <p>小小卖的家</p>

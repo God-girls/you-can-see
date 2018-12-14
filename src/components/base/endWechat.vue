@@ -2,7 +2,7 @@
     <div>
         <div class="end_text" :class="{'dn': !wechat_code_show}" @click.prevent="wechat">
             <!-- <p>{{ end_text }}</p> -->
-            <p><span style="margin-right: 30px;">小小麦</span>|<span style="margin: 0 30px;">订单查询</span>|<span style="margin-left: 30px;">物流查询</span></p>
+            <p><span class="wechat_mR">小小麦</span>|<span class="wechat_mR wechat_mL">订单查询</span>|<span class="wechat_mL">物流查询</span></p>
         </div> 
     </div>
 </template>
@@ -42,5 +42,10 @@ img{
     line-height: 1.3rem;
     color: #aaa;
 }
-
+.wechat_mR{
+    margin-right: 30px;
+}
+.wechat_mL{
+    margin-left: 30px;
+}
 </style>

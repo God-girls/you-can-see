@@ -327,7 +327,9 @@
   top: 10px;
   -webkit-overflow-scrolling: touch;
 }
-
+.guideCon{
+  background: #4c4c4c;
+}
 .guideCon img{
   width: 100%;
 }

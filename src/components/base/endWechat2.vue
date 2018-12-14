@@ -5,7 +5,7 @@
 }
 <style scoped>
 
-.dialog-body{
+.wechat_titel, .wechat_body, .wechat_end{
     text-align: center;
 }
 .wechat_titel > img{

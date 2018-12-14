@@ -1,7 +1,7 @@
 <template>
     <div class="dialogs" :class="{ 'dialog-active': isActive}" v-if="isActive">
         <div class="dialog">
-            <div :class="['dialog-content',{ 'slideInDown': isActive}]">
+            <div :class="['dialog-content',{ 'slideInDown': isActive}, {'noCloseText_tc': noCloseText}]">
                 <div class="diaplg-border">
                     <div class="close rotate" @click.prevent="close" v-if="dialogClose">
                       <span class="iconfont icon-close redCR">{{ closeText }}</span>
@@ -345,7 +345,9 @@
         transform: scale(1)
     }
 }
-
+.noCloseText_tc{
+    text-align: center;
+}
 
 
 

@@ -61,7 +61,7 @@
 .header dl p span.grayBg{
   background: #8c8c8c;
 }
-.special{
+.header dl .special{
   opacity: 0;
 }
 /*购买商品*/

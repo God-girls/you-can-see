@@ -540,6 +540,8 @@ export default {
         this.refreshed = false;
         this.totalPageCount = -1;
         this.paraData.pn = 1;
+        this.listLen = 0;
+        this.praiseLen = 0;
         this.fetchList(done);  
       },1000)
     },

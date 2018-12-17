@@ -555,6 +555,8 @@ export default {
         this.refreshed = false;
         this.totalPageCount = -1;
         this.paraData.pn = 1;
+        this.listLen = 0;
+        this.praiseLen = 0;
         if (!this.goodid) this.fetchList(done);  
         else this.fetchPrd()
       },1000)

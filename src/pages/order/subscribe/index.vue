@@ -31,7 +31,7 @@ export default {
       isApp:'',
       noDataText:'',
       paraData:{
-        ps:50,
+        ps:20,
         pn:1,
       },
       minDate:'2018-1-01',

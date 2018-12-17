@@ -1,7 +1,7 @@
 <Layout>
   <scroller :on-refresh="onRefresh" :noDataText="noDataText" :on-infinite="onInfinite"  ref="my_scroller">
     <ul v-for="(item,index) in listData">
-      <li @click="goto('/prd/list?seller='+item.seller)">
+      <li @click="goto('/prd/list?seller='+item.seller+'&refresh=true')">
         <dl class="flexBox">
           <dt class="head_image">
             <img :src="head_url(item.avatar)" alt="">

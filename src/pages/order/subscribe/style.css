@@ -1,26 +1,19 @@
-@import url('../../../components/css/animate.css');
+ul li{
+  margin-left: 30px;
+  border-bottom: 1px solid #ebebeb;
+}
+.head_image{
+  width: 120px;
+  height: 150px;
+}
 .head_image img{
   width: 90px;
   height: 90px;
   margin-top: 30px;
   border-radius: 15px;
 }
-.prdOne{
-  margin-left: 30px;
-  border-bottom: 1px solid #ebebeb;
-}
-.prdOne dl{
-  align-items: flex-start;
-  height: 150px;
-}
-.prdOne dl dt{
-  float: left;
-  width: 120px;
-  height: 150px;
-}
-.prdOne dl dd{
-  height: 150px;
-  padding: 20px 30px 0 120px;
+.mR30{
+  margin-right: 30px;
 }
 .nick{
   font-size: 30px;
@@ -33,19 +26,25 @@
   font-size: 21px;
   color: #7f7f7f;
 }
-.new{
+.new_warp{
   width: 60px;
   height: 30px;
   margin-top: 10px;
+}
+.new{
+  width: 60px;
+  height: 30px;
   background-color: #ff8400;
   color: #fff;
   font-size: 18px;
   border-radius: 15px;
   text-align: center;
 }
+
 .go{
-    position: absolute;
-    top: 60px;
+    position: absolute; 
+    top: 50%;
+    margin-top: -10px;
     right: 0px;
 }
 
@@ -58,7 +57,6 @@
   font-size: 21px;
   color: #7f7f7f;
 }
-
 
 
 

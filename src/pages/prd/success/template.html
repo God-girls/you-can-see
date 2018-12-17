@@ -16,8 +16,10 @@
       <dl class="dls">
         <dt>商品：</dt>
         <dd>
-          <p class="posiR"><img :src="globalAvatar+'goods/'+head_image+'?imageView2/2/w/100/'" alt="" :onerror="errorImg"></p>
           {{orderInfo.commdity_name}}
+          <p class="posiR">
+            <img :src="globalAvatar+'goods/'+head_image+'?imageView2/2/w/100/'" alt="" :onerror="errorImg">
+          </p>
         </dd>
       </dl>
       <dl class="dls">

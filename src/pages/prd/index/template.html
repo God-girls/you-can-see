@@ -14,13 +14,13 @@
         <dt>
           <ol class="flexBox">
             <li class="flex1 f36 text-overflow">
-              <p class="whiteCR" v-if="paraData.uid">
+              <p class="whiteCR" v-if="paraData.uid != paraData.seller">
                 <span class="f21 grayBg" v-if="sellerInfo.subscribed && isSubscribed">
                   <i class="iconfont icon-duihao1 f21"></i> 已关注
                 </span>
                 <span class="f21" v-else @click.prevent="beforeOnoff('',0)"><i class="iconfont icon-jia f21"></i> 关注</span>
               </p>
-              <p v-else class="whiteCR f24">微信打开关注该卖家</p>
+              <p v-else class="whiteCR special">微信打开关注该卖家</p>
               <span @click.prevent="myContact = true">
                 <i class="iconfont icon-erji f48 redCR"></i> {{sellerInfo.nick}}
               </span>

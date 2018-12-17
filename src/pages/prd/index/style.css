@@ -59,7 +59,10 @@
   padding: 3px 15px 8px;
 }
 .header dl p span.grayBg{
-
+  background: #8c8c8c;
+}
+.special{
+  opacity: 0;
 }
 /*购买商品*/
 .conOne{

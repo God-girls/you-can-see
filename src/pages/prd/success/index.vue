@@ -157,14 +157,16 @@ export default {
       var _this = this;
       var poster = {
         width:750,
-        height:1100,
+        height:1200,
         lineWidth:16,
         lastTop:60,
         imgs:[],
       }
+      var imgHead = new Image();
       this.canvasCont = [
         '卖家：'+this.sellerInfo.nick,
         '商品：'+this.orderInfo.commdity_name,
+        'img',
         '价格：'+this.orderInfo.amount,
         '数量：'+this.count,
         '订单号：'+this.orderid,
@@ -212,7 +214,10 @@ export default {
         for (var i = 0; i < this.canvasCont.length; i++) {
           if (this.canvasCont[i] == 'true') {
             drawLine(poster.lastTop)
-          } 
+          } else if (this.canvasCont[i] == 'img') {
+            drawCtx.drawImage(imgHead, 120, poster.lastTop - 35,100,100);
+            poster.lastTop += 120
+          }
           else canvasTextAutoLine(this.canvasCont[i],30,poster.lastTop,60)
         }
         this.testCanvas = drawCanvas.toDataURL();
@@ -256,8 +261,18 @@ export default {
         }
       }
 
+      
+       imgHead.crossOrigin = "Anonymous";
 
-      fillImgs()
+       imgHead.src = this.globalAvatar+'goods/'+this.head_image+'?imageView2/2/w/100/h/100';
+       
+       // console.log(param)
+       //浏览器加载图片完毕后再绘制图片
+       imgHead.onload = ()=>{
+
+        fillImgs()
+       }      
+      
 
 
     

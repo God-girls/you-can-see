@@ -1,0 +1,70 @@
+@import url('../../../components/css/animate.css');
+.head_image img{
+  width: 90px;
+  height: 90px;
+  margin-top: 30px;
+  border-radius: 15px;
+}
+.prdOne{
+  margin-left: 30px;
+  border-bottom: 1px solid #ebebeb;
+}
+.prdOne dl{
+  align-items: flex-start;
+  height: 150px;
+}
+.prdOne dl dt{
+  float: left;
+  width: 120px;
+  height: 150px;
+}
+.prdOne dl dd{
+  height: 150px;
+  padding: 20px 30px 0 120px;
+}
+.nick{
+  font-size: 30px;
+  color: #000;
+  white-space:nowrap;
+  text-overflow: ellipsis;
+  overflow:hidden
+}
+.goods_num{
+  font-size: 21px;
+  color: #7f7f7f;
+}
+.new{
+  width: 60px;
+  height: 30px;
+  margin-top: 10px;
+  background-color: #ff8400;
+  color: #fff;
+  font-size: 18px;
+  border-radius: 15px;
+  text-align: center;
+}
+.go{
+    position: absolute;
+    top: 60px;
+    right: 0px;
+}
+
+.footer dl{
+  width: 100%;
+  padding: 30px 30px;
+}
+.footer dl p{
+  width: 100%;
+  font-size: 21px;
+  color: #7f7f7f;
+}
+
+
+
+
+
+
+
+
+
+

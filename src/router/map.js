@@ -197,6 +197,12 @@ export default {
 			require(['pages/order/buyer'], resolve)
 		}
 	},
+	'/order/subscribe': {//我的关注
+		meta: { title: '我的关注'},
+		component: (resolve) => {
+			require(['pages/order/subscribe'], resolve)
+		}
+	},
 	'/prd/list': {
 		meta: { title: ''},
 		component: (resolve) => {

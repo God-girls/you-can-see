@@ -150,7 +150,7 @@ export default {
         this.diliver = true;
       this.pid = item.id;
     },
-    getProfile (){ 
+    getProfile (){
       axios.post('/seller_api/v1/seller/userinfo',qs.stringify({
         uid:this.paraData.uid
       }),{

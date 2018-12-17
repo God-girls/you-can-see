@@ -1,0 +1,36 @@
+<Layout>
+  <scroller :on-refresh="onRefresh" :noDataText="noDataText" :on-infinite="onInfinite"  ref="my_scroller">
+    <div class="prdOne" v-for="(item,index) in listData" >
+      <dl @click="goto('/prd/list?seller='+item.seller)">
+        <dt class="head_image">
+            <img :src="head_url(item.avatar)" alt="">
+        </dt>
+        <dd>
+          <div class="posiR">
+            <div> 
+              <p class="nick">{{ item.nick }}</p>
+              <p class="goods_num">发布<span>{{ item.goods_count }}</span>件商品</p>
+              <p class="new" v-if="item.newgoods">上新</p>
+            </div>
+            <div class="go">
+              <i class="iconfont icon-jiantou f24"></i>
+            </div>
+          </div>
+        </dd>
+      </dl>
+    </div> 
+    <div class="tC noDataDiv"  v-if="noData">
+      <nodate noText="暂无数据"></nodate>
+    </div>
+  </scroller>
+
+  <div  slot="footer">
+    <div class="footer tC f30">
+      <dl>
+        <dd><p @click.prevent="redirect">闲时逛逛，增进感情</p></dd>
+      </dl>
+    </div>
+    <loading :loading="loading" :loadError="loadError"></loading>
+  </div>
+
+</Layout>

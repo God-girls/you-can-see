@@ -130,8 +130,9 @@ export default {
         this.token = this.TOKEN;
         this.paraData.uid = this.UID;  
         this.profile = this.PROFILE;
-        if (this.LISTDATA.length) 
+        if (this.LISTDATA.length && !this.$route.query.refresh) {
           this.listData = this.LISTDATA
+        }
 
       }
 

@@ -66,8 +66,8 @@ export default {
       placeholder:'评论',
       fetBonusType:[],
       popDel:{
-        title:['删除我的评论','下架本条商品','上架本条商品','置顶本条商品','复制本条商品'],
-        content:['删除','下架','上架','置顶','复制']
+        title:['关注该卖家'],
+        content:['关注']
       },
       popIndex:0,
       del:false,
@@ -88,7 +88,8 @@ export default {
       inWeixin:false,
       myContact:false,
       wechat_code:false,
-      wechat_code_show:false
+      wechat_code_show:false,
+      isSubscribed:false,//微信是否关注
     }
   },
   computed:{
@@ -131,6 +132,7 @@ export default {
         this.profile = this.PROFILE;
         if (this.LISTDATA.length) 
           this.listData = this.LISTDATA
+
       }
 
       if (html.isWawa()) {
@@ -330,10 +332,35 @@ export default {
       }
       this.shareFunc();
       this.fetchList();
-      this.goodid = ''
+      this.goodid = '';
     },
     defaultData(){
       this.getProfile ();
+    },
+    subScribe(){
+      axios.post('/seller_api/v1/seller/subscribe',qs.stringify({
+        uid:this.paraData.uid,
+        seller:this.paraData.seller,
+        agent:html.isWechat() ? 'weixin' : 'qq'
+      }),{
+        headers: {
+            "A-Token-Header": this.token,
+        }
+      }).then((response)=>{   
+        
+          let resData = response.data;  
+
+          if (resData.success) {
+            // this.del = false;
+            
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              // location.href = '/';
+            }else{
+              this.initMSG(resData.codemsg)
+            }
+          }
+      })
     },
     fetchPrd(){
       axios.post('/seller_api/v1/seller/goods_info',qs.stringify({
@@ -414,9 +441,10 @@ export default {
             }
           }
       }).catch((response)=>{
-        // this.logErrors(JSON.stringify(response))
       });  
+
       if (!this.paraData.uid) return;
+
       axios.post('/seller_api/v1/seller/userinfo',qs.stringify({
         uid:this.paraData.uid
       }),{
@@ -440,6 +468,29 @@ export default {
       }).catch((response)=>{
         // this.logErrors(JSON.stringify(response))
       });  
+      //是否关注
+      axios.post('/seller_api/v1/user/is_subscribed',qs.stringify({
+        uid:this.paraData.uid,
+      }),{
+        headers: {
+            "A-Token-Header": this.token,
+        }
+      }).then((response)=>{   
+        
+          let resData = response.data;  
+          // alert(JSON.stringify(resData))
+          if (resData.success) {
+
+            this.isSubscribed = resData.result;
+
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              // location.href = '/';
+            }else{
+              this.initMSG(resData.codemsg)
+            }
+          }
+      })
     },
     fetchList(done){
       if (this.totalPageCount+1 == this.paraData.pn || this.totalPageCount == 0 || this.totalPageCount == 1 || this.bugInfinite){
@@ -647,28 +698,18 @@ export default {
       this.reply = true;
       this.replyIndex = index;
     },
-    beforeOnoff(item,index,isTop){
-      // if (isTop == 0) {
-      //   this.initMSG('已置顶')
-      //   return;
-      // }
-      this.comment.gid = item.id;
+    beforeOnoff(item,index){
+
       this.popIndex = index;
-      this.curProduct = item;
+      if (item) this.curProduct = item;
       this.del = true;
     },
     popFuncs(){
       switch(this.popIndex){
         case 0:
-          this.delComment();
-        break; 
-
-        case 3:
-          this.upTop();
-        break; 
-
-        case 4:
-          this.created();
+          this.del = false;
+          if (!this.sellerInfo.subscribed) this.subScribe();
+          if (!this.isSubscribed) this.wechat_code = true;
         break; 
 
         default :

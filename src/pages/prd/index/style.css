@@ -19,7 +19,7 @@
 .header dl{
   position: absolute;
   right: 18px;
-  bottom: -45px;
+  bottom: -75px;
   width: 70%;
 }
 .header .default{
@@ -35,19 +35,31 @@
 }
 .header dl li.flex1{
   position: relative;
-  top: -25px;
+  top: -11px;
 }
-.header p{
+.header > p{
   padding:5px 18px 0;
   color: #5b6a91
 }
-.header p i{
+.header > p i{
   position: relative;
   top: 2px;
 }
 .icon-erji{
   position: relative;
-  top: 4px;
+  top: 6px;
+}
+.header dl p{
+  padding: 0px 0 14px
+}
+.header dl p span{
+  background: #ee163d;
+  border:1px solid #fff;/*no*/
+  border-radius: 5px;
+  padding: 3px 15px 8px;
+}
+.header dl p span.grayBg{
+
 }
 /*购买商品*/
 .conOne{
@@ -55,7 +67,7 @@
   border-bottom: 1px solid #e2e2e2;/*no*/
 }
 .conList{
- padding: 70px 15px 0;
+ padding: 80px 15px 0;
  color: #212121;
 }
 .oneTop dl,.stars,.comList dl,.comList ol{

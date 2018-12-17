@@ -1,113 +1,122 @@
 <Layout>
   <scroller :on-refresh="onRefresh" :noDataText="noDataText" :on-infinite="onInfinite"  ref="my_scroller">
-  <div class="header posiR f30">
-    
-    <h3 @click.prevent="changebg = true">
-      <img :src="globalAvatar+sellerInfo.background" alt="" class="head" v-if="sellerInfo.background"  :onerror="errorBg">
-    </h3>
-    <p class="blueLCR f24">
-      <span @click.prevent="changebg = true">
-        <i :class="['iconfont f30 redCR',{'icon-xinheart282':!sellerInfo.praised},{'icon-heart-opp-copy':sellerInfo.praised}]"></i> {{sellerInfo.praise}} 赞
-      </span>
-    </p>
-    <dl class="tR">
-      <dt>
-        <ol class="flexBox">
-          <li class="flex1 whiteCR f36 text-overflow" @click.prevent="myContact = true">
-            <i class="iconfont icon-erji f48 blueCR"></i> {{sellerInfo.nick}}
-          </li>
-          <li @click.prevent="initDefault" class="default">
-            <img :src="headImg" alt="" :onerror="defaultHead">
-          </li>
-        </ol>
-      </dt>
-      <dd class="grayCR text-overflow">{{sellerInfo.signature ? sellerInfo.signature : '我的好货朋友圈，有喜欢的尽管说。'}}</dd>
-    </dl>
-  </div>
-
-  <div class="conList">
-    <div class="conOne" v-for="(item,index) in listData">
-      <div class="oneTop">
-        <dl class="flexBox">
-          <dt v-if="formatDateTime(new Date().getTime()) != item.publish.split(' ')[0] 
-              && !isYestday(new Date(item.publish.split('-').join('/')).getTime())">
-            <b >{{item.publish.split(' ')[0].split('-')[2]}}</b>{{item.publish.split(' ')[0].split('-')[1]}}月
-          </dt>
-          <dt v-else>
-            <b >{{isYestday(new Date(item.publish.split('-').join('/')).getTime()) ? '昨天' : '今天'}}</b >
-          </dt>
-          <dd class="flex1">
-            <h5 class="f30" @click.prevent="goto('/prd/detail?goodid='+item.id+'&seller='+paraData.seller+(goodid?'&from=share':''))">{{item.desc}}</h5>
-            <ul class="blueLCR">
-              <template v-for="(item2,index2) in JSON.parse(item.imgs)">
-                <li @click.prevent="previewImage(item2,item.imgs)">
-                  <img :src="globalAvatar+'goods/'+item2+'?imageView2/2/w/300/'" alt="" :onerror="errorImg">
-                </li>
-                <li class="" v-if="JSON.parse(item.imgs).length == 4 && index2 == 1"></li>
-              </template>
-            </ul>
-            <ol class="flexBox">
-              <li class="flex1 redCR f24" @click.prevent="goto('/prd/detail?goodid='+item.id+'&seller='+paraData.seller+(goodid?'&from=share':''))">
-                <span><i class="iconfont icon-gouwuche f40 blueLCR"></i></span> 
-                <b class="f36 mL10">¥ {{item.price_range}}</b> <span class="grayCR mL10" v-if="item.show_sell">已售{{item.total_sell?item.total_sell:0}}件</span>
-              </li>
-              <li class="blueLCR" v-if="item.status == 0 && inWeixin">
-                <span  class="mL10" v-if="!item.praised" @click.prevent="praisePrd(item,index)">
-                  <i class="iconfont icon-xinheart282 f36"></i>
+    <div class="header posiR f30">
+      
+      <h3 @click.prevent="changebg = true">
+        <img :src="globalAvatar+sellerInfo.background" alt="" class="head" v-if="sellerInfo.background"  :onerror="errorBg">
+      </h3>
+      <p class="blueLCR f24">
+        <span @click.prevent="changebg = true">
+          <i :class="['iconfont f30 redCR',{'icon-xinheart282':!sellerInfo.praised},{'icon-heart-opp-copy':sellerInfo.praised}]"></i> {{sellerInfo.praise}} 赞
+        </span>
+      </p>
+      <dl class="tR">
+        <dt>
+          <ol class="flexBox">
+            <li class="flex1 f36 text-overflow">
+              <p class="whiteCR" v-if="paraData.uid">
+                <span class="f21 grayBg" v-if="sellerInfo.subscribed && isSubscribed">
+                  <i class="iconfont icon-duihao1 f21"></i> 已关注
                 </span>
+                <span class="f21" v-else @click.prevent="beforeOnoff('',0)"><i class="iconfont icon-jia f21"></i> 关注</span>
+              </p>
+              <p v-else class="whiteCR f24">微信打开关注该卖家</p>
+              <span @click.prevent="myContact = true">
+                <i class="iconfont icon-erji f48 redCR"></i> {{sellerInfo.nick}}
+              </span>
+            </li>
+            <li @click.prevent="initDefault" class="default">
+              <img :src="headImg" alt="" :onerror="defaultHead">
+            </li>
+          </ol>
+        </dt>
+        <dd class="grayCR text-overflow">{{sellerInfo.signature ? sellerInfo.signature : '我的好货朋友圈，有喜欢的尽管说。'}}</dd>
+      </dl>
+    </div>
 
-                <span class="mL20" @click.prevent="beforeReply(item,index)" 
-                      v-if="item.show_comment"><i class="iconfont icon-xiaoxi15-copy f36"></i></span>
-              </li>
-            </ol>
-          </dd>
-        </dl>
-      </div>
-
-      <div class="comment posiR f30" v-if="item.status == 0 && (item.comment_head || item.praise_head)">
-        <i class="iconfont icon-caret-up f48"></i>
-        <!--点赞头像-->
-        <dl class="stars flexBox blueLCR" v-if="item.praise_head">
-          <dt>
-            <i class="iconfont icon-xinheart282 f30"></i>
-          </dt>
-          <dd class="flex1">
-           <img :src="globalAvatar+item3" alt="" v-for="(item3,index3) in JSON.parse(item.praise_head)">
-          </dd>
-        </dl>
-        <!--评论内容-->
-        <div class="comList" v-if="item.show_comment && item.comment_head">
+    <div class="conList">
+      <div class="conOne" v-for="(item,index) in listData">
+        <div class="oneTop">
           <dl class="flexBox">
-            <dt>
-              <i class="iconfont icon-pinglun blueLCR f30"></i>
+            <dt v-if="formatDateTime(new Date().getTime()) != item.publish.split(' ')[0] 
+                && !isYestday(new Date(item.publish.split('-').join('/')).getTime())">
+              <b >{{item.publish.split(' ')[0].split('-')[2]}}</b>{{item.publish.split(' ')[0].split('-')[1]}}月
+            </dt>
+            <dt v-else>
+              <b >{{isYestday(new Date(item.publish.split('-').join('/')).getTime()) ? '昨天' : '今天'}}</b >
             </dt>
             <dd class="flex1">
-              <ol class="flexBox" 
-                v-for="(item2,index2) in JSON.parse(item.comment_head)"
-                @click.prevent="replaySomeone(item2,item.id,index)">
-                <li>
-                  <img :src="globalAvatar+item2.avatar" alt="">
+              <h5 class="f30" @click.prevent="goto('/prd/detail?goodid='+item.id+'&seller='+paraData.seller+(goodid?'&from=share':''))">{{item.desc}}</h5>
+              <ul class="blueLCR">
+                <template v-for="(item2,index2) in JSON.parse(item.imgs)">
+                  <li @click.prevent="previewImage(item2,item.imgs)">
+                    <img :src="globalAvatar+'goods/'+item2+'?imageView2/2/w/300/'" alt="" :onerror="errorImg">
+                  </li>
+                  <li class="" v-if="JSON.parse(item.imgs).length == 4 && index2 == 1"></li>
+                </template>
+              </ul>
+              <ol class="flexBox">
+                <li class="flex1 redCR f24" @click.prevent="goto('/prd/detail?goodid='+item.id+'&seller='+paraData.seller+(goodid?'&from=share':''))">
+                  <span><i class="iconfont icon-gouwuche f40 blueLCR"></i></span> 
+                  <b class="f36 mL10">¥ {{item.price_range}}</b> <span class="grayCR mL10" v-if="item.show_sell">已售{{item.total_sell?item.total_sell:0}}件</span>
                 </li>
-                <li class="flex1">
-                  <p class="blueLCR posiR">
-                    <span class="f21 grayCR fr">{{item2.updated_at}}</span>
-                    <span class="mynick">{{item2.nick?item2.nick:'小小麦'}}</span>
-                  </p>
-                  <template v-if="item2.old_uid">回复<span class="special blueLCR">{{item2.old_nick}}</span>: </template>{{item2.comment}}
+                <li class="blueLCR" v-if="item.status == 0 && inWeixin">
+                  <span  class="mL10" v-if="!item.praised" @click.prevent="praisePrd(item,index)">
+                    <i class="iconfont icon-xinheart282 f36"></i>
+                  </span>
+
+                  <span class="mL20" @click.prevent="beforeReply(item,index)" 
+                        v-if="item.show_comment"><i class="iconfont icon-xiaoxi15-copy f36"></i></span>
                 </li>
               </ol>
             </dd>
           </dl>
         </div>
+
+        <div class="comment posiR f30" v-if="item.status == 0 && (item.comment_head || item.praise_head)">
+          <i class="iconfont icon-caret-up f48"></i>
+          <!--点赞头像-->
+          <dl class="stars flexBox blueLCR" v-if="item.praise_head">
+            <dt>
+              <i class="iconfont icon-xinheart282 f30"></i>
+            </dt>
+            <dd class="flex1">
+             <img :src="globalAvatar+item3" alt="" v-for="(item3,index3) in JSON.parse(item.praise_head)">
+            </dd>
+          </dl>
+          <!--评论内容-->
+          <div class="comList" v-if="item.show_comment && item.comment_head">
+            <dl class="flexBox">
+              <dt>
+                <i class="iconfont icon-pinglun blueLCR f30"></i>
+              </dt>
+              <dd class="flex1">
+                <ol class="flexBox" 
+                  v-for="(item2,index2) in JSON.parse(item.comment_head)"
+                  @click.prevent="replaySomeone(item2,item.id,index)">
+                  <li>
+                    <img :src="globalAvatar+item2.avatar" alt="">
+                  </li>
+                  <li class="flex1">
+                    <p class="blueLCR posiR">
+                      <span class="f21 grayCR fr">{{item2.updated_at}}</span>
+                      <span class="mynick">{{item2.nick?item2.nick:'小小麦'}}</span>
+                    </p>
+                    <template v-if="item2.old_uid">回复<span class="special blueLCR">{{item2.old_nick}}</span>: </template>{{item2.comment}}
+                  </li>
+                </ol>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="tC noDataDiv"  v-if="noData">
+        <nodate noText="该卖家暂未发布商品"></nodate>
       </div>
     </div>
-    <div class="tC noDataDiv"  v-if="noData">
-      <nodate noText="该卖家暂未发布商品"></nodate>
-    </div>
-  </div>
 
-  <endWechat :wechat_code_show.sync="wechat_code_show" @wechat="wechatOpen('wechat_code')"></endWechat>
-</scroller>
+    <endWechat :wechat_code_show.sync="wechat_code_show" @wechat="wechatOpen('wechat_code')"></endWechat>
+  </scroller>
 
   <div slot="footer">
     <div class="footComment animateds slideInUp" v-if="reply">
@@ -188,8 +197,6 @@
           </dl>          
         </div>
     </dialog-del>
-
-    <!-- <div class="nologinMask" v-if="iAmGuest" @touchend.prevent="iAmGuestClick = true"></div> -->
 
     <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
   </div>

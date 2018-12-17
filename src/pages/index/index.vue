@@ -576,8 +576,9 @@ export default {
           
           if (resData.success) {
             this.del = false;
-            this.initMSG(this.popIndex == 1 ? '已下架':'已上架')
-            this.onRefresh();
+            this.initMSG(this.popIndex == 1 ? '已下架':'已上架');
+            this.listData[this.curListIndex].status = this.popIndex == 1 ? -1 : 0
+            // this.onRefresh();
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.redirect();

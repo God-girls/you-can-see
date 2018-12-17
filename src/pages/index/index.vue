@@ -501,6 +501,8 @@ export default {
                   this.listData = ranks.items;
 
                   if (this.listData.length == 0) this.noData = true;
+                this.listLen = 0;
+                this.praiseLen = 0;              
               }
               else {
                 for (var i = 0; i < ranks.items.length; i++) {
@@ -509,11 +511,10 @@ export default {
 
                 this.listData = this.listData.concat(ranks.items);
               }
-              // console.log(this.listData)
-              this.listLen = 0;
-              this.praiseLen = 0;
-              this.fetchComment(this.listData[0].id,true);
-              this.fetchPraise(this.listData[0],0,true)
+              
+              let startIndex = (this.paraData.pn - 1)*5;
+              this.fetchComment(this.listData[startIndex].id,true);
+              this.fetchPraise(this.listData[startIndex],startIndex,true)
 
               this.loading = false;
               this.paraData.pn = this.paraData.pn + 1;

@@ -211,7 +211,7 @@ export default {
        this.$router.push(arr)        
     },
     redirect(arr){
-      location.href = html.openInWechat(this.ttDomain+'/#/app/login')
+      location.href = html.openInWechat(this.ttDomain+'/#/app/author')
     },
     wechatOpen(arr){
       this[arr]=true;

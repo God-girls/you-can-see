@@ -75,8 +75,6 @@ export default {
         if (val == '') {
           // debugger
           this.hasClick = false
-          console.log(this.hasClick)
-          // this.searchList()
         }
       },
       deep: true

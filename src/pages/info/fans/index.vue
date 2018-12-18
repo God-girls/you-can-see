@@ -88,6 +88,7 @@ export default {
       this.profile = this.PROFILE
       this.paraData.uid = this.UID;
       this.token = this.TOKEN;
+      this.getProfile ();
     }
 
     dplus.track('我的粉丝',{'from':html.useragent()});//统计代码
@@ -110,6 +111,30 @@ export default {
         this.getList()
       },500)
     },
+    getProfile (){
+      axios.post('/seller_api/v1/seller/userinfo',qs.stringify({
+        uid:this.paraData.uid
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;
+          
+          if (resData.success) {
+            this.profile = resData.result;
+            this.switchState({
+              PROFILE:resData.result,
+            })
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.goto('/')
+            }
+          }
+      }).catch((response)=>{
+        // this.logErrors(JSON.stringify(response))
+      });  
+    },    
     getList(done){
 
       if ((this.totalPageCount+1 == this.paraData.pn || this.totalPageCount == 0 || this.totalPageCount == 1 )){

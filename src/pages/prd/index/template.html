@@ -201,11 +201,11 @@
 <!--     <div id='mySwipe' class='swipe' ref='mySwipe'>
       <div class='swipe-wrap'>
         <div v-for="(item,index) in sliderImg">
-            <img class="lazy2" :src="globalImgs"  alt="">
+            <img class="lazy2" :src="item"  alt="">
         </div>
       </div>      
-    </div>
- -->
+    </div> -->
+
     <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
   </div>
 

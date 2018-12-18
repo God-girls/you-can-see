@@ -10,7 +10,7 @@ import loading from '../../../components/base/loading'
 import modalDialog from '../../../components/base/dialog'
 import {html} from '../../../assets/js/global.js';
 import dialogDel from '../../../components/base/dialogDel'
-// import {Swipe} from '../../../assets/js/swipe.js';
+import {Swipe} from '../../../assets/js/swipe.js';
 import endWechat from '../../../components/base/endWechat'
 import endWechat2 from '../../../components/base/endWechat2'
 import { mapState, mapActions } from 'vuex'
@@ -75,7 +75,11 @@ export default {
       scrollFlag:false,
       scrollLeftpx:'',
       noticeData:[],
-      sliderImg:[],
+      sliderImg:[
+        'https://testsellerimg.bhuwifi.com/seller/707rabblko.jpg',
+        'https://testsellerimg.bhuwifi.com/seller/707rabblko.jpg',
+        // 'https://testsellerimg.bhuwifi.com/seller/707rabblko.jpg'
+      ],
       totalBonus:0,
       sellerInfo:{
         background:''
@@ -140,7 +144,6 @@ export default {
       }
 
     }
-
     if (html.isWawa()) {
       this.isApp = true;
 
@@ -154,6 +157,7 @@ export default {
       // alert(navigator.userAgent.toLowerCase())
 
 
+    // this.swipe();
     if (html.isWechat()) {
       this.getShare ();
     }
@@ -249,19 +253,18 @@ export default {
         auto: 3000,
         speed: 600,
         callback: function(index, element) {
-          let ems = document.querySelectorAll('#pager em');
-          if (ems.length > 1)
-            ems.forEach(function(val,i) {
-              val.removeAttribute('class')
-              if (ems.length == 2) {
-                if ((index == 0 || index ==2) && i==0) val.setAttribute('class','on');
-                if ((index == 1 || index ==3) && i==1) val.setAttribute('class','on')
-              }else
-                if (index == i) val.setAttribute('class','on')
-            })           
+          // let ems = document.querySelectorAll('#pager em');
+          // if (ems.length > 1)
+          //   ems.forEach(function(val,i) {
+          //     val.removeAttribute('class')
+          //     if (ems.length == 2) {
+          //       if ((index == 0 || index ==2) && i==0) val.setAttribute('class','on');
+          //       if ((index == 1 || index ==3) && i==1) val.setAttribute('class','on')
+          //     }else
+          //       if (index == i) val.setAttribute('class','on')
+          //   })           
        }
       });
-      this.waveLineTop.top = document.querySelector('.index-header').clientHeight - 20 + 'px';
 
     },
     getShare (){
@@ -497,7 +500,7 @@ export default {
       }).catch((response)=>{
         // this.logErrors(JSON.stringify(response))
       });  
-      //是否关注
+      //是否关注公众号
       axios.post('/seller_api/v1/user/is_subscribed',qs.stringify({
         uid:this.paraData.uid,
       }),{

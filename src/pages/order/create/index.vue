@@ -202,7 +202,6 @@ export default {
               _this.showImg(localIds);
           }else{
             _this.loadImg = 0;
-            alert(_this.imgUrl.length)
             _this.modifyImg(_this.imgUrl[0])
           }
         }
@@ -246,7 +245,7 @@ export default {
             
             this.imgFile.push(resData.result)
             this.loadImg++;
-
+            alert('uploadimgFile:'+this.imgFile.length)
             if (this.loadImg < this.imgUrl.length) {
               // alert(this.imgUrl[this.loadImg])
               this.modifyImg(this.imgUrl[this.loadImg])
@@ -366,6 +365,7 @@ export default {
       }
 
       this.loading = true;
+      alert('imgUrl.length:'+this.imgUrl.length+' || imgFile.length'+this.imgFile.length)
       if (this.imgUrl.length != this.imgFile.length) {
         setTimeout(()=>{
           this.created();

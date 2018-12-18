@@ -5,7 +5,6 @@
 import loading from '../../../components/base/loading'
 import nodate from '../../../components/base/nodate'
 import modalDialog from '../../../components/base/dialog'
-import dialogDel from '../../../components/base/dialogDel'
 import { mapState, mapActions } from 'vuex'
 import {html} from '../../../assets/js/global.js';
 import axios from 'axios';
@@ -16,7 +15,7 @@ export default {
     return {
       show1:true,     
       header:{
-        'name':'商品分析',
+        'name':'我的关注',
         'link':'/my',
       },
       token:'',
@@ -51,7 +50,6 @@ export default {
   components: {
     loading,
     modalDialog,
-    dialogDel,
     nodate
   },
   computed:{
@@ -76,17 +74,12 @@ export default {
     if (this.TOKEN) {
       this.paraData.uid = this.UID;
       this.token = this.TOKEN;
-      //this.getList()
     }
     document.body.addEventListener('touchstart', function () {});
-    dplus.track('已购宝贝',{'from':html.useragent()});//统计代码
+    dplus.track('我的关注',{'from':html.useragent()});//统计代码
 
   },
   methods: {
-    ...mapActions([
-      'switchState', // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`'
-      'clearState'
-    ]),
     getList(done){
       if ((this.totalPageCount+1 == this.paraData.pn || this.totalPageCount == 0 || this.totalPageCount == 1 )){
         if(done) done(true) 
@@ -130,15 +123,23 @@ export default {
       return this.globalAvatar+img+'?imageView2/2/w/90/h/90/';
     },
     onRefresh(done) {
+      if (this.refreshed) return;
+      this.refreshed = true;
       setTimeout(()=>{
+        this.refreshed = false;
         this.totalPageCount = -1;
         this.paraData.pn = 1;
         this.getList(done);  
       },1000)
     },
     onInfinite(done) {   
-      this.indexDone = done;   
-      this.getList(done);
+      if (this.infinited) return;
+      this.infinited = true;
+      setTimeout(()=>{
+        this.infinited = false;
+        this.indexDone = done;   
+        this.getList(done);
+      },500)      
     },
     initMSG(errors){
       this.loadError = errors;
@@ -146,7 +147,7 @@ export default {
       setTimeout(()=>{
         this.loadError = '';
         this.loading = false;
-      },3000)
+      },2000)
     },
     goto (arr){
        this.$router.push(arr)        

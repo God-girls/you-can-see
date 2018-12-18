@@ -1,6 +1,6 @@
 ul li{
   margin-left: 30px;
-  border-bottom: 1px solid #ebebeb;
+  border-bottom: 1px solid #ebebeb;/*no*/
 }
 .head_image{
   width: 120px;
@@ -29,9 +29,9 @@ ul li{
 .new_warp{
   width: 60px;
   height: 30px;
-  margin-top: 10px;
 }
 .new{
+  margin-top: 10px;
   width: 60px;
   height: 30px;
   background-color: #ff8400;

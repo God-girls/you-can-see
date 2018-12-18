@@ -91,7 +91,8 @@ export default {
       myContact:false,
       wechat_code:false,
       wechat_code_show:false,
-      isSubscribed:false,//微信是否关注
+      isSubscribed:false,//微信是否关注,
+      fromSubscribed:false
     }
   },
   computed:{
@@ -105,46 +106,52 @@ export default {
       'LISTDATA'
     ])
   },
-  mounted () {
-      // alert(navigator.userAgent.toLowerCase())
+  created(){
     if (html.isInqq() || html.isWechat()) {
       this.inWeixin = true;
     }
 
-      if (this.$route.query.seller) {
-        this.paraData.seller = this.$route.query.seller
+    if (this.$route.query.seller) {
+      this.paraData.seller = this.$route.query.seller
+    }
+    if (this.$route.query.goodid) {
+      this.goodid = this.$route.query.goodid
+    }
+    if (this.$route.query.refresh) {
+      this.fromSubscribed = true;
+    }
+
+    if (this.$route.query.token) {
+      this.paraData.uid = this.$route.query.uid;
+      this.token = unescape(this.$route.query.token);
+
+      this.switchState({
+        TOKEN:this.token,
+        UID:this.paraData.uid
+      })
+
+    }else if (this.TOKEN){
+
+      this.token = this.TOKEN;
+      this.paraData.uid = this.UID;  
+      this.profile = this.PROFILE;
+      if (this.LISTDATA.length && !this.$route.query.refresh) {
+        this.listData = this.LISTDATA
       }
-      if (this.$route.query.goodid) {
-        this.goodid = this.$route.query.goodid
-      }
 
-      if (this.$route.query.token) {
-        this.paraData.uid = this.$route.query.uid;
-        this.token = unescape(this.$route.query.token);
+    }
 
-        this.switchState({
-          TOKEN:this.token,
-          UID:this.paraData.uid
-        })
+    if (html.isWawa()) {
+      this.isApp = true;
 
-      }else if (this.TOKEN){
+      this.getStatusBar();
+      this.initBridge();
+    }   
+    this.defaultData();
 
-        this.token = this.TOKEN;
-        this.paraData.uid = this.UID;  
-        this.profile = this.PROFILE;
-        if (this.LISTDATA.length && !this.$route.query.refresh) {
-          this.listData = this.LISTDATA
-        }
-
-      }
-
-      if (html.isWawa()) {
-        this.isApp = true;
-
-        this.getStatusBar();
-        this.initBridge();
-      }   
-      this.defaultData();
+  },
+  mounted () {
+      // alert(navigator.userAgent.toLowerCase())
 
 
     if (html.isWechat()) {

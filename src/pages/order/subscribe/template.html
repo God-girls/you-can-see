@@ -10,9 +10,8 @@
             <div> 
               <p class="nick">{{ item.nick }}</p>
               <p class="goods_num">发布<span>{{ item.goods_count }}</span>件商品</p>
-              <div class="new_warp">
-                <p class="new" v-if="item.newgoods">上新</p>
-              </div>
+              <p class="new" v-if="item.newgoods">上新</p>
+
             </div>
           </dd>
           <dd class="tR mR30">

@@ -132,7 +132,10 @@ export default {
       this.goodid = this.$route.query.goodid;
       this.header.link = '/prd/list?seller=' + this.mySeller;
       if (this.$route.query.from) {
-        this.header.link = '/prd/list?goodid='+this.goodid+'&seller=' + this.mySeller;
+        this.header.link += '&goodid=' + this.goodid;
+      }
+      if (this.$route.query.refresh) {
+        this.header.link += '&refresh=true';
       }
       this.fetchPrd();
     }

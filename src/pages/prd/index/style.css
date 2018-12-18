@@ -278,8 +278,47 @@
 .special dd,.special dd{
 }
 
-
-
+/*slider*/
+.swipe {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  z-index: 11;
+  background-size: 30px;
+}
+/*.mescroll{
+  position: fixed;
+  overflow-x: hidden;
+  width: 100%;
+  padding-bottom: 150px;
+}*/
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.swipe-wrap div {
+  float:left;
+  width:100%;
+  position: relative;
+}
+#mySwipe .swipe-wrap div img{
+  display:block;
+  width: 750px;
+  height: 405px;
+}
+#pager {
+  position: relative;
+  /*bottom: 5px;*/
+  width: 100%;
+  text-align: center;
+  visibility: visible;
+  z-index: 32;
+  margin-top: -35px;
+  height: 40px;
+  overflow: hidden;
+}
 
 
 

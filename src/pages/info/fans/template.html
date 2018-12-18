@@ -89,6 +89,9 @@
       </template>
       <p v-if="fansTotal > fansPn" class="greenCR tC" @click.prevent="fetchInfo(2)">查看更多</p>
 
+      <div class="tC noDataDiv"  v-if="!fansList.length">
+        <nodate noText="暂无购买记录"></nodate>
+      </div>
     </div>
       <dl class="dialog-footer" slot="dialog-footer">
         <dd  @touchend.prevent="closeDialog('seeDetail')">

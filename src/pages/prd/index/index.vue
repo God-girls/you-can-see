@@ -10,6 +10,7 @@ import loading from '../../../components/base/loading'
 import modalDialog from '../../../components/base/dialog'
 import {html} from '../../../assets/js/global.js';
 import dialogDel from '../../../components/base/dialogDel'
+// import {Swipe} from '../../../assets/js/swipe.js';
 import endWechat from '../../../components/base/endWechat'
 import endWechat2 from '../../../components/base/endWechat2'
 import { mapState, mapActions } from 'vuex'
@@ -74,6 +75,7 @@ export default {
       scrollFlag:false,
       scrollLeftpx:'',
       noticeData:[],
+      sliderImg:[],
       totalBonus:0,
       sellerInfo:{
         background:''
@@ -235,6 +237,26 @@ export default {
         urls: tempUrls
       });
     },
+    swipe(){
+      let mySwipe = Swipe(this.$refs.mySwipe, {
+        auto: 3000,
+        speed: 600,
+        callback: function(index, element) {
+          let ems = document.querySelectorAll('#pager em');
+          if (ems.length > 1)
+            ems.forEach(function(val,i) {
+              val.removeAttribute('class')
+              if (ems.length == 2) {
+                if ((index == 0 || index ==2) && i==0) val.setAttribute('class','on');
+                if ((index == 1 || index ==3) && i==1) val.setAttribute('class','on')
+              }else
+                if (index == i) val.setAttribute('class','on')
+            })           
+       }
+      });
+      this.waveLineTop.top = document.querySelector('.index-header').clientHeight - 20 + 'px';
+
+    },
     getShare (){
       
       axios.post('/seller_api/v1/sessions/share_config',qs.stringify({
@@ -352,8 +374,7 @@ export default {
           let resData = response.data;  
 
           if (resData.success) {
-            // this.del = false;
-            
+            this.sellerInfo.subscribed = true;
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               // location.href = '/';

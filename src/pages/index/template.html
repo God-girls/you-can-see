@@ -68,8 +68,7 @@
               <li class="f24 blueLCR" v-if="item.status == 0">
                   <span @click.prevent="reinitShare (item,paraData.uid)">
                     <i class="iconfont icon-zhuanfa1 f36"></i> 转发
-                  </span>
-                
+                  </span>               
               </li>
               <li :class="['flex1 redCR tC',{'grayCR':item.status != 0}]">
                 <b class=" f36">¥ {{item.price_range}}</b> <span class="grayCR mL10" v-if="item.show_sell">已售{{item.total_sell?item.total_sell:0}}件</span>

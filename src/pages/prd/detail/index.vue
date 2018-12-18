@@ -439,7 +439,6 @@ export default {
                 location.href = `${JSON.parse(resData.result.payment_url).mweb_url}&redirect_url=${encodeURIComponent(this.ttDomain+'/#/prd/success?seller='+this.mySeller+'&key='+this.orderkey+'&orderid='+this.orderid)}`
               }
 
-
           }else {
             if (resData.code == '403' || resData.code == '250') {
                this.goto('/')

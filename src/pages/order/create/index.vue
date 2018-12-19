@@ -46,6 +46,7 @@ export default {
       priceSet:'',
       curPrice:[],
       priceRang:'',
+      loadImg : 0
     }
   },
   components: {
@@ -78,6 +79,7 @@ export default {
     this.paraData.desc = this.CART.desc;
     this.imgUrl = this.CART.imgUrl?this.CART.imgUrl:[]; 
     this.choosed = this.imgUrl.length ? this.imgUrl.length : 0;
+    this.loadImg = this.imgUrl.length ? this.imgUrl.length : 0;
     this.initPrice()
     this.autoTextarea(document.getElementById("text"),'',500)
     if (this.$route.query.id) {
@@ -133,6 +135,7 @@ export default {
             this.imgUrl.push(this.globalAvatar+'goods/'+this.imgFile[i])
           }
           this.choosed = this.imgFile.length;
+          this.loadImg = this.imgFile.length;
           let temPrice = JSON.parse(resData.result.ext);
           if (!temPrice.list) {
             temPrice.list = {}
@@ -175,7 +178,7 @@ export default {
           sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
           success: function (res) {
             var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
-            alert(localIds)
+            // alert(localIds)
             this.defaultImgLen = localIds.length;
             _this.showImg(localIds)            
           }
@@ -201,8 +204,7 @@ export default {
           if(localIds.length > 0){
               _this.showImg(localIds);
           }else{
-            _this.loadImg = 0;
-            _this.modifyImg(_this.imgUrl[0])
+            _this.modifyImg(_this.imgUrl[this.loadImg])
           }
         }
       })
@@ -219,6 +221,7 @@ export default {
        this.imgUrl.splice(index,1);
        this.imgFile.splice(index,1);
        this.choosed--;
+       this.loadImg--;
     },
     initMSG(arr){
       this.loading = true;

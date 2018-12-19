@@ -49,7 +49,7 @@
               <h5 class="f30" @click.prevent="goto('/prd/detail?goodid='+item.id+'&seller='+paraData.seller+(goodid?'&from=share':'')+(fromSubscribed?'&refresh=true':''))">{{item.desc}}</h5>
               <ul class="blueLCR">
                 <template v-for="(item2,index2) in JSON.parse(item.imgs)">
-                  <li @click.prevent="previewImage(item2,item.imgs)">
+                  <li @click.prevent="previewImage(item2,item.imgs,index2)">
                     <img :src="globalAvatar+'goods/'+item2+'?imageView2/2/w/300/'" alt="" :onerror="errorImg">
                   </li>
                   <li class="" v-if="JSON.parse(item.imgs).length == 4 && index2 == 1"></li>
@@ -198,13 +198,16 @@
         </div>
     </dialog-del>
 
-<!--     <div id='mySwipe' class='swipe' ref='mySwipe'>
+    <div id='mySwipe' class='swipe' ref='mySwipe'  v-show="showPics" @click.prevent="showPics = false;sliderImg=[]">
       <div class='swipe-wrap'>
-        <div v-for="(item,index) in sliderImg">
-            <img class="lazy2" :src="item"  alt="">
-        </div>
-      </div>      
-    </div> -->
+          <div v-for="(item,index) in sliderImg" class="">
+              <p>
+                <span><img class="lazy2" :src="item"  alt=""></span>
+              </p>
+          </div>          
+      </div>   
+    </div>
+
 
     <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
   </div>

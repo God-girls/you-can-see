@@ -68,12 +68,22 @@
   border-top: 15px solid #ebebeb;
 }
 .detailTop dl dt{
-  line-height: 0
-}
-.detailTop dt img{
   width: 100px;
   height: 100px;
+  line-height: 0;
   margin-right: 15px;
+  overflow: hidden;
+}
+.detailTop dt img,
+.selectAddress dd img,
+.index-wrap p img{
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
 }
 .balance{
   padding: 20px 0 0;
@@ -90,15 +100,7 @@
   position: relative;
   z-index: 2;
 }
-.index-wrap p{
-  padding-bottom: 20px;
-}
-.index-wrap p span{
-  /*padding: 10px 0;*/
-}
-.index-wrap p span:last-child{
-  margin-left: 30px;
-}
+
 .index-wrap table{
   border-top: 1px solid #c1c1cc;/*no*/
   width: 100%;
@@ -117,10 +119,10 @@
 .index-wrap table tr td div{
   text-align: left!important;
 }
-.index-wrap img{
+.index-wrap p{
   width: 90px;
   height: 90px;
-  /*height: 9;*/
+  overflow-y: hidden;
 }
 .determine{
   top: 13px;
@@ -154,10 +156,13 @@
   border-bottom: 1px solid #c9c9c9;/*no*/
   padding: 15px 0;
 }
-.selectAddress dd img{
+.selectAddress dd.posiR{
   width: 80px;
   height: 80px;
+  overflow-y: hidden;
+  margin-right: 10px;
 }
+
 .selectAddress dl dt{
   padding:0 10px;
   color: #7b7b7b;

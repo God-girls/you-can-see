@@ -5,6 +5,7 @@
 import {setupWebViewJavascriptBridge} from '../../../assets/js/iosbridge.js';
 import myhead from '../../../components/base/header'
 import myfooter from '../../../components/base/footer'
+// import {preloadimgs} from '../../plugins/preload.js'
 import nodate from '../../../components/base/nodate'
 import loading from '../../../components/base/loading'
 import modalDialog from '../../../components/base/dialog'
@@ -96,7 +97,8 @@ export default {
       wechat_code:false,
       wechat_code_show:false,
       isSubscribed:false,//微信是否关注,
-      fromSubscribed:false
+      fromSubscribed:false,
+      showPics:false
     }
   },
   computed:{
@@ -236,17 +238,35 @@ export default {
         // return y+'-'+m+'-'+d+' '+' '+h+':'+minute+':'+second;
         return y+'-'+m+'-'+d;
     },
-    previewImage(currentImg,totalImg){
+    previewImage(currentImg,totalImg,index){
       let tempUrls = []
       let tempTotal = JSON.parse(totalImg)
       for (var i = 0; i < tempTotal.length; i++) {
         tempUrls.push(this.globalAvatar+'goods/'+tempTotal[i])
       }
-      // console.log(tempUrls)
-      wx.previewImage({
-        current: this.globalAvatar+'goods/'+currentImg,
-        urls: tempUrls
-      });
+      if (html.isWechat()) {
+        wx.previewImage({
+          current: this.globalAvatar+'goods/'+currentImg,
+          urls: tempUrls
+        });        
+      }else{
+        this.sliderImg = tempUrls;
+        this.showPics = true;
+        this.$nextTick(() => {
+          if (this.mySwipe) {
+            this.mySwipe.setup();
+            this.mySwipe.slide(index,1)
+          }else{
+            this.mySwipe = Swipe(this.$refs.mySwipe,{continuous:false,startSlide:index});            
+          }
+        })
+        // preloadimgs(this.sliderImg).done(function (val) {
+        //     document.querySelectorAll('.swipe-wrap .lazy2').forEach(function(val) {
+        //       val.removeAttribute('class');
+        //       val.src = val.src.split('?')[0] + '?t=' + new Date().getTime().toString().substring(0,5)
+        //     })
+        // })
+      }
     },
     swipe(){
       let mySwipe = Swipe(this.$refs.mySwipe, {

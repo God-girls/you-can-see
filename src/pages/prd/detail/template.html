@@ -4,7 +4,7 @@
   
   <div class="detailTop">
     <dl class="flexBox">
-      <dt>
+      <dt @click.prevent="previewImage">
         <img :src="globalAvatar+'goods/'+JSON.parse(sellerInfo.imgs)[0]+'?imageView2/2/w/300/h/300/t/'" alt="" :onerror="errorImg">
       </dt>
       <dd class="flex1 f30">
@@ -172,6 +172,16 @@
           </dd>
         </dl>
     </modal-dialog>
+
+    <div id='mySwipe' class='swipe' ref='mySwipe'  v-show="showPics" @click.prevent="showPics = false;sliderImg=[]">
+      <div class='swipe-wrap'>
+          <div v-for="(item,index) in sliderImg" class="">
+              <p>
+                <span><img class="lazy2" :src="item"  alt=""></span>
+              </p>
+          </div>          
+      </div>   
+    </div>
 
 
   </div>

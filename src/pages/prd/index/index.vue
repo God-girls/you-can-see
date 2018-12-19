@@ -5,7 +5,6 @@
 import {setupWebViewJavascriptBridge} from '../../../assets/js/iosbridge.js';
 import myhead from '../../../components/base/header'
 import myfooter from '../../../components/base/footer'
-// import {preloadimgs} from '../../plugins/preload.js'
 import nodate from '../../../components/base/nodate'
 import loading from '../../../components/base/loading'
 import modalDialog from '../../../components/base/dialog'
@@ -76,11 +75,7 @@ export default {
       scrollFlag:false,
       scrollLeftpx:'',
       noticeData:[],
-      sliderImg:[
-        'https://testsellerimg.bhuwifi.com/seller/707rabblko.jpg',
-        'https://testsellerimg.bhuwifi.com/seller/707rabblko.jpg',
-        // 'https://testsellerimg.bhuwifi.com/seller/707rabblko.jpg'
-      ],
+      sliderImg:[],
       totalBonus:0,
       sellerInfo:{
         background:''
@@ -260,32 +255,7 @@ export default {
             this.mySwipe = Swipe(this.$refs.mySwipe,{continuous:false,startSlide:index});            
           }
         })
-        // preloadimgs(this.sliderImg).done(function (val) {
-        //     document.querySelectorAll('.swipe-wrap .lazy2').forEach(function(val) {
-        //       val.removeAttribute('class');
-        //       val.src = val.src.split('?')[0] + '?t=' + new Date().getTime().toString().substring(0,5)
-        //     })
-        // })
       }
-    },
-    swipe(){
-      let mySwipe = Swipe(this.$refs.mySwipe, {
-        auto: 3000,
-        speed: 600,
-        callback: function(index, element) {
-          // let ems = document.querySelectorAll('#pager em');
-          // if (ems.length > 1)
-          //   ems.forEach(function(val,i) {
-          //     val.removeAttribute('class')
-          //     if (ems.length == 2) {
-          //       if ((index == 0 || index ==2) && i==0) val.setAttribute('class','on');
-          //       if ((index == 1 || index ==3) && i==1) val.setAttribute('class','on')
-          //     }else
-          //       if (index == i) val.setAttribute('class','on')
-          //   })           
-       }
-      });
-
     },
     getShare (){
       
@@ -377,10 +347,23 @@ export default {
     },
     initDefault(){
       if (!this.goodid) {
-        wx.previewImage({
-          current: this.globalAvatar+this.sellerInfo.avatar,
-          urls: [this.globalAvatar+this.sellerInfo.avatar]
-        });
+        if (html.isWechat()) {
+          wx.previewImage({
+            current: this.globalAvatar+this.sellerInfo.avatar,
+            urls: [this.globalAvatar+this.sellerInfo.avatar]
+          });      
+        }else{
+          this.sliderImg = [this.globalAvatar+this.sellerInfo.avatar];
+          this.showPics = true;
+          this.$nextTick(() => {
+            if (this.mySwipe) {
+              this.mySwipe.setup();
+              this.mySwipe.slide(0,1)
+            }else{
+              this.mySwipe = Swipe(this.$refs.mySwipe,{continuous:false});            
+            }
+          })
+        }
         return;
       }
       this.shareFunc();

@@ -250,6 +250,61 @@
 }
 
 
+/*slider*/
+#mySwipe{
+  position: fixed;
+  background: rgba(0, 0, 0, 0.9);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 53;
+}
+.swipe {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  z-index: 11;
+  background-size: 30px;
+}
+
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  /*display: table;*/
+}
+
+.swipe-wrap div {
+  float:left;
+  width:100%;
+  position: relative;
+  height: 100%;
+  /*display: flex;*/
+  display: table;
+}
+.swipe-wrap div p{
+  display: table-cell;
+  vertical-align: middle;
+  overflow-y:/* */auto;
+}
+.swipe-wrap div p span{
+  display: block;
+  max-height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  -webkit-transform-style: preserve-3d;
+  -webkit-backface-visibility:hidden;   
+  line-height: 0px; 
+  background: #000;
+}
+.swipe-wrap div img{
+  width: 100%;
+  background: #000;
+}
+
 
 
 

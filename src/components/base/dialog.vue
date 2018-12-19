@@ -112,7 +112,7 @@
     background-size: 100%;
     width: 90%;
     height: auto;
-    padding: 50px 30px;
+    padding: 30px 30px;
     /*border:6px solid #6c6c81;*/
     opacity: 0;
     display: -webkit-box;

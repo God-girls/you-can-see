@@ -7,6 +7,7 @@ import {html} from '../../../assets/js/global.js';
 import myhead from '../../../components/base/header'
 import {map} from '../../../assets/js/map.js'
 import modalDialog from '../../../components/base/dialog'
+import {Swipe} from '../../../assets/js/swipe.js';
 import loading from '../../../components/base/loading'
 import { mapState, mapActions } from 'vuex'
 import wx from 'weixin-js-sdk'; 
@@ -94,7 +95,9 @@ export default {
       seperatePrice:false,
       orderid:'',
       orderkey:'',
-      oneSpec:true
+      oneSpec:true,
+      sliderImg:[],
+      showPics:false
     }
   },
   computed:{
@@ -206,6 +209,26 @@ export default {
             }
           }
       })
+
+    },
+    previewImage(){
+      if (html.isWechat()) {
+        wx.previewImage({
+          current: this.globalAvatar+'goods/'+JSON.parse(this.sellerInfo.imgs)[0],
+          urls: [this.globalAvatar+'goods/'+JSON.parse(this.sellerInfo.imgs)[0]]
+        });      
+      }else{
+        this.sliderImg = [this.globalAvatar+'goods/'+JSON.parse(this.sellerInfo.imgs)[0]];
+        this.showPics = true;
+        this.$nextTick(() => {
+          if (this.mySwipe) {
+            this.mySwipe.setup();
+            this.mySwipe.slide(0,1)
+          }else{
+            this.mySwipe = Swipe(this.$refs.mySwipe,{continuous:false});            
+          }
+        })
+      }
 
     },
     fetchAddress (){

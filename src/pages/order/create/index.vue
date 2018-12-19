@@ -248,7 +248,7 @@ export default {
             
             this.imgFile.push(resData.result)
             this.loadImg++;
-            alert('uploadimgFile:'+this.imgFile.length)
+            // alert('uploadimgFile:'+this.imgFile.length)
             if (this.loadImg < this.imgUrl.length) {
               // alert(this.imgUrl[this.loadImg])
               this.modifyImg(this.imgUrl[this.loadImg])
@@ -368,7 +368,7 @@ export default {
       }
 
       this.loading = true;
-      alert('imgUrl.length:'+this.imgUrl.length+' || imgFile.length'+this.imgFile.length)
+      // alert('imgUrl.length:'+this.imgUrl.length+' || imgFile.length'+this.imgFile.length)
       if (this.imgUrl.length != this.imgFile.length) {
         setTimeout(()=>{
           this.created();

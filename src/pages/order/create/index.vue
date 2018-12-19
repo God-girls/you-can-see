@@ -179,7 +179,7 @@ export default {
           success: function (res) {
             var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
             // alert(localIds)
-            this.defaultImgLen = localIds.length;
+            // this.defaultImgLen = localIds.length;
             _this.showImg(localIds)            
           }
       });      
@@ -204,7 +204,7 @@ export default {
           if(localIds.length > 0){
               _this.showImg(localIds);
           }else{
-            _this.modifyImg(_this.imgUrl[this.loadImg])
+            _this.modifyImg(_this.imgUrl[_this.loadImg])
           }
         }
       })

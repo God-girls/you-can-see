@@ -1015,15 +1015,15 @@ export default {
       var imgs = JSON.parse(this.curList.imgs)
       var poster = {
         width:750,
-        height:1050,
+        height:870,
         imgWidth:460,
-        lineWidth:16,
+        lineWidth:10,
         lastTop:0,
         imgs:[],
         needLoad:[
-          require('../../assets/img12/poster/christmas/bgtop.jpg'),
-          require('../../assets/img12/poster/christmas/bgbom.jpg'),
-          require('../../assets/img12/poster/christmas/bgrepeat.jpg')
+          require('../../assets/img12/poster/newyear/bgtop.jpg'),
+          require('../../assets/img12/poster/newyear/bgbom.jpg'),
+          require('../../assets/img12/poster/newyear/bgrepeat.jpg')
         ]
       }
       var imgCounter = 0;
@@ -1039,11 +1039,14 @@ export default {
 
       var fillImgs = ()=>{
         // debugger
-        drawCtx.drawImage(this.imgBg, 0, 0,drawCanvas.width,drawCanvas.height);
+        // drawCtx.drawImage(this.imgBg, 0, 0,drawCanvas.width,drawCanvas.height);
+        // drawCtx.strokeStyle = "#fdeabb";
+        drawCtx.fillStyle="#fdeabb";
+        drawCtx.rect(0, 0, poster.width, poster.height);
         drawCtx.drawImage(this.imgTop, 0, poster.lastTop, drawCanvas.width, this.imgTop.height);
-        poster.lastTop = this.imgTop.height;
+        poster.lastTop = 460;
 
-        canvasTextAutoLine(item.title,drawCanvas,100,this.imgTop.height+30,50)
+        canvasTextAutoLine(item.title,drawCanvas,100,430,50)
 
         for (var i = 0; i < poster.imgs.length; i++) {
           
@@ -1055,7 +1058,7 @@ export default {
         drawCtx.fillStyle="#ffffff";
         drawCtx.font = "30px Arial";
         drawCtx.textAlign ='center';
-        drawCtx.fillText('¥ '+item.price_range,drawCanvas.width/2,poster.lastTop + 102);
+        drawCtx.fillText('¥ '+item.price_range,drawCanvas.width/2,poster.lastTop + 62);
 
         qrCode.toDataURL( this.ttDomain+'/#/app/login?redirecto=true&seller='+this.paraData.uid+'&goodid='+item.id, {
             margin : 0,
@@ -1066,7 +1069,7 @@ export default {
             var qrcodeUrl = new Image();
             qrcodeUrl.src = url;
             qrcodeUrl.onload = ()=>{
-              drawCtx.drawImage(qrcodeUrl, 310, poster.lastTop+116, 126, 126);
+              drawCtx.drawImage(qrcodeUrl, 305, poster.lastTop+96, 140, 140);
               this.testCanvas = drawCanvas.toDataURL();
               this.loading = false;
               this.showCanvas = true;   
@@ -1097,12 +1100,13 @@ export default {
             lineWidth += ctx.measureText(str[i]).width; 
               ctx.font = "30px Arial";
               ctx.textAlign ='center';
+              // ctx.fillStyle="#ffffff";
             if(lineWidth > canvasWidth-initX*2){//减去initX,防止边界出现的问题
                 ctx.fillText(str.substring(lastSubStrIndex,i),drawCanvas.width/2,initY);
                 initY += lineHeight;
                 lineWidth = 0;
                 lastSubStrIndex = i;
-                poster.lastTop += 60
+                // poster.lastTop += 60
             } 
             if(i==str.length-1){
 
@@ -1127,8 +1131,8 @@ export default {
           ctx.drawImage(this.imgBg, 0, 0, poster.width, canvas.height);
           //以Canvas画布上的坐标(10,10)为起始点，绘制图像
           ctx.lineWidth = poster.lineWidth;
-          ctx.strokeStyle = "#c12227";
-          ctx.fillStyle="#c12227";
+          ctx.strokeStyle = "#fea794";
+          ctx.fillStyle="#fea794";
           ctx.rect((poster.width - poster.lineWidth - poster.imgWidth)/2, 0, fillWidth, canvas.height-30);
           ctx.fill();
           ctx.stroke();
@@ -1167,7 +1171,6 @@ export default {
             this.imgBg = img;
           }
           this.tempLen++;
-          // console.log(this.tempLen)
 
           // debugger
           if (this.tempLen < 3) {

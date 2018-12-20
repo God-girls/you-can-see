@@ -22,7 +22,7 @@
   left: 0;
   width: 100%;
   background: #fff;
-  color: #dedee6;
+  /*color: #dedee6;*/
   text-align: center;
   padding: 40px 20px 60px;
   z-index: 15;
@@ -49,7 +49,7 @@
   -webkit-flex: 1;
   flex: 1;
   width: 0%;  
-  color: #6b6d7f;
+  /*color: #6b6d7f;*/
 }
 .shareCon  ul li p{
   display: -webkit-box;
@@ -97,23 +97,23 @@
 <template>
   <div>
     <!-- <div class="shareBg"> -->
-      <div class="shareCon slideInUp animateds">
+      <div class="shareCon slideInUp animateds grayCR">
         <i class="iconfont icon-guanbi"  @touchend.prevent="closeApp"></i>
         <!-- <h3 class="f30 greenCR">分享到</h3> -->
         <ul><!--  v-if="isWawaIos"
    v-if="isWawaIos" -->
           <!-- <li @touchend.prevent="gotoShare('message')"><p><i class="iconfont icon-weixin2"></i></p>微信</li> -->
-          <li @touchend.prevent="initPoster"><p><i class="iconfont icon-haibao"></i></p>生成海报</li>
-          <li @touchend.prevent="gotoShare('timeline')"><p><i class="iconfont icon-zhuanfa1"></i></p>发给好友</li>
-          <li @touchend.prevent="gotoShare('timeline')"><p><i  class="iconfont icon-pengyouquan"></i></p>转发朋友圈</li>
-          <li @touchend.prevent="gotoShare('QQSession')"><p><i class="iconfont icon-qq-link-icon"></i></p>转发QQ</li>
-          <!-- <li @touchend.prevent="gotoShare('QQZone')"><p><i class="iconfont icon-qqkongjian"></i></p>QQ空间</li> -->
+          <li @touchend.prevent="initPoster"><p><i class="iconfont greenCR icon-haibao"></i></p>生成海报</li>
+          <li @touchend.prevent="gotoShare('timeline')"><p><i class="iconfont greenCR icon-zhuanfa1"></i></p>发给好友</li>
+          <li @touchend.prevent="gotoShare('timeline')"><p><i  class="iconfont greenCR icon-pengyouquan"></i></p>转发朋友圈</li>
+          <li @touchend.prevent="gotoShare('QQSession')"><p><i class="iconfont greenCR icon-qq-link-icon"></i></p>转发QQ</li>
+          <!-- <li @touchend.prevent="gotoShare('QQZone')"><p><i class="iconfont greenCR icon-qqkongjian"></i></p>QQ空间</li> -->
   <!--         <li class="inviteFriend" :data-clipboard-text = "shareData.shareText">
-            <p><i  class="iconfont icon-weibo"></i></p>
+            <p><i  class="iconfont greenCR icon-weibo"></i></p>
             微博
           </li> -->
           <li class="inviteFriend" :data-clipboard-text = "shareData.shareText">
-            <p><i  class="iconfont icon-lianjie"></i></p>
+            <p><i  class="iconfont greenCR icon-lianjie"></i></p>
             复制链接
           </li>
         </ul>

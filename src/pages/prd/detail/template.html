@@ -4,7 +4,7 @@
   
   <div class="detailTop">
     <dl class="flexBox">
-      <dt @click.prevent="previewImage">
+      <dt @click.prevent="previewImage" class="posiR">
         <img :src="globalAvatar+'goods/'+JSON.parse(sellerInfo.imgs)[0]+'?imageView2/2/w/300/h/300/t/'" alt="" :onerror="errorImg">
       </dt>
       <dd class="flex1 f30">

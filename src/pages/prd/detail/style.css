@@ -5,10 +5,20 @@
 .detailTop dl{
   align-items:flex-start;
 }
-.detailTop dt img{
+.detailTop dt {
   width: 130px;
   height: 130px;
+  overflow-y: hidden;
   margin-right: 15px;
+}
+.detailTop dt img{
+  width: 100%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;  
 }
 .detailTop dd p{
   min-height: 84px;

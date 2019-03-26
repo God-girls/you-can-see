@@ -37,15 +37,13 @@ export default {
     ])
   },
   created(){
-    alert(location.href)
-    if (location.href.indexOf('inviter') > -1) {
-      this.paraData.inviter = unescape(this.getQueryValue('inviter'));
+
+    if (this.$route.query.inviter) {
+      this.paraData.inviter = unescape(this.$route.query.inviter);
     }
 
     this.getLogin()
-
   },
-
   mounted (){
 
     dplus.track('微信登录',{'from':html.useragent()});//统计代码
@@ -146,12 +144,12 @@ export default {
     },    
     getLogin (){//微信登录
 
-        if (location.href.indexOf('code') > -1) this.paraData.code = unescape(this.getQueryValue('code'));
+      if (location.href.indexOf('code') > -1) this.paraData.code = unescape(this.getQueryValue('code'));
 
-      alert(JSON.stringify(this.paraData))
+
       axios.post('/seller_api/v1/sessions/create_oauth',qs.stringify(this.paraData)).then((response)=>{   
           let resData = response.data;  
-          alert(JSON.stringify(resData))
+
             if (resData.success) {
               window.localStorage.setItem('ttUid', resData.result.id);
               window.localStorage.setItem('ttToken', resData.result.atoken);

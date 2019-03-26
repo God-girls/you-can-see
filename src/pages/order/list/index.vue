@@ -312,7 +312,7 @@ export default {
               this.paraData.pn = this.paraData.pn + 1;        
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              // this.$router.push('/')
+              this.goto('/')
             }
           }
           if (done) done(true);

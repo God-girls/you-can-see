@@ -19,6 +19,7 @@
     <div class="posiR">
         <input type="text" placeholder="请输入或下拉选择商品" v-model="search">
         <select class="f24" v-model="listOption">
+          <option value="-1">请选择</option>
           <option :value="index" v-for="(item,index) in listData" :key="item.id">{{item.title}}</option>
         </select>
         <!-- <p></p> -->

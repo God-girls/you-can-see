@@ -45,7 +45,7 @@
                 ){
                     let thisToken = this.TOKEN;
                     if (!thisToken || thisToken == "null"  || thisToken == "undefined") {
-                        // this.$router.push('/app/login')                   
+                      location.href = html.openInWechat(this.ttDomain + '/#/app/author');
                     }
                 }
 

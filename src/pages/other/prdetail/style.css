@@ -50,10 +50,10 @@
 .swipe {
   line-height: 0;
   overflow: hidden;
+  padding: 20px 30px;
 }
 .swipe img{
   width: 100%;
-  height: 100%;
 }
 .balance{
   padding: 0px 0px 0;

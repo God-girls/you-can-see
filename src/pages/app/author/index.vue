@@ -79,13 +79,8 @@ export default {
     },
     pushHistory (){  
       window.addEventListener("popstate", (e)=> {
-        // alert(location.href)
 
-        if (location.href.indexOf('/prd/list') > -1) {
-          this.$route.push(location.href.split('#')[1])
-        }else{
-          this.$router.push('/index')
-        }
+        this.$router.push('/')
       }, false);
       var state = {
           title : "小小麦",
@@ -161,7 +156,7 @@ export default {
               if (this.$route.query.jumpto) {
                 this.$router.push(this.$route.query.jumpto)
               }else{
-                this.$router.push('/')
+                location.href = html.openInWechat(this.ttDomain + '/#/app/author');
               }
 
             }else{
@@ -191,11 +186,11 @@ export default {
           this.$router.push(this.jumpto)
         }else{
           localStorage.clear()
-          this.initJumpto()
+          this.getLogin()
         }
       }).catch((response)=>{
         localStorage.clear()
-        this.initJumpto()
+        this.getLogin()
       });        
     },
     closeDialog(arr){

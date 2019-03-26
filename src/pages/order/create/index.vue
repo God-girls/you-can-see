@@ -72,7 +72,8 @@ export default {
   watch: {//深度 watcher
     'listOption': {
       handler (val, oldVal) { 
-        // this.paraData.key = val
+        // debugger
+        if (val == '-1') return;
         if (this.listData.length) {
           this.paraData.goodid = this.listData[val].id;
           this.search = this.listData[val].title
@@ -230,14 +231,13 @@ export default {
             "A-Token-Header": this.token,
         }
       }).then((response)=>{   
-        
           let resData = response.data;  
-
+        alert(JSON.stringify(resData))
           if (resData.success) {
             this.noticeData = resData.result.items;
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              this.goto('/')
+              this.redirect()
             }else{
               this.initMSG(resData.codemsg)
             }
@@ -265,11 +265,19 @@ export default {
             this.listData = ranks.items;
             this.products = ranks.items;
             this.loading = false;
+            this.listData.forEach((item)=> {
+              if (item.id == this.prdID) {
+                this.search = item.title;
+                this.paraData.goodid = item.id;
+                this.hasClick = true;
+                this.prdPrice = item.price
+                this.showSearch = false; 
+              }
+            });    
 
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              if(done) done(done);
-              this.goto('/')
+              this.redirect()
             }
             else this.initMSG(resData.codemsg);
           }
@@ -296,21 +304,25 @@ export default {
           if (resData.success) {
              this.switchState({
               CART:Object.assign({},{
-                commdityid:this.paraData.id,
                 orderid:resData.result.orderid,
-                postage:resData.result.postage
+                postage:resData.result.postage,
+                price:html.mul(this.prdPrice,this.paraData.count),
+                goodName:this.search
               },this.paraData)
             });
            this.$router.push('/order/submit')
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              this.goto('/')
+              this.redirect()
             }else{
               this.initMSG(resData.codemsg)
             }
           }
 
       }).catch(function(response){});        
+    },
+    redirect(){
+      location.href = html.openInWechat(this.ttDomain + '/#/app/author');
     },
     goto (arr){
        this.$router.push(arr);        

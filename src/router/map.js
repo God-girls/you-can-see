@@ -48,7 +48,7 @@ export default {
 		}
 	},
 	'/order/submit': {//我的关注
-		meta: { title: '我的关注'},
+		meta: { title: '小小麦'},
 		component: (resolve) => {
 			require(['pages/order/submit'], resolve)
 		}
@@ -66,7 +66,7 @@ export default {
 		}
 	},
 	'/other/notice': {
-		meta: { title: '最新公告'},
+		meta: { title: '小小麦'},
 		component: (resolve) => {
 			require(['pages/other/notice'], resolve)
 		}

@@ -4,6 +4,7 @@
 <script>
 import {html} from '../../../assets/js/global.js';
 import wx from 'weixin-js-sdk'; 
+import loading from '../../../components/base/loading'
 import { mapState, mapActions } from 'vuex'
 import modalDialog from '../../../components/base/dialog'
 import axios from 'axios';
@@ -24,6 +25,7 @@ export default {
   },
   components: {
     modalDialog,
+    loading
   },
   computed:{
     ...mapState([

@@ -15,7 +15,8 @@ export default {
     return {
       avatar:'',
       paraData:{
-        type:'H5'
+        type:'H5',
+        inviter:''
       },
       loading:false,
       loadError:'',
@@ -35,23 +36,18 @@ export default {
       'UNIONID'
     ])
   },
+  created(){
+    alert(location.href)
+    if (location.href.indexOf('inviter') > -1) {
+      this.paraData.inviter = unescape(this.getQueryValue('inviter'));
+    }
+
+    this.getLogin()
+
+  },
 
   mounted (){
 
-    // if (this.$route.query.search) {
-    //   this.jumpto = '/order/list'
-    // }
-    // if (this.$route.query.redirecto) {
-    //   let params = '/prd/list?seller='+this.$route.query.seller
-    //   if (this.$route.query.goodid) params += '&goodid='+ this.$route.query.goodid;
-    //   this.jumpto = params;
-    // }
-    // if (localStorage.ttToken) {
-    //   this.testToken()
-    // }else{
-    //   this.initJumpto()
-    // }
-    this.initJumpto()
     dplus.track('微信登录',{'from':html.useragent()});//统计代码
 
   },
@@ -152,9 +148,10 @@ export default {
 
         if (location.href.indexOf('code') > -1) this.paraData.code = unescape(this.getQueryValue('code'));
 
-        axios.post('/seller_api/v1/sessions/create_oauth',qs.stringify(this.paraData)).then((response)=>{   
-            let resData = response.data;  
-            // alert(JSON.stringify(resData))
+      alert(JSON.stringify(this.paraData))
+      axios.post('/seller_api/v1/sessions/create_oauth',qs.stringify(this.paraData)).then((response)=>{   
+          let resData = response.data;  
+          alert(JSON.stringify(resData))
             if (resData.success) {
               window.localStorage.setItem('ttUid', resData.result.id);
               window.localStorage.setItem('ttToken', resData.result.atoken);

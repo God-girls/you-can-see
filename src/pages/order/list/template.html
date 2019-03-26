@@ -6,9 +6,10 @@
             :class="{'greenCR current':index == isCur}"
             @click.prevent="changeType(index,item.type)">
           {{item.name}}
-          <p class="f21" v-if="index == 2">( {{packageStat.all}} )</p>
-          <p class="f21" v-if="index == 0">( {{packageStat.init}} )</p>
-          <p class="f21" v-if="index == 1">( {{packageStat.delivered}} )</p>    
+          <p class="f21" v-if="index == 2">( {{item.count}} )</p>
+          <p class="f21" v-if="index == 0">( {{item.count}} )</p>
+          <p class="f21" v-if="index == 1">( {{item.count}} )</p> 
+          <p class="f21" v-if="index == 3">( {{item.count}} )</p>   
         </li>
       </ul>
     </div>
@@ -30,100 +31,95 @@
   </div>
   <scroller :on-refresh="onRefresh" :noDataText="noDataText" :on-infinite="onInfinite"  ref="my_scroller">
 
-    <div class="prdOne" v-for="(item,index) in listData">
-      <dl class="blackCR">
-        <dt class="greenCR">
-          <span class="fr grayCR">{{item.created_at}}</span>
-          订单号：{{item.orderid}}
-        </dt>
-        <dd>
-          <ul class="flexBox">
-            <li class="special posiR">
-              <img :src="globalAvatar+'goods/'+item.head_image+'?imageView2/2/w/300/h/300/t/'" alt=""  :onerror="errorImg">
-            </li>
-            <li class="f30 flex1">
-              {{item.title}}
-              <p class="redCR"  v-if="item.spec != 'null' && JSON.parse(item.spec).spec">
-                ¥ {{JSON.parse(item.spec).price_range}}
-                
-              </p>
+    <div class="prdOne flexBox" v-for="(item,index) in listData">
+      <div class="checkDiv posiR" v-if="isCur == 0">
+        <input type="checkbox"  :value='item.id' v-model='checkboxModel' class="chk_1 iconfont f30">
+      </div>
+      <div class="flex1">
+        <dl class="blackCR">
+          <dt class="greenCR">
+            <span class="fr grayCR">{{item.created_at}}</span>
+            订单号：{{item.id}}
+          </dt>
+          <dd>
+            <ul class="flexBox">
+              <li class="special posiR">
+                <img :src="globalAvatar+'goods/'+item.head_image+'?imageView2/2/w/300/h/300/t/'" alt=""  :onerror="errorImg">
+              </li>
+              <li class="f30 flex1">
+                {{item.title}}
+                <p>X 1</p>
+              </li>
+              <li class="liPadd redCR f30">
+                 ¥ {{item.price}}
+              </li>
+            </ul>
+          </dd>
+        </dl>
+        <dl>
+          <dt>
+            <span class="blackCR">邮费：</span>
+            {{item.postage != "0.00" ? item.postage : '包邮'}}
+          </dt>
+          <!-- <dd ></dd> -->
+        </dl>
+        <dl>
+          <dt class="blackCR">收货人信息：</dt>
+          <dd >
+            <p>{{item.receiver}}，{{item.mobileno}}</p>
+            <p>{{item.address}}</p>
+          </dd>
+        </dl>
+        <dl v-if="item.buyer_remark">
+          <dt class="blackCR">买家备注：</dt>
+          <dd >{{item.buyer_remark}}</dd>
+        </dl>
+        <dl v-if="item.seller_remark">
+          <dt class="blackCR">我的备注：</dt>
+          <dd >{{item.seller_remark}}</dd>
+        </dl>
+        <dl v-if="item.deliver_no">
+          <dt class="blackCR">快递信息：</dt>
+          <dd >{{item.deliver}}：{{item.deliver_no}}</dd>
+        </dl>
 
-            </li>
-            <li class="liPadd f30">
-              X {{item.count}}
-            </li>
-          </ul>
-        </dd>
-      </dl>
-      <dl v-if="item.spec != 'null'">
-        <dt class="blackCR f30">规格信息：</dt>
-        <dd v-if="JSON.parse(item.spec).spec">
-          <template v-if="JSON.parse(item.spec).spec">
-            <p v-for="(item2,index2) in JSON.parse(item.spec).spec.spec">
-              <template v-for="(value,key,index3) in item2" v-if="key != 'amount'">
-                <span v-if="key == 'price'">
-                  单价：{{value}} 元
-                </span>
-                <span v-else>
-                  {{key == 'count' ? '数量' : key}}：{{value}} {{index3 == Object.keys(item2).length - 1 ? '' :' ，'}} 
-                </span>
-                
-              </template>
-            </p>
-          </template>
-        </dd>
-        <dd v-else>
-          <p v-for="(item3,index2) in JSON.parse(item.spec)">
-
-            <template v-for="(value,key,index4) in item3">
-              {{key == 'count' ? '数量' : key}}：{{value}} {{index4 == Object.keys(item3).length - 1 ? '' :' ，'}} 
-            </template>
-          </p>
-        </dd>
-      </dl>
-<!--       <dl>
-        <dt class="blackCR f30">数量信息：</dt>
-        <dd >X {{item.count}}</dd>
-      </dl> -->
-      <dl>
-        <dt class="blackCR f30">收货人信息：</dt>
-        <dd >
-          <p>{{item.buyer_nick}}，{{item.mobileno}}</p>
-          <p>{{item.address}}</p>
-        </dd>
-      </dl>
-      <dl v-if="item.buyer_remark">
-        <dt class="blackCR f30">买家备注：</dt>
-        <dd >{{item.buyer_remark}}</dd>
-      </dl>
-      <dl v-if="item.seller_remark">
-        <dt class="blackCR f30">我的备注：</dt>
-        <dd >{{item.seller_remark}}</dd>
-      </dl>
-      <dl v-if="item.deliver_no">
-        <dt class="blackCR f30">快递信息：</dt>
-        <dd >{{item.deliver}}：{{item.deliver_no}}</dd>
-      </dl>
-
-      <ol class="blackCR flexBox f30">
-        <li class="flex1">
-          总价：¥ {{item.amount}}
-        </li>
-        <li class="tR" v-if="!item.deliver_no" @click.prevent="popOrder(item,index,false)">快递信息</li>
-        <li class="special posiR" @click.prevent="popOrder(item,index,true)">订单备注</li>
-      </ol>
+<!--         <ol class="blackCR flexBox f30">
+          <li class="flex1">
+            总价：¥ {{item.price}}
+          </li> -->
+<!--           <li class="tR " v-if="!item.deliver_no" @click.prevent="popOrder(item,index,false)">
+            <span class="btn btn-green btn-sm">立即付款</span>
+          </li> -->
+          <!-- <li class="special posiR" @click.prevent="popOrder(item,index,true)">订单备注</li> -->
+        <!-- </ol> -->
+        
+      </div>
     </div>
 
     <div class="tC noDataDiv"  v-if="noData">
       <nodate noText="暂无数据"></nodate>
     </div>
 
-    <!-- <endWechat :wechat_code_show.sync="wechat_code_show" @wechat="wechatOpen('wechat_code')"></endWechat> -->
   </scroller>
 
-  <div slot="footer">
+  <div slot="footer">  <!-- v-model='checked'  -->
+    <div class="footer" v-if="isCur == 0">
+      <dl class="flexBox">
+        <dt class="flex1 grayCR">
+          <label for="checkId">
+            <input type="checkbox"  v-model='checked' id="checkId" class="chk_1 iconfont f30" @click='checkedAll'>
+            全选            
+          </label>
+        </dt>
+        <dd>
+          合计：<span class="redCR">￥</span><span class="redCR f30">{{totalPrice}}</span> 
+        </dd>
+        <dd class="mL20"><button class="btn btn-green" @click.prevent="payment">立即付款</button></dd>
+      </dl>
+    </div>    
+
     <myfooter :current="navType"></myfooter>
-    <endWechat2 :wechat_code2.sync="wechat_code" @hide2="closeDialog('wechat_code')"  :fail='true'></endWechat2>
+
     <modal-dialog :dialogshow2.sync="notes" @hide="closeDialog('notes')" :fail='true'>
 
       <div slot="dialog-body" class="guestCON">

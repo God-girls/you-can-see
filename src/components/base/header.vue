@@ -2,7 +2,6 @@
     .my-header{
       background: #37363b;
       color: #fff;
-      font-size: 36px;
       text-align: center;
       position: relative;
       /*height: 90px;*/
@@ -11,11 +10,12 @@
         width: 100%;
         display: -webkit-box;
         display: flex;
-        height: 110px;
+        height: 90px;
         justify-content: center;
         align-items: center;
         padding:0 30px 0 0;
         color: #fff;
+        font-size: 36px;
     }
     .my-header ul li.midli{
         -webkit-box-flex: 1;
@@ -25,7 +25,6 @@
         position: relative;
         text-align: center;
         padding-right: 50px;
-        font-size: 36px;
     }
     .my-header .midli a{
       position: absolute;
@@ -61,6 +60,11 @@
     }
     .opacity0{
       opacity: 0;
+    }
+    #pcBody .my-header ul{
+      height: 60px;
+      line-height: 60px;
+      font-size: 24px;
     }
 </style>
 <template>

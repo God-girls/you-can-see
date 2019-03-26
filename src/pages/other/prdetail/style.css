@@ -1,0 +1,391 @@
+.headerbg{
+  background: #242543;
+}
+
+.whiteBg{
+  background: #fff;
+  padding: 20px 0;
+  margin-bottom: 10px;
+}
+.topAd{
+  background: #fff;
+}
+.my-header{
+  background: #242543;
+  color: #fff;
+  text-align: center;
+  position: relative;
+  height: 90px;
+}
+.my-header p{
+  font-size: 36px;
+    width: 100%;
+    display: -webkit-box;
+    display: flex;
+    height: 90px;
+    justify-content: center;
+    align-items: center;
+    padding:0 30px 0 0;
+    color: #fff;
+}
+.my-header > i{
+  position: absolute;
+  left: 30px;
+  bottom: 18px;
+}
+.my-header dl{
+  text-align: center;
+  line-height: 90px;
+}
+.my-header dl dd{
+  font-size: 36px;
+}
+.my-header dl dt{
+  position: absolute;
+  right: 30px;
+  bottom: 18px;
+  width: 40px;
+  height: 40px;
+}
+.swipe {
+  line-height: 0;
+  overflow: hidden;
+}
+.swipe img{
+  width: 100%;
+  height: 100%;
+}
+.balance{
+  padding: 0px 0px 0;
+}
+.balance dl{
+  border-bottom:1px solid #bcbcbc;/*no*/
+  padding: 10px 20px 0;
+}
+.balance dl dd{
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.topTime{
+  height: 84px;
+  line-height: 84px;
+  background: #830f0f;
+  color: #fff;
+  padding: 0 20px;
+}
+.topDetail{
+  padding:20px; 
+  border-bottom: 15px solid #efeff3 ;
+}
+.topDetail h2{
+  line-height: 54px;
+}
+.topDetail dl{
+  padding: 10px 0;
+}
+.topDetail dl dt{
+  font-size: 80px;
+  padding-left: 20px;
+}
+.topDetail ul li.posiR:before{
+  content: ' ';
+  position: absolute;
+  width: 10px;
+  border-left: 1px solid #b8b8b8;/*no*/
+  top: 0;
+  left: 0;
+  bottom: 0;
+}
+.tabs p.current{
+  background: #fff;
+  box-shadow: 4px 0px 8px #2a2e51;
+}
+.auctionRecord{
+  padding: 0;
+}
+.auctionRecord h4{
+  padding: 0 20px;
+  border-bottom: 1px solid #b8b8b8;/*no*/
+  line-height: 70px;
+}
+.auctionRecord ul{
+  padding: 0 20px;
+}
+.auctionRecord ul li{
+  border-bottom: 1px solid #b8b8b8;/*no*/
+  line-height: 72px;
+}
+.auctionRecord ul li:last-child{
+  border-bottom: none;
+}
+.auctionSet{
+  line-height: 54px;
+  padding: 20px;
+}
+.auctionSet dl dt{
+  width: 33%;
+}
+.auctionMan{
+  padding: 20px 20px;
+}
+.auctionMan dl img{
+  width: 106px;
+  height: 106px;
+  border-radius: 50%;
+}
+.auctionMan dl dt{
+  padding-left: 20px;
+}
+.auctionDetail {
+  padding: 30px 20px;
+  line-height: 40px;
+}
+
+.auctionDetail h3 span{
+  padding: 0 30px;
+  height: 100%;
+  display: inline-block;
+}
+.auctionDetail dl{
+  padding: 30px 20px;
+}
+.auctionDetail p{
+  text-align: center;
+  line-height: 0;
+  border-top: 10px solid #dedee6;/*no*/
+  padding: 15px 20px;
+}
+.auctionDetail p img{
+  width: 100%;
+  display: block;
+}
+.search dl{
+  margin: 0px 10px;
+  background: #121221;
+  border-radius: 6px;
+  border:1px solid #3a3d5c;/*no*/
+  height: 60px;
+}
+.search dl dt{
+  height: 100%;
+}
+.search dl dt input{
+  width: 100%;
+  padding: 4px 10px;
+  line-height: 50px;
+}
+.search dl dd{
+  padding-right: 15px;
+  height: 100%;
+  padding-top: 10px
+}
+.icon-right{
+  background-position: -121px -57px;
+  width: 15px;
+  height: 22px;
+}
+.icon-record{
+  background-position: 0px -120px;
+  width: 18px;
+  height: 26px;
+}
+.icon-share{
+  background-position: -64px 0px;
+  width: 34px;
+  height: 36px;
+  vertical-align: top;
+}
+.icon-time{
+  background-position: -169px 0px;
+  width: 37px;
+  height: 37px;
+}
+.icon-add{
+  background-position: -64px -102px;
+  width: 48px;
+  height: 48px;
+  margin-left: 15px;
+}
+.footer dl{
+  width: 100%;
+  padding: 15px 0px 0;
+}
+.footer dl dt{
+}
+.footer dl p{
+  width: 100%;
+}
+.footer dl dt p{
+  background: #fff;
+  border-top:1px solid #51aa38!important
+}
+.footer dl dt p:active{
+  background: #b9ddaf;
+  /*border:1px solid #51aa38!important*/
+}
+.saleDetail{
+  max-height: 700px;
+  overflow-y: auto;
+}
+.saleDetail ul{
+  padding: 20px 0;
+}
+.saleDetail ul li span{
+  padding: 6px 20px;
+  border:1px solid #8084a8;/*no*/
+  border-radius: 8px;
+}
+.saleDetail ul li span.current{
+  border:1px solid #61d4ec;/*no*/
+}
+
+.saleDetail > dl{
+  line-height: 50px;
+}
+.saleDetail > dl dt{
+  width: 40%;
+}
+.saleDetail > dl dd{
+  width: 58%;
+}
+.saleDetail ol{
+  padding: 0 0px;
+}
+.saleDetail ol li{
+  border-bottom: 1px solid #b8b8b8;/*no*/
+  line-height: 72px;
+}
+.saleDetail ol li dt,.auctionRecord dt{
+  width: 170px;
+}
+
+.saleDetail p{
+  padding-top: 20px;
+}
+
+.priceBom p{
+  padding-top: 15px;
+}
+.salePrice dl dd input{
+  background: #ededed;
+  border:none;
+  text-align: center;
+}
+.salePrice .curPrice{
+  display: inline-block;
+  margin-left: 15px;
+}
+.salePrice dl dd input,
+.salePrice .curPrice{
+  width: 80%;
+}
+.salePrice span.refresh{
+  background: #5dbbde;
+  border-radius: 8px;
+  color: #fff;
+  padding: 3px 15px;
+}
+
+
+.shareBg{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 15;
+}
+.shareCon{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(36,37,67,.9);
+  color: #dedee6;
+  text-align: center;
+  padding: 40px 20px 60px;
+}
+.shareCon  h3{
+  padding: 15px; 
+}
+.icon-arrowl2{
+  position: absolute;
+  width: 45px;
+  height: 55px;
+  background-position: -100px 8px;
+  right: 30px;
+  top: 30px;
+}
+
+.shareCon  ul{
+  display: -webkit-box;
+  display: flex;    
+  padding-top: 40px;
+}
+
+.shareCon  ul li{
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+  width: 0%;  
+}
+.shareCon  ul li p{
+  display: -webkit-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 8px;    
+  width: 117px;
+  height: 117px;
+  border-radius: 50%;
+  background: #dedee6;
+}
+.shareCon  ul li p:active{
+  background: #53cae3;
+  transition: all 2s
+}
+.shareCon  ul li i{
+  /*background: url('../../../assets/img12/default/icon-share.png') no-repeat;*/
+  background-size: 174px;
+  display: inline-block;
+}
+.shareCon  ul li i.iwechat{
+  background-position: 0 0;
+  width: 69px;
+  height: 57px;
+}
+.shareCon  ul li i.ifriend{
+  background-position: 0 -80px;
+  width: 62px;
+  height: 62px;
+}
+.shareCon  ul li i.iweibo{
+  background-position: 0 -174px;
+  width: 64px;
+  height: 56px;
+}
+.shareCon  ul li i.iqq{
+  background-position: -91px 0;
+  width: 52px;
+  height: 58px;
+}
+.shareCon  ul li i.iqzone{
+  background-position: -91px -80px;
+  width: 66px;
+  height: 63px;
+}
+.shareCon  ul li i.ilink{
+  background-position: -91px -174px;
+  width: 56px;
+  height: 56px;
+}
+
+
+
+
+
+
+
+
+

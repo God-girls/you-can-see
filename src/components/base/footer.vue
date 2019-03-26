@@ -17,7 +17,6 @@
   border-top:1px solid #bcbcbc;/*no*/
 }
 .my-footer ul li{
-    padding-top: 8px;
     position: relative;
 }
 .my-footer ul li.special{
@@ -30,7 +29,6 @@
   position: relative;
   top: -6px;
   color: #929292;
-  font-size: 21px;
 }
 .my-footer ul li p.power{
   top: -8px;
@@ -198,38 +196,34 @@
 }
 </style>
 <template>
-  <div class="posoR">
-    <div :class="['animated my-footer',{'fadeInUp':showCircle,'dn':!showCircle}]">
+  <div class="posoR cursor">
+    <div :class="['animated my-footer f21',{'dn':!showCircle}]">
       <ul>
-        <li :class="['special',{'current':current=='task'}]" @touchend.prevent="goto('/')">
-          <i class="myicon icon-task"></i>
-          <p class="power">商品</p>
+        <li :class="['special',{'fadeIn current':current=='create'}]" @click.prevent="goto('/order/create')">
+          
+          <i class="myicon icon-my"></i>
+          <p>创建订单</p>
         </li>
-        <li :class="['special',{'current':current=='order'}]" @touchend.prevent="goto('/order/list')">
+        <li :class="['special posiR',{'current':current=='order'}]" @click.prevent="goto('/order/list')">
           <i class="myicon icon-book"></i>
-          <p>订单</p>
-        </li>
-        <li :class="['homeLi',{'current':current=='home'}]" @touchend.prevent="changeShow">
-          <i class="icon-home"></i>
-          <span></span>
-          <b></b>
-          <!-- <p>大陆中心</p> -->
+          <p>我的订单</p>
+        </li>        
+        <li :class="['special',{'fadeIn current':current=='task'}]" @click.prevent="goto('/index')">
+          <i class="myicon icon-task"></i>
+          <p class="power">所有商品</p>
         </li>
 
-        <li :class="['special posiR',{'current':current=='discovery'}]" @touchend.prevent="goto('/discovery')">
+        <li :class="['special',{'current':current=='money'}]" @click.prevent="goto('/order/balance')">
+          
           <i class="myicon icon-rank"></i>
-          <p>发现</p>
-        </li>        
-        <li :class="['special',{'current':current=='my'}]" @touchend.prevent="goto('/my')">
-          <i class="myicon icon-my"></i>
-          <p>我</p>
+          <p>我的收益</p>
         </li>
       </ul>
     </div>
 
    <div :class="['animated my-footer special',{'fadeInUp':!showCircle,'dn':showCircle}]" >
       <ul>
-        <li :class="['homeLi flex1',{'current':current=='home'}]" @touchend.prevent="changeShow">
+        <li :class="['homeLi flex1',{'current':current=='home'}]" @click.prevent="changeShow">
           <i class="icon-home"></i>
           <span></span>
           <b></b>
@@ -286,10 +280,10 @@ export default {
       }
     },
     changeShow(){
-      this.showCircle = !this.showCircle;
-      this.switchState({
-        SHOWFOOTER:this.showCircle
-      })                
+      // this.showCircle = !this.showCircle;
+      // this.switchState({
+      //   SHOWFOOTER:this.showCircle
+      // })                
     },
     clickDown(){
       this.canDown = !this.canDown;

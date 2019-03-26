@@ -1,97 +1,133 @@
 .myHeader{
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-bottom:1px solid #d6e9c6;
+  padding: 5px 30px;
 }
-.myHeader{
-  padding: 30px 30px 0;
+.myHeader dl dd{
+  height: 60px;
+  overflow-y: hidden;  
 }
-.publish {
-  padding: 50px 60px 0;
-}
-.publish div{
-  outline: 0;
-  line-height: 40px;
-  /*min-height: 60px;*/
-  /*max-height: 300px;*/
-  overflow-y: auto;
-  padding-bottom: 20px;
-}
-.publish div textarea{
+.textwrap{
+  overflow: hidden;
+  line-height: 60px;
+  height: 60px;
+  white-space: nowrap;
   width: 100%;
-  border:none;
-  min-height: 150px;
 }
-.modifyImg{
-  width: 100%;
-  height: 100%;
+.textwrap p{
   position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
 }
-.publish ul{
-  display: flex;
-  width: 100%;
-  flex-wrap: wrap;
+.textwrap p span{
+  padding-right: 20px;
 }
-.publish ul li{
-  width: 195px;
-  height: 195px;
-  line-height: 0;
-  margin:0 10px 20px 0;
-  overflow:hidden;
-}
-.publish ul li p{
-  width: 100%;
-  height: 100%;
-  position: relative;
-  z-index: 1;
-  overflow:hidden;
-}
-.publish ul li img{
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  margin: auto;
-  
-}
-.publish ul li.special{
-  line-height: 195px;
-  background: #d7d7d7;
-  text-align: center;
-}
-.publish ul li.special:active{
-  background: #c5c4c4
-}
-.icon-add{
-  font-size: 90px;
-}
-.publish ul li span{
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  z-index: 3;
-}
-.publish i.icon-chahao{
-  width: 36px;
-  height: 36px;
-  line-height: 36px;
-  background: rgba(255,255,255,.8);
-  border-radius: 50%;
-  text-align: center;
-  display: inline-block;
+.createCon{
+  padding: 0px 30px;
 }
 
+.publish {
+  position: relative;
+}
+.publish div{
+  padding-top: 20px;
+  position: relative;
+}
+.publish div input{
+  position: absolute;
+  height: 58px;
+  line-height: 58px;
+  bottom: 1px;/*no*/
+  left: 1px;/*no*/
+  border:none;
+  width: 90%;
+  background: #fff;
+}
+.publish div ul{
+  position: absolute;
+  top: 80px;
+  color: #3c763d;
+  background-color: #dff0d8;
+  border:1px solid #d6e9c6;/*no*/
+  width: 100%;
+  padding: 10px 20px;
+  line-height: 70px;
+  z-index: 2;
+}
+.publish div ul li{
+  border-bottom: 1px solid #fff;/*no*/
+}
+.publish div ul li:last-child{
+  border-bottom:none;
+}
+.publish > p{
+  padding-top: 10px;
+}
+.publish h4{
+  padding-top: 15px;
+}
+.publish div p{
+  border: 1px solid #acacac;/*no*/
+  width: 100%; 
+  line-height: 45px;
+  height: 61px;
+  padding: 8px 10px;
+  border-radius: 5px;
+}
 .my-set{
   position: relative;
-  padding:0px 0px 80px;
-  background-size: 50px;
+  padding:30px 0px 0;
 }
-.my-set ul{
-  background: #fff;
-  line-height: 120px;
-  color: #908384;
-  margin-top: 15px;
+.my-set h4{
+  border-top:1px solid #d6e9c6;/*no*/
+  padding-top: 20px; 
+}
+.my-set h4 button{
+  /*padding: 0px 20px;*/
+/*  line-height: 50px;
+  height: 50px;*/
+}
+
+.my-set dl dd {
+  padding: 20px 0 0;
+}
+.my-set dl dd input,
+.publish select,
+.publish input,
+.my-set textarea{
+    border: 1px solid #acacac;/*no*/
+    width: 100%; 
+    line-height: 45px;
+    height: 61px;
+    padding: 8px 10px;
+    border-radius: 5px;
+}
+.my-set dl.flexBox{
+  border: 1px solid #acacac;
+  border-radius: 5px;  
+  margin-top: 20px;
+}
+.my-set dd.special{
+  width: 80px;
+  text-align: center;
+  line-height: 60px;
+  border-right: 1px solid #acacac;/*no*/
+  background: #dfe0e5;
+}
+.my-set dd.special:last-child{
+  border-left: 1px solid #acacac;/*no*/
+  border-right: none; 
+}
+.my-set dd.special:active{
+  background: #dadbdc;
+}
+.my-set dl.flexBox dd{
+  padding-top: 0;
+}
+.my-set dl.flexBox input{
+  border:none;
+}
+.my-set textarea{
+    min-height: 140px;
 }
 .my-set ul li{
   padding: 0 60px;
@@ -133,4 +169,22 @@
 }
 .footer p{
   width: 100%;
+}
+#pcBody .my-set dl dd input,
+#pcBody .publish select,
+#pcBody .publish input,
+#pcBody .my-set textarea{
+
+    line-height: 40px;
+    padding: 4px 10px;
+}
+#pcBody .my-set dd.special{
+  line-height: 47px;  
+}
+#pcBody .myHeader dl dd{
+  height: 40px;
+}
+#pcBody .textwrap{
+  line-height: 40px;
+  height: 40px;
 }

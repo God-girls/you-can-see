@@ -1,0 +1,42 @@
+@import url('../../../components/css/animate.css');
+.wrap{
+/*  background: url(../../../assets/img12/shop/shopbg.jpg) no-repeat center bottom;
+  background-size: 750px;
+*/}
+
+.goBack{
+  position: absolute;
+  left: -10px;
+  top: 22px;
+  z-index: 3;
+}
+.icon-arrowl{
+  width: 50px;
+  height: 50px;
+  background-position: 10px 8px;
+}
+
+.index-wrap{
+  padding: 20px;
+}
+.index-wrap dl{
+  background: #f4f4f4;
+  border-radius: 15px;
+  padding: 15px;
+  margin: 0px 0px 20px;
+  border: 1px solid #e7eaec;
+}
+.index-wrap dl dt{
+  color: #3c4166;
+}
+.index-wrap dl dd{
+  padding-top:15px; 
+}
+
+
+
+
+
+
+
+

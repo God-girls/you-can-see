@@ -288,6 +288,9 @@ input:-webkit-autofill {
 .mL10{
   margin-left: 10px;
 }
+.mR10{
+  margin-right: 10px;
+}
 .tL{
     text-align: left!important;
 }
@@ -296,6 +299,9 @@ input:-webkit-autofill {
 }
 .tC{
     text-align: center!important;
+}
+.cursor{
+  cursor: pointer;
 }
 .btn{
   padding: 0px 25px;
@@ -453,7 +459,8 @@ input:-webkit-autofill {
   box-sizing: border-box;
 }
 .dls dd input[type="number"],
-.dls dd input[type="text"]{
+.dls dd input[type="text"],
+.dls dd select{
     border: 1px solid #acacac;/*no*/
     width: 100%; 
     line-height: 40px;
@@ -598,4 +605,28 @@ input[type=checkbox].ace.ace-switch:checked+.lbl::after {
   left: 58px;
   background-color: #FFF;
   color: #8ab2c9
+}
+
+/***************pc css*****************/
+
+#pcBody .f36{
+  font-size: 24px!important;  
+}
+
+#pcBody .f30{
+  font-size: 18px!important;  
+}
+#pcBody .f21{
+  font-size: 18px!important;  
+}
+#pcBody .btn{
+  padding: 0px 10px;
+  height: 60px;
+  line-height: 60px;
+  font-size: 24px!important; 
+}
+#pcBody .btn-sm{
+  font-size: 16px!important;  
+  height: 40px;
+  line-height: 40px;
 }

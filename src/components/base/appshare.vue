@@ -187,13 +187,11 @@ export default {
   },
   methods: {
     closeShare (e){
-      console.log(e.target)
       if (e.target.className == 'shareBg')
         this.$emit('shareclose')
     },
     gotoShare(type){
 
-      console.log(type)
         this.shareRight = true;
         // this.$emit('shareclose')
         return;

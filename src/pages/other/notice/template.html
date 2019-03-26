@@ -1,0 +1,17 @@
+<Layout>
+  <myhead :hval="header" slot="header"></myhead>
+
+  <scroller :on-refresh="onRefresh" :noDataText="noDataText" :on-infinite="onInfinite"  ref="my_scroller">
+
+    <div class="index-wrap">
+      <dl v-for="(item,index) in listData">
+        <dt class="greenCR f30">{{item.title}}</dt>
+        <dd>{{item.description}}</dd>
+        <dd class="grayCR">
+          {{item.updated_at}}
+        </dd>
+      </dl>
+    </div><!--#index-wrap-->
+  </scroller>
+    
+</Layout>

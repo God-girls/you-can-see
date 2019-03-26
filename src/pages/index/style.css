@@ -1,68 +1,40 @@
 @import url('../../components/css/animate.css');
-.header h3{
-  width: 750px;
-  height: 400px;
-  position: relative;
-  background: #333333;
-  overflow: hidden;
+.balance{
+  padding: 0px 30px 0;
 }
-.header .head{
+.balance dl{
+  border-bottom:1px solid #bcbcbc;/*no*/
+  padding-top: 10px;
+}
+.balance dl dd{
   width: 100%;
-  min-height: 400px;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
+  overflow-x: auto;
+  white-space: nowrap;
 }
-.header dl{
-  position: absolute;
-  right: 18px;
-  bottom: -45px;
-  width: 70%;
+.balance img{
+  width: 100%;
 }
-.header .default{
-  width: 150px;
-  height: 140px;
-}
-.header dl img{
-  width: 130px;
-  height: 130px;
-  border: 5px solid #fff;
-  background: #fff;
-  margin-left: 20px;
-}
-.header dl li.flex1{
-  position: relative;
-  top: -25px;
-}
-.header p{
-  padding:5px 18px 0;
-  color: #5b6a91
-}
-.header p i{
-  position: relative;
-  /*top: 2px;*/
-}
-.icon-erji{
-  position: relative;
-  top: 4px;
-}
+
 /*购买商品*/
-.conOne{
-  padding: 20px 0;
-  border-bottom: 1px solid #e2e2e2;/*no*/
+.prdList{
+  padding: 0px 0;
 }
-.special{
-  padding-bottom: 15px;
+.prdList ul{
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  /*justify-content: center;*/
 }
-.conList{
- padding: 70px 15px 0;
- color: #212121;
+.prdList ul li{
+  width: 50%;
+  margin: 30px 0 0px;
 }
-.oneTop dl,.stars,.comList dl,.comList ol{
-  align-items:flex-start;
+.prdList ul li img{
+  width: 80%
+}
+.prdList p{
+  text-align: center;
+  padding-top: 20px;
 }
 .oneTop dt{
   width: 130px;
@@ -339,4 +311,8 @@
   top: 30px;
   color: #c2c2c2;
 }
-
+#pcBody .btn{
+  padding: 0px 25px;
+  line-height: 40px;
+  height: 40px;
+}

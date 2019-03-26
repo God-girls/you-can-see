@@ -103,8 +103,8 @@ export default {
             let resData = response.data;  
             // alert(JSON.stringify(resData))
             if (resData.success) {
-              window.localStorage.setItem('ttUid', resData.result.id);
-              window.localStorage.setItem('ttToken', resData.result.atoken);
+              window.localStorage.setItem('UID', resData.result.id);
+              window.localStorage.setItem('TOKEN', resData.result.atoken);
               this.switchState({
                 TOKEN:resData.result.atoken,
                 UID:resData.result.id

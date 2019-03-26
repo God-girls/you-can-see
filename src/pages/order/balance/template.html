@@ -1,0 +1,46 @@
+<Layout>
+  <myhead :hval="header" slot="header"></myhead>
+    <div class="header posiR whiteCR">
+      <ul class="flexBox1 tC">
+        <li class="posiR">
+          <p>{{profitDday.count?profitDday.count:'0'}}</p>
+           <span>今日销量（件）</span>
+       </li>
+       <li class="posiR">
+          <p>{{profitDday.income?profitDday.income:'0.00'}}</p>
+           <span>今日收益（元）</span>
+       </li>
+      </ul>
+    </div>    
+    <div class="header posiR whiteCR">
+      <ul class="flexBox1 tC">
+        <li class="posiR">
+          <p>{{profitTotal.count?profitTotal.count:'0'}}</p>
+           <span>总销量（件）</span>
+       </li>
+       <li class="posiR">
+          <p>{{profitTotal.income?profitTotal.income:'0.00'}}</p>
+           <span>总收益（元）</span>
+       </li>
+      </ul>
+    </div>    
+
+  <div class="balance f30">
+    <dl class="flexBox">
+      <dt>销售数据</dt>
+      <dd class="flex1 tR">
+        <span :class="['btn btn-default btn-sm mL10',{'btn-green whiteCR':index == isCur}]" 
+            v-for="(item,index) in tabs" 
+            @click.prevent="changeType(index,item.type)">{{item.name}}</span>
+      </dd>
+    </dl>
+  </div>
+
+  <div class="chatForm">
+    <div id="lineMain"></div>
+  </div>
+
+  <myfooter current="money" slot="footer"></myfooter>
+   
+  
+</Layout>

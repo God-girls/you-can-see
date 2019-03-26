@@ -1,77 +1,88 @@
 <Layout>
-  <div class="myHeader f30" slot="header">
-    <h1>
-      <span class="greenCR fr" @click.prevent="created">{{prdID?'确认修改':'发布'}}</span>
-      <span @click.prevent="goto('/')">取消</span>
-    </h1>
+  <div class="myHeader" slot="header">
+    <dl class="flexBox">
+      <dt><i class="iconfont icon-laba"></i> 最新公告：</dt>
+      <dd class="flex1" @click.prevent="goto('/other/notice')">
+        <div id = "textwrap" class="textwrap posiR">
+          <p id = "text1" v-show="scrollFlag" 
+              :style="{'left':scrollLeftpx}">
+            <span v-for="(item,index) in noticeData">{{item.title}}</span>
+          </p>
+        </div>
+      </dd>
+    </dl>
   </div>
-  <!-- <myhead :hval="header"></myhead> -->
-
-  <div class="publish f30">
-    <div class="blackCR">
-      <textarea placeholder="商品描述..." id="text" v-model="paraData.desc"></textarea>
+  <div class="createCon">
+    
+  <div class="publish">
+    <h4 class="greenCR f30">选择商品</h4>
+    <div class="posiR">
+        <input type="text" placeholder="请输入或下拉选择商品" v-model="search">
+        <select class="f24" v-model="listOption">
+          <option :value="index" v-for="(item,index) in listData" :key="item.id">{{item.title}}</option>
+        </select>
+        <!-- <p></p> -->
+        <ul v-show="showSearch">
+          <li v-for="(item,index) in searchIn" @click.prevent="selectData(item)">
+            <span class="fr">{{item.price}} 元</span>
+            {{item.title}}
+          </li>
+          <li v-if="!searchIn.length">
+            没有可选择的商品，请重新输入
+          </li>
+        </ul>
     </div>
-    <ul>
-      <li  v-for="(item,index) in imgUrl" class="posiR imgs">
-          <p @click.prevent="previewImage(imgUrl[index])"><img :src="imgUrl[index]" alt=""></p> 
-          <span @click.prevent="delImg(index)">
-            <i class="iconfont icon-chahao f30"></i>
-          </span>
-      </li>
-      <li class="special posiR" 
-          @click.prevent="chooseImg" v-if="imgUrl.length < 9">
-        <i class="iconfont icon-add" ></i>
-      </li>      
-    </ul>
+    <p>单价：{{prdPrice}} 元</p>
   </div>
 
-  <div class="my-set f30">
-    <ul class="blackCR">
-      <li @click.prevent="goto('/prd/spec'+(prdID?'?id='+prdID:''))">
-        <dl class="flexBox">
-          <dt>
-            <i class="iconfont icon-guigecanshu f30"></i>
-          </dt>
-          <dd class="flex1">规格</dd>
-          <dd class="tR f24 redCR">
-             {{curSpecs.length?'已添加':''}}
-            <i class="iconfont icon-jiantou f30"></i>
-          </dd>
-        </dl>
-      </li>
-      <li @click.prevent="goto('/prd/price'+(prdID?'?id='+prdID:''))" >
-        <dl class="flexBox">
-          <dt>
-            <i class="iconfont icon-jin f30"></i>
-          </dt>
-          <dd class="flex1">单价</dd>
-          <dd class="tR f24 redCR">
-            <span v-if="priceSet.spec_name == '*' && priceSet.def_price">￥{{priceSet.def_price}}</span>
-            <template v-else>
-              <span v-if="priceRang.length">{{priceRang}}</span>              
-            </template>
-            <i class="iconfont icon-jiantou f30"></i>
-          </dd>
-        </dl>
-      </li>
-      <li @click.prevent="goto('/prd/other'+(prdID?'?id='+prdID:''))">
-        <dl class="flexBox">
-          <dt>
-            <i class="iconfont icon-qita f36"></i>
-          </dt>
-          <dd class="flex1">其它</dd>
-          <dd class="tR">
-             <i class="iconfont icon-jiantou f30"></i>
-          </dd>
-        </dl>
-      </li>
-    </ul>
+  <div class="my-set">
+    <h4 class="greenCR f30">选择数量</h4>
+    <dl class="flexBox">
+      <dd class="special cursor" @click.prevent="minusPlus(false)"><i class="iconfont icon-sub"></i></dd>
+      <dd class="flex1">
+        <input type="text" name="" v-model="paraData.count" class="tC f30" @keyup.prevent="changeInput(2)">
+      </dd>
+      <dd class="special cursor" @click.prevent="minusPlus(true)"><i class="iconfont icon-iconjia"></i></dd>
+    </dl>
   </div>    
 
+
+  <div class="my-set">
+    <h4 class="greenCR f30">填写收货信息</h4>
+    <dl>
+      <dd><input type="text" name="" v-model="paraData.receiver" placeholder="收货人姓名"></dd>
+    </dl>
+    <dl>
+      <dd><input type="text" v-model="paraData.mobileno" name="" placeholder="收货人电话"></dd>
+    </dl>
+    <dl>
+      <dd><input type="text" v-model="paraData.address" name="" placeholder="收货人详细地址"></dd>
+    </dl>
+  </div>    
+
+  <div class="my-set">
+    <h4 class="greenCR f30">
+      <button type="button" class="btn btn-green btn-sm fr f24"
+        @click.prevent="addressParse(addressArea)">确认解析</button>
+      智能解析地址
+    </h4>
+    <dl>
+      <dd>
+        <textarea name="" placeholder="例：姓名，联系方式 ，详细地址 （只支持解析单条信息）" v-model="addressArea">
+          
+        </textarea>
+      </dd>
+    </dl>   
+  </div>    
+  </div>
+
   <div slot="footer">
-<!--     <div class="footer tC f30">
-      <p class="btn btn-green" @click.prevent="created">发布</p>
-    </div> -->
+    <div class="footer tC f30">
+      <h3></h3>
+      <p class="btn btn-green" @click.prevent="created">提交订单</p>
+    </div>    
+    <myfooter current="create"></myfooter>
+
     <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
   </div>
   

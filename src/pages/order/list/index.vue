@@ -37,13 +37,14 @@ export default {
       paraData:{
         ps:50,
         pn:1,
-        status:'0'
+        state:'0'
       },
       isCur:0,
       tabs:[
-        {name:'未发货订单',type:'0',count:''},
-        {name:'已发货订单',type:'1',count:''},
-        {name:'全部订单',type:null,count:''}
+        {name:'未付款',type:'0',count:0},
+        {name:'待发货',type:'1',count:0},
+        {name:'已完成',type:'10',count:0},
+        {name:'全部订单',type:null,count:0},
       ],
       minDate:'2018-1-01',
       profile:{},
@@ -54,9 +55,11 @@ export default {
       remark:'',
       deliver:'',
       deliver_no:'',
-      packageStat:{},
+      checked:false,
+      checkboxModel:[],
       wechat_code:false,
-      wechat_code_show:false
+      wechat_code_show:false,
+      totalPrice:0
     }
   },
   components: {
@@ -79,6 +82,18 @@ export default {
       },
       deep: true
     },
+    'checkboxModel': {
+      handler (val, oldVal) { 
+
+        if (this.checkboxModel.length && this.checkboxModel.length === this.listData.length) {
+          this.checked=true;
+        }else{
+          this.checked=false;
+        }
+        this.countPrice()
+      },
+      deep: true
+    }
 
   },
   computed:{
@@ -91,8 +106,8 @@ export default {
     ])
   },
   created(){
-    if (html.isWechat()) {
-      this.header.opacity = true;
+    if (html.isPc()) {
+      document.body.setAttribute('id','pcBody');
     }
   },
   mounted () {
@@ -103,7 +118,6 @@ export default {
     if (this.TOKEN) {
       this.paraData.uid = this.UID;
       this.token = this.TOKEN;
-      this.getProfile ();
     }
 
     dplus.track('订单管理',{'from':html.useragent()});//统计代码
@@ -115,6 +129,24 @@ export default {
       'switchState', // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`'
       'clearState'
     ]),
+    countPrice(){
+      this.totalPrice = 0;
+      this.listData.forEach((item)=> {
+        if (this.checkboxModel.indexOf(item.id) > -1) {
+          this.totalPrice = html.add(this.totalPrice,item.price)
+        }
+      });    
+    },
+    checkedAll(){
+      if (this.checked) {//实现反选
+        this.checkboxModel = [];
+      }else{//实现全选
+        this.checkboxModel = [];
+        this.listData.forEach((item)=> {
+          this.checkboxModel.push(item.id);
+        });
+      }
+    },
     changeType(index,type){
       this.isCur = index;
       this.totalPageCount = -1;
@@ -122,8 +154,7 @@ export default {
       this.searchCon = ''
       this.paraData.key = '';
       // console.log(type)
-      this.paraData.status = type;
-      if (!type) delete this.paraData['status']
+      this.paraData.state = type;
       this.hasClick = false;
       this.getList();  
     },
@@ -148,30 +179,70 @@ export default {
         this.diliver = true;
       this.pid = item.id;
     },
-    getProfile (){
-      axios.post('/seller_api/v1/seller/userinfo',qs.stringify({
-        uid:this.paraData.uid
+    payment (){
+
+      this.loading = true;
+
+      axios.post('/seller_api/v1/pay/payment_url',qs.stringify({
+        uid:this.paraData.uid,
+        commdityid:101,
+        goods:this.checkboxModel.join(','),
+        channel:'W4',//W4 公众号支付 W5微信支付 W2
       }),{
           headers: {
               "A-Token-Header": this.token,
           }
-        }).then((response)=>{   
-          let resData = response.data;
-          
+        }).then((response)=>{           
+          let resData = response.data;  
+
           if (resData.success) {
-            this.profile = resData.result;
-            this.switchState({
-              PROFILE:resData.result,
-            })
-          }  else {
+              this.orderid = resData.result.orderid;
+              this.orderkey = resData.result.key;
+              this.loading = false;
+              if (html.isWechat()) {
+                this.payment_url = JSON.parse(resData.result.payment_url);
+                let payVM = this;
+                
+                if (typeof WeixinJSBridge == "undefined"){
+                   if( document.addEventListener ){
+                       document.addEventListener('WeixinJSBridgeReady', payVM.onBridgeReady, false);
+                   }else if (document.attachEvent){
+                       document.attachEvent('WeixinJSBridgeReady', payVM.onBridgeReady); 
+                       document.attachEvent('onWeixinJSBridgeReady', payVM.onBridgeReady);
+                   }
+                }else{
+                   this.onBridgeReady();
+                }
+              }else{                
+                location.href = `${JSON.parse(resData.result.payment_url).mweb_url}&redirect_url=${encodeURIComponent(this.ttDomain+'/#/prd/success?seller='+this.mySeller+'&key='+this.orderkey+'&orderid='+this.orderid)}`
+              }
+
+          }else {
             if (resData.code == '403' || resData.code == '250') {
-              this.goto('/')
+               this.goto('/')
+            }else{
+              this.initMSG(resData.codemsg)
             }
           }
-      }).catch((response)=>{
-        // this.logErrors(JSON.stringify(response))
-      });  
-    },    
+      }).catch(function(response){});  
+    },
+    onBridgeReady (){
+      let vm = this;
+      this.loading = true;
+      WeixinJSBridge.invoke(
+         'getBrandWCPayRequest', vm.payment_url,
+         function(res){ 
+          
+           if(res.err_msg == "get_brand_wcpay_request:ok" ) {// 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
+            vm.initMSG('支付成功')
+            vm.onRefresh()
+
+           }else if(res.err_msg == "get_brand_wcpay_request:cancel" || res.err_msg == "get_brand_wcpay_request:fail") {
+            vm.initMSG('支付失败')
+           }
+         }
+      );
+    },
     setRemark (){
       if (!this.remark) {
         this.initMSG('请添加备注')
@@ -206,45 +277,6 @@ export default {
         this.logErrors(JSON.stringify(response))
       });  
     },
-    setDeliver (){
-      if (!this.deliver || !this.deliver_no) {
-        this.initMSG('请添加完整快递信息')
-        return;
-      }
-
-      this.loading = true;
-      axios.post('/seller_api/v1//seller/package_deliver',qs.stringify({
-        'uid':this.paraData.uid,
-        'pid':this.pid,
-        'deliver': this.deliver,
-        'deliver_no':this.deliver_no,
-        'notify':this.notify
-      }),{
-          headers: {
-              "A-Token-Header": this.token,
-          }
-        }).then((response)=>{   
-          let resData = response.data;
-          
-          if (resData.success) {
-            this.diliver = false;
-            this.initMSG('发货成功')
-            this.listData[0].deliver_no = this.deliver_no;
-            this.listData[0].deliver = this.deliver;
-            this.deliver_no = '';
-            this.onRefresh();
-          }  else {
-            if (resData.code == '403' || resData.code == '250') {
-              this.needLogin = true;
-              this.noToken = true;
-            }else{
-              this.initMSG(resData.msg)
-            }
-          }
-      }).catch((response)=>{
-        this.logErrors(JSON.stringify(response))
-      });  
-    },
     getList(done){
 
 
@@ -253,7 +285,7 @@ export default {
         return;
       }
       this.noData = false;
-      axios.post('/seller_api/v1/seller/package_list',qs.stringify(this.paraData),{
+      axios.post('/seller_api/v1/proxy/query_order',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,
           }
@@ -268,46 +300,25 @@ export default {
               if (this.paraData.pn == 1) {
                   this.listData = ranks.items;
 
-                  // if (this.listData.length < 6) {this.wechat_code_show = false}else{this.wechat_code_show = true};
                   if (this.listData.length < 6) this.noDataText='';
                   if (this.listData.length == 0) this.noData = true;
-                  this.tabs[this.isCur].count = `( ${resData.result.totalItemsCount} )`
+                  this.tabs[this.isCur].count = `${resData.result.totalItemsCount}`
               }
               else {
                 this.listData = this.listData.concat(ranks.items);
               }
-              // console.log(this.listData)
+
               this.loading = false;
               this.paraData.pn = this.paraData.pn + 1;        
           }  else {
             if (resData.code == '403' || resData.code == '250') {
-              this.$router.push('/')
+              // this.$router.push('/')
             }
           }
           if (done) done(true);
 
       }).catch((response)=>{if (done) done(true)});  
 
-      axios.post('/seller_api/v1/seller/package_stat',qs.stringify(this.paraData),{
-          headers: {
-              "A-Token-Header": this.token,
-          }
-        }).then((response)=>{     
-
-          let resData = response.data; 
-
-          if (resData.success) {
-               this.packageStat = resData.result;
-          }  else {
-            if (resData.code == '403' || resData.code == '250') {
-              this.$router.push('/')
-            }
-          }
-      }).catch((response)=>{if (done) done(true)});  
-
-    },
-    transObj(arr){
-      console.log(arr)
     },
     onRefresh(done) {
       setTimeout(()=>{
@@ -341,9 +352,6 @@ export default {
     }
   },
   beforeDestroy(){
-    clearInterval(this.timer);
-    clearInterval(this.timeout);
-    clearInterval(this.timerTree);
   }
 }
 </script>

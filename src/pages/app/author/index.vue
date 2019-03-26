@@ -156,7 +156,7 @@ export default {
               if (this.$route.query.jumpto) {
                 this.$router.push(this.$route.query.jumpto)
               }else{
-                location.href = html.openInWechat(this.ttDomain + '/#/app/author');
+                this.$router.push('/')
               }
 
             }else{

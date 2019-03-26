@@ -232,7 +232,6 @@ export default {
         }
       }).then((response)=>{   
           let resData = response.data;  
-        alert(JSON.stringify(resData))
           if (resData.success) {
             this.noticeData = resData.result.items;
           }  else {

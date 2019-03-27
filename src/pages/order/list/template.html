@@ -50,7 +50,7 @@
                 {{item.title}}
                 <p>¥ {{counTotalPrice(item.price,item.postage)}}</p>
               </li>
-              <li class="liPadd f30 grayCR">
+              <li class="liPadd grayCR">
                  <template v-if="item.state == 0">待付款</template>
                  <template v-if="item.state == 1">待发货</template>
                  <template v-if="item.state == 10">已完成</template>

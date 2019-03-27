@@ -67,6 +67,12 @@
   overflow-x: auto;
   white-space: nowrap;
 }
+.balance p{
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-bottom:1px solid #d6e9c6;
+  padding: 15px 30px;
+}
 .topTime{
   height: 84px;
   line-height: 84px;

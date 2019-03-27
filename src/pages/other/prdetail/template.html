@@ -10,14 +10,17 @@
   <div class="topDetail whiteBg">
     <h2 class="f36">{{prdData.title}}</h2>
   </div>
-  <div class="balance f30" >
-    <dl>
+  <div class="balance" >
+    <dl class=" f30">
       <dd>
         <span :class="['btn btn-green mR10 btn-sm']" 
             v-for="(item,index) in tabs" 
             >{{item.title}}</span>
       </dd>
     </dl>
+    <p>
+      邮费： 包邮{{prdData.special_district ? '（ ' + prdData.special_district +'偏远地区每单额外收取5元）' : ''}}
+    </p>
   </div>
 
   <div class="auctionDetail whiteBg">

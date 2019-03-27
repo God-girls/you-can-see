@@ -138,7 +138,7 @@ export default {
       });    
     },
     counTotalPrice(price,postage){
-      return html.add(price,postage)
+      return html.sub(price,postage)
     },
     checkedAll(){
       if (this.checked) {//实现反选

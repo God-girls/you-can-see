@@ -51,7 +51,7 @@
                 <p>X 1</p>
               </li>
               <li class="liPadd f30">
-                 ¥ {{item.price}}
+                 ¥ {{counTotalPrice(item.price,item.postage)}}
               </li>
             </ul>
           </dd>
@@ -59,7 +59,7 @@
         <dl>
           <dt>
             <span class="blackCR">邮费：</span>
-            {{item.postage != "0.00" ? item.postage : '包邮'}}
+            {{item.postage != "0.00" ? item.postage+' 元（偏远地区额外收取）' : '包邮'}}
           </dt>
           <!-- <dd ></dd> -->
         </dl>
@@ -88,7 +88,7 @@
 
         <ol class="blackCR flexBox f30">
           <li class="flex1 redCR">
-            总价：¥ {{counTotalPrice(item.price,item.postage)}}
+            总价：¥ {{item.price}}
           </li>
 <!--           <li class="tR " v-if="!item.deliver_no" @click.prevent="popOrder(item,index,false)">
             <span class="btn btn-green btn-sm">立即付款</span>

@@ -48,10 +48,12 @@
               </li>
               <li class="f30 flex1">
                 {{item.title}}
-                <p>X 1</p>
+                <p>¥ {{counTotalPrice(item.price,item.postage)}}</p>
               </li>
-              <li class="liPadd f30">
-                 ¥ {{counTotalPrice(item.price,item.postage)}}
+              <li class="liPadd f30 grayCR">
+                 <template v-if="item.state == 0">待付款</template>
+                 <template v-if="item.state == 1">待发货</template>
+                 <template v-if="item.state == 10">已完成</template>
               </li>
             </ul>
           </dd>

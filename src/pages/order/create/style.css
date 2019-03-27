@@ -24,9 +24,26 @@
 .createCon{
   padding: 0px 30px;
 }
-
+.maskDiv{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 8;
+}
+.icon-fanhui{
+  transform: rotate(-90deg);
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  padding: 10px 13px 13px 15px;
+  z-index: 1;
+  background: #fff;
+}
 .publish {
   position: relative;
+  z-index: 9;
 }
 .publish div{
   padding-top: 20px;
@@ -41,6 +58,7 @@
   border:none;
   width: 90%;
   background: #fff;
+  z-index: 3;
 }
 .publish div ul{
   position: absolute;
@@ -51,7 +69,7 @@
   width: 100%;
   padding: 10px 20px;
   line-height: 70px;
-  z-index: 2;
+  z-index: 10;
 }
 .publish div ul li{
   border-bottom: 1px solid #fff;/*no*/
@@ -90,6 +108,10 @@
 .my-set dl dd {
   padding: 20px 0 0;
 }
+.publish select{
+  position: relative;
+  z-index: 2;
+}
 .my-set dl dd input,
 .publish select,
 .publish input,
@@ -127,7 +149,7 @@
   border:none;
 }
 .my-set textarea{
-    min-height: 180px;
+    min-height: 140px;
 }
 .my-set ul li{
   padding: 0 60px;
@@ -164,11 +186,12 @@
   display: block;
 }
 .footer{
+  border-top: 1px solid #bcbcbc;/*no*/
   width: 100%;
-  padding: 30px 30px;
+  padding: 15px 30px;
 }
-.footer p{
-  width: 100%;
+.footer button{
+  padding: 0 40px;
 }
 #pcBody .my-set dl dd input,
 #pcBody .publish select,

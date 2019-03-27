@@ -41,10 +41,10 @@ export default {
       },
       isCur:0,
       tabs:[
+        {name:'全部订单',type:null,count:0},
         {name:'未付款',type:'0',count:0},
         {name:'待发货',type:'1',count:0},
         {name:'已完成',type:'10',count:0},
-        {name:'全部订单',type:null,count:0},
       ],
       minDate:'2018-1-01',
       profile:{},
@@ -136,6 +136,9 @@ export default {
           this.totalPrice = html.add(this.totalPrice,item.price)
         }
       });    
+    },
+    counTotalPrice(price,postage){
+      return html.add(price,postage)
     },
     checkedAll(){
       if (this.checked) {//实现反选
@@ -243,16 +246,15 @@ export default {
          }
       );
     },
-    setRemark (){
-      if (!this.remark) {
-        this.initMSG('请添加备注')
-        return;
-      }
+    delPop(item){
+      this.curOrder = item;
+      this.notes = true;
+    },
+    delOrder (){
       this.loading = true;
-      axios.post('/seller_api/v1//seller/package_remark',qs.stringify({
+      axios.post('/seller_api/v1/proxy/del_order',qs.stringify({
         'uid':this.paraData.uid,
-        'pid':this.pid,
-        'remark': this.remark
+        'oid':this.curOrder.id,
       }),{
           headers: {
               "A-Token-Header": this.token,
@@ -262,9 +264,8 @@ export default {
           
           if (resData.success) {
             this.notes = false;
-            this.initMSG('备注成功')
-            this.listData[this.listIndex].seller_remark = this.remark;
-            this.remark = '';
+            this.initMSG('删除成功')
+            this.onRefresh()
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.needLogin = true;

@@ -14,74 +14,84 @@
   </div>
   <div class="createCon">
     
-  <div class="publish">
-    <h4 class="greenCR f30">选择商品</h4>
-    <div class="posiR">
-        <input type="text" placeholder="请输入或下拉选择商品" v-model="search">
-        <select class="f24" v-model="listOption">
-          <option value="-1">请选择</option>
-          <option :value="index" v-for="(item,index) in listData" :key="item.id">{{item.title}}</option>
-        </select>
-        <!-- <p></p> -->
-        <ul v-show="showSearch">
-          <li v-for="(item,index) in searchIn" @click.prevent="selectData(item)">
-            <span class="fr">{{item.price}} 元</span>
-            {{item.title}}
-          </li>
-          <li v-if="!searchIn.length">
-            没有可选择的商品，请重新输入
-          </li>
-        </ul>
+    <div class="publish">
+      <h4 class="greenCR f30">选择商品</h4>
+      <div class="posiR">
+          <input type="text" placeholder="请输入或下拉选择商品" v-model="search">
+          <select class="f24" v-model="listOption">
+            <option value="-1">请选择</option>
+            <option :value="index" v-for="(item,index) in listData" :key="item.id">{{item.title}}</option>
+          </select>
+          <i class="iconfont icon-fanhui f30"></i>
+          <ul v-show="showSearch">
+            <li v-for="(item,index) in searchIn" @click.prevent="selectData(item)">
+              <span class="fr">{{item.price}} 元</span>
+              {{item.title}}
+            </li>
+            <li v-if="!searchIn.length">
+              没有可选择的商品，请重新输入
+            </li>
+          </ul>
+      </div>
+      <p> 单价：{{singlePrice}} 元</p>
     </div>
-    <p>单价：{{prdPrice}} 元</p>
-  </div>
 
-  <div class="my-set">
-    <h4 class="greenCR f30">选择数量</h4>
-    <dl class="flexBox">
-      <dd class="special cursor" @click.prevent="minusPlus(false)"><i class="iconfont icon-sub"></i></dd>
-      <dd class="flex1">
-        <input type="text" name="" v-model="paraData.count" class="tC f30" @keyup.prevent="changeInput(2)">
-      </dd>
-      <dd class="special cursor" @click.prevent="minusPlus(true)"><i class="iconfont icon-iconjia"></i></dd>
-    </dl>
-  </div>    
+    <div class="my-set">
+      <h4 class="greenCR f30">选择数量</h4>
+      <dl class="flexBox">
+        <dd class="special cursor" @click.prevent="minusPlus(false)"><i class="iconfont icon-sub"></i></dd>
+        <dd class="flex1">
+          <input type="text" name="" v-model="paraData.count" class="tC f30" @keyup.prevent="changeInput(2)">
+        </dd>
+        <dd class="special cursor" @click.prevent="minusPlus(true)"><i class="iconfont icon-iconjia"></i></dd>
+      </dl>
+    </div>    
 
+    <div class="my-set">
+      <h4 class="greenCR f30">
+        <button type="button" class="btn btn-green btn-sm fr f24"
+          @click.prevent="addressParse(addressArea)">确认解析</button>
+        智能解析地址
+      </h4>
+      <dl>
+        <dd>
+          <textarea name="" placeholder="例：姓名，联系方式 ，详细地址 （只支持解析单条信息）" v-model="addressArea">
+            
+          </textarea>
+        </dd>
+      </dl>   
+    </div>   
 
-  <div class="my-set">
-    <h4 class="greenCR f30">填写收货信息</h4>
-    <dl>
-      <dd><input type="text" name="" v-model="paraData.receiver" placeholder="收货人姓名"></dd>
-    </dl>
-    <dl>
-      <dd><input type="text" v-model="paraData.mobileno" name="" placeholder="收货人电话"></dd>
-    </dl>
-    <dl>
-      <dd><input type="text" v-model="paraData.address" name="" placeholder="收货人详细地址"></dd>
-    </dl>
-  </div>    
-
-  <div class="my-set">
-    <h4 class="greenCR f30">
-      <button type="button" class="btn btn-green btn-sm fr f24"
-        @click.prevent="addressParse(addressArea)">确认解析</button>
-      智能解析地址
-    </h4>
-    <dl>
-      <dd>
-        <textarea name="" placeholder="例：姓名，联系方式 ，详细地址 （只支持解析单条信息）" v-model="addressArea">
-          
-        </textarea>
-      </dd>
-    </dl>   
-  </div>    
+    <div class="my-set">
+      <h4 class="greenCR f30">填写收货信息</h4>
+      <dl>
+        <dd><input type="text" name="" v-model="paraData.receiver" placeholder="收货人姓名"></dd>
+      </dl>
+      <dl>
+        <dd><input type="text" v-model="paraData.mobileno" name="" placeholder="收货人电话"></dd>
+      </dl>
+      <dl>
+        <dd><input type="text" v-model="paraData.address" name="" placeholder="收货人详细地址"></dd>
+      </dl>
+    </div>    
+    <div class="maskDiv" v-if="showSearch"></div> 
   </div>
 
   <div slot="footer">
     <div class="footer tC f30">
-      <h3></h3>
-      <p class="btn btn-green" @click.prevent="created">提交订单</p>
-    </div>    
+
+      <dl class="flexBox">
+
+        <dd class="flex1">
+          合计：<span class="redCR">￥</span><span class="redCR f30">{{totalPrice}}</span> 
+        </dd>
+        <dd class="mL20">
+          <button class="btn btn-green" @click.prevent="created">提交订单</button>
+        </dd>
+      </dl>
+
+    </div>
+
     <myfooter current="create"></myfooter>
 
     <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>

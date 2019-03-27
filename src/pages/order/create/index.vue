@@ -53,13 +53,12 @@ export default {
       search:'',
       products:[],
       amount:1,
-      singlePrice:'',
+      singlePrice:0,
       totalPrice:0,
       addressArea:'',
       scrollFlag:true,
       scrollLeftpx:0,
       noticeData:[],
-      prdPrice:0,
       listOption:'',
       showSearch:false
     }
@@ -77,7 +76,8 @@ export default {
         if (this.listData.length) {
           this.paraData.goodid = this.listData[val].id;
           this.search = this.listData[val].title
-          this.prdPrice = this.listData[val].price; 
+          this.singlePrice = this.listData[val].price; 
+          this.totalPrice = html.mul(this.singlePrice,this.paraData.count)
           this.hasClick = true; 
           this.showSearch = false; 
         }
@@ -86,9 +86,10 @@ export default {
     },
     'search': {
       handler (val, oldVal) { 
-        // this.paraData.key = val
+        console.log(val)
         if (!this.search) {
-          this.prdPrice = 0;
+          this.singlePrice = 0;
+          this.totalPrice = 0;
           this.paraData.goodid = '';
           this.hasClick = false;
         }else{
@@ -141,7 +142,8 @@ export default {
       this.hasClick = true;
       this.paraData.goodid = item.id;
       this.search = item.title
-      this.prdPrice = item.price;   
+      this.singlePrice = item.price;
+      this.totalPrice = html.mul(item.price,this.paraData.count);   
       this.showSearch = false;
     },
     scrollLeft(){
@@ -269,7 +271,8 @@ export default {
                 this.search = item.title;
                 this.paraData.goodid = item.id;
                 this.hasClick = true;
-                this.prdPrice = item.price
+                this.singlePrice = item.price;
+                this.totalPrice = item.price;
                 this.showSearch = false; 
               }
             });    
@@ -305,7 +308,7 @@ export default {
               CART:Object.assign({},{
                 orderid:resData.result.orderid,
                 postage:resData.result.postage,
-                price:html.mul(this.prdPrice,this.paraData.count),
+                price:html.mul(this.singlePrice,this.paraData.count),
                 goodName:this.search
               },this.paraData)
             });

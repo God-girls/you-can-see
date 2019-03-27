@@ -181,7 +181,7 @@ input,
 select{
     padding: 0;
     border: 0 none;
-    -webkit-appearance: none;
+    /*-webkit-appearance: none;*/
     background-color: transparent;
 }
 .text-overflow {

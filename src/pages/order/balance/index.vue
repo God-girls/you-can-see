@@ -129,7 +129,7 @@ export default {
             resData.result.list.forEach((item)=> {
               xData.push(item.id);
               dataOrder.push(item.count);
-              dataProfit.push(item.income);
+              dataProfit.push(item.amount);
               count += item.count;
             });
             this.noData = false

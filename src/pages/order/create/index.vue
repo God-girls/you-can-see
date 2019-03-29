@@ -295,6 +295,10 @@ export default {
         this.initMSG('请输入完整的信息')
         return;
       }
+      if (this.paraData.count > 20) {
+        this.initMSG('每次最多20件')
+        return;
+      }
       this.loading = true;
 
       axios.post('/seller_api/v1/proxy/create_order',qs.stringify(this.paraData),{

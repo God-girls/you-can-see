@@ -33,7 +33,7 @@ export default {
       isApp:'',
       noDataText:'--技术支持：小小麦--',
       paraData:{
-        ps:50,
+        ps:10,
         pn:1,
         state:'0'
       },

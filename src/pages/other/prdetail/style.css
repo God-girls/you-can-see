@@ -2,10 +2,9 @@
   background: #242543;
 }
 
-.whiteBg{
-  background: #fff;
-  padding: 20px 0;
-  margin-bottom: 10px;
+.bodyWrap{
+  width: 100%;
+
 }
 .topAd{
   background: #fff;

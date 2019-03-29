@@ -1,37 +1,39 @@
 <Layout>
   <myhead :hval="header" slot="header"></myhead>
-
-  <div class="topAd">
-    <div id='mySwipe' class='swipe' ref='mySwipe'>
-      <img :src="headImg+'?imageView2/2/w/750/t/'" alt="">
+  <div class="bodyWrap">
+    <div class="topAd">
+      <div id='mySwipe' class='swipe' ref='mySwipe'>
+        <img :src="headImg+'?imageView2/2/w/750/t/'" alt="">
+      </div>
     </div>
-  </div>
 
-  <div class="topDetail whiteBg">
-    <h2 class="f36">{{prdData.title}}</h2>
-  </div>
-  <div class="balance" >
-    <dl class=" f30">
-      <dd>
-        <span :class="['btn btn-green mR10 btn-sm']" 
-            v-for="(item,index) in tabs" 
-            >{{item.title}}</span>
-      </dd>
-    </dl>
-    <p>
-      邮费： 包邮{{prdData.special_district ? '（ ' + prdData.special_district +'偏远地区每单额外收取5元）' : ''}}
-    </p>
-  </div>
+    <div class="topDetail whiteBg">
+      <h2 class="f36">{{prdData.title}}</h2>
+    </div>
+    <div class="balance" >
+      <dl class=" f30">
+        <dd>
+          <span :class="['btn btn-green mR10 btn-sm']" 
+              v-for="(item,index) in tabs" 
+              >{{item.title}}</span>
+        </dd>
+      </dl>
+      <p>
+        邮费： 包邮{{prdData.special_district ? '（ ' + prdData.special_district +'偏远地区每单额外收取5元）' : ''}}
+      </p>
+    </div>
 
-  <div class="auctionDetail whiteBg">
+    <div class="auctionDetail whiteBg">
 
-    <div v-html="prdData.description"></div>
+      <div v-html="prdData.description"></div>
+    </div>
+    
   </div>
 
 
   <!-- <helpcon></helpcon> -->
 
-  <div slot="footer" :style="bottomBarH">
+  <div slot="footer">
     <div class="footer tC">
       <dl class="flexBox1 f30">
         <dt class="f21 grayCR">
@@ -39,11 +41,7 @@
         </dt>
         <dd><p class="btn btn-green" @click.prevent="goto('/order/create?id='+paraData.gid)">立即购买</p></dd>
       </dl>
-
     </div>
-
-
- 
   </div>
 
 </Layout>

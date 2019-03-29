@@ -74,7 +74,7 @@ export default {
   },
   mounted () {
 
-    dplus.track('我的收益',{'from':html.useragent()});//统计代码
+    dplus.track('我的支付',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
 
   },
@@ -155,7 +155,7 @@ export default {
               },
           },
           legend: {
-              data:['订单数','收益(元)'],
+              data:['订单数','支出(元)'],
               textStyle : {
                   fontSize : this.getDpr()
               },
@@ -198,7 +198,7 @@ export default {
                   // smooth : true,
               },
               {
-                  name:'收益(元)',
+                  name:'支出(元)',
                   type:'line',
                   // stack: '总量',
                   data:dataProfit,

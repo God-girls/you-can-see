@@ -95,8 +95,8 @@
 <!--           <li class="tR " v-if="!item.deliver_no" @click.prevent="popOrder(item,index,false)">
             <span class="btn btn-green btn-sm">立即付款</span>
           </li> -->
-          <li class="special posiR" v-if="item.state == 0">
-            <span class="btn btn-green btn-sm" @click.prevent="delPop(item)">删除订单</span>
+          <li class="special posiR" v-if="item.state == 0 && isCur == 1">
+            <span class="btn btn-default btn-sm" @click.prevent="delPop(item)">删除订单</span>
           </li>
         </ol>
         

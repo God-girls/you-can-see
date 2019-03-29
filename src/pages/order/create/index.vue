@@ -195,10 +195,20 @@ export default {
       
       let parseResult = parse(address);
       // console.log(parseResult)
+
       this.paraData.receiver = parseResult.name;
       this.paraData.mobileno = parseResult.phone || parseResult.mobile;
-      this.paraData.address = (parseResult.province == parseResult.city ? parseResult.city + '市' : parseResult.province + '省' + parseResult.city + '市') 
-                               + parseResult.area + parseResult.addr;
+      if (parseResult.province && parseResult.city) {
+        this.paraData.address = (parseResult.province == parseResult.city ? parseResult.city + '市' : parseResult.province + '省' + parseResult.city + '市')
+      }else{
+        if (parseResult.province) {
+          this.paraData.address = parseResult.province + '省'
+        }
+        if (parseResult.city) {
+          this.paraData.address += parseResult.province + '市'
+        }
+      }
+      this.paraData.address += parseResult.area + parseResult.addr;
 
       document.getElementById('address').scrollIntoView()
     },

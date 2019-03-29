@@ -216,7 +216,7 @@
         <li :class="['special',{'current':current=='money'}]" @click.prevent="goto('/order/balance')">
           
           <i class="myicon icon-rank"></i>
-          <p>我的收益</p>
+          <p>我的销量</p>
         </li>
       </ul>
     </div>

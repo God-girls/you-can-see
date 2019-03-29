@@ -6,11 +6,9 @@ import loading from '../../../components/base/loading'
 import myfooter from '../../../components/base/footer'
 import nodate from '../../../components/base/nodate'
 import modalDialog from '../../../components/base/dialog'
-import datepicker from '../../../components/base/Datepicker.vue'
-import endWechat from '../../../components/base/endWechat'
-import endWechat2 from '../../../components/base/endWechat2'
-import { mapState, mapActions } from 'vuex'
 import {html} from '../../../assets/js/global.js';
+import { mapState, mapActions } from 'vuex'
+import wx from 'weixin-js-sdk'; 
 import axios from 'axios';
 import qs from 'qs';
 
@@ -67,9 +65,6 @@ export default {
     modalDialog,
     nodate,
     myfooter,
-    datepicker,
-    endWechat,
-    endWechat2
   },
   watch: {//深度 watcher
     'searchCon': {
@@ -237,7 +232,8 @@ export default {
          function(res){ 
           
            if(res.err_msg == "get_brand_wcpay_request:ok" ) {// 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。 
-            vm.initMSG('支付成功')
+            vm.initMSG('支付成功');
+            vm.checkboxModel = [];
             vm.onRefresh()
 
            }else if(res.err_msg == "get_brand_wcpay_request:cancel" || res.err_msg == "get_brand_wcpay_request:fail") {
@@ -303,7 +299,7 @@ export default {
 
                   if (this.listData.length < 6) this.noDataText='';
                   if (this.listData.length == 0) this.noData = true;
-                  this.tabs[this.isCur].count = `${resData.result.totalItemsCount}`
+                  // this.tabs[this.isCur].count = `${resData.result.totalItemsCount}`
               }
               else {
                 this.listData = this.listData.concat(ranks.items);
@@ -319,6 +315,31 @@ export default {
           if (done) done(true);
 
       }).catch((response)=>{if (done) done(true)});  
+
+      axios.post('/seller_api/v1/proxy/order_stat',qs.stringify({
+        uid:this.paraData.uid,
+      }),{
+          headers: {
+              "A-Token-Header": this.token,
+          }
+        }).then((response)=>{   
+          let resData = response.data;
+          
+          if (resData.success) {
+            // this.orderNumber = resData.result;
+            this.tabs[0].count = resData.result.total;
+            this.tabs[1].count = resData.result.init;
+            this.tabs[2].count = resData.result.payed;
+            this.tabs[3].count = resData.result.finished;
+          }  else {
+            if (resData.code == '403' || resData.code == '250') {
+              this.goto('/')
+            }else{
+              this.initMSG(resData.codemsg)
+            }
+          }
+      });  
+
 
     },
     onRefresh(done) {

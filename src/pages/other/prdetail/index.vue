@@ -82,6 +82,7 @@ export default {
   },
   mounted () {
 
+    dplus.track('小小麦商品详情',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
 
   },

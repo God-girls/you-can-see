@@ -74,6 +74,7 @@ export default {
   mounted () {
 
     document.body.addEventListener('touchstart', function () {});
+    dplus.track('小小麦公告列表',{'from':html.useragent()});//统计代码
 
   },
   methods: {

@@ -115,7 +115,7 @@ export default {
       this.token = this.TOKEN;
     }
 
-    dplus.track('订单管理',{'from':html.useragent()});//统计代码
+    dplus.track('小小麦订单管理',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
 
   },

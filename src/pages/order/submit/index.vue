@@ -77,7 +77,7 @@ export default {
   },
   mounted: function () {
 
-    dplus.track('订单支付',{'from':html.useragent()});//统计代码
+    dplus.track('小小麦订单提交成功',{'from':html.useragent()});//统计代码
   },
   methods: {
     ...mapActions([

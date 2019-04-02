@@ -74,7 +74,7 @@ export default {
   },
   mounted () {
 
-    dplus.track('我的支付',{'from':html.useragent()});//统计代码
+    dplus.track('小小麦数据分析',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
 
   },

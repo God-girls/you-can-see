@@ -30,7 +30,7 @@
   overflow-x: auto;
   white-space: nowrap;
 }
-.balance p{
+.balance .tipDiv{
   color: #3c763d;
   background-color: #dff0d8;
   border-bottom:1px solid #d6e9c6;

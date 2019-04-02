@@ -1,5 +1,7 @@
 <Layout>
   <myhead :hval="header" slot="header"></myhead>
+<scroller :on-refresh="onRefresh"    ref="my_scroller">
+
   <div class="bodyWrap">
     <div class="topAd">
       <div id='mySwipe' class='swipe' ref='mySwipe'>
@@ -34,7 +36,7 @@
     </div>
     
   </div>
-
+</scroller>
 
   <!-- <helpcon></helpcon> -->
 

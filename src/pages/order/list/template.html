@@ -113,8 +113,8 @@
     <div class="footer" v-if="isCur == 1">
       <dl class="flexBox">
         <dt class="flex1 grayCR">
-          <label for="checkId" @click.prevent='checkedAll'>
-            <input type="checkbox"  v-model='checked' id="checkId" class="chk_1 iconfont f30">
+          <label for="checkId">
+            <input type="checkbox"  v-model='checked' id="checkId" class="chk_1 iconfont f30" @click.prevent='checkedAll'>
             <span>全选</span>            
           </label>
         </dt>

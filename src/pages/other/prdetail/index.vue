@@ -87,7 +87,7 @@ export default {
 
   },
   methods: {
-    fetchPrd(){
+    fetchPrd(done){
 
       this.loading = true;
       
@@ -106,7 +106,8 @@ export default {
           if (resData.success) {
             this.prdData = resData.result.items[0];
             // this.paraData = Object.assign(this.paraData, this.prdData);
-            this.headImg = this.globalAvatar+'goods/'+ this.prdData.head_image
+            this.headImg = this.globalAvatar+'goods/'+ this.prdData.head_image;
+            if (done) done(true)
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.goto('/')
@@ -115,6 +116,11 @@ export default {
             }
           }
       }); 
+    },
+    onRefresh(done) {
+      setTimeout(()=>{
+        this.fetchPrd(done);  
+      },1000)
     },
     goto(arr){
       this.$router.push(arr);

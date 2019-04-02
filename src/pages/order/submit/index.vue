@@ -169,6 +169,9 @@ export default {
     },
     goBack(){
       this.$router.push('/order/create')        
+      setTimeout(()=>{
+        wx.closeWindow()
+      },50)
     },
     changeSubmit(){
       this.isToggle = false;

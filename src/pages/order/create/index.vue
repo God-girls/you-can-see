@@ -191,11 +191,11 @@ export default {
       },2000)
     },
     addressParse(address){
-      alert(address)
+      // alert(address)
       if (!address) return;
       
       let parseResult = parse(address);
-      alert(JSON.stringify(parseResult))
+      // alert(JSON.stringify(parseResult))
 
       this.paraData.receiver = parseResult.name;
       this.paraData.mobileno = parseResult.phone || parseResult.mobile;

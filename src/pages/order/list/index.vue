@@ -35,7 +35,7 @@ export default {
       paraData:{
         ps:10,
         pn:1,
-        state:'0'
+        state:'',
       },
       isCur:0,
       tabs:[
@@ -114,7 +114,7 @@ export default {
       this.paraData.uid = this.UID;
       this.token = this.TOKEN;
     }
-
+    this.getState()
     dplus.track('小小麦订单管理',{'from':html.useragent()});//统计代码
     document.body.addEventListener('touchstart', function () {});
 
@@ -155,6 +155,7 @@ export default {
       this.paraData.state = type;
       this.hasClick = false;
       this.getList();  
+      this.getState()
     },
     searchList(){
       this.paraData.key = this.searchCon;
@@ -292,7 +293,7 @@ export default {
 
           if (resData.success) {
             let ranks = resData.result;
-            this.totalPageCount = 1;
+            this.totalPageCount = ranks.totalPageCount;
 
               if (this.paraData.pn == 1) {
                   this.listData = ranks.items;
@@ -316,6 +317,8 @@ export default {
 
       }).catch((response)=>{if (done) done(true)});  
 
+    },
+    getState(){
       axios.post('/seller_api/v1/proxy/order_stat',qs.stringify({
         uid:this.paraData.uid,
       }),{
@@ -339,8 +342,6 @@ export default {
             }
           }
       });  
-
-
     },
     onRefresh(done) {
       setTimeout(()=>{

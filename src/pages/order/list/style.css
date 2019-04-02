@@ -35,7 +35,8 @@
   align-items: flex-start;
 }
 .prdOne .checkDiv{
-  padding:20px 20px 0 0;
+  padding:20px 0px 0 0;
+  width: 50px;
 }
 .prdOne .checkDiv input{
 }
@@ -128,9 +129,13 @@
   width: 100%;
 }
 .footer dt label{
-  display: block;
+  /*display: block;*/
+  padding: 13px 0 13px 45px;
+  position: absolute;
+  left: 0px;
+  top: -13px;
 }
 .footer dt span{
   vertical-align: bottom;
-  padding-left: 20px;
+  /*padding-left: 20px;*/
 }

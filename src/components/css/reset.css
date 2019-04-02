@@ -607,6 +607,35 @@ input[type=checkbox].ace.ace-switch:checked+.lbl::after {
   color: #8ab2c9
 }
 
+.table{
+  width: 100%;
+}
+.table table{
+  width: 100%;  
+}
+.table tbody td{
+  line-height: 55px;
+  border:1px solid #e7e7e7;/*no*/
+  padding: 0 10px;
+  text-align: center;
+}
+.table tbody td p{
+  text-align: left;
+}
+.table tbody td div{
+  padding: 10px 0;
+  line-height: 36px;
+}
+.table tbody tr:active{
+  background: #f5f5f5;
+}
+.table thead th{
+  line-height: 55px;
+  border:1px solid #e7e7e7;/*no*/
+  border-bottom:2px solid #DDDDDD;/*no*/
+  padding: 0 10px;
+  background: #F5F5F6;
+}
 /***************pc css*****************/
 
 #pcBody .f36{

@@ -350,7 +350,10 @@
   height: 56px;
 }
 
-
+.tipDiv .table{
+  background: #fff;
+  margin-top: 15px;
+}
 
 
 

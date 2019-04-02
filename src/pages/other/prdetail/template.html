@@ -22,11 +22,20 @@
       </dl>
       <div class="tipDiv">
          邮费：默认包邮
-         <ul v-if="prdData.special_district">
-           <li v-for="(item,index) in JSON.parse(prdData.special_district)">
-             {{item.area.join(', ')}}地区: 额外加邮费{{item.price}} 元
-           </li>
-         </ul>
+         <table v-if="prdData.special_district" class="table">
+           <thead>
+             <tr>
+               <th>特殊地区</th>
+               <th>每单额外邮费(元)</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr v-for="(item,index) in JSON.parse(prdData.special_district)">
+               <td>{{item.area.join(', ')}}</td>
+               <td>{{item.price}}</td>
+             </tr>
+           </tbody>
+         </table>
       </div>
     </div>
 

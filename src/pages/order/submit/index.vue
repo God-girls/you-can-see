@@ -48,7 +48,7 @@ export default {
       isIosWechat:false,
       prdDetail:{
         orderid:[]
-      }
+      },
     }
   },
   computed:{
@@ -109,7 +109,9 @@ export default {
     payment (){
 
       this.loading = true;
-
+      if (!html.isWechat()) {
+        this.paraData.channel = 'W2'
+      }
       axios.post('/seller_api/v1/pay/payment_url',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,
@@ -135,7 +137,8 @@ export default {
                 }else{
                    this.onBridgeReady();
                 }
-              }else{                
+              }else{          
+                // return      
                 location.href = `${JSON.parse(resData.result.payment_url).mweb_url}&redirect_url=${encodeURIComponent(this.ttDomain+'/#/prd/success?seller='+this.mySeller+'&key='+this.orderkey+'&orderid='+this.orderid)}`
               }
 

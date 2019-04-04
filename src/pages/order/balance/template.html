@@ -1,5 +1,31 @@
 <Layout>
-  <myhead :hval="header"></myhead>
+  <!-- <myhead :hval="header"></myhead> -->
+    <div class="topHead posiR">
+      <div>
+        <dl class="flexBox">
+          <dt>
+            <span :class="[{'HGIRL':profile.sex == '女'},{'HBOY':profile.sex == '男'}]">
+              <img 
+              :src="globalAvatar+profile.avatar+'?imageView2/2/w/250/h/250/'" alt="" 
+              :onerror="defaultHead" class="headIMG">
+              <i :class="['icon-index',{'icon-girl':profile.sex == '女'},{'icon-boy':profile.sex == '男'}]"></i>
+            </span>
+      
+          </dt>
+          <dd class="f30">
+              <p>
+                我的昵称：{{profile.nick}}
+              </p>
+              <p>
+                我的上级：{{profile.parent_nick}}
+              </p>          
+          </dd>
+        </dl>
+        
+      </div>
+
+    </div>
+
     <div class="header posiR whiteCR">
       <ul class="flexBox1 tC">
         <li class="posiR">

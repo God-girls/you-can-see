@@ -39,13 +39,13 @@
 
                 if (location.href.indexOf('/app/login') < 0  
                     && location.href.indexOf('/index') < 0 
-                    && location.href.indexOf('/webtips') < 0 
+                    && location.href.indexOf('testseller.bhuwifi.com') < 0 
                     && location.href.indexOf('fromshare=true') < 0
                     && location.href.indexOf('app/author') < 0
                 ){
                     let thisToken = this.TOKEN;
                     if (!thisToken || thisToken == "null"  || thisToken == "undefined") {
-                      location.href = html.openInWechat(this.ttDomain + '/#/app/author');
+                      // location.href = html.openInWechat(this.ttDomain + '/#/app/author');
                     }
                 }
 

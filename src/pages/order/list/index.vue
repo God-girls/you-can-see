@@ -300,11 +300,22 @@ export default {
 
                   if (this.listData.length < 6) this.noDataText='';
                   if (this.listData.length == 0) this.noData = true;
-                  // this.tabs[this.isCur].count = `${resData.result.totalItemsCount}`
+                  if (this.isCur == 1) {
+                    this.checkboxModel = [];
+                    this.listData.forEach((item)=> {
+                      this.checkboxModel.push(item.id)
+                    });    
+                  }
               }
               else {
                 this.listData = this.listData.concat(ranks.items);
               }
+              // if (this.isCur == 1) {
+              //   if (this.checkboxModel.length < this.listData.length) this.checked = false
+              //   else{
+              //     this.checked = true;
+              //   }                
+              // }
 
               this.loading = false;
               this.paraData.pn = this.paraData.pn + 1;        

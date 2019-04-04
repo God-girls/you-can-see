@@ -119,6 +119,15 @@ export default {
     if (html.isPc()) {
       document.body.setAttribute('id','pcBody');
     }
+    if (this.$route.query.token) {
+      this.paraData.uid = this.$route.query.uid;
+      this.token = this.$route.query.token;
+
+      this.switchState({
+        TOKEN:this.token,
+        UID:this.paraData.uid
+      })
+    }
     this.paraData.uid = this.UID;
     this.token = this.TOKEN;
     if (this.$route.query.id) {

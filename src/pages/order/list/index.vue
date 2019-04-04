@@ -33,7 +33,7 @@ export default {
       isApp:'',
       noDataText:'--技术支持：小小麦--',
       paraData:{
-        ps:10,
+        ps:50,
         pn:1,
         state:'',
       },
@@ -181,7 +181,10 @@ export default {
     payment (){
 
       this.loading = true;
-
+      if (!this.checkboxModel.length) {
+        this.initMSG('请选择要支付的订单')
+        return;
+      }
       axios.post('/seller_api/v1/pay/payment_url',qs.stringify({
         uid:this.paraData.uid,
         commdityid:101,

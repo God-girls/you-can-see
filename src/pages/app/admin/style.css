@@ -1,11 +1,10 @@
 .wrap{
-  /*background:#fbe8df url(../../../assets/img12/login/bg.jpg) no-repeat center top;*/
-  background-size: 100%;
+  background: #37363b
 }
 
 .loginAll{
-  /*background: url(../../../assets/img12/login/logo.png) no-repeat center 210px;*/
-  background-size: 254px;
+  background: url(../../../assets/img12/index/mai.png) no-repeat center 80px;
+  background-size: 200px;
 }
 .login{
   padding-top: 400px;
@@ -62,7 +61,7 @@
   border-radius: 45px;
   height: 85px;
   line-height: 85px;
-  box-shadow: 0px 0px 32px rgba(198, 85, 90,.4);
+  box-shadow: 0px 0px 32px rgba(0, 0, 0, 0.4);
   background: rgba(255,255,255,.2);
   text-align: center;
   color: #fff;
@@ -90,7 +89,7 @@
   display: -webkit-box;
   display: flex;
   background: rgba(255,255,255,.2);
-  box-shadow: 0px 0px 32px rgba(198, 85, 90,.4);
+  box-shadow: 0px 0px 32px rgba(0, 0, 0, 0.4);
   align-items: center;
   color: #fff
 }
@@ -101,7 +100,7 @@
     margin-left: 20px;
 }
 .mobileLogin dl dd{
-    padding-left: 20px;
+    padding-left: 40px;
 }
 .mobileLogin dl dd.special{
   width: 80px;

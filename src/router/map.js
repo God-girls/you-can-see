@@ -29,6 +29,12 @@ export default {
 			require(['pages/app/author'], resolve)
 		}
 	},
+	'/app/admin': {
+		meta: { title: '小小麦' },
+		component: (resolve) => {
+			require(['pages/app/admin'], resolve)
+		}
+	},
 	'/index': {
 		meta: { title: '小小麦' },
 		component: (resolve) => {

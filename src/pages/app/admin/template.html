@@ -5,9 +5,9 @@
       <!-- <i class="iconfont icon-fanhui f36 icon-arrowl" @touchend.prevent = "guestTo"></i> -->
       <div class="posiR" ref="offTop">
         <dl class="flexBox">
-          <dd class="special">
+<!--           <dd class="special">
             <i class="iconfont icon-shouji1 f40"></i>
-          </dd>
+          </dd> -->
           <dd class="flex1">
             <div>
               <input type="tel" placeholder="请输入手机号" ref="loginTel" v-model="paraData.acc" @focus="focusInput('loginTel')" >
@@ -15,9 +15,9 @@
           </dd>
         </dl>
         <dl class="flexBox">
-          <dd class="special">
+<!--           <dd class="special">
             <i class="iconfont icon-yanzhengma f36"></i>
-          </dd>
+          </dd> -->
           <dd class="posiR flex1">
             <div>
               <input type="text"  ref="regCapt" @focus="focusInput('regCapt')" v-model="paraData.pwd" placeholder="请输入密码" 
@@ -29,7 +29,7 @@
           {{errorMsg}}
         </h5>
         <div class="btnDiv" ref="offWidth">
-          <p @click.prevent="loginFunc">快速登陆 / 注册</p>
+          <p @click.prevent="loginFunc">快速登陆</p>
         </div>
       </div>
     </div>

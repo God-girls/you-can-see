@@ -139,10 +139,7 @@ export default {
       });  
     },
     loginFunc(){//手机号登录
-      if (!this.iAgree) {
-        this.initMsg('请先同意《红多多服务条款》及《隐私政策协议》')
-        return;
-      }
+
       document.activeElement.blur(); 
       if (this.mobileLoginClick) return;
       this.mobileLoginClick = true;
@@ -150,30 +147,31 @@ export default {
 
       this.loading = true;
       
-      axios.post('/bonus_api/v1/sessions/login_traditional',qs.stringify(this.paraData)).then((response)=>{   
+      axios.post('/seller_api/v1/sessions/login_traditional',qs.stringify(this.paraData))
+        .then((response)=>{   
         
           let resData = response.data;  
+          // debugger
+          this.loading = false;
           if (resData.success) {
         
             this.switchState({
               TOKEN:response.headers['a-token-header'],
               UID:resData.result.usr.id
             })
-
-            this.$router.push(`/admin/list`)
-             
-      
-          this.loading = false;
+            localStorage.setItem('UID', resData.result.usr.id);
+            localStorage.setItem('TOKEN', response.headers['a-token-header']);
+            this.$router.push('/')
            
           }  else {
-
             this.initMsg(resData.codemsg)
           }
       }).catch((response)=>{
         this.loading = false;
         this.initMsg('呃哦，网络异常，再试一次~')
-      });  
+      });   
     },
+
     initMsg(arr){
       this.loading = true;
       this.loadError = arr;

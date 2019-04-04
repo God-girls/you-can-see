@@ -221,7 +221,7 @@
       </ul>
     </div>
 
-   <div :class="['animated my-footer special',{'fadeInUp':!showCircle,'dn':showCircle}]" >
+<!--    <div :class="['animated my-footer special',{'fadeInUp':!showCircle,'dn':showCircle}]" >
       <ul>
         <li :class="['homeLi flex1',{'current':current=='home'}]" @click.prevent="changeShow">
           <i class="icon-home"></i>
@@ -229,7 +229,7 @@
           <b></b>
         </li>
       </ul>
-    </div>
+    </div> -->
 
 
   </div>

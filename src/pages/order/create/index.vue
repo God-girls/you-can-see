@@ -86,7 +86,7 @@ export default {
     },
     'search': {
       handler (val, oldVal) { 
-        console.log(val)
+        // console.log(val)
         if (!this.search) {
           this.singlePrice = 0;
           this.totalPrice = 0;

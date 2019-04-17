@@ -45,7 +45,7 @@ export default {
     this.getLogin()
   },
   mounted (){
-
+    this.pushHistory ();
     dplus.track('微信登录',{'from':html.useragent()});//统计代码
 
   },

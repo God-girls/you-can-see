@@ -265,7 +265,8 @@ export default {
           if (resData.success) {
             this.notes = false;
             this.initMSG('删除成功')
-            this.onRefresh()
+            this.onRefresh();
+            this.getState();
           }  else {
             if (resData.code == '403' || resData.code == '250') {
               this.needLogin = true;

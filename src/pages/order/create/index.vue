@@ -204,10 +204,19 @@ export default {
       if (!address) return;
       
       let parseResult = parse(address);
-      // alert(JSON.stringify(parseResult))
+      this.receiverInfo = parseResult;
+      // console.log(JSON.stringify(parseResult))
 
       this.paraData.receiver = parseResult.name;
       this.paraData.mobileno = parseResult.phone || parseResult.mobile;
+      if (!this.receiverInfo.province) {
+        this.initMSG('收货地址省价解析错误')
+        return;
+      }
+      if (this.paraData.mobileno.length != 11) {
+        this.initMSG('手机号智能解析错误')
+        return;
+      }
       if (parseResult.province && parseResult.city) {
         this.paraData.address = (parseResult.province == parseResult.city ? parseResult.city + '市' : parseResult.province + '省' + parseResult.city + '市')
       }else{
@@ -315,8 +324,19 @@ export default {
         this.initMSG('请输入完整的信息')
         return;
       }
+      let parseResult = parse(this.paraData.receiver+','+this.paraData.mobileno+','+this.paraData.address);
+      this.receiverInfo = parseResult;     
+
       if (this.paraData.count > 20) {
         this.initMSG('每次最多20件')
+        return;
+      }
+      if (this.paraData.mobileno.length != 11) {
+        this.initMSG('请输入11号手机号码')
+        return;
+      }
+      if (!this.receiverInfo.province) {
+        this.initMSG('收货地址缺少省价')
         return;
       }
       this.loading = true;

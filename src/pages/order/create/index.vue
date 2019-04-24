@@ -199,10 +199,10 @@ export default {
         this.loadError = '';
       },2000)
     },
-    addressParse(address){
+    addressParse(address,flag){
       // alert(address)
       if (!address) return;
-      
+      // debugger
       let parseResult = parse(address);
       this.receiverInfo = parseResult;
       // console.log(JSON.stringify(parseResult))
@@ -217,6 +217,7 @@ export default {
         this.initMSG('手机号智能解析错误')
         return;
       }
+      if (flag) return;
       if (parseResult.province && parseResult.city) {
         this.paraData.address = (parseResult.province == parseResult.city ? parseResult.city + '市' : parseResult.province + '省' + parseResult.city + '市')
       }else{
@@ -325,7 +326,7 @@ export default {
         return;
       }
       
-      this.addressParse(this.paraData.receiver+','+this.paraData.mobileno+','+this.paraData.address);
+      this.addressParse(this.paraData.receiver+','+this.paraData.mobileno+','+this.paraData.address,true);
       if (this.paraData.count > 20) {
         this.initMSG('每次最多20件')
         return;

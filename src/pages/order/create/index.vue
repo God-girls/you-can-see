@@ -210,7 +210,7 @@ export default {
       this.paraData.receiver = parseResult.name;
       this.paraData.mobileno = parseResult.phone || parseResult.mobile;
       if (!this.receiverInfo.province) {
-        this.initMSG('收货地址省价解析错误')
+        this.initMSG('收货地址省市解析错误')
         return;
       }
       if (this.paraData.mobileno.length != 11) {

@@ -143,6 +143,7 @@ export function parse(address) {
   //console.log(address)
 
   let detail = detail_parse_forward(address.trim());
+  // debugger;
   if (!detail.city) {
     detail = detail_parse(address.trim());
     if (detail.area && !detail.city) {
@@ -193,6 +194,23 @@ export function parse(address) {
       }
       if (parse.name) {
         detail.addr = detail.addr.replace(parse.name, '').trim()
+      }else{
+        const address_detail_list = ['室', '楼', '元', '号', '幢', '门', '户'];
+        let key = [];
+        address_detail_list.forEach((el) => {
+          key.push(detail.addr.indexOf(el))
+        })
+        var max = key.sort(function (a, b) {
+          return b - a;
+        })[0];
+        if (max != -1) {
+          let addrBuild = detail.addr.slice(0, max + 1);
+          let addrNum = detail.addr.replace(addrBuild, '').replace(/[^0-9]+/g, '');
+          let userName = detail.addr.replace(addrBuild + addrNum, '')
+          detail.addr = addrBuild + addrNum
+          parse.name = userName
+        }
+
       }
     }
   }
@@ -239,9 +257,11 @@ function detail_parse_forward(address) {
           address = address.substr(provinceKey[k].length);
         }
       }
+
       for (let j in province.city) {
         const city = province.city[j];
         index = address.indexOf(city.name);
+        //若有一级市解析
         if (index > -1 && index < 3) {
           parse.city = city.name;
           address = address.substr(index + parse.city.length);
@@ -262,6 +282,17 @@ function detail_parse_forward(address) {
             }
           }
           break;
+        }else{
+          //若没有一级市有二级市的解析
+          for (var m = 0; m < city.area.length; m++) {
+            index = address.indexOf(city.area[m]);
+            if (index > -1) {
+              parse.city = city.name;
+              parse.area = city.area[m];
+              address = address.substr(index + parse.area.length);
+              break;
+            }
+          }          
         }
       }
       parse.addr = address.trim();

@@ -231,6 +231,7 @@ export function parse(address) {
  * @returns {{province: string, city: string, area: string, addr: string}}
  */
 function detail_parse_forward(address) {
+
   const parse = {
     province: '',
     city: '',
@@ -382,7 +383,7 @@ function detail_parse(address, {
   }
 
   parse.area = parse.area.trim();
-
+  // debugger
   if (parse.area && mArea[parse.area]) {
     if (mArea[parse.area].length === 1) {
       parse.province = mArea[parse.area][0].p;

@@ -241,7 +241,7 @@ function detail_parse_forward(address) {
 
   const provinceKey = ['特别行政区', '古自治区', '维吾尔自治区', '壮族自治区', '回族自治区', '自治区', '省省直辖', '省', '市'];
   const cityKey = ['布依族苗族自治州', '苗族侗族自治州', '自治州', '州', '市', '县'];
-
+  
   for (let i in defaultData) {
     const province = defaultData[i];
     let index = address.indexOf(province.name);
@@ -258,10 +258,10 @@ function detail_parse_forward(address) {
         }
       }
 
-      for (let j in province.city) {
+      for (let j in province.city) {//若有一级市解析
         const city = province.city[j];
         index = address.indexOf(city.name);
-        //若有一级市解析
+        
         if (index > -1 && index < 3) {
           parse.city = city.name;
           address = address.substr(index + parse.city.length);
@@ -282,19 +282,28 @@ function detail_parse_forward(address) {
             }
           }
           break;
-        }else{
-          //若没有一级市有二级市的解析
-          for (var m = 0; m < city.area.length; m++) {
-            index = address.indexOf(city.area[m]);
-            if (index > -1) {
-              parse.city = city.name;
-              parse.area = city.area[m];
-              address = address.substr(index + parse.area.length);
-              break;
-            }
-          }          
         }
       }
+      // debugger
+      if (parse.province && !parse.city) {//若没有一级市有二级市的解析
+        for (let j in province.city) {
+          const city = province.city[j];
+          index = address.indexOf(city.name);
+          //若有一级市解析
+          if (index == -1) {
+            for (var m = 0; m < city.area.length; m++) {
+              index = address.indexOf(city.area[m]);
+              if (index > -1) {
+                parse.city = city.name;
+                parse.area = city.area[m];
+                address = address.substr(index + parse.area.length);
+                break;
+              }
+            }          
+          }
+        }
+      }
+
       parse.addr = address.trim();
       break;
     }

@@ -17,7 +17,7 @@ module.exports = merge(webpackBaseConfig, {
         quiet: true,
     },
     server: {
-        port: 5678, // server port
+        port: 5555, // server port
         proxy: {
             host: 'http://localhost:2111',
             match: '^(/seller_api/v1/|/bhu_commdity_api/|/websock_m/|/websock_c/)'

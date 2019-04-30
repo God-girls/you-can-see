@@ -15,7 +15,7 @@
   <div class="prdList">
     <ul class="tC">
       <li @click.prevent="goto('/prd/detail?id='+item.id)" v-for="(item,index) in listData" :key="item.id">
-        <img :src="globalAvatar+'goods/'+ item.head_image'?imageView2/2/w/500/'" alt="">
+        <img :src="globalAvatar+'goods/'+ item.head_image+'?imageView2/2/w/500/'" alt="">
         <p class="text-overflow">{{item.title}}</p>
         <p class="redCR">￥{{item.price}}</p>
       </li>

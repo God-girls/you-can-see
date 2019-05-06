@@ -337,8 +337,7 @@ export default {
         this.initMSG('每次最多20件')
         return;
       }
-      console.log(parseResult)
-      return;
+
       this.loading = true;
 
       axios.post('/seller_api/v1/proxy/create_order',qs.stringify(this.paraData),{

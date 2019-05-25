@@ -72,9 +72,9 @@
             <p>{{item.address}}</p>
           </dd>
         </dl>
-        <dl v-if="item.buyer_remark">
-          <dt class="blackCR">买家备注：</dt>
-          <dd >{{item.buyer_remark}}</dd>
+        <dl v-if="item.paymented_at">
+          <dt class="blackCR">付款时间：</dt>
+          <dd >{{item.paymented_at}}</dd>
         </dl>
         <dl v-if="item.seller_remark">
           <dt class="blackCR">我的备注：</dt>

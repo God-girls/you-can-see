@@ -8,6 +8,7 @@ import nodate from '../../../components/base/nodate'
 import modalDialog from '../../../components/base/dialog'
 import {html} from '../../../assets/js/global.js';
 import { mapState, mapActions } from 'vuex'
+import clipboard from 'clipboard';
 import wx from 'weixin-js-sdk'; 
 import axios from 'axios';
 import qs from 'qs';
@@ -279,6 +280,23 @@ export default {
         this.logErrors(JSON.stringify(response))
       });  
     },
+    copyText(){//复制到剪贴版
+
+      let btns = document.querySelectorAll('.copy');
+      // debugger
+        const shareNative = new clipboard(btns)
+        
+        shareNative.on('success', (e)=> {
+          // console.log('success')
+            this.initMSG('待发货信息已复制到剪切版')
+            e.clearSelection();
+        });
+
+        shareNative.on('error', function(e) {
+            console.error('Action:', e.action);
+            console.error('Trigger:', e.trigger);
+        });
+    },
     getList(done){
 
 
@@ -314,12 +332,9 @@ export default {
               else {
                 this.listData = this.listData.concat(ranks.items);
               }
-              // if (this.isCur == 1) {
-              //   if (this.checkboxModel.length < this.listData.length) this.checked = false
-              //   else{
-              //     this.checked = true;
-              //   }                
-              // }
+              this.$nextTick( ()=> {
+                this.copyText()
+              })
 
               this.loading = false;
               this.paraData.pn = this.paraData.pn + 1;        

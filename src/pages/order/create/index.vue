@@ -205,7 +205,7 @@ export default {
       // debugger
       let parseResult = parse(address);
       this.receiverInfo = parseResult;
-      // console.log(JSON.stringify(parseResult))
+      console.log(JSON.stringify(parseResult))
 
       this.paraData.receiver = parseResult.name;
       this.paraData.mobileno = parseResult.phone || parseResult.mobile;

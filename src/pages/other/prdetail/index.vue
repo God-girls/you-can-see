@@ -91,7 +91,7 @@ export default {
 
       this.loading = true;
       
-      axios.post('/seller_api/v1/proxy/fetch_goods',qs.stringify({
+      axios.post(this.ttDomain + '/seller_api/v1/proxy/fetch_goods',qs.stringify({
         uid:this.paraData.uid,
         gid:this.paraData.gid
       }),{

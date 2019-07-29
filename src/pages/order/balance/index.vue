@@ -89,7 +89,7 @@ export default {
     },
     getProfile (){
       // this.loading = true;
-      axios.post('/seller_api/v1/proxy/userinfo',qs.stringify(this.paraData),{
+      axios.post(this.ttDomain + '/seller_api/v1/proxy/userinfo',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,
           }
@@ -110,7 +110,7 @@ export default {
     },
     getprofit (type){
       this.paraData.type = type;
-      axios.post('/seller_api/v1/proxy/stat',qs.stringify(this.paraData),{
+      axios.post(this.ttDomain + '/seller_api/v1/proxy/stat',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,
           }

@@ -101,7 +101,7 @@ export default {
 
         if (location.href.indexOf('code') > -1) this.paraData.code = unescape(this.getQueryValue('code'));
 
-        axios.post('/seller_api/v1/sessions/create_oauth',qs.stringify(this.paraData)).then((response)=>{   
+        axios.post(this.ttDomain + '/seller_api/v1/sessions/create_oauth',qs.stringify(this.paraData)).then((response)=>{   
             let resData = response.data;  
             // alert(JSON.stringify(resData))
             if (resData.success) {
@@ -130,7 +130,7 @@ export default {
 
         if (this.$route.query.code) this.paraData.code = this.$route.query.code;
         
-        axios.post('/seller_api/v1/sessions/create_oauth2',qs.stringify(this.paraData)).then((response)=>{   
+        axios.post(this.ttDomain + '/seller_api/v1/sessions/create_oauth2',qs.stringify(this.paraData)).then((response)=>{   
             let resData = response.data;  
 
             if (resData.success) {
@@ -156,7 +156,7 @@ export default {
     },
     testToken(){//检验token,如果失败重新登录
 
-      axios.post('/seller_api/v1/user/info',qs.stringify({
+      axios.post(this.ttDomain + '/seller_api/v1/user/info',qs.stringify({
         'uid':localStorage.ttUid
       }),{
         headers: {

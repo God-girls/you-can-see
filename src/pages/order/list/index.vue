@@ -186,7 +186,7 @@ export default {
         this.initMSG('请选择要支付的订单')
         return;
       }
-      axios.post('/seller_api/v1/pay/payment_url',qs.stringify({
+      axios.post(this.ttDomain + '/seller_api/v1/pay/payment_url',qs.stringify({
         uid:this.paraData.uid,
         commdityid:101,
         goods:this.checkboxModel.join(','),
@@ -253,7 +253,7 @@ export default {
     },
     delOrder (){
       this.loading = true;
-      axios.post('/seller_api/v1/proxy/del_order',qs.stringify({
+      axios.post(this.ttDomain + '/seller_api/v1/proxy/del_order',qs.stringify({
         'uid':this.paraData.uid,
         'oid':this.curOrder.id,
       }),{
@@ -305,7 +305,7 @@ export default {
         return;
       }
       this.noData = false;
-      axios.post('/seller_api/v1/proxy/query_order',qs.stringify(this.paraData),{
+      axios.post(this.ttDomain + '/seller_api/v1/proxy/query_order',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,
           }
@@ -349,7 +349,7 @@ export default {
 
     },
     getState(){
-      axios.post('/seller_api/v1/proxy/order_stat',qs.stringify({
+      axios.post(this.ttDomain + '/seller_api/v1/proxy/order_stat',qs.stringify({
         uid:this.paraData.uid,
       }),{
           headers: {

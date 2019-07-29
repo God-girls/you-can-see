@@ -255,7 +255,7 @@ export default {
     },
     fetchNotice(){
 
-      axios.post('/seller_api/v1/proxy/list_notice',qs.stringify({
+      axios.post(this.ttDomain + '/seller_api/v1/proxy/list_notice',qs.stringify({
         uid:this.paraData.uid,
         ps:5,
         pn:1
@@ -279,7 +279,7 @@ export default {
     },
     fetchList(){
       
-      axios.post('/seller_api/v1/proxy/fetch_goods',qs.stringify({
+      axios.post(this.ttDomain + '/seller_api/v1/proxy/fetch_goods',qs.stringify({
         uid:this.paraData.uid,
         ps:1000,
         pn:1
@@ -340,7 +340,7 @@ export default {
 
       this.loading = true;
 
-      axios.post('/seller_api/v1/proxy/create_order',qs.stringify(this.paraData),{
+      axios.post(this.ttDomain + '/seller_api/v1/proxy/create_order',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,
           }

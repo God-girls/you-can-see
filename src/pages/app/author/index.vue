@@ -94,7 +94,7 @@ export default {
       })      
     },
     getShare (){
-        axios.post('/seller_api/v1/sessions/share_config',qs.stringify({
+        axios.post(this.ttDomain + '/seller_api/v1/sessions/share_config',qs.stringify({
           url:window.location.href.split('#')[0]
         })).then((response)=>{   
             let resData = response.data;  
@@ -142,7 +142,7 @@ export default {
       if (location.href.indexOf('code') > -1) this.paraData.code = unescape(this.getQueryValue('code'));
 
 
-      axios.post('/seller_api/v1/sessions/create_oauth',qs.stringify(this.paraData)).then((response)=>{   
+      axios.post(this.ttDomain + '/seller_api/v1/sessions/create_oauth',qs.stringify(this.paraData)).then((response)=>{   
           let resData = response.data;  
 
             if (resData.success) {
@@ -169,7 +169,7 @@ export default {
     },
     testToken(){//检验token,如果失败重新登录
 
-      axios.post('/seller_api/v1/user/info',qs.stringify({
+      axios.post(this.ttDomain + '/seller_api/v1/user/info',qs.stringify({
         'uid':localStorage.ttUid
       }),{
         headers: {

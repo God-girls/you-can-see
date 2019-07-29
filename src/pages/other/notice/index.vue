@@ -92,7 +92,7 @@ export default {
       }
       //debugger
       
-      axios.post('/seller_api/v1/proxy/list_notice',qs.stringify(this.paraData),{
+      axios.post(this.ttDomain + '/seller_api/v1/proxy/list_notice',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,
           }

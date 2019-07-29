@@ -110,7 +110,7 @@ export default {
 
       this.loading = true;
 
-      axios.post('/seller_api/v1/pay/payment_url',qs.stringify(this.paraData),{
+      axios.post(this.ttDomain + '/seller_api/v1/pay/payment_url',qs.stringify(this.paraData),{
           headers: {
               "A-Token-Header": this.token,
           }

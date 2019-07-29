@@ -147,7 +147,7 @@ export default {
 
       this.loading = true;
       
-      axios.post('/seller_api/v1/sessions/login_traditional',qs.stringify(this.paraData))
+      axios.post(this.ttDomain + '/seller_api/v1/sessions/login_traditional',qs.stringify(this.paraData))
         .then((response)=>{   
         
           let resData = response.data;  

@@ -1,0 +1,27 @@
+<Layout>
+  <myhead :hval="header" slot="header"></myhead>
+
+  <scroller :on-refresh="onRefresh" :noDataText="noDataText" :on-infinite="onInfinite"  ref="my_scroller">
+
+    <div class="index-wrap">
+      <div class="flexBox" 
+           v-for="(item,index) in listData"
+           @click.prevent="goto(JSON.parse(item.description)['link'])">
+        <p>
+          <img :src="globalAvatar+'goods/'+ JSON.parse(item.description).head_image" alt="">
+        </p>
+        <dl class="flex1">
+          <dt class="greenCR f30">{{item.title}}</dt>
+          <dd>{{JSON.parse(item.description)['description']}}</dd>
+          <dd class="grayCR">
+            {{item.updated_at}}
+          </dd>
+        </dl>
+      </div>
+    </div><!--#index-wrap-->
+    <div class="tC noDataDiv"  v-if="noData">
+      <nodate noText="暂无数据"></nodate>
+    </div>
+  </scroller>
+    
+</Layout>

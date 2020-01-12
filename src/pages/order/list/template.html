@@ -1,0 +1,153 @@
+<Layout>
+  <div slot="header">
+    <div class="tab tC blackCR f30">
+      <ul class="flexBox1">
+        <li v-for="(item,index) in tabs" 
+            :class="{'greenCR current':index == isCur}"
+            @click.prevent="changeType(index,item.type)">
+          {{item.name}}
+          <p class="f21" v-if="index == 2">( {{item.count}} )</p>
+          <p class="f21" v-if="index == 0">( {{item.count}} )</p>
+          <p class="f21" v-if="index == 1">( {{item.count}} )</p> 
+          <p class="f21" v-if="index == 3">( {{item.count}} )</p>   
+        </li>
+      </ul>
+    </div>
+
+    <div class="search">
+      <dl class="flexBox">
+        <dt class="flex1">
+          <input type="text" name="" v-model="searchCon">
+        </dt>
+        <dd v-if="!hasClick" @click.prevent="searchList">
+          <i class="iconfont icon-fangdajing f36"></i>
+        </dd>
+        <dd v-else @click.prevent="searchCancel">
+          <i class="iconfont icon-chahao f36"></i>
+        </dd>
+      </dl>
+    </div>
+    
+  </div>
+  <scroller :on-refresh="onRefresh" :noDataText="noDataText" :on-infinite="onInfinite"  ref="my_scroller">
+
+    <div class="prdOne flexBox" v-for="(item,index) in listData">
+      <div class="checkDiv posiR" v-if="isCur == 1">
+        <input type="checkbox"  :value='item.id' v-model='checkboxModel' class="chk_1 iconfont f30">
+      </div>
+      <div class="flex1">
+        <dl class="blackCR">
+          <dt class="greenCR">
+            <span class="fr grayCR">{{item.created_at}}</span>
+            订单号：{{item.id}}
+          </dt>
+          <dd>
+            <ul class="flexBox">
+              <li class="special posiR">
+                <img :src="globalAvatar+'goods/'+item.head_image+'?imageView2/2/w/100/h/100/t/'" alt=""  :onerror="errorImg">
+              </li>
+              <li class="f30 flex1">
+                {{item.title}}
+                <p>¥ {{counTotalPrice(item.price,item.postage)}}</p>
+              </li>
+              <li class="liPadd grayCR">
+                 <template v-if="item.state == 0">待付款</template>
+                 <template v-if="item.state == 1">待发货</template>
+                 <template v-if="item.state == 10">已完成</template>
+              </li>
+            </ul>
+          </dd>
+        </dl>
+        <dl>
+          <dt>
+            <span class="blackCR">邮费：</span>
+            {{item.postage != "0.00" ? item.postage+' 元（特殊地区额外收取）' : '包邮'}}
+          </dt>
+          <!-- <dd ></dd> -->
+        </dl>
+        <dl>
+          <dt class="blackCR">收货人信息：</dt>
+          <dd >
+            <p>{{item.receiver}}，{{item.mobileno}}</p>
+            <p>{{item.address}}</p>
+          </dd>
+        </dl>
+        <dl v-if="item.paymented_at">
+          <dt class="blackCR">付款时间：</dt>
+          <dd >{{item.paymented_at}}</dd>
+        </dl>
+        <dl v-if="item.seller_remark">
+          <dt class="blackCR">我的备注：</dt>
+          <dd >{{item.seller_remark}}</dd>
+        </dl>
+        <dl v-if="item.deliver_no">
+          <dt class="blackCR">
+            <span class="blackCR">快递信息：</span>
+            {{item.deliver}}-{{item.deliver_no}}
+          </dt>
+          <dd ></dd>
+        </dl>
+
+        <ol class="blackCR flexBox f30">
+          <li class="flex1 redCR">
+            总价：¥ {{item.price}}
+          </li>
+          <li class="tR copy " v-if="item.deliver_no"
+              :data-clipboard-text = "'商品名称：'+item.title+',快递信息：'+item.deliver + '-' + item.deliver_no+',收货信息：'+item.receiver+','+item.mobileno+','+item.address">
+            <span class="btn btn-green btn-sm">复制订单</span>
+          </li>
+          <li class="special posiR" v-if="item.state == 0 && isCur == 1">
+            <span class="btn btn-default btn-sm" @click.prevent="delPop(item)">删除订单</span>
+          </li>
+        </ol>
+        
+      </div>
+    </div>
+
+    <div class="tC noDataDiv"  v-if="noData">
+      <nodate noText="暂无数据"></nodate>
+    </div>
+
+  </scroller>
+
+  <div slot="footer">  <!-- v-model='checked'  -->
+    <div class="footer" v-if="isCur == 1">
+      <dl class="flexBox">
+        <dt class="flex1 grayCR posiR">
+          <input type="checkbox"  v-model='checked' id="checkId" class="chk_1 iconfont f30">
+          <label for="checkId" @click.prevent='checkedAll'>
+            <span>全选</span>            
+          </label>
+        </dt>
+        <dd>
+          合计：<span class="redCR">￥</span><span class="redCR f30">{{totalPrice}}</span> 
+        </dd>
+        <dd class="mL20"><button class="btn btn-green" @click.prevent="payment">立即付款</button></dd>
+      </dl>
+    </div>    
+
+    <myfooter :current="navType"></myfooter>
+
+    <modal-dialog :dialogshow2.sync="notes" @hide="closeDialog('notes')" :fail='true'>
+      <div class="dialog-header greenCR" slot="dialog-header">
+        您确定要删除该订单吗？
+      </div>
+
+  
+      <dl class="dialog-footer blueCR" slot="dialog-footer">
+        <dd>
+          <button type="button" class="btn btn-green" @click.prevent="closeDialog('notes')">取消</button>
+        </dd>
+        <dd>
+          <button type="button" class="btn btn-green" @click.prevent="delOrder">确定</button>
+        </dd>
+      </dl>
+    </modal-dialog>
+
+    <loading :loading="loading" :loadError="loadError" @closePop="closeDialog('loading')"></loading>
+
+  </div>
+
+
+  
+</Layout>

@@ -1,0 +1,47 @@
+<Layout>
+  <div class="loginAll">
+
+    <div class="mobileLogin whiteCR">
+      <!-- <i class="iconfont icon-fanhui f36 icon-arrowl" @touchend.prevent = "guestTo"></i> -->
+      <div class="posiR" ref="offTop">
+        <dl class="flexBox">
+<!--           <dd class="special">
+            <i class="iconfont icon-shouji1 f40"></i>
+          </dd> -->
+          <dd class="flex1">
+            <div>
+              <input type="tel" placeholder="请输入手机号" ref="loginTel" v-model="paraData.acc" @focus="focusInput('loginTel')" >
+            </div>
+          </dd>
+        </dl>
+        <dl class="flexBox">
+<!--           <dd class="special">
+            <i class="iconfont icon-yanzhengma f36"></i>
+          </dd> -->
+          <dd class="posiR flex1">
+            <div>
+              <input type="text"  ref="regCapt" @focus="focusInput('regCapt')" v-model="paraData.pwd" placeholder="请输入密码" 
+              >
+            </div>
+          </dd>
+        </dl>
+        <h5 class="redCR errors">
+          {{errorMsg}}
+        </h5>
+        <div class="btnDiv" ref="offWidth">
+          <p @click.prevent="loginFunc">快速登陆</p>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+<div slot="footer">
+
+  <loading :loading="loading" :loadError="loadError"></loading>
+
+</div>
+
+
+
+</Layout>

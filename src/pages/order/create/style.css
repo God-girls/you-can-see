@@ -1,0 +1,216 @@
+.myHeader{
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-bottom:1px solid #d6e9c6;
+  padding: 5px 30px;
+}
+.myHeader dl dd{
+  height: 60px;
+  overflow-y: hidden;  
+}
+.textwrap{
+  overflow: hidden;
+  line-height: 60px;
+  height: 60px;
+  white-space: nowrap;
+  width: 100%;
+}
+.textwrap p{
+  position: absolute;
+}
+.textwrap p span{
+  padding-right: 20px;
+}
+.createCon{
+  padding: 0px 30px 50px;
+}
+.maskDiv{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: 8;
+}
+.icon-fanhui{
+  transform: rotate(-90deg);
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  padding: 10px 13px 13px 15px;
+  z-index: 1;
+  background: #fff;
+}
+.publish {
+  position: relative;
+  z-index: 9;
+}
+.publish div{
+  padding-top: 20px;
+  position: relative;
+}
+.publish div input{
+  position: absolute;
+  height: 58px;
+  line-height: 58px;
+  bottom: 1px;/*no*/
+  left: 1px;/*no*/
+  border:none;
+  width: 90%;
+  background: #fff;
+  z-index: 3;
+}
+.publish div ul{
+  position: absolute;
+  top: 80px;
+  color: #3c763d;
+  background-color: #dff0d8;
+  border:1px solid #d6e9c6;/*no*/
+  width: 100%;
+  padding: 10px 20px;
+  line-height: 70px;
+  z-index: 10;
+}
+.publish div ul li{
+  border-bottom: 1px solid #fff;/*no*/
+}
+.publish div ul li:last-child{
+  border-bottom:none;
+}
+.publish > p{
+  padding-top: 10px;
+}
+.publish h4{
+  padding-top: 15px;
+}
+.publish div p{
+  border: 1px solid #acacac;/*no*/
+  width: 100%; 
+  line-height: 45px;
+  height: 61px;
+  padding: 8px 10px;
+  border-radius: 5px;
+}
+.my-set{
+  position: relative;
+  padding:30px 0px 0;
+}
+.my-set h4{
+  border-top:1px solid #d6e9c6;/*no*/
+  padding-top: 20px; 
+}
+.my-set h4 button{
+  /*padding: 0px 20px;*/
+/*  line-height: 50px;
+  height: 50px;*/
+}
+
+.my-set dl dd {
+  padding: 20px 0 0;
+}
+.publish select{
+  position: relative;
+  z-index: 2;
+}
+.my-set dl dd input,
+.publish select,
+.publish input,
+.my-set textarea{
+    border: 1px solid #acacac;/*no*/
+    width: 100%; 
+    line-height: 45px;
+    height: 61px;
+    padding: 8px 10px;
+    border-radius: 5px;
+}
+.my-set dl.flexBox{
+  border: 1px solid #acacac;
+  border-radius: 5px;  
+  margin-top: 20px;
+}
+.my-set dd.special{
+  width: 80px;
+  text-align: center;
+  line-height: 60px;
+  border-right: 1px solid #acacac;/*no*/
+  background: #dfe0e5;
+}
+.my-set dd.special:last-child{
+  border-left: 1px solid #acacac;/*no*/
+  /*border-right: none; */
+}
+.my-set dd.special:active{
+  background: #dadbdc;
+}
+.my-set dl.flexBox dd{
+  padding-top: 0;
+}
+.my-set dl.flexBox input{
+  border:none;
+}
+.my-set textarea{
+    min-height: 140px;
+}
+.my-set ul li{
+  padding: 0 60px;
+}
+.my-set ul li dl{
+  border-bottom: 1px solid #dedede ;/*no*/
+}
+.my-set ul li dt{
+  width: 70px;
+}
+.my-set ul li dd{
+  line-height: 100px;
+  height: 100px;
+  color: #000000;
+}
+.my-set ul li dd.tR{
+  /*padding-right: 30px;*/
+  color:#7f7f7f
+}
+.my-set ul li:last-child dl{
+  border-bottom: none;
+}
+.my-set ul li:active{
+  background-color: rgba(0,0,0,.05);
+}
+.my-set ul li .whiteCR{
+  opacity: 0;
+}
+.my-set ul li dd i{
+  color: #b5b5b5;
+  margin-left: 10px;
+}
+.my-set ul li a{
+  display: block;
+}
+.footer{
+  border-top: 1px solid #bcbcbc;/*no*/
+  width: 100%;
+  padding: 15px 30px;
+}
+.footer button{
+  padding: 0 40px;
+}
+#pcBody .my-set dl dd input,
+#pcBody .publish select,
+#pcBody .publish input,
+#pcBody .my-set textarea{
+
+    line-height: 40px;
+    padding: 4px 10px;
+}
+#pcBody .my-set dd.special{
+  line-height: 57px;  
+}
+#pcBody .myHeader dl dd{
+  height: 40px;
+}
+#pcBody .textwrap{
+  line-height: 40px;
+  height: 40px;
+}
+#pcBody .icon-fanhui{
+  bottom: 7px;
+}

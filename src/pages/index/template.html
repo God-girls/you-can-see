@@ -1,0 +1,40 @@
+<Layout>
+<div slot="header">
+  <div class="balance f30" >
+    <img src="../../assets/img12/other/errorbg.jpg" alt="">
+    <dl>
+      <dd>
+        <span :class="['btn btn-default mR10 btn-sm',{'btn-green whiteCR':index == isCur}]" 
+            v-for="(item,index) in tabs" 
+            @click.prevent="changeType(index,item)">{{item.title}}</span>
+      </dd>
+    </dl>
+  </div>
+</div>
+<scroller :on-refresh="onRefresh" :noDataText="noDataText" :on-infinite="onInfinite"  ref="my_scroller">
+  <div class="prdList">
+    <ul class="tC">
+      <li @click.prevent="goto('/prd/detail?id='+item.id)" v-for="(item,index) in listData" :key="item.id">
+        <img :src="globalAvatar+'goods/'+ item.head_image+'?imageView2/2/w/500/'" alt="">
+        <p class="text-overflow">{{item.title}}</p>
+        <p class="redCR">￥{{item.price}}</p>
+      </li>
+    </ul>
+    <div class="tC noDataDiv"  v-if="noData">
+      <nodate noText="暂无数据"></nodate>
+    </div>
+  </div>
+</scroller>
+
+<div slot="footer">
+
+  <myfooter :current="navType"></myfooter>
+
+  <loading :loading="loading" 
+           :loadError="loadError" 
+           @closePop="closeDialog('loading')"></loading>
+
+</div>
+
+
+</Layout>

@@ -1,0 +1,318 @@
+@import url('../../components/css/animate.css');
+.balance{
+  padding: 0px 30px 0;
+}
+.balance dl{
+  border-bottom:1px solid #bcbcbc;/*no*/
+  padding-top: 10px;
+}
+.balance dl dd{
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+.balance img{
+  width: 100%;
+}
+
+/*购买商品*/
+.prdList{
+  padding: 0px 0;
+}
+.prdList ul{
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  /*justify-content: center;*/
+}
+.prdList ul li{
+  width: 50%;
+  margin: 30px 0 0px;
+}
+.prdList ul li img{
+  width: 80%
+}
+.prdList p{
+  text-align: center;
+  padding:10px 10px 0;
+}
+.oneTop dt{
+  width: 130px;
+}
+.oneTop dt b{
+  font-size: 54px;
+  font-weight: normal;
+}
+.oneTop dl dd{
+  padding-top: 8px
+}
+.oneTop dl dd h5{
+  min-height: 45px;
+}
+.oneTop dd p{
+  background: #d7d7d7;
+  width: 160px;
+  height: 160px;
+  line-height: 160px;
+  text-align: center;
+}
+.oneTop dd p:active{
+  /*background: #c5c4c4*/
+}
+.oneTop dd p i{
+  font-size: 45px;
+}
+.oneTop ol,.oneTop ol .icon-xiajia
+,.icon-xinheart282,.icon-pinglun,
+.comList p{
+  /*color: #5b6a91;*/
+}
+.oneTop ol{
+  padding-top: 10px;
+}
+.oneTop ol .grayCR{
+  position: relative;
+  top: -3px;
+}
+.oneTop ul {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  /*justify-content: center;*/
+}
+.oneTop ul li{
+  width: 160px;
+  height: 160px;
+  margin-right: 15px;
+  line-height: 0;
+  margin-top: 15px;
+  position: relative;
+  overflow:hidden;
+}
+.oneTop dd i.icon-chahao,
+.oneTop dd i.icon-zhuanhuan{
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  background: rgba(255,255,255,.8);
+  border-radius: 50%;
+  position: absolute;
+  text-align: center;
+  top: 2px;
+}
+.oneTop dd i.icon-chahao{
+  left: 2px;
+}
+.oneTop dd i.icon-zhuanhuan{
+  right: 2px;
+}
+.icon-ccgl-xiajia.special{
+  position: relative;
+  top: 2px;
+}
+.oneTop ul li img{
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+}
+.oneTop ul li.special{
+  background: #d7d7d7;
+  width: 160px;
+  height: 160px;
+  line-height: 160px;
+  text-align: center;
+}
+.oneTop ul li.special:active{
+  background: #c5c4c4
+}
+.oneTop ul li.special i{
+  font-size: 56px;
+}
+.oneTop ol p{
+  position: absolute;
+  right: 0;
+  z-index: 10;
+  height: 80px;
+  background: #4d5154;
+  line-height: 80px;
+  width: 630px;
+  border-radius: 10px;
+  text-align: center;
+}
+.mask,.guideCon{
+  background: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 9;
+}
+
+
+.oneTop ol p span{
+  position: relative;
+}
+.oneTop ol p span:active{
+  background: #3e4348;
+  border-radius: 10px;
+}
+.oneTop ol p span:before{
+  content: ' ';
+  border-left: 1px solid #3e4348;/*no*/
+  top: 20px;
+  bottom: 20px;
+  left: 0;
+  width: 2px;
+  position: absolute;
+}
+
+.comment{
+  background: #f3f3f4;
+  padding: 18px 0 0;
+  margin: 18px 0 0 0px;
+}
+.icon-caret-up{
+  position: absolute;
+  left: 10px;
+  top: -35px;
+  color: #f3f3f4
+}
+.stars{
+  border-bottom: 1px solid #d2d2d2;/*no*/
+  padding-bottom: 5px;
+}
+.stars dt,.comList dt{
+  width: 70px;
+  text-align: center;
+  padding-top: 18px;
+}
+.stars dt{
+  padding-top: 10px;
+}
+.stars dd {
+  line-height: 0
+}
+.stars dd span{
+  display: inline-block;
+  position: relative;
+}
+.stars dd img{
+  margin: 0 12px 12px 0;
+  width: 80px;
+  height: 80px;
+}
+
+.comList dt{
+  padding-top: 25px;
+}
+.comList dd{
+  padding-right: 15px;
+}
+.comList ol{
+  border-bottom: 1px solid #e2e2e2;/*no*/
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+.comList ol:last-child{
+  border-bottom: none;
+}
+.comList ol img{
+  width: 80px;
+  height: 80px;
+  margin-right: 12px;  
+}
+.comList .mynick{
+  position: relative;
+  top: -5px; 
+}
+.mask{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 3;
+}
+.footComment{
+  background: #f7f7f9;
+  border-top: 1px solid #e0e0e0;/*no*/
+  padding: 20px 15px;
+  position: relative;
+  z-index: 4;
+}
+.footComment dl{
+  align-items: stretch;
+}
+.footComment dt{
+  background: #fff;
+  border:1px solid #e0e0e0;/*no*/
+  border-radius: 5px;
+}
+.footComment dd{
+  padding-left: 10px;
+}
+.footComment dd .btn{
+  height: 70px;
+  line-height: 70px;
+  padding: 0 30px;
+}
+.footComment dt input{
+  width: 100%;
+  height: 100%;
+  padding: 5px 10px;
+
+}
+.testImg{
+  width: 100%;
+}
+
+.showPic{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 100;
+  background: #fff;
+}
+.showPic p{
+  text-align: center;
+  line-height: 0;
+  width: 100%;
+  overflow-y: auto;
+  height: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+.showPic img{
+  position: relative;
+  z-index: 101;
+  width: 100%;
+}
+.showPic i{
+  position: fixed;
+  z-index: 103;
+  right: 10px;
+  top: 10px;
+  -webkit-overflow-scrolling: touch;
+}
+.guideCon{
+  background: #4c4c4c;
+}
+.guideCon img{
+  width: 100%;
+}
+.guideCon span{
+  position: absolute;
+  left: 30px;
+  top: 30px;
+  color: #c2c2c2;
+}
+#pcBody .btn{
+  padding: 0px 25px;
+  line-height: 40px;
+  height: 40px;
+}

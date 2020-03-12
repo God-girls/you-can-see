@@ -17,7 +17,8 @@ export default {
       loading:false,
       loadError:'',
       paraData:{
-        type:'H5'
+        username:'H5',
+        password:'3422'
       },
       inviterMini:'',
       // jumpto:''
@@ -48,7 +49,8 @@ export default {
     // }else{
     //   this.initJumpto()
     // }
-    this.initJumpto()
+    // this.initJumpto();
+    this.getLogin()
     dplus.track('qq登录',{'from':html.useragent()});//统计代码
 
   },
@@ -101,9 +103,9 @@ export default {
 
         if (location.href.indexOf('code') > -1) this.paraData.code = unescape(this.getQueryValue('code'));
 
-        axios.post(this.ttDomain + '/seller_api/v1/sessions/create_oauth',qs.stringify(this.paraData)).then((response)=>{   
+        axios.post('http://218.28.166.165:20666/iclock/Verify',qs.stringify(this.paraData)).then((response)=>{   
             let resData = response.data;  
-            // alert(JSON.stringify(resData))
+            console.log(JSON.stringify(resData))
             if (resData.success) {
               window.localStorage.setItem('UID', resData.result.id);
               window.localStorage.setItem('TOKEN', resData.result.atoken);
@@ -119,11 +121,11 @@ export default {
               }
 
             }else{
-              this.initMSG(resData.codemsg)
+              // this.initMSG(resData.codemsg)
             }
         }).catch(function(response){
-          console.log(response)
-          this.initMSG('宝贝太火爆了，系统繁忙，请稍后再试~~')
+          // console.log(response)
+          // this.initMSG('宝贝太火爆了，系统繁忙，请稍后再试~~')
         });        
     },
     getLogin2 (){//qq微博登录登录
